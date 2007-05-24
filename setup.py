@@ -27,7 +27,7 @@ setup(
     url = 'http://code.enthought.com/ets',
     license = "BSD",
     install_requires = [
-        "numpy",
+        "numpy>=1.0.2",
     ],
     namespace_packages = [
         "enthought",
