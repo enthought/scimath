@@ -74,17 +74,3 @@ def build_interpolate_cpp(extension, build_dir):
     
     return [target] + info.sources()
 
-if __name__ == "__main__":
-    try:
-        from numpy.distutils.core import setup
-    except ImportError:
-        execfile('setup_interpolate.py')
-    else:
-        setup(version = '1.1.0',
-            description = "Array interpolation/extrapolation",
-            author       = 'Enthought, Inc',
-            author_email = 'info@enthought.com',
-            url = 'http://code.enthought.com/ets',
-            license = "BSD",
-            zip_safe     = False,
-            configuration=configuration)
