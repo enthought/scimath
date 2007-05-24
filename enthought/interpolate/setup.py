@@ -10,9 +10,6 @@ def configuration(parent_package='enthought',top_path=None):
                          include_dirs = ['.'],
                          depends = ['interpolate.h'])
                          
-    #add the parent __init__.py to allow for importing
-    config.add_data_files(('..', os.path.abspath(os.path.join('..','__init__.py'))))
-    
     config.add_data_dir('tests')
     return config
 
