@@ -20,14 +20,14 @@ def configuration(parent_package='', top_path=None):
 
 setup(
     name = 'enthought.interpolate',
-    version = '2.0',
+    version = '2.0b1',
     description = "Array interpolation/extrapolation",
     author       = 'Enthought, Inc',
     author_email = 'info@enthought.com',
     url = 'http://code.enthought.com/ets',
     license = "BSD",
     install_requires = [
-        "numpy>=1.0.2",
+        "numpy >=1.0.2",
     ],
     namespace_packages = [
         "enthought",
