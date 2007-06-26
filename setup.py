@@ -25,6 +25,8 @@ def gendeps(list):
 
 # Declare our installation requirements.
 install_requires = gendeps([
+    ('enthought.traits', '2.0b1', '3'),
+    ('enthought.util', '2.0b1', '3'),
     ])
 print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
 
@@ -42,7 +44,7 @@ setup(
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
         'nonets': [
-            "numpy >=1.0.2",
+            "scipy >=0.5.2",
         ],
     },
     namespace_packages = [
