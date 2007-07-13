@@ -32,26 +32,33 @@ install_requires = etsdeps([
     ('enthought.util', '2.0b1'),
     ])
 print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
+test_requires = [
+    "nose >= 0.9, ",
+    ] + etsdeps([
+    ])
+print 'test_requires:\n\t%s' % '\n\t'.join(test_requires)
 
 
 setup(
-    name = 'enthought.interpolate',
-    version = '2.0b1',
-    description = "Array interpolation/extrapolation",
-    author       = 'Enthought, Inc',
+    author = 'Enthought, Inc',
     author_email = 'info@enthought.com',
-    url = 'http://code.enthought.com/ets',
-    license = "BSD",
-    install_requires = install_requires,
+    description = "Array interpolation/extrapolation",
     extras_require = {
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
         'nonets': [
             "scipy >=0.5.2",
-        ],
-    },
+            ],
+        },
+    install_requires = install_requires,
+    license = "BSD",
+    name = 'enthought.interpolate',
     namespace_packages = [
         "enthought",
-    ],
+        ],
+    tests_require = test_requires,
+    test_suite = 'nose.collector',
+    url = 'http://code.enthought.com/ets',
+    version = '2.0b1',
     **configuration().todict()
 )
