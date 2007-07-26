@@ -29,7 +29,6 @@ def etsdeps(list):
 # Declare our installation requirements.
 install_requires = etsdeps([
     ('enthought.traits', '2.0b1'),
-    ('enthought.util', '2.0b1'),
     ])
 print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
 test_requires = [
@@ -48,6 +47,7 @@ setup(
         # decide whether to require them or not.
         'nonets': [
             "scipy >=0.5.2",
+	    "numpy >=1.0.3",
             ],
         },
     install_requires = install_requires,
@@ -59,6 +59,6 @@ setup(
     tests_require = test_requires,
     test_suite = 'nose.collector',
     url = 'http://code.enthought.com/ets',
-    version = '2.0b1',
+    version = '2.0b2',
     **configuration().todict()
 )

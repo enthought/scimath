@@ -1,10 +1,10 @@
-from enthought.util.scipyx import Float64, atleast_1d, atleast_2d, asarray, zeros
-from enthought.util.numerix import iscontiguous
+import numpy
+
 import _interpolate
 
 def make_array_safe(ary, typecode):
-    ary = atleast_1d(asarray(ary, typecode))
-    if not iscontiguous(ary):
+    ary = numpy.atleast_1d(numpy.asarray(ary, typecode))
+    if not ary.flags['CONTIGUOUS']:
         ary = ary.copy()
     return ary
 
@@ -20,17 +20,17 @@ def linear(x, y, new_x):
         new_x
             1-D array
     """
-    x = make_array_safe(x, Float64)
-    y = make_array_safe(y, Float64)
-    new_x = make_array_safe(new_x, Float64)
+    x = make_array_safe(x, numpy.float64)
+    y = make_array_safe(y, numpy.float64)
+    new_x = make_array_safe(new_x, numpy.float64)
 
     assert len(y.shape) < 3, "function only works with 1D or 2D arrays"
     if len(y.shape) == 2:
-        new_y = zeros((y.shape[0], len(new_x)), Float64)
+        new_y = numpy.zeros((y.shape[0], len(new_x)), numpy.float64)
         for i in range(len(new_y)):
             _interpolate.linear_dddd(x, y[i], new_x, new_y[i])
     else:
-        new_y = zeros(len(new_x), Float64)
+        new_y = numpy.zeros(len(new_x), numpy.float64)
         _interpolate.linear_dddd(x, y, new_x, new_y)
 
     return new_y
@@ -47,17 +47,17 @@ def logarithmic(x, y, new_x):
         new_x
             1-D array
     """
-    x = make_array_safe(x, Float64)
-    y = make_array_safe(y, Float64)
-    new_x = make_array_safe(new_x, Float64)
+    x = make_array_safe(x, numpy.float64)
+    y = make_array_safe(y, numpy.float64)
+    new_x = make_array_safe(new_x, numpy.float64)
 
     assert len(y.shape) < 3, "function only works with 1D or 2D arrays"
     if len(y.shape) == 2:
-        new_y = zeros((y.shape[0], len(new_x)), Float64)
+        new_y = numpy.zeros((y.shape[0], len(new_x)), numpy.float64)
         for i in range(len(new_y)):
             _interpolate.loginterp_dddd(x, y[i], new_x, new_y[i])
     else:
-        new_y = zeros(len(new_x), Float64)
+        new_y = numpy.zeros(len(new_x), numpy.float64)
         _interpolate.loginterp_dddd(x, y, new_x, new_y)
 
     return new_y
@@ -75,20 +75,20 @@ def block_average_above(x, y, new_x):
             1-D array
     """
     bad_index = None
-    x = make_array_safe(x, Float64)
-    y = make_array_safe(y, Float64)
-    new_x = make_array_safe(new_x, Float64)
+    x = make_array_safe(x, numpy.float64)
+    y = make_array_safe(y, numpy.float64)
+    new_x = make_array_safe(new_x, numpy.float64)
 
     assert len(y.shape) < 3, "function only works with 1D or 2D arrays"
     if len(y.shape) == 2:
-        new_y = zeros((y.shape[0], len(new_x)), Float64)
+        new_y = numpy.zeros((y.shape[0], len(new_x)), numpy.float64)
         for i in range(len(new_y)):
             bad_index = _interpolate.block_averave_above_dddd(x, y[i], 
                                                             new_x, new_y[i])
             if bad_index is not None:
                 break                                                
     else:
-        new_y = zeros(len(new_x), Float64)
+        new_y = numpy.zeros(len(new_x), numpy.float64)
         bad_index = _interpolate.block_average_above_dddd(x, y, new_x, new_y)
 
     if bad_index is not None:
@@ -101,18 +101,18 @@ def block_average_above(x, y, new_x):
 
 def window_average(x, y, new_x, width=10.0):
     bad_index = None
-    x = make_array_safe(x, Float64)
-    y = make_array_safe(y, Float64)
-    new_x = make_array_safe(new_x, Float64)
+    x = make_array_safe(x, numpy.float64)
+    y = make_array_safe(y, numpy.float64)
+    new_x = make_array_safe(new_x, numpy.float64)
     width = float(width)
     assert len(y.shape) < 3, "function only works with 1D or 2D arrays"
     if len(y.shape) == 2:
-        new_y = zeros((y.shape[0], len(new_x)), Float64)
+        new_y = numpy.zeros((y.shape[0], len(new_x)), numpy.float64)
         for i in range(len(new_y)):
             _interpolate.window_average_ddddd(x, y[i], new_x, new_y[i], 
                                               width)
     else:
-        new_y = zeros(len(new_x), Float64)
+        new_y = numpy.zeros(len(new_x), numpy.float64)
         _interpolate.window_average_ddddd(x, y, new_x, new_y, width)
               
     return new_y
@@ -147,8 +147,6 @@ def main():
         t2 = time.clock()
         print 'log.sample_at (sec):', t2 - t1
         print lg2.data[:5]
-        from enthought.util.profiler import run
-        #run("lg2 = lg.sample_at(new_x)")
 
     new_x = arange(N/2)*2
     t1 = time.clock()

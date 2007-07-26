@@ -1,8 +1,8 @@
 
-from enthought.interpolate import *
+from enthought.interpolate.api import *
 
 def main():
-    from enthought.util.numerix import arange, ones
+    from numpy import arange, ones
     import time
     N = 3000.
     x = arange(N)
@@ -31,8 +31,6 @@ def main():
         t2 = time.clock()
         print 'log.sample_at (sec):', t2 - t1
         print lg2.data[:5]
-        from enthought.util.profiler import run
-        #run("lg2 = lg.sample_at(new_x)")
 
     new_x = arange(N/2)*2
     t1 = time.clock()

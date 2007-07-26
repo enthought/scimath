@@ -2,7 +2,7 @@
 
     Policies on under-specified data fits.
     
-    1. If the input arrays to a fit has 0 elements, NaN values
+    1. If the input arrays to a fit has 0 elements, numpy.NaN values
        are returned from the __call__ method for all calculated y
        values.
     2. If the input arrays to a fit class has 1 elements, this value
@@ -13,16 +13,11 @@
 from new import instance as new_instance
 
 # major package imports
+import numpy
 from scipy import interpolate, stats
 
 #enthought imports
 from enthought.traits.api import HasPrivateTraits, Bool, TraitEnum, Trait, Float
-from enthought.util.scipyx import NaN, Inf, atleast_1d
-from enthought.util.scipyx import Float as ScipyFloat
-from enthought.util.numerix import clip, take, array, \
-                  alltrue, searchsorted, Int, arange, logical_and, \
-                  choose, shape
-
 
 # local imports
 from interpolate import linear, logarithmic, block_average_above, window_average
@@ -50,8 +45,8 @@ class DataFit(HasPrivateTraits):
         return new_int
             
     def set_xy(self, x, y):
-        x = atleast_1d(x)
-        y = atleast_1d(y)
+        x = numpy.atleast_1d(x)
+        y = numpy.atleast_1d(y)
 
         assert len(x) == y.shape[-1], "x and y arrays must have the same length"
 
@@ -76,9 +71,9 @@ class DataFit(HasPrivateTraits):
 
     def calc_special_case(self, x):
         if self._use_nans is True:
-            # arrays have 0 samples -- return NaN for all cases.
-            y = arange(len(x)).astype(ScipyFloat)
-            y[:] = NaN
+            # arrays have 0 samples -- return numpy.NaN for all cases.
+            y = arange(len(x)).astype(numpy.float)
+            y[:] = numpy.NaN
         elif self._use_block is True:
             # arrays have 1 sample -- use it for all returned values.
             y = self.block_interp(x)
@@ -97,7 +92,7 @@ class DataFit(HasPrivateTraits):
         # If the value is at the front of the list, it'll have -1.
         # In this case, we will use the first (0), element in the array.
         # take requires the index array to be an Int
-        indices = atleast_1d(clip(indices, 0, Inf).astype(Int))
+        indices = numpy.atleast_1d(clip(indices, 0, numpy.Inf).astype(Int))
         y = take(self._y, indices, axis=-1)
         return y
 
@@ -191,7 +186,7 @@ class Spline(DataFit):
         if scalar == True:
             y = y[0]
 
-        return atleast_1d(y)
+        return numpy.atleast_1d(y)
 
 class Linear(DataFit):
     def interp(self, x):
@@ -227,14 +222,14 @@ class EndAverage(DataFit):
         DataFit.__init__(self, x, y, index_interval=index_interval)
 
     def interp(self, x):
-        """ Average multiple values at edges of array to use for extrapoltion.
+        """ Average multiple values at edges of numpy.array to use for extrapoltion.
 
             This method only works for extrapolation.
         """
         if alltrue(logical_and(x < self._x[0], x > self._x[-1])):
             msg = "end_average() only works for extrapolation.  Some of the "\
                   "in x fall between the endpoints (x[0], x[-1]) of the "\
-                  "x array."
+                  "x numpy.array."
             raise ValueError, msg
 
         # find the average y value within depth_interval at both the start and
@@ -255,7 +250,7 @@ class FillNaN(DataFit):
     """ A DataFit which just returns all NaN's. """
     
     def interp(self, x):
-        """ Return an array of NaN's in the same shape as x. """
-        y = arange(len(x)).astype(ScipyFloat)
-        y[:] = NaN
+        """ Return an numpy.array of numpy.NaN's in the same shape as x. """
+        y = numpy.arange(len(x)).astype(numpy.float)
+        y[:] = numpy.NaN
         return y
