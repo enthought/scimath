@@ -133,20 +133,6 @@ def main():
     N = 3000.
     x = arange(N)
     y = arange(N)
-    new_x = arange(N)+0.5
-    try:
-        import log
-    except ImportError, msg:
-        print msg
-        log = None
-    if log is not None:
-        lg = log.Log(x, index=y)
-        lg2 = lg.sample_at(new_x)
-        t1 = time.clock()
-        lg2 = lg.sample_at(new_x)
-        t2 = time.clock()
-        print 'log.sample_at (sec):', t2 - t1
-        print lg2.data[:5]
 
     new_x = arange(N/2)*2
     t1 = time.clock()
