@@ -18,24 +18,23 @@ def configuration(parent_package='', top_path=None):
     return config
 
 
-# Function to convert simple ETS component names and versions to a requirements
-# spec that works for both development builds and stable builds.  This relies
-# on the Enthought's standard versioning scheme -- see the following write up:
+# Function to convert simple ETS project names and versions to a requirements
+# spec that works for both development builds and stable builds.  Allows
+# a caller to specify a max version, which is intended to work along with
+# Enthought's standard versioning scheme -- see the following write up:
 #    https://svn.enthought.com/enthought/wiki/EnthoughtVersionNumbers
-def etsdeps(list):
-    return ['%s >=%s.dev, <%s.a' % (p,ver,int(ver[:1])+1) for p,ver in list]
+def etsdep(p, min, max=None, literal=False):
+    require = '%s >=%s.dev' % (p, min)
+    if max is not None:
+        if literal is False:
+            require = '%s, <%s.dev' % (require, max)
+        else:
+            require = '%s, <%s' % (require, max)
+    return require
 
 
-# Declare our installation requirements.
-install_requires = etsdeps([
-    ('enthought.traits', '2.0b1'),
-    ])
-print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
-test_requires = [
-    "nose >= 0.9, ",
-    ] + etsdeps([
-    ])
-print 'test_requires:\n\t%s' % '\n\t'.join(test_requires)
+# Declare our ETS project dependencies.
+TRAITS = etsdep('enthought.traits', '2.0b1')
 
 
 setup(
@@ -47,18 +46,22 @@ setup(
         # decide whether to require them or not.
         'nonets': [
             "scipy >=0.5.2",
-	    "numpy >=1.0.3",
+            "numpy >=1.0.3",
             ],
         },
-    install_requires = install_requires,
+    install_requires = [
+        TRAITS,
+        ],
     license = "BSD",
     name = 'enthought.interpolate',
     namespace_packages = [
         "enthought",
         ],
-    tests_require = test_requires,
+    tests_require = [
+        'nose >= 0.9',
+        ],
     test_suite = 'nose.collector',
     url = 'http://code.enthought.com/ets',
     version = '2.0b2',
     **configuration().todict()
-)
+    )
