@@ -1,2 +1,2 @@
-The interpolate package, a part othe Enthought Tool Suite.
+The interpolate package, a part of the Enthought Tool Suite.
 
