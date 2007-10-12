@@ -87,7 +87,7 @@ class DataFit(HasPrivateTraits):
         # This code is a little strange -- we really want a routine that
         # returns the index of values where x[j] < x[index]
         TINY = 1e-10
-        indices = searchsorted(self._x, x+TINY)-1
+        indices = numpy.searchsorted(self._x, x+TINY)-1
 
         # If the value is at the front of the list, it'll have -1.
         # In this case, we will use the first (0), element in the array.
