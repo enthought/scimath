@@ -72,7 +72,7 @@ class DataFit(HasPrivateTraits):
     def calc_special_case(self, x):
         if self._use_nans is True:
             # arrays have 0 samples -- return numpy.NaN for all cases.
-            y = arange(len(x)).astype(numpy.float)
+            y = numpy.arange(len(x)).astype(numpy.float)
             y[:] = numpy.NaN
         elif self._use_block is True:
             # arrays have 1 sample -- use it for all returned values.
