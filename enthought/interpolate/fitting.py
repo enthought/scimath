@@ -225,7 +225,7 @@ class EndAverage(DataFit):
 
             This method only works for extrapolation.
         """
-        if numpy.alltrue(logical_and(x < self._x[0], x > self._x[-1])):
+        if numpy.alltrue(numpy.logical_and(x < self._x[0], x > self._x[-1])):
             msg = "end_average() only works for extrapolation.  Some of the "\
                   "in x fall between the endpoints (x[0], x[-1]) of the "\
                   "x numpy.array."
