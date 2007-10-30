@@ -175,8 +175,7 @@ class Spline(DataFit):
         # !! array http://www.scipy.net/roundup/scipy/issue126
         scalar = False
         if len(x) == 1:
-            from scipy import array
-            x = array((x[0], x[0]))
+            x = numpy.array((x[0], x[0]))
             scalar = True
 
         y = interpolate.splev(x, self._representation, der=0)
@@ -226,7 +225,7 @@ class EndAverage(DataFit):
 
             This method only works for extrapolation.
         """
-        if alltrue(logical_and(x < self._x[0], x > self._x[-1])):
+        if numpy.alltrue(logical_and(x < self._x[0], x > self._x[-1])):
             msg = "end_average() only works for extrapolation.  Some of the "\
                   "in x fall between the endpoints (x[0], x[-1]) of the "\
                   "x numpy.array."
@@ -237,13 +236,13 @@ class EndAverage(DataFit):
         # ends.
         indices = (self._x[0]+self.index_interval,
                    self._x[-1]-self.index_interval)
-        first, last = searchsorted(self._x, indices)
+        first, last = numpy.searchsorted(self._x, indices)
         y_low = stats.mean(self._y[:first])
         y_hi = stats.mean(self._y[last:])
 
         dist_low = abs(x - self._x[0])
         dist_hi = abs(x - self._x[-1])
-        y = choose(dist_low > dist_hi, (y_low, y_hi))
+        y = numpy.choose(dist_low > dist_hi, (y_low, y_hi))
         return y
 
 class FillNaN(DataFit):
