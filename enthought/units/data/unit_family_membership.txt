@@ -1,0 +1,40 @@
+FAMILY_NAME         NAME_ALIASES
+amplitude           amp avo* amp* *seis* *stk* near* mid* far* full* wav* b *gather*
+angle               ang ang* dev* phase phs
+conductivity        ct cond cond* cil* cdeep csh css csfl cll8 af9c
+density             den den* rho* drho dcor rb* bulkden oilden
+depth               dep dep* td bli tvd* bml* dbml* goc owc gwc mdep* cks_dep elev* tie_dep srd_depth
+dissolved_gas       rg gor rgmax
+distance            offset dis
+fraction            biot* alpha* eps* hk* hm* hv* xsh* xss xdol xlim xdl xls inv* x xg xdis* xlam* hill* gfrac *frac
+frequency           freq freq* frq
+gamma_api           gr gr* cgr grsg hgr sgr* gamma*
+gas_gravity         ggrav molw
+impedance           imp imp* ai* ei* si aci refi
+length              cali cal* hcal bs bitsize
+modulus             kg k kf kfld kw* koil kgas g gg* m mg ustar
+mud_weight          mw mudwt ppg ecd
+none                dimensionless index attribute tops *flag* *lith* hc unitless badhole rcs mix* err*
+oil_density         oilapi apioil api
+poissons            poi pois* pr
+porosity            phi phi* dphi* nphi* npor por* tnph nr sphi* ncnl fcnl cnl*
+pressure            fpres fpres* pres* epres cpres ppore ppres peff mdt rft
+pressure_grad       fpgrad pgrad pres_grad press_grad
+psonic              dt son* dtc* dtl* dt4p dtp* itt
+pvelocity           vp vp* pvel vel* vw* voil vgas faust*
+ratio               vpvs
+reflectivity        refl refc* rc* rfc rpp a
+resistivity_deep    rt ro rt* rild rw rwa* ild lld at90 aht90 a090 ao90 af90 res_deep rdeep*
+resistivity_medium  rilm ilm llm res_med rmed msfl af30 at30 ao30 at60 af60 aht30 aht60 ao60
+resistivity_shallow sfl rsfl lls sflu sfla rsha res_shallow ll8 lat sn foc sfe a010 ao10 at10 ao20 at20 af20 af10 aht10 aht20 rx*
+salinity            saln sal*
+saturation          sw sw* so sg sat* sx*
+ssonic              dts dts* shson* dt4s sson*
+svelocity           vs svel* vels*
+temperature         temp temp* ftem* bhtemp bht blt surftemp wbtemp oftemp tform* tmp
+temperature_grad    ftgrad tgrad temp_grad
+time                tim tim* twt* owt* t0 cks_tim drift tie_tim
+volt                sp
+volume              vcl vcl* vol* vsh* bvw bv
+unknown             id pef pefz u
+weight              force ten*

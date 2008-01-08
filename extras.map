@@ -1,0 +1,2 @@
+[plugin]
+enthought.units.plugin = *

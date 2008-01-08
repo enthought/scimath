@@ -34,7 +34,14 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-TRAITS = etsdep('Traits', '3.0.0b1')
+APPTOOLS = etsdep('AppTools', '3.0.0b1')
+#DEVTOOLS -- all gotcha imports enclosed in try...except blocks so not needed
+ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.0b1')
+ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
+TRAITSBACKENDQT = etsdep('TraitsBackendQt', '3.0.0b1')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
+TRAITSGUI = etsdep('TraitsGUI', '3.0.0b1')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1')
 
 
 setup(
@@ -45,21 +52,37 @@ setup(
         ],
     description = "Science and mathematics features",
     extras_require = {
+        "plugin": [
+            ENVISAGECORE,
+            APPTOOLS,
+            TRAITSGUI,
+            ],
+        'qt': [
+            TRAITSBACKENDQT,
+            ],
+        'wx': [
+            TRAITSBACKENDWX,
+            ],
+
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
         'nonets': [
-            "scipy >=0.5.2",
             "numpy >=1.0.3",
+            "scipy >=0.5.2",
+            # "wx",  # wx does not build as an egg cleanly on all platforms.
             ],
         },
+    include_package_data = True,
     install_requires = [
-        TRAITS,
+        ENTHOUGHTBASE,
+        TRAITS_UI,
         ],
     license = "BSD",
     name = 'SciMath',
     namespace_packages = [
         "enthought",
         ],
+    packages = find_packages(),
     tests_require = [
         'nose >= 0.9',
         ],

@@ -1,0 +1,4 @@
+* Remove the explicit usage of wx.  GUI backends should be swappable.
+
+* Remove the imports of the cp library.
+
