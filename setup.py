@@ -34,7 +34,7 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-TRAITS = etsdep('enthought.traits', '2.0b1')
+TRAITS = etsdep('Traits', '3.0.0b1')
 
 
 setup(
@@ -42,9 +42,8 @@ setup(
     author_email = 'info@enthought.com',
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
-        'http://code.enthought.com/enstaller/eggs/source/unstable',
         ],
-    description = "Array interpolation/extrapolation",
+    description = "Science and mathematics features",
     extras_require = {
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
@@ -57,7 +56,7 @@ setup(
         TRAITS,
         ],
     license = "BSD",
-    name = 'enthought.interpolate',
+    name = 'SciMath',
     namespace_packages = [
         "enthought",
         ],
@@ -66,7 +65,7 @@ setup(
         ],
     test_suite = 'nose.collector',
     url = 'http://code.enthought.com/ets',
-    version = '2.1.0a1',
+    version = '3.0.0b1',
     **configuration().todict()
     )
 
