@@ -1,2 +1,11 @@
+[converter]
+enthought.units.unit_converter = *
+
+
 [envisage]
 enthought.units.plugin = *
+
+
+[traits]
+enthought.units.quantity_traits = *
+
