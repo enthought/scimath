@@ -20,22 +20,24 @@ BLOCKCANVAS = etsdep('BlockCanvas', '3.0.0b1')
 ENTHOUGHTBASE_TRAITS = etsdep('EnthoughtBase[traits]', '3.0.0b1')
 ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
 TRAITS = etsdep('Traits', '3.0.0b1')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
 TRAITSGUI = etsdep('TraitsGUI', '3.0.0b1')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1')
 
 
 # A dictionary of the pre_setup information.
 INFO = {
     'extras_require': {
+        'converter':[
+            BLOCKCANVAS,
+            ],
         "envisage": [
             APPTOOLS,
             ENVISAGECORE,
             ENVISAGEPLUGINS,
             TRAITSGUI,
-            ],
-        'converter':[
-            BLOCKCANVAS,
+            TRAITS_UI,
             ],
         'traits': [
             TRAITSBACKENDWX,
