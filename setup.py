@@ -50,6 +50,7 @@ setup(
     test_suite = 'nose.collector',
     url = 'http://code.enthought.com/ets',
     version = INFO['version'],
+    zip_safe = False, 
     **config
     )
 
