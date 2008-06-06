@@ -78,8 +78,24 @@ def rotquat(vhat1, vhat2):
 
     """
 
-    # Compute the bisectors
-    bisector = _normv(vhat1 + vhat2)
+    # Compute the bisector.
+    bisector = vhat1 + vhat2
+
+    # Handle the case where the bisector is an array of zeros.
+    null_indices = np.nonzero((bisector==np.array([0., 0., 0.])).all(axis=-1))
+    index = 0
+
+    while len(null_indices) > 0 and index < 3:
+        unit_vector = np.zeros((1,3))
+        unit_vector[:, index] = 1.0
+        bisector = _crossv(vhat1[null_indices],
+                           np.repeat(unit_vector, len(null_indices)))
+        null_indices = np.nonzero((bisector==np.array([0., 0., 0.])).all(
+            axis=-1))
+        index += 1
+
+    # Normalize the bisector
+    bisector = _normv(bisector)
 
     # Compute the scalar part
     cost2 = _dotv(vhat1, bisector)
