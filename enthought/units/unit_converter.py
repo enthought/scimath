@@ -23,7 +23,13 @@
 from enthought.logger import logger
 
 from enthought.units import convert as units_convert
-from enthought.util.numerix import typecode
+
+
+def typecode(x):
+    try:
+        return x.dtype.char
+    except AttributeError:
+        return x.typecode() 
 
 def convert_unit_array(unit_array, unit_system=None, to_unit=None,
                        family_name=None ):
@@ -269,5 +275,3 @@ default_unit_converters = {
                                                    convert_log_proxy,
        "<class 'cp.log.log_suite_proxy.LogSuiteProxy'>" : convert_log_proxy,
        }
-
-#### EOF ######################################################################
