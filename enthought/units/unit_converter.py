@@ -137,8 +137,8 @@ def convert_log(log, unit_system=None, to_unit=None, family_name=None):
             in the provided log object
         """
 
-    from enthought.util.numerix import PyObject
-
+    from numpy.numarray.numerictypes import ObjectType
+    
     if family_name==None:
         family_name=log.family_name or log.name
 
@@ -157,7 +157,7 @@ def convert_log(log, unit_system=None, to_unit=None, family_name=None):
                               % (log,unit_system))
             return log.clone(index=new_index)
 
-    if typecode(log.data) == PyObject:
+    if typecode(log.data) == ObjectType:
         # handle string logs
         new_log = log.clone(index=new_index)
     else:
