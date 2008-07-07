@@ -19,10 +19,15 @@
 #############################################################################
 # Imports:
 #############################################################################
-# Enthought library imports.
-from enthought.logger import logger
 
+# Standard library imports.
+import logging
+
+# Enthought library imports.
 from enthought.units import convert as units_convert
+
+
+logger = logging.getLogger(__name__)
 
 
 def typecode(x):
@@ -227,8 +232,6 @@ def convert_log_proxy(q, unit_system=None, to_unit=None, family_name=None):
     return convert_log(log_copy, unit_system=unit_system, to_unit=to_unit, family_name=family_name)
 
 def convert_quantity(q, unit_system=None, to_unit=None, family_name=None):
-    from enthought.units.quantity import Quantity
-
     if family_name==None:
         family_name=q.family_name
 
