@@ -56,7 +56,9 @@ class Tests(unittest.TestCase):
         for d in sorted(nose_dirs):
             print 'Failed' if nose_dirs[d] else 'OK    ', \
                   '.' + d[len(cwd):]
-
+            
+        for d in sorted(nose_dirs):
+            self.assertEqual(nose_dirs[d], 0)
 
 if __name__ == '__main__':
     unittest.main()
