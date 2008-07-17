@@ -19,6 +19,7 @@ from SI import watt, kilo
 #     fourth edition, John Willey and Sons, 1993
 
 kilowatt = kilo * watt
+kw = kilowatt
 horsepower = 745.7 * watt
 
 
