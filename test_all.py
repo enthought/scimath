@@ -2,6 +2,8 @@
 
 # Author: Ilan Schnell, Enthought, Inc. <ischnell@enthought.com>
 #
+# Note: works with Python 2.4 and 2.5
+#
 # Description:
 #     This unittest tests the entire package.
 #     It can be run directly:
@@ -28,8 +30,9 @@ class Tests(unittest.TestCase):
             be skipped.
         """
         skip_dirs = ['attic', 'deprecated', 'research']
-        
-        pat_test = re.compile(r'tests$', re.I)
+
+        # Note: \W matches any non-alphanumeric character
+        pat_test = re.compile(r'tests\W*$', re.I)
 
         # contruct regular expression for directories to be skipped
         # note that .svn is always excluded.
@@ -58,8 +61,8 @@ class Tests(unittest.TestCase):
                   '.' + d[len(cwd):]
         print
         
-        for d in sorted(nose_dirs):
-            self.assertEqual(nose_dirs[d], 0)
+        for d, stat in nose_dirs.iteritems():
+            self.assertEqual(stat, 0)
 
         
 if __name__ == '__main__':
