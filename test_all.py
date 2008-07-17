@@ -12,14 +12,14 @@
 #
 #         $ python setup.py test
 
-import os.path
+import os
 import re
 import subprocess
 import unittest
 
 
 class Tests(unittest.TestCase):
-    
+
     def test_directories(self):
         """
             Runs nosetests (as a subprocess) in each subdirectory
@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
             be skipped.
         """
         skip_dirs = ['attic', 'deprecated', 'research']
-
+        
         pat_test = re.compile(r'tests$', re.I)
 
         # contruct regular expression for directories to be skipped
@@ -54,11 +54,16 @@ class Tests(unittest.TestCase):
         print (30*'=' + ' Ran %i nosetests: ' + 30*'=') % len(nose_dirs)
         
         for d in sorted(nose_dirs):
-            print 'Failed' if nose_dirs[d] else 'OK    ', \
+            print ['OK    ', 'Failed'][int(bool(nose_dirs[d]))], \
                   '.' + d[len(cwd):]
-            
+        print
+        
         for d in sorted(nose_dirs):
             self.assertEqual(nose_dirs[d], 0)
 
+        
 if __name__ == '__main__':
-    unittest.main()
+    import cStringIO
+    
+    out = cStringIO.StringIO()
+    unittest.main(testRunner=unittest.TextTestRunner(stream=out))
