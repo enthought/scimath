@@ -1,3 +1,20 @@
+#!/usr/bin/env python
+#
+# Copyright (c) 2008 by Enthought, Inc.
+# All rights reserved.
+#
+
+"""
+Scientific and Mathematical calculations.
+
+The SciMath project includes packages to support scientific and mathematical
+calculations, beyond the capabilities offered by SciPy.
+
+- enthought.interpolate
+- enthought.mathematics
+- enthought.units
+
+"""
 import os,setuptools, zipfile
 from numpy.distutils.core import setup
 from setuptools.command.develop import develop
