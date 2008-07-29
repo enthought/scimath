@@ -1,0 +1,13 @@
+The icons are mostly derived work from other icons. As such they are
+licensed accordingly to the original license:
+
+    GV: Gael Varoquaux: Public Domain
+    OOo: LGPL license as described in icon_OOo_LICENSE.txt
+
+Unless stated in this file, icons are work of enthought, and are released
+under BSD-like license.
+
+Files and orginal authors:
+----------------------------------------------------------------
+                   error.png | GV
+                quantity.png | OOo
