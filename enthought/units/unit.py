@@ -140,7 +140,7 @@ class unit(object):
 
 
     def __float__(self):
-        if self.derivation == self._zero: return self.value
+        if self.derivation == self._zero: return float(self.value)
         raise InvalidConversion(self)
 
 
