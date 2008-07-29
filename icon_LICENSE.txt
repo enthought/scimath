@@ -9,5 +9,6 @@ under BSD-like license.
 
 Files and orginal authors:
 ----------------------------------------------------------------
-                   error.png | GV
-                quantity.png | OOo
+enthought/units/plugin/images:
+                          error.png | GV
+                       quantity.png | OOo
