@@ -4,7 +4,7 @@ licensed accordingly to the original license:
 Project                 License                   File
 ----------------------------------------------------------------------------
 GV (Gael Varoquaux)     Public Domain             N/A
-OOo                     LGPL                      icon_OOo_LICENSE.txt
+OOo                     LGPL                      icon_LICENSE_OOo.txt
 
 Unless stated in this file, icons are the work of Enthought, and are
 released under a 3 clause BSD license.
