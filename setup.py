@@ -168,7 +168,7 @@ setup(
         Topic :: Scientific/Engineering
         Topic :: Software Development
         Topic :: Software Development :: Libraries
-        """.splitlines()],
+        """.splitlines() if len(c.split()) > 0],
     cmdclass = {
         'develop': my_develop,
         'build': my_build
@@ -193,7 +193,7 @@ setup(
         'nose >= 0.10.3',
         ],
     test_suite = 'nose.collector',
-    url = 'http://code.enthought.com/ets',
+    url = 'http://code.enthought.com/projects/sci_math.php',
     version = INFO['version'],
     zip_safe = False,
     **config
