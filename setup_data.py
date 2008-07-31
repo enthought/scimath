@@ -56,5 +56,5 @@ INFO = {
         TRAITS,
         ],
     'name': 'SciMath',
-    'version': '3.0.0b1',
+    'version': '3.0.0b2',
     }
