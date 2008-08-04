@@ -83,7 +83,7 @@ def convert_str(value, from_unit_string, to_unit_string):
     """ Convert functions to take in strings and conveniently parse them to
         units, to return the conversion factor
 
-        Parameters:
+        Parameters
         ----------
         from_unit_string: Str
             String representing from_unit, eg. 'm'
