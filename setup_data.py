@@ -14,16 +14,16 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-APPTOOLS = etsdep('AppTools', '3.0.0b1')
-BLOCKCANVAS = etsdep('BlockCanvas', '3.0.0b1')
-#DEVTOOLS -- all gotcha imports enclosed in try...except blocks so not needed
-ENTHOUGHTBASE_TRAITS = etsdep('EnthoughtBase[traits]', '3.0.0b1')
-ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
-ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
-TRAITS = etsdep('Traits', '3.0.0b1')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
-TRAITSGUI = etsdep('TraitsGUI', '3.0.0b1')
-TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1')
+APPTOOLS = etsdep('AppTools', '3.0.0b2')
+BLOCKCANVAS = etsdep('BlockCanvas', '3.0.0b2')
+ENTHOUGHTBASE_TRAITS = etsdep('EnthoughtBase[traits]', '3.0.0b2')
+ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b2')
+ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b2')
+#ETSDEVTOOLS -- all gotcha imports enclosed in try...except blocks so not needed
+TRAITS = etsdep('Traits', '3.0.1b1')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.1b1')
+TRAITSGUI = etsdep('TraitsGUI', '3.0.1b1')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.1b1')
 
 
 # A dictionary of the pre_setup information.
