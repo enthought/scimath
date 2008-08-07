@@ -14,6 +14,15 @@ calculations, beyond the capabilities offered by SciPy.
 - enthought.mathematics
 - enthought.units
 
+Prerequisites
+-------------
+You must have the following libraries installed before building or installing
+SciMath:
+   
+* `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.0 or later is
+  preferred. Version 1.0.4 will work, but some tests may fail.
+* `setuptools <http://pypi.python.org/pypi/setuptools/0.6c8>`_.
+
 """
 
 
