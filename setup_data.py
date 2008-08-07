@@ -46,8 +46,8 @@ INFO = {
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
         'nonets': [
-            "numpy >=1.0.3",
-            "scipy >=0.5.2",
+            "numpy >= 1.1.0",
+            "scipy >= 0.5.2",
             # "wx",  # wx does not build as an egg cleanly on all platforms.
             ],
         },
