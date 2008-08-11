@@ -18,115 +18,14 @@ currency, etc.
 from __future__ import division
 
 # Global module imports
-from copy import copy
 
 # Enthought module imports
 from enthought.traits.api import HasTraits, String, DictStrFloat, TraitType, \
         Property, cached_property
 
+# local imports
+from util import dict_mul, dict_div, dict_add, dict_sub, format_expansion
 
-def dict_mul(a, n):
-    """Given a dictionary, multiply values by a scalar
-    
-    Parameters
-    ----------
-        a: dict
-            the dictionary to be multiplied.
-        n: float
-            the scalar to multiply by
-    
-    Example
-    -------
-    Given a dictionary and scalar:
-        
-    >>> a = {'a': 2.0, 'b': -4.0}
-    >>> n = 1.5
-    >>> dict_mul(a, n)
-    {'a': 3.0, 'b': -6.0}
-    
-    """
-    if n == 0:
-        return {}
-    c = copy(a)
-    for key in c:
-        c[key] *= n
-    return c
-
-
-def dict_div(a, n):
-    """Given a dictionary, divide values by a scalar
-    
-    Parameters
-    ----------
-        a: dict
-            the dictionary to be divided.
-        n: float
-            the scalar to divide by
-    
-    Example
-    -------
-    Given a dictionary and scalar:
-        
-    >>> a = {'a': 2.0, 'b': -4.0}
-    >>> n = 0.5
-    >>> dict_div(a, n)
-    {'a': 4.0, 'b': -8.0}
-    
-    """
-    c = copy(a)
-    for key in c:
-        c[key] /= n
-    return c
-
-
-def dict_add(a, b):
-    """Given two dictionaries, add values by key, removing zero entries
-    
-    Parameters
-    ----------
-        a, b : dict
-            the dictionaries to be added.
-    
-    Example
-    -------
-    Given two dictionaries:
-        
-    >>> a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
-    >>> b = {'a': 1.5, 'c': 12.0, 'd': -2.0}
-    >>> dict_add(a, b)
-    {'a': 4.5, 'b': -4.0, 'c': 12.0}
-    """
-    c = copy(b)
-    for key, value in a.items():
-        c[key] = value+b.get(key, 0)
-        if c[key] == 0.0:
-            del c[key]
-    return c
-
-
-def dict_sub(a, b):
-    """Given two dictionaries, subtract values by key, removing zero entries
-    
-    Parameters
-    ----------
-        a, b : dict
-            the dictionaries to be added.
-    
-    Example
-    -------
-    Given two dictionaries::
-        
-    >>> a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
-    >>> b = {'a': 1.5, 'c': 12.0, 'd': 2.0}
-    >>> dict_sub(a, b)
-    {'a': 1.5, 'b': -4.0, 'c': -12.0}
-    """
-    c = copy(a)
-    for key, value in b.items():
-        c[key] = a.get(key, 0)-value
-        if c[key] == 0.0:
-            del c[key]
-    return c
 
 
 class Dimensions(HasTraits):
@@ -147,6 +46,7 @@ class Dimensions(HasTraits):
     """
 
     # a dictionary holding dimension names and quantities
+    # this should be frozen if you want to hash - don't change it
     dimension_dict = DictStrFloat
     
     # the quantity type as an expression in powers of base dimensions
@@ -185,9 +85,7 @@ class Dimensions(HasTraits):
     @cached_property
     def _get_expansion(self):
         if self.dimension_dict:
-            return "*".join(key+(("**"+str(value)) if value != 1 else "")
-                        for key, value in sorted(self.dimension_dict.items())
-                            if value != 0)
+            return format_expansion(self.dimension_dict)
         else:
             return "dimensionless"
     
@@ -200,6 +98,9 @@ class Dimensions(HasTraits):
     def __eq__(self, other):
         return isinstance(other, self.__class__) \
                 and self.dimension_dict == other.dimension_dict
+    
+    def __hash__(self):
+        return hash(tuple(item for item in self.dimension_dict.items()))
        
     def __mul__(self, other):
         if isinstance(other, Dimensions):

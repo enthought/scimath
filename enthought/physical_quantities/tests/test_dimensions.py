@@ -1,38 +1,9 @@
 
 from unittest import TestCase
 
-from enthought.physical_quantities.dimensions import Dimensions, Dim, \
-        dict_add, dict_sub, dict_mul, dict_div
+from enthought.physical_quantities.dimensions import Dimensions, Dim
 
-
-class DictArithmeticTest(TestCase):
-    def test_add(self):
-        a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
-        b = {'a': 1.5, 'c': 12.0, 'd': -2.0}
-        assert dict_add(a, b) == {'a': 4.5, 'b': -4.0, 'c': 12.0}
-
-    def test_sub(self):
-        a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
-        b = {'a': 1.5, 'c': 12.0, 'd': 2.0}
-        assert dict_sub(a, b) == {'a': 1.5, 'b': -4.0, 'c': -12.0}
-
-    def test_mul(self):
-        a = {'a': 2.0, 'b': -4.0}
-        n = 1.5
-        assert dict_mul(a, n) == {'a': 3.0, 'b': -6.0}
-
-    def test_zero_mul(self):
-        a = {'a': 2.0, 'b': -4.0}
-        n = 0.0
-        assert dict_mul(a, n) == {}
-
-    def test_div(self):
-        a = {'a': 2.0, 'b': -4.0}
-        n = 0.5
-        assert dict_div(a, n) == {'a': 4.0, 'b': -8.0}
-
-
-class QuantityTypeTest(TestCase):
+class DimensionsTest(TestCase):
     def setUp(self):
         self.dimensionless = Dimensions({})
         self.length = Dimensions({"length": 1.0})
@@ -58,11 +29,11 @@ class QuantityTypeTest(TestCase):
         assert self.length.expansion == "length"
     
     def test_expansion_complex(self):
-        assert self.force.expansion == "length*mass*time**-2.0"
+        assert self.force.expansion == "length*mass*time**-2"
     
     def test_expansion_expression(self):
         velocity = self.length/self.time
-        assert velocity.expansion == "length*time**-1.0"
+        assert velocity.expansion == "length*time**-1"
     
     def test_expansion_complete_cancellation(self):
         dimensionless = self.force/self.force
@@ -76,11 +47,11 @@ class QuantityTypeTest(TestCase):
         assert str(self.length) == "length"
     
     def test_str_complex(self):
-        assert str(self.force) == "length*mass*time**-2.0"
+        assert str(self.force) == "length*mass*time**-2"
     
     def test_str_expression(self):
         velocity = self.length/self.time
-        assert str(velocity) == "length*time**-1.0"
+        assert str(velocity) == "length*time**-1"
     
     # Tests for equality and inequality
     def test_equality(self):
@@ -88,6 +59,15 @@ class QuantityTypeTest(TestCase):
     
     def test_inequality(self):
         assert self.force != self.acceleration
+    
+    # Tests for hashing
+    def test_hash(self):
+        assert hash(self.force) == hash(self.also_force)
+    
+    def test_not_hash(self):
+        # there is a very small chance that this will fail when it should not
+        # because of a hash collision
+        assert hash(self.force) != hash(self.acceleration)
     
     # Tests for arithmetic operations
     def test_mul(self):
