@@ -143,7 +143,7 @@ class Unit(HasTraits):
             and (not self.logarithmic or self.log_base == other.log_base)
     
     def __hash__(self):
-        return hash((tuple(item for item in self.dimensions.items()),
+        return hash((tuple(item for item in self.dimensions.dimension_dict.items()),
                     self.scale, self.offset, self.logarithmic, self.log_base))
 
     def __mul__(self, other):
@@ -182,26 +182,24 @@ class MultiplicativeUnit(Unit):
     derivation = Dict
     
     def convert_to_base(self, x):
-        return x*self.scale
+        return x/self.scale
     
     def convert_from_base(self, x):
-        return x/self.scale
+        return x*self.scale
     
     def make_converter(self, other):
         """Return a function which converts from self to other.
         """
         if isinstance(other, MultiplicativeUnit):
-            return lambda x: x*(self.scale/other.scale)
+            return lambda x: x*(other.scale/self.scale)
         else:
-            return super(self.__class__, self).make_converter(other)
+            return super(MultiplicativeUnit, self).make_converter(other)
     
     def __eq__(self, other):
         return isinstance(other, self.__class__) \
                 and self.dimensions == other.dimensions \
                 and self.scale == other.scale
     
-    def __hash__(self):
-        return hash((self.dimensions, self.scale))
        
     def __mul__(self, other):
         if isinstance(other, MultiplicativeUnit):
@@ -266,7 +264,7 @@ class DerivedUnit(MultiplicativeUnit):
 class NamedUnit(MultiplicativeUnit):
     def __init__(self, **kw):
         kw['derivation'] = {self: 1.0}
-        super(NamedUnit, self)(**kw)
+        super(NamedUnit, self).__init__(**kw)
         
 
 class BaseUnit(NamedUnit):

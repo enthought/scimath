@@ -124,7 +124,7 @@ class Dimensions(HasTraits):
 
 
 class Dim(TraitType):
-    default_value = {}
+    default_value = Dimensions({})
     info_text = "a dimension information object"
     
     def validate(self, object, name, value):
