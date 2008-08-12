@@ -58,7 +58,7 @@ class Unit(HasTraits):
             Results
             -------
             y : Any
-                the
+                the value in the base units
         """
         if self.logarithmic:
             return self.log_base**(x/self.scale+self.offset)
@@ -73,12 +73,15 @@ class Unit(HasTraits):
             dimensions.  For example, in an SI-base system, Units whose
             dimensions is Length would be converted from metres.
         
-            Must be overridden in subclasses.
-        
             Parameters
             ----------
             x : Any
-                the value that will be converted
+                the value that will be converted from base units
+                
+            Results
+            -------
+            y : Any
+                the value in this set of units
         """
         if self.logarithmic:
             return self.scale*(log10(x)/log10(self.log_base) - self.offset)
@@ -193,13 +196,7 @@ class MultiplicativeUnit(Unit):
         if isinstance(other, MultiplicativeUnit):
             return lambda x: x*(other.scale/self.scale)
         else:
-            return super(MultiplicativeUnit, self).make_converter(other)
-    
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) \
-                and self.dimensions == other.dimensions \
-                and self.scale == other.scale
-    
+            return super(MultiplicativeUnit, self).make_converter(other)    
        
     def __mul__(self, other):
         if isinstance(other, MultiplicativeUnit):
@@ -273,7 +270,3 @@ class BaseUnit(NamedUnit):
     
     def convert_from_base(self, x):
         return x/self.scale
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) \
-                and self.dimensions == other.dimensions
