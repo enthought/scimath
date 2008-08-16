@@ -105,7 +105,7 @@ def generate_docs():
             else:
                 sphinx_installed = True
         except ImportError:
-            log.error("Sphinx install not found.")
+            log.error("Sphnix install not found.")
 
     if sphinx_installed:
         log.info("Generating %s documentation..." % INFO['name'])
@@ -133,7 +133,7 @@ def generate_docs():
             unzip_html_docs(html_zip, doc_dir)
     else:
         # Unzip the docs into the 'html' folder.
-        log.info("Installing %s documentation from zip file.\n" % INFO['name'])
+        log.info("Installing %s documentaion from zip file.\n" % INFO['name'])
         unzip_html_docs(html_zip, doc_dir)
 
 def unzip_html_docs(src_path, dest_dir):
@@ -168,7 +168,7 @@ setup(
     author = 'Enthought, Inc',
     author_email = 'info@enthought.com',
     classifiers = [c.strip() for c in """\
-        Development Status :: 4 - Beta
+        Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
         Intended Audience :: Science/Research
         License :: OSI Approved :: BSD License
