@@ -18,7 +18,7 @@ Prerequisites
 -------------
 You must have the following libraries installed before building or installing
 SciMath:
-   
+
 * `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.0 or later is
   preferred. Version 1.0.4 will work, but some tests may fail.
 * `setuptools <http://pypi.python.org/pypi/setuptools/0.6c8>`_.
@@ -32,12 +32,12 @@ import setuptools
 
 
 from distutils import log
-from distutils.command.build import build as distbuild
 from make_docs import HtmlBuild
-from numpy.distutils.core import setup
+from numpy.distutils.command import build
 from pkg_resources import DistributionNotFound, parse_version, require, \
     VersionConflict
-from setuptools.command.develop import develop
+from setuptools.command import develop
+import numpy.distutils.core
 import os
 import zipfile
 
@@ -83,6 +83,7 @@ config['packages'] += packages
 def generate_docs():
     """ If sphinx is installed, generate docs.
     """
+    print 'Generating docs'
     doc_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs')
     source_dir = os.path.join(doc_dir, 'source')
     html_zip = os.path.join(doc_dir,  'html.zip')
@@ -152,19 +153,21 @@ def unzip_html_docs(src_path, dest_dir):
                 os.mkdir(cur_name)
     file.close()
 
-class my_develop(develop):
+
+class MyBuild(build.build):
     def run(self):
-        develop.run(self)
+        build.build.run(self)
         generate_docs()
 
-class my_build(distbuild):
+
+class MyDevelop(develop.develop):
     def run(self):
-        distbuild.run(self)
+        develop.develop.run(self)
         generate_docs()
 
 
 # The actual setup call.
-setup(
+numpy.distutils.core.setup(
     author = 'Enthought, Inc',
     author_email = 'info@enthought.com',
     classifiers = [c.strip() for c in """\
@@ -184,8 +187,8 @@ setup(
         Topic :: Software Development :: Libraries
         """.splitlines() if len(c.split()) > 0],
     cmdclass = {
-        'develop': my_develop,
-        'build': my_build
+        'build': MyBuild,
+        'develop': MyDevelop,
     },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
