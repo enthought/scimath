@@ -21,7 +21,7 @@
 #############################################################################
 
 # Standard library imports.
-import logging
+import logging, numpy
 
 # Enthought library imports.
 from enthought.units import convert as units_convert
@@ -74,7 +74,8 @@ def convert_unit_array(unit_array, unit_system=None, to_unit=None,
     if unit_array.units == to_unit:
         new_array = UnitArray(unit_array, units=unit_array.units)
     else:
-        data = units_convert(unit_array, unit_array.units, to_unit)
+        data = units_convert(unit_array.view(numpy.ndarray), 
+                             unit_array.units, to_unit)
         new_array = UnitArray(data, units=to_unit)
 
     return new_array
