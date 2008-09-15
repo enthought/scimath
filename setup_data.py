@@ -20,10 +20,10 @@ ENTHOUGHTBASE_TRAITS = etsdep('EnthoughtBase[traits]', '3.0.1')
 ENVISAGECORE = etsdep('EnvisageCore', '3.0.1')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.1')
 #ETSDEVTOOLS -- all gotcha imports enclosed in try...except blocks so not needed
-TRAITS = etsdep('Traits', '3.0.2')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.2')
-TRAITSGUI = etsdep('TraitsGUI', '3.0.2')
-TRAITS_UI = etsdep('Traits[ui]', '3.0.2')
+TRAITS = etsdep('Traits', '3.0.3')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.3')
+TRAITSGUI = etsdep('TraitsGUI', '3.0.3')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.3')
 
 
 # A dictionary of the pre_setup information.
