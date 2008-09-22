@@ -25,8 +25,8 @@ import wx
 
 from enthought.traits.api               import Trait, TraitHandler, TraitError, \
                                            Instance, true, false, Str
+from enthought.traits.ui.api  import EditorFactory
 from enthought.traits.ui.wx.editor  import Editor
-from enthought.traits.ui.wx.editor_factory import EditorFactory
 from enthought.traits.ui.wx.constants import ReadonlyColor, ErrorColor
 from enthought.units.unit_manager   import unit_manager
 from enthought.units.quantity       import Quantity
@@ -119,21 +119,11 @@ class ToolkitEditorFactory(EditorFactory):
     # 'EditorFactory' interface:
     ###########################################################################
 
-    def simple_editor(self, ui, object, name, description, parent):
-        return SimpleQuantityEditor(parent,
-                                    factory = self,
-                                    ui = ui,
-                                    object = object,
-                                    name = name,
-                                    description = description)
+    def _get_simple_editor_class(self):
+        return SimpleQuantityEditor
 
-    def readonly_editor(self, ui, object, name, description, parent):
-        return ReadOnlyQuantityEditor(parent,
-                              factory = self,
-                              ui = ui,
-                              object = object,
-                              name = name,
-                              description = description)
+    def _get_readonly_editor_class(self):
+        return ReadOnlyQuantityEditor
 
 
 class QuantityEditor(Editor):
