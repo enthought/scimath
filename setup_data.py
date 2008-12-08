@@ -14,16 +14,16 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-APPTOOLS = etsdep('AppTools', '3.1.0')
-BLOCKCANVAS = etsdep('BlockCanvas', '3.0.1')
-ENTHOUGHTBASE_TRAITS = etsdep('EnthoughtBase[traits]', '3.0.1')
-ENVISAGECORE = etsdep('EnvisageCore', '3.0.1')
-ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.1')
+APPTOOLS = etsdep('AppTools', '3.1.1')
+BLOCKCANVAS = etsdep('BlockCanvas', '3.0.2')
+ENTHOUGHTBASE_TRAITS = etsdep('EnthoughtBase[traits]', '3.0.2')
+ENVISAGECORE = etsdep('EnvisageCore', '3.0.2')
+ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.2')
 #ETSDEVTOOLS -- all gotcha imports enclosed in try...except blocks so not needed
-TRAITS = etsdep('Traits', '3.0.3')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.3')
-TRAITSGUI = etsdep('TraitsGUI', '3.0.3')
-TRAITS_UI = etsdep('Traits[ui]', '3.0.3')
+TRAITS = etsdep('Traits', '3.0.4')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.4')
+TRAITSGUI = etsdep('TraitsGUI', '3.0.4')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.4')
 
 
 # A dictionary of the pre_setup information.
@@ -56,5 +56,5 @@ INFO = {
         TRAITS,
         ],
     'name': 'SciMath',
-    'version': '3.0.2',
+    'version': '3.0.3',
     }
