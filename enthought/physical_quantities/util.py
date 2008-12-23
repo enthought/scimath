@@ -100,17 +100,17 @@ def dict_sub(a, b):
     
     Parameters
     ----------
-        a, b : dict
-            the dictionaries to be added.
+    a, b : dict
+        the dictionaries to be added.
     
     Example
     -------
     Given two dictionaries::
         
-    >>> a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
-    >>> b = {'a': 1.5, 'c': 12.0, 'd': 2.0}
-    >>> dict_sub(a, b)
-    {'a': 1.5, 'b': -4.0, 'c': -12.0}
+        >>> a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
+        >>> b = {'a': 1.5, 'c': 12.0, 'd': 2.0}
+        >>> dict_sub(a, b)
+        {'a': 1.5, 'b': -4.0, 'c': -12.0}
     """
     c = copy(a)
     for key, value in b.items():
