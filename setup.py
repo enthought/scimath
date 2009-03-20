@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008 by Enthought, Inc.
+# Copyright (c) 2008-2009 by Enthought, Inc.
 # All rights reserved.
-#
+
 
 """
 Scientific and Mathematical calculations.
@@ -30,12 +30,14 @@ SciMath:
 # numpy.distutils won't do the correct thing.
 import setuptools
 
-from distutils import log
-from numpy.distutils.command import build
-from setuptools.command import develop
 import numpy.distutils.core
 import os
 import zipfile
+
+from distutils import log
+from numpy.distutils.command import build
+from setuptools.command import develop
+
 
 # FIXME: This works around a setuptools bug which gets setup_data.py metadata
 # from incorrect packages. Ticket #1592
@@ -43,6 +45,7 @@ import zipfile
 setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
+
 
 # Pull the description values for the setup keywords from our file docstring.
 DOCLINES = __doc__.split("\n")
@@ -111,9 +114,6 @@ numpy.distutils.core.setup(
         'build': MyBuild,
         'develop': MyDevelop,
     },
-    dependency_links = [
-        'http://code.enthought.com/enstaller/eggs/source',
-        ],
     description = DOCLINES[1],
     extras_require = INFO['extras_require'],
     include_package_data = True,
@@ -137,3 +137,4 @@ numpy.distutils.core.setup(
     zip_safe = False,
     **config
     )
+
