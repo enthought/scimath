@@ -25,15 +25,14 @@ SciMath:
 
 """
 
+import traceback
+import sys
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils won't do the correct thing.
 import setuptools
 
 import numpy.distutils.core
-import os
-import zipfile
-
 from distutils import log
 from numpy.distutils.command import build
 from setuptools.command import develop
@@ -81,13 +80,23 @@ config['packages'] += packages
 class MyBuild(build.build):
     def run(self):
         build.build.run(self)
-        self.run_command('build_docs')
+        try:
+            self.run_command('build_docs')
+        except:
+            log.warn("Couldn't build documentation:\n%s" %
+                     traceback.format_exception(*sys.exc_info()))
+
 
 
 class MyDevelop(develop.develop):
     def run(self):
         develop.develop.run(self)
-        self.run_command('build_docs')
+        try:
+            self.run_command('build_docs')
+        except:
+            log.warn("Couldn't build documentation:\n%s" %
+                     traceback.format_exception(*sys.exc_info()))
+
 
 
 # The actual setup call.
