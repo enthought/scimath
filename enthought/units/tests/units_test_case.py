@@ -27,17 +27,14 @@ import numpy
 # Local units imports
 import enthought.units as units
 from enthought.units.mass import kg, metric_ton
-from enthought.units.temperature import *
-from enthought.units import area, density, energy, force, length, mass, power, \
-                  pressure, speed, substance, time, frequency, acceleration, \
-                  temperature
-from enthought.units import unit_system
+from enthought.units.temperature import kelvin, celsius, fahrenheit
+from enthought.units import area, density, speed, time, frequency, \
+        acceleration, temperature, length
 from enthought.units.quantity import Quantity
 from enthought.units.style_manager import style_manager
 from enthought.units.unit_manager import unit_manager
 from enthought.units.smart_unit import is_dimensionless
 
-from enthought.units.SI import dimensionless
 from enthought.units.speed import meters_per_second
 
 from enthought.units.unit_parser import unit_parser

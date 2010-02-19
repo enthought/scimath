@@ -14,8 +14,6 @@ from enthought.traits.api import HasTraits, TraitError
 from enthought.units.api import dimensionless, FamilyNameTrait, UnitsTrait, \
     unit_parser
 
-from enthought.units.api import Quantity
-
 class UnitsNonStrict(HasTraits):
     units = UnitsTrait
     

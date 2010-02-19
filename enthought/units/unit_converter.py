@@ -54,7 +54,7 @@ def convert_unit_array(unit_array, unit_system=None, to_unit=None,
             in the provided unit_array object
 
     """
-    from enthought.numerical_modeling.units.unit_array import UnitArray
+    from enthought.units.unit_array import UnitArray
 
     if family_name==None and unit_array.units is not None:
         family_name=_get_family_name_for_array(unit_array.units)
@@ -265,7 +265,7 @@ def _get_family_name_for_array(units=None):
 
 # The dict of defaults
 default_unit_converters = {
-       "<class 'enthought.numerical_modeling.units.unit_array.UnitArray'>" :
+       "<class 'enthought.units.unit_array.UnitArray'>" :
                                                    convert_unit_array,
        "<class 'enthought.units.quantity.Quantity'>": convert_quantity,
        "<class 'enthought.units.scalar.Scalar'>": convert_quantity,
