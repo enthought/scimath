@@ -23,17 +23,14 @@
 
 import wx
 
-from enthought.traits.api               import Trait, TraitHandler, TraitError, \
-                                           Instance, true, false, Str
-from enthought.traits.ui.wx.editor  import Editor
-from enthought.traits.ui.wx.editor_factory  import EditorFactory
-from enthought.traits.ui.wx.constants import ReadonlyColor, ErrorColor
-from enthought.units.unit_manager   import unit_manager
-from enthought.units.quantity       import Quantity
+from enthought.traits.api import TraitHandler, Instance, true, Trait, Str
+from enthought.traits.ui.wx.editor import Editor
+from enthought.traits.ui.wx.editor_factory import EditorFactory
+from enthought.traits.ui.wx.constants import ReadonlyColor
+from enthought.units.unit_manager import unit_manager
+from enthought.units.quantity import Quantity
 from enthought.units.unit import unit
 
-from enthought.traits.api import Trait, HasTraits, Dict, List, Str
-from enthought.util.traits.editor.parameter_choice_editor import ParameterChoiceEditorFactory
 from enthought.traits.ui.wx.constants import OKColor, ErrorColor
 
 #------------------------------------------------------------------------------
