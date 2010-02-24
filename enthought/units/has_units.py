@@ -143,7 +143,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
             >>> from enthought.units.length import m
             >>> a = UnitArray((1,2,3), units=m)
             >>> add(a,a) # (Converts m -> ft -> m)
-            UnitArray([ 2.,  4.,  6.])
+            UnitArray([ 2.,  4.,  6.], units='1.0*m')
             >>> add(a,a).units
             1.0*m
 
