@@ -103,6 +103,8 @@ class MyDevelop(develop.develop):
 numpy.distutils.core.setup(
     author = 'Enthought, Inc',
     author_email = 'info@enthought.com',
+    download_url = ('http://www.enthought.com/repo/ETS/SciMath-%s.tar.gz' %
+                    INFO['version']),
     classifiers = [c.strip() for c in """\
         Development Status :: 4 - Beta
         Intended Audience :: Developers
@@ -146,4 +148,3 @@ numpy.distutils.core.setup(
     zip_safe = False,
     **config
     )
-
