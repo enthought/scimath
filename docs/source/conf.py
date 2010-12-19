@@ -35,7 +35,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General substitutions.
-project = 'ETS'
+project = 'SciMath'
 copyright = '2008, Enthought'
 
 # The default replacements for |version| and |release|, also used in various
@@ -142,7 +142,7 @@ html_use_modindex = False
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ETSdoc'
+htmlhelp_basename = 'SciMathdoc'
 
 
 # Options for LaTeX output
