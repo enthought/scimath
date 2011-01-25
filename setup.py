@@ -25,17 +25,11 @@ SciMath:
 
 """
 
-import traceback
-import sys
-
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils won't do the correct thing.
 import setuptools
 
 import numpy.distutils.core
-from distutils import log
-from numpy.distutils.command import build
-from setuptools.command import develop
 
 
 # FIXME: This works around a setuptools bug which gets setup_data.py metadata
@@ -120,4 +114,4 @@ numpy.distutils.core.setup(
     version = INFO['version'],
     zip_safe = False,
     **config
-    )
+)
