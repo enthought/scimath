@@ -8,10 +8,10 @@ from enthought.interpolate.api import linear, block_average_above
 
 
 class Test(unittest.TestCase):
-    
+
     def assertAllclose(self, x, y):
         self.assert_(allclose(x, y))
-        
+
     def test_linear(self):
         N = 3000.
         x = arange(N)
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         N = 3000.
         x = arange(N)
         y = arange(N)
-        
+
         new_x = arange(N/2)*2
         t1 = time.clock()
         new_y = block_average_above(x, y, new_x)

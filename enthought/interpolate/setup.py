@@ -9,7 +9,7 @@ def configuration(parent_package='enthought',top_path=None):
                          ['_interpolate.cpp'],
                          include_dirs = ['.'],
                          depends = ['interpolate.h'])
-                         
+
     config.add_data_dir('tests')
     return config
 

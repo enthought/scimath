@@ -63,7 +63,7 @@ PluginDefinition(
 
     # The extension points offered by this plugin,
     extension_points = [],
-    
+
     # The contributions that this plugin makes to extension points offered by
     # either itself or other plugins.
     extensions = [preferences,

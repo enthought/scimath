@@ -77,11 +77,11 @@ def convert(value, from_unit, to_unit):
             offset =  (from_unit.offset * factor) - to_unit.offset
         except AttributeError:
             offset = 0.0
-          
+
     # test if it is a UnitArray without importing UnitArray to keep
-    # the dependencies low for this module 
+    # the dependencies low for this module
     if isinstance(value, numpy.ndarray) and hasattr(value, 'units'):
-        return value*factor + value.units*offset 
+        return value*factor + value.units*offset
 
     return value*factor + offset
 

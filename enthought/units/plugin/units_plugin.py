@@ -23,7 +23,7 @@ class UnitsPlugin(Plugin):
         UnitsPlugin.instance = self
 
         return
-        
+
     ###########################################################################
     # 'Plugin' interface.
     ###########################################################################
@@ -38,7 +38,7 @@ class UnitsPlugin(Plugin):
         unit_system_name = self.preferences.get(DEFAULT_UNIT_SYSTEM)
         unit_system = unit_manager.lookup_system(unit_system_name)
         unit_manager.set_default(unit_system)
-        
+
     def stop(self, application):
         """ Stops the plugin.
 
@@ -46,10 +46,9 @@ class UnitsPlugin(Plugin):
         application exits.
 
         """
-        
+
         self.save_preferences()
 
     def set_default_unit_system(self, system):
         self.preferences.set(DEFAULT_UNIT_SYSTEM, system.name)
         return
-        

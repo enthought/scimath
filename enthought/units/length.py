@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
 # Thanks for using Enthought open source!
-# 
+#
 # Author: Travis N. Vaught
 # Date: 05/22/2005
 # Description: Define units of length
@@ -35,7 +35,7 @@ from SI import kilo, centi, milli, micro, nano
 # Definitions:
 #############################################################################
 # Definitions of common length units
-# Data taken from Appendix F of Halliday, Resnick, Walker, 
+# Data taken from Appendix F of Halliday, Resnick, Walker,
 #     "Fundamentals of Physics", fourth edition, John Willey and Sons, 1993
 
 meter.label = 'meter'

@@ -27,23 +27,23 @@ from enthought.units.unit_scalar import UnitScalar
 def manipulate_units(units, converters, *args):
     """ Convert the \*args to the specified units using the converters.
 
-        This function is general purpose in that it could do a unit conversion, 
+        This function is general purpose in that it could do a unit conversion,
         it could overwrite the objects' units, or whatever. The behavior is up
         to the converter functions.
 
         Parameters
         ----------
-        units      
-            A sequence of unit objects the same length as \*args, where 
+        units
+            A sequence of unit objects the same length as \*args, where
             ``units[n]`` is the new units for ``args[n]``.
-        converters 
+        converters
             A dictionary of conversion functions with (type, func(val, unit)).
-        \*args      
+        \*args
             List of variables to be converted.
 
         Returns
         -------
-        results    
+        results
             List cooresponding to \*args of converted values.
 
     """

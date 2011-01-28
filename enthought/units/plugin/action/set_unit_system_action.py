@@ -28,7 +28,7 @@ class SetUnitSystem(WorkbenchAction):
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
-    
+
     def perform (self, event = None):
         """ Perform the action. """
 
@@ -39,7 +39,7 @@ class SetUnitSystem(WorkbenchAction):
         if ui.result:
             from enthought.units.unit_manager import unit_manager
             unit_manager.set_default(chooser.unit_system)
-            
+
             UnitsPlugin.instance.set_default_unit_system(chooser.unit_system)
 
         return

@@ -45,12 +45,12 @@ class QuantityResourceType(ObjectResourceType):
         """ Returns the name of a resource of this type. """
 
         return obj.name
-    
+
     def set_name(self, obj, name):
         """ Sets the name of a resource of this type. """
 
         obj.name = name
 
         return
-    
+
 ##### EOF #####################################################################

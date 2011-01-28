@@ -34,7 +34,7 @@ def typecode(x):
     try:
         return x.dtype.char
     except AttributeError:
-        return x.typecode() 
+        return x.typecode()
 
 def convert_unit_array(unit_array, unit_system=None, to_unit=None,
                        family_name=None ):
@@ -74,7 +74,7 @@ def convert_unit_array(unit_array, unit_system=None, to_unit=None,
     if unit_array.units == to_unit:
         new_array = UnitArray(unit_array, units=unit_array.units)
     else:
-        data = units_convert(unit_array.view(numpy.ndarray), 
+        data = units_convert(unit_array.view(numpy.ndarray),
                              unit_array.units, to_unit)
         new_array = UnitArray(data, units=to_unit)
 
@@ -144,7 +144,7 @@ def convert_log(log, unit_system=None, to_unit=None, family_name=None):
         """
 
     from numpy.numarray.numerictypes import ObjectType
-    
+
     if family_name==None:
         family_name=log.family_name or log.name
 

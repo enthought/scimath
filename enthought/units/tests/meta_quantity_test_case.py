@@ -15,18 +15,18 @@ from enthought.units.api import MetaQuantity
 
 
 class TraitsTestCase(TestCase):
-    
+
     def test_metaquantity(self):
         mq = MetaQuantity( name='vp', units='km/s', family_name='pvelocity')
-        
+
         self.failUnlessEqual( mq.name, 'vp' )
         self.failUnlessEqual( mq.units.label, 'km/s' )
         self.failUnlessEqual( mq.family_name, 'pvelocity' )
         return
-    
+
     def test_metaquantity_compatible_family_change(self):
         mq = MetaQuantity( name='vp', units='km/s', family_name='pvelocity')
-        
+
         mq.name = 'vs'
         mq.family_name = 'svelocity'
         self.failUnlessEqual( mq.name, 'vs' )
@@ -62,12 +62,12 @@ class TraitsTestCase(TestCase):
         self.failUnlessEqual( mq.units.label, 'msec' )
         self.failUnlessEqual( mq.family_name, 'time' )
         return
-    
+
     def ui_simple(self):
         mq = MetaQuantity()
         mq.configure_traits(kind='modal')
         print '\n'
         mq.print_traits()
         return
-    
+
 ### EOF

@@ -19,7 +19,7 @@ class QuantityResourceOpenCookie(OpenCookie):
         context = binding.context
 
         qty = binding.obj
-        
+
         qty.edit_traits( parent=window.control, naming_context=context )
         return
 

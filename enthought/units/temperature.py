@@ -7,7 +7,7 @@
 #                        (C) 1998-2003  All Rights Reserved
 #
 # <LicenseText>
-# 
+#
 # Modified: 2005-05-23, Travis N. Vaught added label attribs and more aliases
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #

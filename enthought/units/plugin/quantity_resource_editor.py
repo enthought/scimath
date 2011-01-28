@@ -13,18 +13,18 @@ class QuantityResourceEditor( TraitsUIEditor ):
     """ Resource editor for QuantityResourceType """
 
     context = Instance(Context)
-    
+
     ### TraitsUIEditor interface ##############################################
-    
+
     def create_ui(self, parent=None):
         """ Return the traits ui panel for self.resource. """
-    
+
         qty = self.resource
-        
+
         self.title = "Edit %s" % qty.name
 
         traits_ui = qty.edit_traits( parent=parent, kind='panel' )
-        
+
         # Reach into the Quantity traits view and 1) turn off the buttons
         traits_ui.view.buttons = NoButtons
 
@@ -36,11 +36,11 @@ class QuantityResourceEditor( TraitsUIEditor ):
                 break
 
         traits_ui.updated = True
-        
+
         self.size = (max(300, traits_ui.view.width),
                      max(200, traits_ui.view.height))
-        
+
         return traits_ui
 
-    
+
 ### EOF

@@ -30,10 +30,10 @@ from util import dict_mul, dict_div, dict_add, dict_sub, format_expansion
 
 class Dimensions(HasTraits):
     """The dimensions of a physical quantity.
-    
+
     This is essentially a thin wrapper around a dictionary which we perform
     certain operations on.
-    
+
     Example
     -------
     >>> m = Dimensions({'mass': 1.0})
@@ -48,22 +48,22 @@ class Dimensions(HasTraits):
     # a dictionary holding dimension names and quantities
     # this should be frozen if you want to hash - don't change it
     dimension_dict = DictStrFloat
-    
+
     # the quantity type as an expression in powers of base dimensions
     expansion = Property(String, depends_on='dimension_dict')
-    
+
     def __init__(self, dimension_dict, **kwargs):
         for key, value in dimension_dict.items():
             if not value:
                 del dimension_dict[key]
         super(self.__class__, self).__init__(dimension_dict=dimension_dict, **kwargs)
-    
+
     @classmethod
     def from_expansion(cls, expansion):
         """Create a Dimension class instance from an expansion string
-        
+
         This is a fairly simplistic parser - no parens, division, etc.
-        
+
         Parameters
         ----------
         expansion : string
@@ -81,41 +81,41 @@ class Dimensions(HasTraits):
         except:
             raise InvalidExpansionError(expansion)
         return cls(dimension_dict)
-    
+
     @cached_property
     def _get_expansion(self):
         if self.dimension_dict:
             return format_expansion(self.dimension_dict)
         else:
             return "dimensionless"
-    
+
     def __repr__(self):
         return "Dimensions(%s)" % repr(self.dimension_dict)
-    
+
     def __str__(self):
         return self.expansion
-    
+
     def __eq__(self, other):
         return isinstance(other, self.__class__) \
                 and self.dimension_dict == other.dimension_dict
-    
+
     def __hash__(self):
         return hash(tuple(item for item in self.dimension_dict.items()))
-       
+
     def __mul__(self, other):
         if isinstance(other, Dimensions):
             return Dimensions(dict_add(self.dimension_dict,
                                        other.dimension_dict))
         else:
             raise NotImplementedError
-    
+
     def __div__(self, other):
         if isinstance(other, Dimensions):
             return Dimensions(dict_sub(self.dimension_dict,
                                        other.dimension_dict))
         else:
             raise NotImplementedError
-    
+
     def __pow__(self, other):
         if isinstance(other, (float, int, long)):
             return Dimensions(dict_mul(self.dimension_dict, other))
@@ -126,7 +126,7 @@ class Dimensions(HasTraits):
 class Dim(TraitType):
     default_value = Dimensions({})
     info_text = "a dimension information object"
-    
+
     def validate(self, object, name, value):
         if isinstance(value, Dimensions):
             return value
@@ -143,7 +143,6 @@ class Dim(TraitType):
 class InvalidExpansionError(ArithmeticError):
     def __init__(self, expansion):
         self.expansion = expansion
-        
+
     def __str__(self):
         return "Invalid expansion: " + repr(self.expansion)
-        

@@ -341,18 +341,18 @@ class UnitManager(HasPrivateTraits):
         inverse_family = self.get_inverse_family_name(family_name)
 
         return self.preferred_names[inverse_family]
-    
+
     def get_family_name_for_value(self, unit_value):
         """ Walks the unit_db looking for a unit with a matching value.
             This is potentially expensive, so only do it if you must.
-        
+
         """
         for family_name in self.unit_families:
             if unit_value in self.get_valid_units(family_name):
                 return family_name
-        
+
         return None
- 
+
 
     def is_compatible(self, units, family_name):
         """ Returns True if the family_name and units are compatible.

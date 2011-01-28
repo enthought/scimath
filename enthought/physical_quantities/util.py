@@ -18,23 +18,23 @@ from copy import copy
 
 def dict_mul(a, n):
     """Given a dictionary, multiply values by a scalar
-    
+
     Parameters
     ----------
         a: dict
             the dictionary to be multiplied.
         n: float
             the scalar to multiply by
-    
+
     Example
     -------
     Given a dictionary and scalar:
-        
+
     >>> a = {'a': 2.0, 'b': -4.0}
     >>> n = 1.5
     >>> dict_mul(a, n)
     {'a': 3.0, 'b': -6.0}
-    
+
     """
     if n == 0:
         return {}
@@ -46,23 +46,23 @@ def dict_mul(a, n):
 
 def dict_div(a, n):
     """Given a dictionary, divide values by a scalar
-    
+
     Parameters
     ----------
         a: dict
             the dictionary to be divided.
         n: float
             the scalar to divide by
-    
+
     Example
     -------
     Given a dictionary and scalar:
-        
+
     >>> a = {'a': 2.0, 'b': -4.0}
     >>> n = 0.5
     >>> dict_div(a, n)
     {'a': 4.0, 'b': -8.0}
-    
+
     """
     c = copy(a)
     for key in c:
@@ -72,16 +72,16 @@ def dict_div(a, n):
 
 def dict_add(a, b):
     """Given two dictionaries, add values by key, removing zero entries
-    
+
     Parameters
     ----------
         a, b : dict
             the dictionaries to be added.
-    
+
     Example
     -------
     Given two dictionaries:
-        
+
     >>> a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
     >>> b = {'a': 1.5, 'c': 12.0, 'd': -2.0}
     >>> dict_add(a, b)
@@ -97,16 +97,16 @@ def dict_add(a, b):
 
 def dict_sub(a, b):
     """Given two dictionaries, subtract values by key, removing zero entries
-    
+
     Parameters
     ----------
     a, b : dict
         the dictionaries to be added.
-    
+
     Example
     -------
     Given two dictionaries::
-        
+
         >>> a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
         >>> b = {'a': 1.5, 'c': 12.0, 'd': 2.0}
         >>> dict_sub(a, b)
@@ -121,12 +121,12 @@ def dict_sub(a, b):
 
 def python_powers(key, value):
     """ Convert a value to a power expressed in standard Python syntax
-    
+
     Parameters
     ----------
     value : number
         the value we want to convert to a power
-    
+
     Result
     ------
     s : string
@@ -158,12 +158,12 @@ _unicode_supers_reversed = dict((value, key) for key, value in
 
 def unicode_powers(key, value):
     """ Convert a value to a power using unicode superscripts
-    
+
     Parameters
     ----------
     value : number
         the value we want to convert to a power
-    
+
     Result
     ------
     s : unicode
@@ -182,12 +182,12 @@ def unicode_powers(key, value):
 
 def tex_powers(key, value):
     """ Convert a value to a power expression in TeX/LaTeX
-    
+
     Parameters
     ----------
     value : number
         the value we want to convert to a power
-    
+
     Result
     ------
     s : str
@@ -208,12 +208,12 @@ _named_powers = {
 
 def name_powers(key, value):
     """ Convert a value to a power expression in English
-    
+
     Parameters
     ----------
     value : number
         the value we want to convert to a power
-    
+
     Result
     ------
     s : str
@@ -225,7 +225,7 @@ def name_powers(key, value):
         return _named_powers[value] + " " + key
     else:
         return key + " to the " + str(value).rstrip(".0")
-    
+
 
 
 def format_expansion(dimensions, mul="*", pow_func=python_powers, div=False,

@@ -29,10 +29,10 @@ cookies = CookieImplementations(
     implementations = [
         CookieImplementation(
             resource_type = QUANTITY_RESOURCE_TYPE,
-            
+
             cookie_interface = "enthought.envisage.project.action" \
                 + ".open_cookie.OpenCookie",
-            
+
             cookie_implementation = BASE \
                 + ".quantity_resource_open_cookie.QuantityResourceOpenCookie"
         ),
@@ -102,7 +102,7 @@ PluginDefinition(
 
     # The extension points offered by this plugin,
     extension_points = [],
-    
+
     # The contributions that this plugin makes to extension points offered by
     # either itself or other plugins.
     extensions = [ui_actions,

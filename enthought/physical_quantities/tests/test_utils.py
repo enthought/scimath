@@ -40,83 +40,83 @@ class FormatTest(TestCase):
         self.hertz = {"s": -1.0}
         self.ohm = {u"\u2126": 1.0}
         self.siemens = {u"\u2126": -1.0}
-        
+
     def test_python_defaults(self):
         assert format_expansion(self.volt) == "A**-1*kg*m**2*s**-3"
-        
+
     def test_python_division(self):
         assert format_expansion(self.volt, div=True) == "kg*m**2/(A*s**3)"
-        
+
     def test_python_division_simple_denominator(self):
-        assert format_expansion(self.joule, div=True) == "kg*m**2/s**2"        
-        
+        assert format_expansion(self.joule, div=True) == "kg*m**2/s**2"
+
     def test_python_division_no_denominator(self):
-        assert format_expansion(self.coulomb, div=True) == "A*s"        
-        
+        assert format_expansion(self.coulomb, div=True) == "A*s"
+
     def test_python_division_no_numerator_simple_denominator(self):
-        assert format_expansion(self.hertz, div=True) == "1/s"        
-        
+        assert format_expansion(self.hertz, div=True) == "1/s"
+
     def test_python_division_no_numerator_no_denominator(self):
-        assert format_expansion({}, div=True) == "1"        
-        
+        assert format_expansion({}, div=True) == "1"
+
     def test_python_rational_power(self):
-        assert format_expansion({'m': 0.5}) == "m**0.5"        
-        
+        assert format_expansion({'m': 0.5}) == "m**0.5"
+
     def test_unicode(self):
         assert format_expansion(self.volt, mul=" ",
-                                pow_func=unicode_powers) == u"A\u207B\u00B9 kg m\u00B2 s\u207B\u00B3"        
-        
+                                pow_func=unicode_powers) == u"A\u207B\u00B9 kg m\u00B2 s\u207B\u00B3"
+
     def test_unicode_symbol(self):
         assert format_expansion(self.volt, mul=" ",
-                                pow_func=unicode_powers) == u"A\u207B\u00B9 kg m\u00B2 s\u207B\u00B3"        
-        
+                                pow_func=unicode_powers) == u"A\u207B\u00B9 kg m\u00B2 s\u207B\u00B3"
+
     def test_unicode_division(self):
         assert format_expansion(self.volt, mul=" ", div=True,
-                                pow_func=unicode_powers) == u"kg m\u00B2/(A s\u00B3)"        
-        
+                                pow_func=unicode_powers) == u"kg m\u00B2/(A s\u00B3)"
+
     def test_unicode_division_simple_denominator(self):
         assert format_expansion(self.joule, mul=" ", div=True,
-                                pow_func=unicode_powers) == u"kg m\u00B2/s\u00B2"        
-        
+                                pow_func=unicode_powers) == u"kg m\u00B2/s\u00B2"
+
     def test_unicode_division_no_denominator(self):
         assert format_expansion(self.coulomb, mul=" ", div=True,
-                                pow_func=unicode_powers) == u"A s"        
-        
+                                pow_func=unicode_powers) == u"A s"
+
     def test_unicode_symbol(self):
         assert format_expansion(self.siemens, mul=" ",
-                                pow_func=unicode_powers) == u"\u2126\u207B\u00B9"        
-        
+                                pow_func=unicode_powers) == u"\u2126\u207B\u00B9"
+
     def test_unicode_symbol_division(self):
         assert format_expansion(self.siemens, mul=" ", div=True,
-                                pow_func=unicode_powers) == u"1/\u2126"        
-        
+                                pow_func=unicode_powers) == u"1/\u2126"
+
     def test_unicode_rational_power(self):
         assert format_expansion({'m': 0.5}, mul=" ",
-                                pow_func=unicode_powers) == u"m^0.5"        
-        
+                                pow_func=unicode_powers) == u"m^0.5"
+
     def test_TeX_defaults(self):
         assert format_expansion(self.volt, mul="\/",
                                 pow_func=tex_powers) == "A^{-1}\/kg\/m^{2}\/s^{-3}"
-        
+
     def test_TeX_division(self):
         assert format_expansion(self.volt, mul="\/", div=True,
                                 pow_func=tex_powers) == "kg\/m^{2}/(A\/s^{3})"
-        
+
     def test_TeX_division_simple_denominator(self):
         assert format_expansion(self.joule, mul="\/", div=True,
-                                pow_func=tex_powers) == "kg\/m^{2}/s^{2}"   
-        
+                                pow_func=tex_powers) == "kg\/m^{2}/s^{2}"
+
     def test_TeX_division_no_denominator(self):
         assert format_expansion(self.coulomb, mul="\/", div=True,
                                 pow_func=tex_powers) == "A\/s"
-        
+
     def test_TeX_division_no_numerator_simple_denominator(self):
         assert format_expansion(self.hertz, mul="\/", div=True,
-                                pow_func=tex_powers) == "1/s"        
-        
+                                pow_func=tex_powers) == "1/s"
+
     def test_unicode_rational_power(self):
         assert format_expansion({'m': 0.5}, mul="\/",
-                                pow_func=tex_powers) == "m^{0.5}"        
+                                pow_func=tex_powers) == "m^{0.5}"
 
     def test_name_defaults(self):
         assert format_expansion(self.volt, mul=" ", empty_numerator="1",

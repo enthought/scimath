@@ -32,61 +32,61 @@ candela = unit(1.0, (0, 0, 0, 0, 0, 0, 1))
 radian = copy(dimensionless)                #  plane angle
 radian.label = 'radian'
 
-steradian = copy(dimensionless)              #  solid angle  
-steradian.label = 'steradian'                                                                                     
-hertz = 1/second                       #  frequency        
-hertz.label = 'Hz'                                                                                     
-newton = meter*kilogram/second**2      #  force    
+steradian = copy(dimensionless)              #  solid angle
+steradian.label = 'steradian'
+hertz = 1/second                       #  frequency
+hertz.label = 'Hz'
+newton = meter*kilogram/second**2      #  force
 newton.label = 'newton'
 
-pascal = newton/meter**2               #  pressure    
+pascal = newton/meter**2               #  pressure
 pascal.label = 'pascal'
 
-joule = newton*meter                   #  work, heat 
+joule = newton*meter                   #  work, heat
 joule.label = 'joule'
 
-watt = joule/second                    #  power, radiant flux      
-watt.label = 'watt'                                                                                     
-coulomb = ampere*second                #  electric charge         
+watt = joule/second                    #  power, radiant flux
+watt.label = 'watt'
+coulomb = ampere*second                #  electric charge
 coulomb.label = 'coulomb'
 
-volt = watt/ampere                     #  electric potential difference     
+volt = watt/ampere                     #  electric potential difference
 volt.label = 'volt'
 
-farad = coulomb/volt                   #  capacitance                      
+farad = coulomb/volt                   #  capacitance
 farad.label = 'farad'
 
-ohm = volt/ampere                      #  electric resistance             
+ohm = volt/ampere                      #  electric resistance
 ohm.label = 'ohm'
 
-siemens = ampere/volt                  #  electric conductance           
+siemens = ampere/volt                  #  electric conductance
 siemens.label = 'siemen'
 
-weber = volt*second                    #  magnetic flux                 
+weber = volt*second                    #  magnetic flux
 weber.label = 'weber'
 
-tesla = weber/meter**2                 #  magnetic flux density        
+tesla = weber/meter**2                 #  magnetic flux density
 tesla.label = 'tesla'
 
-henry = weber/ampere                   #  inductance                  
-henry.label = 'henry'      
+henry = weber/ampere                   #  inductance
+henry.label = 'henry'
 
-lumen = candela*steradian              #  luminus flux               
+lumen = candela*steradian              #  luminus flux
 lumen.label = 'lumen'
 
-lux = lumen/meter**2                   #  illuminance              
+lux = lumen/meter**2                   #  illuminance
 lux.label = 'lux'
 
-becquerel = 1/second                   #  radioactivity           
+becquerel = 1/second                   #  radioactivity
 becquerel.label = 'becquerel'
 
-gray = joule/kilogram                  #  absorbed dose          
+gray = joule/kilogram                  #  absorbed dose
 gray.label = 'gray'
 
-sievert = joule/kilogram               #  dose equivalent       
+sievert = joule/kilogram               #  dose equivalent
 sievert.label = 'sievert'
 
-katal = mole/second                    #  catalytic activity   
+katal = mole/second                    #  catalytic activity
 katal.label = 'katal'
 
 # prefixes

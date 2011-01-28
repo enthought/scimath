@@ -326,13 +326,13 @@ class StripUnitsTestCase(unittest.TestCase):
         unittest.TestCase.setUp(self)
 
     def test_strip_units_one_arg(self):
-        self.assertFalse(isinstance(strip_units(self.unit_array), 
+        self.assertFalse(isinstance(strip_units(self.unit_array),
             (UnitArray, UnitScalar)))
-        self.assertFalse(isinstance(strip_units(self.unit_scalar), 
+        self.assertFalse(isinstance(strip_units(self.unit_scalar),
             (UnitArray, UnitScalar)))
-        self.assertFalse(isinstance(strip_units(self.plain_array), 
+        self.assertFalse(isinstance(strip_units(self.plain_array),
             (UnitArray, UnitScalar)))
-        self.assertFalse(isinstance(strip_units(self.plain_scalar), 
+        self.assertFalse(isinstance(strip_units(self.plain_scalar),
             (UnitArray, UnitScalar)))
 
         # Check for stupidity when returning only one argument.
@@ -356,6 +356,6 @@ class StripUnitsTestCase(unittest.TestCase):
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
 
-        
+
 if __name__ == '__main__':
     unittest.main()

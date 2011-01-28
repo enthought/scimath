@@ -364,7 +364,7 @@ class PassUnitsTestCase(unittest.TestCase):
         result = UnitScalar(3.0, units=second)*a
         self.assertTrue((array(result) == array([3.0,6.0,9.0])).all())
         self.assertEqual(result.units, meters)
-        
+
 
     def test_multiply_units(self):
         a = UnitArray([1,2,3],units=meters)
@@ -383,7 +383,7 @@ class PassUnitsTestCase(unittest.TestCase):
         d = UnitArray(0.5, units=dimensionless)
         result = a**d
         self.assertEqual(result.units, meters**0.5)
-        
+
     def test_sqrt_no_pass(self):
         a = UnitArray([1.0,2.0,3.0], units=meters/second)
         result = sqrt(a)
@@ -401,7 +401,7 @@ class PassUnitsTestCase(unittest.TestCase):
 
         # FIXME: these tests fail
         raise SkipTest
-        
+
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
@@ -421,7 +421,7 @@ class PassUnitsTestCase(unittest.TestCase):
 
         # FIXME: these tests fail
         raise SkipTest
-        
+
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], False)
@@ -443,7 +443,7 @@ class PassUnitsTestCase(unittest.TestCase):
 
         # FIXME: these tests fail
         raise SkipTest
-        
+
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], True)
@@ -465,7 +465,7 @@ class PassUnitsTestCase(unittest.TestCase):
 
         # FIXME: these tests fail
         raise SkipTest
-        
+
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
@@ -487,7 +487,7 @@ class PassUnitsTestCase(unittest.TestCase):
 
         # FIXME: these tests fail
         raise SkipTest
-        
+
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)

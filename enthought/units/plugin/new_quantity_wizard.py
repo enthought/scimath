@@ -33,16 +33,16 @@ class QuantityFactory(ResourceFactory):
         """ Creates the resource. """
 
         # Create a new quantity.
-        quantity = Quantity(self.value, self.units, 
+        quantity = Quantity(self.value, self.units,
             name=self.name, family_name=self.value_unit_family
         )
-        
+
         # Bind it in the namespace
         self.parent_folder.obj.bind(self.name, quantity)
-        
+
         return
 
-    
+
 class NewQuantityWizard(NewResourceWizard):
     """ A wizard that creates a new quantity. """
 
@@ -53,20 +53,20 @@ class NewQuantityWizard(NewResourceWizard):
 
     # The resource factory that the wizard is configuring.
     factory = Instance(QuantityFactory, ())
-    
+
     ###########################################################################
     # 'NewResourceWizard' interface.
     ###########################################################################
 
     def reset(self):
         """ Reset the wizard to the initial state. """
-        
+
         # The pages in the wizard.
         self.pages = [
             NewNamedResourcePage(
                 id     = 'resource_page',
                 text   = 'Select the parent folder',
-                prefix = 'New Quantity', 
+                prefix = 'New Quantity',
                 obj    = self.factory
             ),
             NewQuantityResourcePage(
@@ -77,5 +77,5 @@ class NewQuantityWizard(NewResourceWizard):
         ]
 
         return
-    
+
 #### EOF ######################################################################

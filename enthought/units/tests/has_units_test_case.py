@@ -381,7 +381,7 @@ def bar(x, y):
     else:
         z = x + x
     return z
-    
+
 
 vec_bar_with_units = has_units(numpy.vectorize(bar))
 

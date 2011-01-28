@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
 # Thanks for using Enthought open source!
-# 
+#
 # Author: Travis N. Vaught
 # Date: 05/25/2005
 # Description: Define UnitSystem class
@@ -35,25 +35,25 @@ logger = logging.getLogger(__name__)
 
 class UnitSystem(HasTraits):
     """
-    A UnitSystem represents a set of 'units' designations for a list of 
-    families.  This is initially populated from the columns in the 
-    enthought\units\data\unit_families.txt file (by the unit_manager). 
-    
-    The common unit sytems are likely named 'KGS', 'IMPERIAL' etc. 
+    A UnitSystem represents a set of 'units' designations for a list of
+    families.  This is initially populated from the columns in the
+    enthought\units\data\unit_families.txt file (by the unit_manager).
+
+    The common unit sytems are likely named 'KGS', 'IMPERIAL' etc.
     """
-    
+
     # Unit System Traits
     unit_manager = Any
     # commented for testing...
     #unit_manager = Instance('enthought.units.unit_manager.UnitManager', copy='shallow')
     name         = Str
     families     = Dict
-    
+
     def __init__(self, name, families={}):
 
         # the name of the unit system eg 'KGS' or 'IMPERIAL'
         self.name = name.upper()
-        
+
         # TODO: consider not accepting a families dict as an argument at all
         # and just use the add_family method.
         if families:
@@ -62,12 +62,12 @@ class UnitSystem(HasTraits):
                 # dictionary of keys and lists, where the list contains
                 # [unit, description, inverse]
                 self.add_family(fam, families[fam][0], families[1], families[2])
-        
+
         return
-    
+
     def units(self, name):
         """ Method to return a unit for a given family or member name """
-        
+
         # TODO: This seems like a very slow way to do this
         result = self.families.get(name,self.families.get(
                       self.unit_manager.unit_members.get(
@@ -77,43 +77,43 @@ class UnitSystem(HasTraits):
         if not result:
             logger.exception('Could not find %s in this unit_system' % name)
         return result
-    
+
     def add_family(self, family_name, fam_unit, description=None, inverse=None):
-        """ Add to families dictionary 
-        
+        """ Add to families dictionary
+
             parameters
             ----------
             family_name:
                 name of family--also sets preferred_name
-            
+
             system_units:
                 either an enthought.units.unit type or a string that may be
                 coerced into a unit type.
-        
+
         """
-        
+
         # convert string to unit
         if type(fam_unit)== type(''):
             fam_unit = unit_parser.parse_unit(fam_unit)
 
         self.families[family_name] = fam_unit
-        
+
         # if this system has a unit manager and the description or inverse
         # arguments are provided, populate this system's um.unit_families
         # as well.
         if self.unit_manager and (description or inverse):
             self.unit_manager.add_family(family_name, description, inverse)
-            
+
 
     def get_manager_families(self):
         """ Convenience method to get the dict of families from
             this UnitSystem's unit_manager """
-            
+
         return self.unit_manager.unit_families
-            
+
     def __str__(self):
         return self.name
-    
+
     #########################################################################
     # UnitSystem Interface
     #########################################################################
@@ -139,8 +139,8 @@ class UnitSystem(HasTraits):
             inv_name = None
         return inv_name
 
-        
-# Single copy of the standard unit system used by algorithms. 
+
+# Single copy of the standard unit system used by algorithms.
 
 #kgs = UnitSystem('KGS')
 

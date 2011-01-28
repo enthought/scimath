@@ -69,14 +69,14 @@ class UnitArray(numpy.ndarray):
     ############################################################################
     def __repr__(self):
         # this is a little more complicated than it should be in order
-        # to be more resilient to changes to numpy ndarray API 
+        # to be more resilient to changes to numpy ndarray API
         base_str = numpy.ndarray.__repr__(self)
         start = base_str.find('(')
         end = base_str.rfind(')')
-        
+
         if start > -1 and end > -1:
             base_str = base_str[start+1:end]
-        
+
         return "UnitArray(%s, units='%s')" % (base_str, repr(self.units))
 
     def __reduce_ex__(self, protocol):

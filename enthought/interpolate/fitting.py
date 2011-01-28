@@ -1,7 +1,7 @@
 """ Interpolation/Extrapolation classes.
 
     Policies on under-specified data fits.
-    
+
     1. If the input arrays to a fit has 0 elements, numpy.NaN values
        are returned from the __call__ method for all calculated y
        values.
@@ -43,7 +43,7 @@ class DataFit(HasPrivateTraits):
         new_int = self.__class__()
         new_int.__dict__.update(self.__dict__)
         return new_int
-            
+
     def set_xy(self, x, y):
         x = numpy.atleast_1d(x)
         y = numpy.atleast_1d(y)
@@ -122,13 +122,13 @@ class DataFit(HasPrivateTraits):
                     result = False
                     break;
         else:
-            result = False            
-        return result     
-               
+            result = False
+        return result
+
 class Spline(DataFit):
     """ Cubic-spline interpolation
 
-        This class works for interpolation and extrapolation. 
+        This class works for interpolation and extrapolation.
         !! - extrapolation seems to be broken for this
         !! - only works for 1d y arrays
     """
@@ -247,7 +247,7 @@ class EndAverage(DataFit):
 
 class FillNaN(DataFit):
     """ A DataFit which just returns all NaN's. """
-    
+
     def interp(self, x):
         """ Return an numpy.array of numpy.NaN's in the same shape as x. """
         y = numpy.arange(len(x)).astype(numpy.float)

@@ -83,10 +83,10 @@ def block_average_above(x, y, new_x):
     if len(y.shape) == 2:
         new_y = numpy.zeros((y.shape[0], len(new_x)), numpy.float64)
         for i in range(len(new_y)):
-            bad_index = _interpolate.block_averave_above_dddd(x, y[i], 
+            bad_index = _interpolate.block_averave_above_dddd(x, y[i],
                                                             new_x, new_y[i])
             if bad_index is not None:
-                break                                                
+                break
     else:
         new_y = numpy.zeros(len(new_x), numpy.float64)
         bad_index = _interpolate.block_average_above_dddd(x, y, new_x, new_y)
@@ -96,7 +96,7 @@ def block_average_above(x, y, new_x):
               "is out of the x range (%f, %f)" % \
               (bad_index, new_x[bad_index], x[0], x[-1])
         raise ValueError, msg
-              
+
     return new_y
 
 def window_average(x, y, new_x, width=10.0):
@@ -109,14 +109,14 @@ def window_average(x, y, new_x, width=10.0):
     if len(y.shape) == 2:
         new_y = numpy.zeros((y.shape[0], len(new_x)), numpy.float64)
         for i in range(len(new_y)):
-            _interpolate.window_average_ddddd(x, y[i], new_x, new_y[i], 
+            _interpolate.window_average_ddddd(x, y[i], new_x, new_y[i],
                                               width)
     else:
         new_y = numpy.zeros(len(new_x), numpy.float64)
         _interpolate.window_average_ddddd(x, y, new_x, new_y, width)
-              
+
     return new_y
-    
+
 def main():
     from scipy import arange, ones
     import time
@@ -140,7 +140,7 @@ def main():
     t2 = time.clock()
     print '1d block_average_above (sec):', t2 - t1
     print new_y[:5]
-    
+
     N = 3000.
     x = arange(N)
     y = ones((100,N)) * arange(N)

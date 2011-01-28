@@ -2,7 +2,7 @@
 #
 #  ===========================
 #  Units Library
-#  =========================== 
+#  ===========================
 #
 #  basic units library
 #  Author: Michael A.G. Aivazis

@@ -9,10 +9,10 @@ from enthought.units.unit_manager import unit_manager
 
 class QuantityView( View ):
     """ Default Traits View for Quantity objects. """
-    
+
     def __init__(self, **traits):
         """ Create a new QuantityView. """
-        
+
         super( QuantityView, self ).__init__(
             Item( name='name', style='readonly' ),
             Item( name='units' ),
@@ -29,18 +29,18 @@ class QuantityViewHandler( Handler ):
     """ Handler for the QuantityView.
     It validates the consistency of the units and family_name and
     rolls back the changes if the control is canceled when closed.
-    
+
     info.ui.context['naming_context'] when not None is a context in which
     the Quantity object is bound.
     """
     original = Instance(Quantity)
-    
+
     def init ( self, info ):
         qty = info.ui.context['object']
         self.original = qty.clone()
-        
+
         return super(QuantityViewHandler,self).init(info)
-    
+
     def close( self, info, is_ok ):
         return True
 
@@ -54,34 +54,34 @@ class QuantityViewHandler( Handler ):
 
     def setattr ( self, info, object, name, value ):
         """ Handles setting a specified object trait's value.
-        
+
         Parameters
         ----------
         object : object
             The object whose attribute is being set
         name : string
             The name of the attribute being set
-        value 
+        value
             The value to which the attribute is being set
         """
         if not info.initialized:
             return
-        
+
         if name == 'units':
             # Convert units label to units object.
             if not unit_manager.is_compatible( value, object.family_name ):
                 raise TraitError()
-            
+
             value = unit_parser.parse_unit(value, suppress_warnings=False)
-        
+
         super(QuantityViewHandler, self).setattr(info, object, name, value)
-            
-        return 
+
+        return
 
     def object_family_name_changed(self, info):
         """ Family name has changed, force the units to re-validate. """
         if info.initialized:
-            
+
             # The previous family name may have been incompatible with the
             # units.  Poke the units to have it reevaluated with the new family.
             # In that case, the units string value in the UI control will not
@@ -91,7 +91,7 @@ class QuantityViewHandler( Handler ):
                 if editor.name == 'units':
                     editor.update_object(None)
                     break
-                
+
         return
-    
+
 ### EOF

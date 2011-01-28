@@ -148,7 +148,7 @@ class UnitParser:
                     valid = False
                 else:
                     raise UnableToParseUnits(label)
-            
+
         if isinstance(_unit, unit):
 
             if hasattr(_unit, "offset"):

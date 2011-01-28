@@ -5,7 +5,7 @@ from enthought.envisage.core.core_plugin_definition import PluginDefinition
 
 from enthought.envisage.resource.resource_plugin_definition \
     import ResourceType, ResourceManager
-    
+
 from enthought.envisage.resource.resource_ui_plugin_definition \
     import ResourceWizard, ResourceWizards, \
            CookieImplementation, CookieImplementations
@@ -46,10 +46,10 @@ cookies = CookieImplementations(
     implementations = [
         CookieImplementation(
             resource_type = QUANTITY_RESOURCE_TYPE,
-            
+
             cookie_interface = "enthought.envisage.project.action" \
             + ".open_cookie.OpenCookie",
-            
+
             cookie_implementation = ID \
             + ".quantity_resource_open_cookie.QuantityResourceOpenCookie"
         ),
@@ -91,7 +91,7 @@ PluginDefinition(
     provider_url  = "www.enthought.com",
     enabled       = True,
     autostart     = False,
-    
+
     # The Id's of the plugins that this plugin requires.
     requires = [
         "enthought.envisage.core",

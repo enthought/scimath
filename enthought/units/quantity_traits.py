@@ -211,7 +211,7 @@ class SimpleQuantityEditor(QuantityEditor):
         self._updating_editor = False
         panel = wx.Panel(parent, -1)
         sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.text_control = control = wx.TextCtrl(panel, -1, 
+        self.text_control = control = wx.TextCtrl(panel, -1,
                                                   size = wx.Size(60, 20))
         sizer.Add(control, 1)
 
@@ -251,7 +251,7 @@ class SimpleQuantityEditor(QuantityEditor):
         self._updating_editor = False
 
         return
-        
+
     def update_object ( self, event, assign = True ):
         """ Handles the user changing the contents of the edit control.
         """
@@ -272,7 +272,7 @@ class SimpleQuantityEditor(QuantityEditor):
                 if self._error is None:
                     self._error     = True
                     self.ui.errors += 1
-                
+
     def check_value ( self, event ):
         """ Handles the user changing the contents of the edit control, but
             the value should only be checked, not assigned.

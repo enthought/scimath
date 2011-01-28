@@ -16,23 +16,23 @@ section_marker = re.compile(r'[!-/:-@[-`{-~]+ *$')
 
 def simple_parser(lines):
     """ Parse a docstring for parameters and returns with unit notation
-    
+
     Parameters
     ----------
-    
+
     lines : list of str
         The lines of the text with the whitespace stripped.
-        
+
     Returns
     -------
-    
+
     input_lines : list of str
     output_lines : list of str
         The lines of the 'parameters' and 'returns' sections which contain ':'
-    
+
     Notes
     -----
-    
+
     This is a fast alternative to using docutils to parse restructured text in
     docstrings, which is a comparatively expensive operation.  This version is
     about 15 times faster.  This passes the same unit tests as the original.
@@ -53,8 +53,8 @@ def simple_parser(lines):
                 output_lines.append(line)
         last_line = line
     return input_lines, output_lines
-        
-    
+
+
 
 
 def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
@@ -172,7 +172,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
                    in the order they you specify them in the "outputs" variable
                    in the argument list.
     """
-    
+
     # If has_units is applied on a function directly to make use of the
     # function's docstrings
 
@@ -224,7 +224,7 @@ def _has_units(summary, doc, inputs, outputs):
         else:
             thefunc = _func_
 
-        name = thefunc.func_name                
+        name = thefunc.func_name
         define = def_signature(thefunc) #@UnusedVariable
         call = call_signature(thefunc, '_func_') #@UnusedVariable
         args, kw, args_ordered = function_arguments(thefunc) #@UnusedVariable

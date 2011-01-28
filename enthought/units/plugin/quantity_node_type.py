@@ -22,5 +22,5 @@ class QuantityNodeType(ObjectNodeType):
         """ Does the node allow children (ie. a folder vs a file). """
 
         return False
-    
+
 ##### EOF #####################################################################
