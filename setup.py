@@ -3,7 +3,6 @@
 # Copyright (c) 2008-2011 by Enthought, Inc.
 # All rights reserved.
 
-
 """
 Scientific and Mathematical calculations.
 
@@ -32,9 +31,8 @@ import setuptools
 import numpy.distutils.core
 
 
-# FIXME: This works around a setuptools bug which gets setup_data.py metadata
-# from incorrect packages. Ticket #1592
-#from setup_data import INFO
+# This works around a setuptools bug which gets setup_data.py metadata
+# from incorrect packages.
 setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
