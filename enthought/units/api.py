@@ -16,9 +16,7 @@ from enthought.units.unit_parser    import unit_parser
 from unit_traits import UnitsTrait, UnitSystemTrait
 from family_name_trait import FamilyNameTrait
 
-from enthought.units.unit import unit
-
-from enthought.units.SI import dimensionless
+from enthought.units.unit import unit, dimensionless
 
 from quantity import Quantity
 from meta_quantity import MetaQuantity
