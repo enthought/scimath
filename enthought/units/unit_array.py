@@ -69,14 +69,14 @@ class UnitArray(numpy.ndarray):
     ############################################################################
     def __repr__(self):
         # this is a little more complicated than it should be in order
-        # to be more resilient to changes to numpy ndarray API
+        # to be more resilient to changes to numpy ndarray API 
         base_str = numpy.ndarray.__repr__(self)
         start = base_str.find('(')
         end = base_str.rfind(')')
-
+        
         if start > -1 and end > -1:
             base_str = base_str[start+1:end]
-
+        
         return "UnitArray(%s, units='%s')" % (base_str, repr(self.units))
 
     def __reduce_ex__(self, protocol):
@@ -97,7 +97,8 @@ class UnitArray(numpy.ndarray):
         """
 
         super(UnitArray, self).__setstate__(state[1][2])
-        self.units = state[0]
+        units = state[0]
+        self.units = units
 
     def __deepcopy__(self, memo={}):
         copy = self.__class__(self.view(numpy.ndarray), copy=True,
@@ -149,15 +150,18 @@ class UnitArray(numpy.ndarray):
         ### Configure Other Attributes #########################################
         if isinstance(units, basestring):
             units = unit_parser.parse_unit(units)
+
         res.units = units
 
         return res
 
     def __array_finalize__(self, obj):
-
-        # Copy any values that were on the original UnitArray into the output
-        # UnitArray.
-        self.units = getattr(obj, 'units', None)
+        """
+        Copy any values that were on the original UnitArray into the output
+        UnitArray.
+        """
+        units = getattr(obj, 'units', None)
+        self.units = units
 
     def __array_wrap__(self, obj, context=None):
         # Behavior of getting units is
@@ -244,6 +248,9 @@ class UnitArray(numpy.ndarray):
         return other, u
 
     def __add__(self, other):
+        """
+        Defines the addition of 2 unitted arrays
+        """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__add__(other)
         result.units = u
@@ -254,6 +261,9 @@ class UnitArray(numpy.ndarray):
         return self.__add__(other)
 
     def __sub__(self, other):
+        """
+        Defines the subtraction of 2 unitted arrays
+        """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__sub__(other)
         result.units = u
@@ -273,6 +283,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __mul__(self, other):
+        """
+        Defines the multiplication of 2 unitted arrays
+        """
         result = super(UnitArray, self).__mul__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
@@ -285,12 +298,24 @@ class UnitArray(numpy.ndarray):
             result.units = su
         else:
             result.units = ou
+
+        # If the units are only a scale factor, apply it to result and set
+        # to dimensionless
+        if isinstance(result.units,float):
+            result = result.as_units(dimensionless)
         return result
 
     def __rmul__(self, other):
+        """
+        Defines the reverse multiplication of 2 unitted arrays
+        """
+        # multiplication is commutative
         return self.__mul__(other)
 
     def __div__(self, other):
+        """
+        Defines the division of 2 unitted arrays
+        """
         result = super(UnitArray, self).__div__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
@@ -304,9 +329,17 @@ class UnitArray(numpy.ndarray):
             result.units = 1/ou
         else:
             result.units = su
+            
+        # If the units are only a scale factor, apply it to result and set
+        # to dimensionless
+        if isinstance(result.units,float):
+            result = result.as_units(dimensionless)
         return result
 
     def __rdiv__(self, other):
+        """
+        Defines the reverse division of 2 unitted arrays
+        """
         result = super(UnitArray, self).__rdiv__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
@@ -319,6 +352,11 @@ class UnitArray(numpy.ndarray):
             result.units = 1/su
         else:
             result.units = ou
+
+        # If the units are only a scale factor, apply it to result and set
+        # to dimensionless
+        if isinstance(result.units,float):
+            result = result.as_units(dimensionless)
         return result
 
     def __pow__(self, other):
@@ -415,4 +453,3 @@ class UnitArray(numpy.ndarray):
         result = numpy.concatenate(sequences, axis)
         result.units = sequences[0].units
         return result
-
