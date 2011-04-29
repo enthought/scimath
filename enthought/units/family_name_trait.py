@@ -119,7 +119,7 @@ def family_name_traits_factory_function( value=None, is_strict=False,
         # a UI.
         from enthought.etsconfig.api import ETSConfig
         if ETSConfig.toolkit == 'wx':
-            from enthought.util.traits.editor.parameter_choice_editor  \
+            from enthought.util._traits.editor.parameter_choice_editor  \
                 import ParameterChoiceEditorFactory
 
             editor = ParameterChoiceEditorFactory(model_class=FamilyNameList)
