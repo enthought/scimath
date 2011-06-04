@@ -90,13 +90,13 @@ numpy.distutils.core.setup(
         Topic :: Software Development :: Libraries
         """.splitlines() if len(c.split()) > 0],
     description = DOCLINES[1],
-    include_package_data = True,
     install_requires = INFO['install_requires'],
     license = "BSD",
     long_description = '\n'.join(DOCLINES[3:]),
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
     name = INFO['name'],
+    package_data = {'': ['images/*', 'data/*']},
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
     tests_require = [
         'nose >= 0.10.3',
