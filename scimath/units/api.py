@@ -9,14 +9,14 @@
 
 """ Public API for units system. """
 
-from enthought.units.unit_manager   import unit_manager
-from enthought.units.unit_system    import UnitSystem
-from enthought.units.unit_parser    import unit_parser
+from scimath.units.unit_manager   import unit_manager
+from scimath.units.unit_system    import UnitSystem
+from scimath.units.unit_parser    import unit_parser
 
 from unit_traits import UnitsTrait, UnitSystemTrait
 from family_name_trait import FamilyNameTrait
 
-from enthought.units.unit import unit, dimensionless
+from scimath.units.unit import unit, dimensionless
 
 from quantity import Quantity
 from meta_quantity import MetaQuantity

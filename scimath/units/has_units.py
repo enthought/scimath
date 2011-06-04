@@ -116,7 +116,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
 
         Example definition of a unitted addition function:
 
-            >>> from enthought.units.api import has_units, UnitArray
+            >>> from scimath.units.api import has_units, UnitArray
             >>> @has_units
             ... def add(a,b):
             ...     ''' Add two arrays in ft and convert them to m.
@@ -140,7 +140,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
             >>> add(a,a)
             array([ 0.6096,  1.2192,  1.8288])
 
-            >>> from enthought.units.length import m
+            >>> from scimath.units.length import m
             >>> a = UnitArray((1,2,3), units=m)
             >>> add(a,a) # (Converts m -> ft -> m)
             UnitArray([ 2.,  4.,  6.], units='1.0*m')
@@ -150,7 +150,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
         Alternatively, parameter information can be specified in the decorator:
 
             >>> from numpy import array
-            >>> from enthought.units.api import has_units
+            >>> from scimath.units.api import has_units
             >>> @has_units(inputs="a:an array:units=ft;b:array:units=ft",
             ...            outputs="result:an array:units=m")
             ... def add(a,b):

@@ -17,6 +17,6 @@
     Part of the SciMath project of the Enthought Tool Suite.
 """
 from convert import convert, parser
-from enthought.units.unit_manager import unit_manager
+from scimath.units.unit_manager import unit_manager
 
 #### EOF #######################################################################

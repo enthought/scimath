@@ -8,14 +8,14 @@ from numpy import arange, allclose, array, all #@UnresolvedImport
 from numpy.testing import assert_array_almost_equal
 
 # Enthought library imports
-from enthought.testing.api import doctest_for_module, skip
-from enthought.units.length import feet, meters
-from enthought.units.time import second
-from enthought.units.unit_parser import unit_parser
+from traits.testing.api import doctest_for_module, skip
+from scimath.units.length import feet, meters
+from scimath.units.time import second
+from scimath.units.unit_parser import unit_parser
 
 # Numerical modeling library imports
-import enthought.units.has_units as has_units_
-from enthought.units.api import has_units, UnitArray, UnitScalar
+import scimath.units.has_units as has_units_
+from scimath.units.api import has_units, UnitArray, UnitScalar
 
 class HasUnitsDocTestCase(doctest_for_module(has_units_)):
     pass

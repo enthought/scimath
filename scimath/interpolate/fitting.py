@@ -17,7 +17,7 @@ import numpy
 from scipy import interpolate, stats
 
 #enthought imports
-from enthought.traits.api import HasPrivateTraits, Bool, TraitEnum, Trait, Float
+from traits.api import HasPrivateTraits, Bool, TraitEnum, Trait, Float
 
 # local imports
 from interpolate import linear, logarithmic, block_average_above, window_average

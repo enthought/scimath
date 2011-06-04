@@ -15,7 +15,7 @@
 
 
 from copy import copy
-from enthought.units.unit import unit, dimensionless, none
+from scimath.units.unit import unit, dimensionless, none
 
 # basic SI units
 

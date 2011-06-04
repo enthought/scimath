@@ -9,7 +9,7 @@ from unit_array import UnitArray
 class UnitScalar(UnitArray):
     ''' Scalars with units.
 
-        >>> from enthought.units.length import cm
+        >>> from scimath.units.length import cm
         >>> x = UnitScalar(5, units=cm)
         >>> x, x.units
         (UnitScalar(5, units='0.01*m'), 0.01*m)

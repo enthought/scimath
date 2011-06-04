@@ -2,9 +2,9 @@
 import numpy
 
 # Enthought library imports
-import enthought.units as units
-from enthought.units.unit import dimensionless
-from enthought.units.unit_parser import unit_parser
+import scimath.units as units
+from scimath.units.unit import dimensionless
+from scimath.units.unit_parser import unit_parser
 
 def __newobj__ ( cls, *args ):
     """ Unpickles new-style objects.
@@ -54,7 +54,7 @@ class UnitArray(numpy.ndarray):
     #       They are left here for documentation.
     ############################################################################
 
-    # Units specification.  it is a enthought.units.unit object, not a string.
+    # Units specification.  it is a scimath.units.unit object, not a string.
     # units = Instance(units.unit)
 
     # 'type' specifies the type of UnitArray.

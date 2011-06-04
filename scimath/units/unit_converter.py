@@ -24,7 +24,7 @@
 import logging, numpy
 
 # Enthought library imports.
-from enthought.units import convert as units_convert
+from scimath.units import convert as units_convert
 
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ def convert_unit_array(unit_array, unit_system=None, to_unit=None,
             in the provided unit_array object
 
     """
-    from enthought.units.unit_array import UnitArray
+    from scimath.units.unit_array import UnitArray
 
     if family_name==None and unit_array.units is not None:
         family_name=_get_family_name_for_array(unit_array.units)
@@ -185,7 +185,7 @@ def convert_log_suite(log_suite, unit_system=None, to_unit=None, family_name=Non
 
 def convert_quantity_old(q, unit_system):
     # I think importing within the function is needed to avoid circularity
-    from enthought.units.quantity import Quantity
+    from scimath.units.quantity import Quantity
 
     try:
         units = unit_system.units(q.family_name)
@@ -256,19 +256,19 @@ def convert_quantity(q, unit_system=None, to_unit=None, family_name=None):
     return q
 
 def _get_unit_system(unit_system=None):
-    from enthought.units.unit_manager import unit_manager
+    from scimath.units.unit_manager import unit_manager
     return unit_manager.get_unit_system(unit_system)
 
 def _get_family_name_for_array(units=None):
-    from enthought.units.unit_manager import unit_manager
+    from scimath.units.unit_manager import unit_manager
     return unit_manager.get_family_name_for_value(units)
 
 # The dict of defaults
 default_unit_converters = {
-       "<class 'enthought.units.unit_array.UnitArray'>" :
+       "<class 'scimath.units.unit_array.UnitArray'>" :
                                                    convert_unit_array,
-       "<class 'enthought.units.quantity.Quantity'>": convert_quantity,
-       "<class 'enthought.units.scalar.Scalar'>": convert_quantity,
+       "<class 'scimath.units.quantity.Quantity'>": convert_quantity,
+       "<class 'scimath.units.scalar.Scalar'>": convert_quantity,
        "<class 'cp.log.log_index.LogIndex'>": convert_log_index,
        "<class 'cp.log.log.Log'>": convert_log,
        "<class 'cp.log.log_suite_proxy.LogProxy'>": convert_log,

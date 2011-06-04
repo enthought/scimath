@@ -1,11 +1,11 @@
 """ Resource editor for QuantityResourceType """
 
 
-from enthought.traits.api import Instance
-from enthought.traits.ui.api import Handler
-from enthought.traits.ui.menu import NoButtons
+from traits.api import Instance
+from traitsui.api import Handler
+from traitsui.menu import NoButtons
 
-from enthought.envisage.ui.traits_ui_editor import TraitsUIEditor
+from envisage.ui.traits_ui_editor import TraitsUIEditor
 
 from enthought.naming.api import Context, NameNotFoundError
 

@@ -10,13 +10,13 @@ import unittest
 from numpy import array, all, allclose, ndarray
 
 # Enthought library imports
-from enthought.units.unit import InvalidConversion
-from enthought.units.length import feet, meters
-from enthought.units.time import second
+from scimath.units.unit import InvalidConversion
+from scimath.units.length import feet, meters
+from scimath.units.time import second
 
 # Numerical modeling library imports
-from enthought.units.api import UnitArray, UnitScalar
-from enthought.units.unit_manipulation import \
+from scimath.units.api import UnitArray, UnitScalar
+from scimath.units.unit_manipulation import \
     convert_units, set_units, have_some_units, strip_units
 
 class ConvertUnitsTestCase(unittest.TestCase):

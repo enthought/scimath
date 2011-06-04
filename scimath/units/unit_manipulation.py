@@ -18,11 +18,11 @@
 from numpy import ndarray
 
 # Enthought library imports
-import enthought.units as units
+import scimath.units as units
 
 # Numerical modeling libary imports
-from enthought.units.unit_array import UnitArray
-from enthought.units.unit_scalar import UnitScalar
+from scimath.units.unit_array import UnitArray
+from scimath.units.unit_scalar import UnitScalar
 
 def manipulate_units(units, converters, *args):
     """ Convert the \*args to the specified units using the converters.

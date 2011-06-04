@@ -16,9 +16,9 @@ import re
 import logging
 
 # Local imports.
-from enthought.units.unit import unit
-from enthought.units.SI import dimensionless
-from enthought.units.smart_unit import SmartUnit
+from scimath.units.unit import unit
+from scimath.units.SI import dimensionless
+from scimath.units.smart_unit import SmartUnit
 
 
 logger = logging.getLogger(__name__)
@@ -95,7 +95,7 @@ class UnitParser:
         self.parser = parser()
         self.parser.init()
 
-        # TODO: factor out--adjust to enthought.units
+        # TODO: factor out--adjust to scimath.units
         # In fact, the unit manager should extend this when a new 'system' or
         # unit set is set up.
 

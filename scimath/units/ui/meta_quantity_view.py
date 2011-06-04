@@ -7,8 +7,8 @@
 #
 #-----------------------------------------------------------------------------
 
-from enthought.traits.api import Bool, TraitError
-from enthought.traits.ui.api import EnumEditor, Handler, Item, List, View
+from traits.api import Bool, TraitError
+from traitsui.api import EnumEditor, Handler, Item, List, View
 
 
 class MetaQuantityView( View ):

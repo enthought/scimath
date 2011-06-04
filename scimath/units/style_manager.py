@@ -21,10 +21,10 @@
 #############################################################################
 
 # Enthought library imports
-from enthought.traits.api import HasPrivateTraits, Dict
+from traits.api import HasPrivateTraits, Dict
 
 # local imports
-from enthought.units.unit_db        import UnitDB
+from scimath.units.unit_db        import UnitDB
 
 
 class StyleManager(HasPrivateTraits):
@@ -76,7 +76,7 @@ class StyleManager(HasPrivateTraits):
         """ Returns (left, right) tuple signifying format range for plotting
             typically. """
 
-        from enthought.units.unit_manager import unit_manager
+        from scimath.units.unit_manager import unit_manager
 
         # for now, assume we can get the family_name from the obj, if needed
         if family_name==None:

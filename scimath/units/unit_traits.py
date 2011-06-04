@@ -7,7 +7,7 @@
 #
 #-----------------------------------------------------------------------------
 
-from enthought.traits.api import Bool, HasTraits, List, Str, \
+from traits.api import Bool, HasTraits, List, Str, \
     Trait, TraitError, TraitFactory, TraitHandler
 
 from unit_manager import unit_manager
@@ -47,9 +47,9 @@ def unit_system_trait_factory_function(value=None, editor=None, **metadata):
     if editor is None:
         # Delay UI imports until here such that this library can be used without
         # a UI.
-        from enthought.etsconfig.api import ETSConfig
+        from traits.etsconfig.api import ETSConfig
         if ETSConfig.toolkit == 'wx':
-            from enthought.util.traits.editor.parameter_choice_editor  \
+            from traits.util.traits.editor.parameter_choice_editor  \
                 import ParameterChoiceEditorFactory
 
             editor = ParameterChoiceEditorFactory(model_class=UnitSystemList)

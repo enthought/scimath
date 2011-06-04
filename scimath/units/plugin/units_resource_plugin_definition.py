@@ -1,14 +1,14 @@
 """ Unit System Resource Plugin """
 
-from enthought.envisage.core.core_plugin_definition \
+from envisage.core.core_plugin_definition \
     import PluginDefinition, Preferences
 
-from enthought.envisage.resource.resource_plugin_definition \
+from envisage.resource.resource_plugin_definition \
     import ResourceManager, ResourceType, INSTANCE_RESOURCE_TYPE
 
 # The plugin's globally unique identifier (also used as the prefix for all
 # identifiers defined in this module).
-ID = "enthought.units.plugin.units_resource"
+ID = "scimath.units.plugin.units_resource"
 
 ###############################################################################
 # Extensions.
@@ -24,7 +24,7 @@ preferences = Preferences(
 
 #### Resource Types ###########################################################
 QUANTITY_RESOURCE_TYPE = \
-    'enthought.units.plugin.quantity_resource_type.QuantityResourceType'
+    'scimath.units.plugin.quantity_resource_type.QuantityResourceType'
 
 resource_manager = ResourceManager(
     resource_types = [
@@ -45,7 +45,7 @@ PluginDefinition(
     id = ID,
 
     # The name of the class that implements the plugin.
-    class_name = "enthought.units.plugin.units_plugin.UnitsPlugin",
+    class_name = "scimath.units.plugin.units_plugin.UnitsPlugin",
 
     # General information about the plugin.
     name          = "Units Resource Plugin",
@@ -57,8 +57,8 @@ PluginDefinition(
 
     # The Id's of the plugins that this plugin requires.
     requires = [
-        "enthought.envisage.core",
-        "enthought.envisage.resource"
+        "envisage.core",
+        "envisage.resource"
     ],
 
     # The extension points offered by this plugin,

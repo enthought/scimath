@@ -1,22 +1,22 @@
 """ Unit System UI Plugin """
 
-from enthought.envisage.core.core_plugin_definition \
+from envisage.core.core_plugin_definition \
     import PluginDefinition, Preferences
 
-from enthought.envisage.ui.ui_plugin_definition \
+from envisage.ui.ui_plugin_definition \
     import Action, UIActions
 
-from enthought.envisage.resource.resource_ui_plugin_definition \
+from envisage.resource.resource_ui_plugin_definition \
     import ResourceWizard, ResourceWizards, \
            CookieImplementation, CookieImplementations
 
 # Import the id of the resource for which this plugin provides UI extenstions.
-from enthought.units.plugin.units_resource_plugin_definition \
+from scimath.units.plugin.units_resource_plugin_definition \
     import QUANTITY_RESOURCE_TYPE
 
 # The plugin's globally unique identifier (also used as the prefix for all
 # identifiers defined in this module).
-BASE = "enthought.units.plugin"
+BASE = "scimath.units.plugin"
 ID = BASE + ".units_ui"
 
 ###############################################################################
@@ -30,7 +30,7 @@ cookies = CookieImplementations(
         CookieImplementation(
             resource_type = QUANTITY_RESOURCE_TYPE,
 
-            cookie_interface = "enthought.envisage.project.action" \
+            cookie_interface = "envisage.project.action" \
                 + ".open_cookie.OpenCookie",
 
             cookie_implementation = BASE \
@@ -94,10 +94,10 @@ PluginDefinition(
 
     # The Id's of the plugins that this plugin requires.
     requires = [
-        "enthought.envisage.core",
-        "enthought.envisage.ui",
-        "enthought.envisage.resource",
-        "enthought.units.plugin.units_resource"
+        "envisage.core",
+        "envisage.ui",
+        "envisage.resource",
+        "scimath.units.plugin.units_resource"
     ],
 
     # The extension points offered by this plugin,

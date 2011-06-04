@@ -3,8 +3,8 @@
 
 # Enthought library imports.
 
-from enthought.envisage import get_application
-from enthought.envisage.project.action.open_cookie import OpenCookie
+from envisage import get_application
+from envisage.project.action.open_cookie import OpenCookie
 
 class QuantityResourceOpenCookie(OpenCookie):
     """ The open cookie for Quantity resources. """

@@ -2,8 +2,8 @@
 
 
 # Enthought library imports.
-from enthought.envisage.resource import ObjectNodeType
-from enthought.pyface.api import ImageResource
+from envisage.resource import ObjectNodeType
+from pyface.api import ImageResource
 
 
 class QuantityNodeType(ObjectNodeType):

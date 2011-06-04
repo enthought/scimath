@@ -25,19 +25,19 @@ import logging
 import numpy
 
 # Local units imports
-import enthought.units as units
-from enthought.units.mass import kg, metric_ton
-from enthought.units.temperature import kelvin, celsius, fahrenheit
-from enthought.units import area, density, speed, time, frequency, \
+import scimath.units as units
+from scimath.units.mass import kg, metric_ton
+from scimath.units.temperature import kelvin, celsius, fahrenheit
+from scimath.units import area, density, speed, time, frequency, \
         acceleration, temperature, length
-from enthought.units.quantity import Quantity
-from enthought.units.style_manager import style_manager
-from enthought.units.unit_manager import unit_manager
-from enthought.units.smart_unit import is_dimensionless
+from scimath.units.quantity import Quantity
+from scimath.units.style_manager import style_manager
+from scimath.units.unit_manager import unit_manager
+from scimath.units.smart_unit import is_dimensionless
 
-from enthought.units.speed import meters_per_second
+from scimath.units.speed import meters_per_second
 
-from enthought.units.unit_parser import unit_parser
+from scimath.units.unit_parser import unit_parser
 
 
 logger = logging.getLogger(__name__)
@@ -120,7 +120,7 @@ class test_units(unittest.TestCase):
 
     def test_unit_db(self):
 
-        from enthought.units import unit_db
+        from scimath.units import unit_db
         udb = unit_db.UnitDB()
         udb.get_family_members_from_file()
         udb.get_unit_families_from_file()

@@ -9,9 +9,9 @@ Scientific and Mathematical calculations.
 The SciMath project includes packages to support scientific and mathematical
 calculations, beyond the capabilities offered by SciPy.
 
-- enthought.interpolate
-- enthought.mathematics
-- enthought.units
+- scimath.interpolate
+- scimath.mathematics
+- scimath.units
 
 Prerequisites
 -------------
@@ -51,7 +51,7 @@ def configuration(parent_package='', top_path=None):
         quiet=True,
     )
 
-    config.add_subpackage('enthought.interpolate')
+    config.add_subpackage('scimath.interpolate')
     config.add_subpackage('enthought')
 
     config.add_data_dir('enthought/units/data')

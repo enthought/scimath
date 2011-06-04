@@ -9,9 +9,9 @@
 
 from unittest import TestCase
 
-from enthought.traits.api import TraitError
+from traits.api import TraitError
 
-from enthought.units.api import MetaQuantity
+from scimath.units.api import MetaQuantity
 
 
 class TraitsTestCase(TestCase):

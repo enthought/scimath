@@ -2,11 +2,11 @@
 import unittest
 
 # Enthought Library imports
-from enthought.testing.api import doctest_for_module
+from traits.testing.api import doctest_for_module
 
 # Numerical modeling library imports
-from enthought.units import function_signature
-from enthought.units.function_signature import (
+from scimath.units import function_signature
+from scimath.units.function_signature import (
     function_arguments, def_signature, call_signature,
 )
 

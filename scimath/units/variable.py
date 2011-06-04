@@ -1,7 +1,7 @@
 # Enthought library imports
-from enthought.traits.api import HasTraits, Instance, Str
-from enthought.units.unit import unit
-from enthought.units.unit_parser import unit_parser
+from traits.api import HasTraits, Instance, Str
+from scimath.units.unit import unit
+from scimath.units.unit_parser import unit_parser
 
 class Variable(HasTraits):
     """ Variable contains information about an input/output to a function

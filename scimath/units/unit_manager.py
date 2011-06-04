@@ -25,14 +25,14 @@ from fnmatch import fnmatch
 import logging
 
 # Enthought library imports.
-from enthought.traits.api  import HasTraits, HasPrivateTraits, Trait, List, Dict, \
+from traits.api  import HasTraits, HasPrivateTraits, Trait, List, Dict, \
                               Instance, Str, Any, Int
 
 # local imports
-from enthought.units.unit_db        import UnitDB
-from enthought.units.unit_system    import UnitSystem
-from enthought.units.unit_converter import default_unit_converters
-from enthought.units.convert        import convert as unit_convert
+from scimath.units.unit_db        import UnitDB
+from scimath.units.unit_system    import UnitSystem
+from scimath.units.unit_converter import default_unit_converters
+from scimath.units.convert        import convert as unit_convert
 from unit                           import unit
 from unit_parser                    import unit_parser
 
@@ -434,7 +434,7 @@ class UnitManager(HasPrivateTraits):
 
             # If we converted a quantity, attach the original quantity to the
             # _converted_from trait so we can propagate changes back.
-            from enthought.units.quantity import Quantity
+            from scimath.units.quantity import Quantity
             if isinstance(result, Quantity):
                 # FIXME : Is the previous check necessary? Do we ever convert
                 # non-quantities?

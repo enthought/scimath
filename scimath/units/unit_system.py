@@ -23,11 +23,11 @@
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Instance, Str, Dict, Any
+from traits.api import HasTraits, Instance, Str, Dict, Any
 
 # Local Imports:
-from enthought.units.convert import convert as units_convert
-from enthought.units.unit_parser import unit_parser
+from scimath.units.convert import convert as units_convert
+from scimath.units.unit_parser import unit_parser
 
 
 logger = logging.getLogger(__name__)
@@ -45,7 +45,7 @@ class UnitSystem(HasTraits):
     # Unit System Traits
     unit_manager = Any
     # commented for testing...
-    #unit_manager = Instance('enthought.units.unit_manager.UnitManager', copy='shallow')
+    #unit_manager = Instance('scimath.units.unit_manager.UnitManager', copy='shallow')
     name         = Str
     families     = Dict
 
@@ -87,7 +87,7 @@ class UnitSystem(HasTraits):
                 name of family--also sets preferred_name
 
             system_units:
-                either an enthought.units.unit type or a string that may be
+                either an scimath.units.unit type or a string that may be
                 coerced into a unit type.
 
         """

@@ -5,9 +5,9 @@ from __future__ import division
 
 from numpy import array, log10
 
-from enthought.traits.api import HasTraits, Float, String, Unicode, Bool, \
+from traits.api import HasTraits, Float, String, Unicode, Bool, \
     Dict, Any, Instance, Property, cached_property
-#from enthought.traits.ui.api import View, Item, Group
+#from traitsui.api import View, Item, Group
 
 from dimensions import Dimensions, Dim
 

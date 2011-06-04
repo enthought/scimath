@@ -21,10 +21,10 @@ import os
 import logging
 
 # Enthought library imports:
-from enthought.util.resource import get_path
+from traits.util.resource import get_path
 
 # Local Imports:
-from enthought.units.unit_parser import unit_parser
+from scimath.units.unit_parser import unit_parser
 
 
 logger = logging.getLogger(__name__)
@@ -311,7 +311,7 @@ if __name__ == '__main__':
         import enthought.gotcha as gotcha
         gotcha.begin_profiling()
 
-        from enthought.units import unit_db
+        from scimath.units import unit_db
 
         udb = gotcha.profile(unit_db.UnitDB)
         print 'Getting family members...'
@@ -326,6 +326,6 @@ if __name__ == '__main__':
     except ImportError:
         print 'Unable to provide a profile -- enthought.gotcha not found.'
 
-        from enthought.units import unit_db
+        from scimath.units import unit_db
 
 

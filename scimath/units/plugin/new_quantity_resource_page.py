@@ -1,12 +1,12 @@
 
 import wx  # ugh!
 
-from enthought.pyface.api import HeadingText, ImageResource, Sorter
-from enthought.pyface.wizard.api import WizardPage
-from enthought.traits.api import Any, Str
-from enthought.traits.ui.api import View
+from pyface.api import HeadingText, ImageResource, Sorter
+from pyface.wizard.api import WizardPage
+from traits.api import Any, Str
+from traitsui.api import View
 
-from enthought.units.unit_manager import unit_manager
+from scimath.units.unit_manager import unit_manager
 
 class NewQuantityResourcePage(WizardPage):
 

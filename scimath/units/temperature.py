@@ -12,7 +12,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-from enthought.units.smart_unit import OffsetUnit
+from scimath.units.smart_unit import OffsetUnit
 
 # Tk = Tk
 # Tk = 1 * (Tc+273.15)

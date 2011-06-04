@@ -11,14 +11,14 @@ import numpy
 from numpy import all, array, sqrt
 
 # Enthought Library imports
-import enthought.units as units
-from enthought.testing.api import skip
-from enthought.units.length import meters, feet
-from enthought.units.time import second, seconds
-from enthought.units.unit import InvalidConversion, dimensionless
+import scimath.units as units
+from traits.testing.api import skip
+from scimath.units.length import meters, feet
+from scimath.units.time import second, seconds
+from scimath.units.unit import InvalidConversion, dimensionless
 
 # Numerical modeling library imports
-from enthought.units.api import UnitArray, UnitScalar
+from scimath.units.api import UnitArray, UnitScalar
 
 class UnitArrayTestCase(unittest.TestCase):
 
@@ -213,7 +213,7 @@ class UnitArrayTestCase(unittest.TestCase):
         std_res = std.timeit(N)
 
         ### UnitArray creation #################################################
-        setup = "from enthought.units.api import UnitArray\n"
+        setup = "from scimath.units.api import UnitArray\n"
         expr = 'UnitArray((1,2,3))'
         unit_ary = timeit.Timer(expr, setup)
         unit_ary_res = unit_ary.timeit(N)
@@ -253,7 +253,7 @@ class UnitArrayTestCase(unittest.TestCase):
 
         ### UnitArray ##########################################################
         setup = (
-            "from enthought.units.api import UnitArray\n"
+            "from scimath.units.api import UnitArray\n"
             "val = UnitArray((1,2,3))\n"
         )
         expr = 'val+1'

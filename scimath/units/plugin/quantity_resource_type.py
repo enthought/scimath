@@ -2,9 +2,9 @@
 
 
 # Enthought library imports.
-from enthought.envisage.resource import ObjectResourceType
-from enthought.traits.api import Instance
-from enthought.units.quantity import Quantity
+from envisage.resource import ObjectResourceType
+from traits.api import Instance
+from scimath.units.quantity import Quantity
 
 # Local imports.
 from quantity_node_type import QuantityNodeType

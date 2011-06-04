@@ -9,9 +9,9 @@
 
 from unittest import TestCase
 
-from enthought.traits.api import HasTraits, TraitError
+from traits.api import HasTraits, TraitError
 
-from enthought.units.api import dimensionless, FamilyNameTrait, UnitsTrait, \
+from scimath.units.api import dimensionless, FamilyNameTrait, UnitsTrait, \
     unit_parser
 
 class UnitsNonStrict(HasTraits):

@@ -9,7 +9,7 @@
 
 """ The specification for Quantity objects. """
 
-from enthought.traits.api import HasStrictTraits, Str
+from traits.api import HasStrictTraits, Str
 
 from unit_traits import UnitsTrait
 from family_name_trait import FamilyNameTrait
@@ -59,7 +59,7 @@ class MetaQuantity(HasStrictTraits):
             return super(MetaQuantity, self).trait_view( name=name,
                                                 view_element=view_element )
 
-        from enthought.units.ui.meta_quantity_view import MetaQuantityView
+        from scimath.units.ui.meta_quantity_view import MetaQuantityView
         return MetaQuantityView()
 
     ###########################################################################

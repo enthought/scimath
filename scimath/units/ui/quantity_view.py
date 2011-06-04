@@ -1,11 +1,11 @@
 """ Default Traits View for Quantity objects. """
 
-from enthought.traits.api import Instance, TraitError
-from enthought.traits.ui.api import View, Item, InstanceEditor, Handler
+from traits.api import Instance, TraitError
+from traitsui.api import View, Item, InstanceEditor, Handler
 
-from enthought.units.quantity import Quantity
-from enthought.units.unit_parser  import unit_parser
-from enthought.units.unit_manager import unit_manager
+from scimath.units.quantity import Quantity
+from scimath.units.unit_parser  import unit_parser
+from scimath.units.unit_manager import unit_manager
 
 class QuantityView( View ):
     """ Default Traits View for Quantity objects. """

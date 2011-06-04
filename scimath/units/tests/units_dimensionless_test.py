@@ -1,6 +1,6 @@
 from numpy.testing import assert_equal
-from enthought.units.unit_scalar import UnitScalar
-from enthought.units.unit import dimensionless
+from scimath.units.unit_scalar import UnitScalar
+from scimath.units.unit import dimensionless
 
 def dimensionless_test():
     """

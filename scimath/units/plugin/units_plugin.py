@@ -1,6 +1,6 @@
 # Enthought library imports.
-from enthought.envisage import Plugin
-from enthought.units import unit_manager
+from envisage import Plugin
+from scimath.units import unit_manager
 
 DEFAULT_UNIT_SYSTEM = 'default_unit_system'
 

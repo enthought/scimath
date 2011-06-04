@@ -12,16 +12,16 @@
 ###############################################################################
 
 
-from enthought.envisage.core.core_plugin_definition \
+from envisage.core.core_plugin_definition \
     import PluginDefinition, Preferences
 
-from enthought.envisage.ui.ui_plugin_definition \
+from envisage.ui.ui_plugin_definition \
     import Action, UIActions
 
-from enthought.envisage.resource.resource_plugin_definition \
+from envisage.resource.resource_plugin_definition \
     import ResourceManager, ResourceType, INSTANCE_RESOURCE_TYPE
 
-from enthought.envisage.resource.resource_ui_plugin_definition \
+from envisage.resource.resource_ui_plugin_definition \
     import ResourceWizard, ResourceWizards, \
            CookieImplementation, CookieImplementations
 
@@ -43,7 +43,7 @@ preferences = Preferences(
 
 #### Resource Types ###########################################################
 QUANTITY_RESOURCE_TYPE = \
-    'enthought.units.plugin.quantity_resource_type.QuantityResourceType'
+    'scimath.units.plugin.quantity_resource_type.QuantityResourceType'
 
 resource_manager = ResourceManager(
     resource_types = [
@@ -61,10 +61,10 @@ cookies = CookieImplementations(
         CookieImplementation(
             resource_type = QUANTITY_RESOURCE_TYPE,
 
-            cookie_interface = "enthought.envisage.project.action" \
+            cookie_interface = "envisage.project.action" \
                 + ".open_cookie.OpenCookie",
 
-            cookie_implementation = 'enthought.units.plugin' \
+            cookie_implementation = 'scimath.units.plugin' \
                 + ".quantity_resource_open_cookie.QuantityResourceOpenCookie"
         ),
     ]
@@ -76,12 +76,12 @@ resource_wizards = ResourceWizards(
         ResourceWizard(
             category    = 'Data Resources',
             name        = 'Quantity',
-            class_name  = 'enthought.units.plugin.new_quantity_wizard.NewQuantityWizard'
+            class_name  = 'scimath.units.plugin.new_quantity_wizard.NewQuantityWizard'
         ),
         ResourceWizard(
             category    = 'Data Resources',
             name        = 'Scalar',
-            class_name  = 'enthought.units.plugin.new_scalar_wizard.NewScalarWizard'
+            class_name  = 'scimath.units.plugin.new_scalar_wizard.NewScalarWizard'
         )
     ]
 )
@@ -90,7 +90,7 @@ resource_wizards = ResourceWizards(
 set_unit_system = Action(
     id              = 'action.SetUnitSystem',
     class_name      = \
-         'enthought.units.plugin.action.set_unit_system_action.SetUnitSystem',
+         'scimath.units.plugin.action.set_unit_system_action.SetUnitSystem',
     name            = 'Set Unit System...',
     description     = 'Set the system-wide default unit system',
     image           = '',
@@ -114,7 +114,7 @@ PluginDefinition(
     id = ID,
 
     # The name of the class that implements the plugin.
-    class_name = "enthought.units.plugin.units_plugin.UnitsPlugin",
+    class_name = "scimath.units.plugin.units_plugin.UnitsPlugin",
 
     # General information about the plugin.
     name          = "Units Plugin",
@@ -126,9 +126,9 @@ PluginDefinition(
 
     # The Id's of the plugins that this plugin requires.
     requires = [
-        "enthought.envisage.core",
-        "enthought.envisage.ui",
-        "enthought.envisage.resource"
+        "envisage.core",
+        "envisage.ui",
+        "envisage.resource"
     ],
 
     # The extension points offered by this plugin,

@@ -1,7 +1,7 @@
 
 from unittest import TestCase
 
-from enthought.physical_quantities.dimensions import Dimensions, Dim
+from scimath.physical_quantities.dimensions import Dimensions, Dim
 
 class DimensionsTest(TestCase):
     def setUp(self):

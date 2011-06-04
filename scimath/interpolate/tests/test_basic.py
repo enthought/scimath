@@ -4,7 +4,7 @@ import time
 from numpy import arange, ones, allclose
 import scipy
 
-from enthought.interpolate.api import linear, block_average_above
+from scimath.interpolate.api import linear, block_average_above
 
 
 class Test(unittest.TestCase):

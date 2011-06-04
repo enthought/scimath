@@ -102,7 +102,7 @@ def convert_str(value, from_unit_string, to_unit_string):
         return_value: Float
             Conversion factor between the from_unit and the to_unit
     """
-    from enthought.units import unit_parser
+    from scimath.units import unit_parser
     return convert(value,
                    unit_parser.unit_parser.parse_unit(from_unit_string),
                    unit_parser.unit_parser.parse_unit(to_unit_string))
@@ -111,7 +111,7 @@ def convert_str(value, from_unit_string, to_unit_string):
 # Function to return a parser instance
 
 def parser():
-    from enthought.units import unit_parser
+    from scimath.units import unit_parser
     return unit_parser.unit_parser()
 
 

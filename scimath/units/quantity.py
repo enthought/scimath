@@ -20,16 +20,16 @@ import logging
 import numpy
 
 # Enthought library imports.
-from enthought.traits.api             import Any, HasPrivateTraits, Instance, Str
+from traits.api             import Any, HasPrivateTraits, Instance, Str
 
 # Local imports
-from enthought.units.convert      import convert as units_convert
-from enthought.units.SI           import dimensionless
-from enthought.units.unit         import unit
-from enthought.units.smart_unit   import SmartUnit
-from enthought.units.unit_parser  import unit_parser
-from enthought.units.unit_manager import unit_manager
-from enthought.units.family_name_trait  import FamilyNameTrait
+from scimath.units.convert      import convert as units_convert
+from scimath.units.SI           import dimensionless
+from scimath.units.unit         import unit
+from scimath.units.smart_unit   import SmartUnit
+from scimath.units.unit_parser  import unit_parser
+from scimath.units.unit_manager import unit_manager
+from scimath.units.family_name_trait  import FamilyNameTrait
 
 
 # Setup a logger for this module.
@@ -201,7 +201,7 @@ class Quantity(HasPrivateTraits):
             return super(Quantity, self).trait_view( name=name,
                                                      view_element=view_element )
 
-        from enthought.units.ui.quantity_view import QuantityView
+        from scimath.units.ui.quantity_view import QuantityView
         view = QuantityView()
         view.title = self.name
 

@@ -2,14 +2,14 @@
 
 
 # Enthought library imports.
-from enthought.traits.api import Float, Instance, Str
-from enthought.units.family_name_trait import FamilyNameTrait
+from traits.api import Float, Instance, Str
+from scimath.units.family_name_trait import FamilyNameTrait
 
-from enthought.envisage.project.wizard import NewNamedResourcePage
-from enthought.envisage.project.wizard import NewResourceWizard
-from enthought.envisage.project.wizard import ResourceFactory
+from envisage.project.wizard import NewNamedResourcePage
+from envisage.project.wizard import NewResourceWizard
+from envisage.project.wizard import ResourceFactory
 
-from enthought.units.quantity import Quantity
+from scimath.units.quantity import Quantity
 
 from new_quantity_resource_page import NewQuantityResourcePage
 

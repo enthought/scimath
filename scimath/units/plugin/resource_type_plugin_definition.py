@@ -1,18 +1,18 @@
 """ The resource type plugin. """
 
 # Plugin definition imports.
-from enthought.envisage.core.core_plugin_definition import PluginDefinition
+from envisage.core.core_plugin_definition import PluginDefinition
 
-from enthought.envisage.resource.resource_plugin_definition \
+from envisage.resource.resource_plugin_definition \
     import ResourceType, ResourceManager
 
-from enthought.envisage.resource.resource_ui_plugin_definition \
+from envisage.resource.resource_ui_plugin_definition \
     import ResourceWizard, ResourceWizards, \
            CookieImplementation, CookieImplementations
 
 # The plugin's globally unique identifier (also used as the prefix for all
 # identifiers defined in this module).
-ID = "enthought.resource_type"
+ID = "pyface.resource_type"
 
 
 ###############################################################################
@@ -22,7 +22,7 @@ ID = "enthought.resource_type"
 
 #### Resource types ###########################################################
 
-BASE = 'enthought.envisage.resource'
+BASE = 'envisage.resource'
 
 # fixme: put these 'built-in' resource types into a separate resource plugin?
 INSTANCE_RESOURCE_TYPE = BASE + '.instance_resource_type.InstanceResourceType'
@@ -47,7 +47,7 @@ cookies = CookieImplementations(
         CookieImplementation(
             resource_type = QUANTITY_RESOURCE_TYPE,
 
-            cookie_interface = "enthought.envisage.project.action" \
+            cookie_interface = "envisage.project.action" \
             + ".open_cookie.OpenCookie",
 
             cookie_implementation = ID \
@@ -94,10 +94,10 @@ PluginDefinition(
 
     # The Id's of the plugins that this plugin requires.
     requires = [
-        "enthought.envisage.core",
-        "enthought.envisage.project",
-        "enthought.envisage.resource",
-        "enthought.envisage.resource_ui"
+        "envisage.core",
+        "envisage.project",
+        "envisage.resource",
+        "envisage.resource_ui"
     ],
 
     # The contributions that this plugin makes to extension points offered by

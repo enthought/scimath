@@ -20,7 +20,7 @@ from __future__ import division
 # Global module imports
 
 # Enthought module imports
-from enthought.traits.api import HasTraits, String, DictStrFloat, TraitType, \
+from traits.api import HasTraits, String, DictStrFloat, TraitType, \
         Property, cached_property
 
 # local imports

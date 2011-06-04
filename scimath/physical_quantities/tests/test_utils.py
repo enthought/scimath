@@ -1,7 +1,7 @@
 
 from unittest import TestCase
 
-from enthought.physical_quantities.util import dict_add, dict_sub, dict_mul, \
+from scimath.physical_quantities.util import dict_add, dict_sub, dict_mul, \
     dict_div, format_expansion, unicode_powers, tex_powers, name_powers
 
 

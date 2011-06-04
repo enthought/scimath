@@ -23,10 +23,10 @@
 import numpy
 
 # Local imports.
-from enthought.units.convert import convert
-from enthought.units.SI import dimensionless
+from scimath.units.convert import convert
+from scimath.units.SI import dimensionless
 
-from enthought.units.unit import unit
+from scimath.units.unit import unit
 
 class OffsetUnit(unit):
     """ Special unit to handle temperatures as absolutes--including offsets """

@@ -23,15 +23,15 @@
 
 import wx
 
-from enthought.traits.api import TraitHandler, Instance, true, Trait, Str
-from enthought.traits.ui.wx.editor import Editor
-from enthought.traits.ui.wx.editor_factory import EditorFactory
-from enthought.traits.ui.wx.constants import ReadonlyColor
-from enthought.units.unit_manager import unit_manager
-from enthought.units.quantity import Quantity
-from enthought.units.unit import unit
+from traits.api import TraitHandler, Instance, true, Trait, Str
+from traitsui.wx.editor import Editor
+from traitsui.wx.editor_factory import EditorFactory
+from traitsui.wx.constants import ReadonlyColor
+from scimath.units.unit_manager import unit_manager
+from scimath.units.quantity import Quantity
+from scimath.units.unit import unit
 
-from enthought.traits.ui.wx.constants import OKColor, ErrorColor
+from traitsui.wx.constants import OKColor, ErrorColor
 
 #------------------------------------------------------------------------------
 #  Data:

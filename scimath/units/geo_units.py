@@ -1,12 +1,12 @@
 from copy import copy
-from enthought.units.SI import *
-from enthought.units.length import foot, inch, m, meter, kilometers
-from enthought.units.mass import grams, lb
-from enthought.units.force import lbf
-from enthought.units.time import microsecond
-from enthought.units.volume import cubic_centimeter, cubic_meter, us_fluid_gallon, \
+from scimath.units.SI import *
+from scimath.units.length import foot, inch, m, meter, kilometers
+from scimath.units.mass import grams, lb
+from scimath.units.force import lbf
+from scimath.units.time import microsecond
+from scimath.units.volume import cubic_centimeter, cubic_meter, us_fluid_gallon, \
                          liter, cubic_foot
-from enthought.units.pressure import GPa, MPa, bar
+from scimath.units.pressure import GPa, MPa, bar
 
 #############################################################################
 # impedance_units          g*km/cc/s, g*f/cc/s
