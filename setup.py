@@ -52,9 +52,9 @@ def configuration(parent_package='', top_path=None):
     )
 
     config.add_subpackage('scimath.interpolate')
-    config.add_subpackage('enthought')
+    config.add_subpackage('scimath')
 
-    config.add_data_dir('enthought/units/data')
+    config.add_data_dir('scimath/units/data')
 
     return config
 
@@ -63,7 +63,7 @@ def configuration(parent_package='', top_path=None):
 # find_packages to those discovered by numpy.distutils.
 config = configuration().todict()
 packages = setuptools.find_packages(exclude=config['packages'] +
-    ['docs', 'examples'])
+                                    ['docs', 'examples'])
 config['packages'] += packages
 
 
@@ -71,7 +71,7 @@ config['packages'] += packages
 numpy.distutils.core.setup(
     author = 'Enthought, Inc',
     author_email = 'info@enthought.com',
-    download_url = ('http://www.enthought.com/repo/ETS/SciMath-%s.tar.gz' %
+    download_url = ('http://www.enthought.com/repo/ets/SciMath-%s.tar.gz' %
                     INFO['version']),
     classifiers = [c.strip() for c in """\
         Development Status :: 4 - Beta
