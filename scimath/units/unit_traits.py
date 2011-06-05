@@ -16,29 +16,6 @@ from unit_parser import unit_parser, UnableToParseUnits
 from unit import unit
 
 
-class UnitSystemList(HasTraits):
-    names = List(Str)
-    systems = List(UnitSystem)
-
-    def __init__(self, ingore):
-        self.names = []
-        self.systems = []
-        for us in unit_manager.unit_systems:
-            self.names.append(str(us))
-            self.systems.append(us)
-
-    def get_labels(self):
-        return self.names
-
-    def get_object(self, idx):
-        return self.systems[idx]
-
-    def index_of(self, obj):
-        for i in xrange(len(self.systems)):
-            if self.systems[i] == obj:
-                return i
-        return -1
-
 
 def unit_system_trait_factory_function(value=None, editor=None, **metadata):
     if value is None:
@@ -47,12 +24,9 @@ def unit_system_trait_factory_function(value=None, editor=None, **metadata):
     if editor is None:
         # Delay UI imports until here such that this library can be used without
         # a UI.
-        from traits.etsconfig.api import ETSConfig
-        if ETSConfig.toolkit == 'wx':
-            from traits.util.traits.editor.parameter_choice_editor  \
-                import ParameterChoiceEditorFactory
-
-            editor = ParameterChoiceEditorFactory(model_class=UnitSystemList)
+        from traitsui import EnumEditor
+        editor = EnumEditor(values=dict((str(us), us) for us in
+            unit_manager.unit_systems), mode='list')
 
     return Trait(value, UnitSystem, editor=editor, **metadata)
 

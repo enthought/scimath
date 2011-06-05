@@ -81,32 +81,6 @@ class FamilyNameTraitHandler(TraitHandler, HasTraits):
         return msg
 
 
-
-class FamilyNameList(HasTraits):
-    """ Model class for ParameterChoiceEditor that provides the list of
-    family names known to the unit manager.
-    """
-    names = List(Str)
-
-    def __init__(self, ingore):
-
-        self.names = unit_manager.unit_families.keys()
-        self.names.sort()
-
-    def get_labels(self):
-        return self.names
-
-    def get_object(self, idx):
-        return self.names[idx]
-
-    def index_of(self, obj):
-        for i in xrange(len(self.names)):
-            if self.names[i] == obj:
-                return i
-        return -1
-
-
-
 def family_name_traits_factory_function( value=None, is_strict=False,
                                          allow_none=True, units_trait='',
                                          editor=None,
@@ -117,12 +91,9 @@ def family_name_traits_factory_function( value=None, is_strict=False,
     if editor is None:
         # Delay UI imports until here such that this library can be used without
         # a UI.
-        from traits.etsconfig.api import ETSConfig
-        if ETSConfig.toolkit == 'wx':
-            from traits.util.trait_defs.editor.parameter_choice_editor  \
-                import ParameterChoiceEditorFactory
-
-            editor = ParameterChoiceEditorFactory(model_class=FamilyNameList)
+        from traitsui.api import EnumEditor
+        editor = EnumEditor(values=sorted(unit_manager.unit_families.keys()),
+            mode='list')
 
     return Trait( value, FamilyNameTraitHandler(allow_none=allow_none,
                                           is_strict=is_strict,
