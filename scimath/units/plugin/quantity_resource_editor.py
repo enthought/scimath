@@ -7,7 +7,7 @@ from traitsui.menu import NoButtons
 
 from envisage.ui.traits_ui_editor import TraitsUIEditor
 
-from enthought.naming.api import Context, NameNotFoundError
+from apptools.naming.api import Context, NameNotFoundError
 
 class QuantityResourceEditor( TraitsUIEditor ):
     """ Resource editor for QuantityResourceType """
