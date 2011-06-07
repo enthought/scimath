@@ -11,6 +11,6 @@ released under a 3 clause BSD license.
 
 Files and original authors:
 ----------------------------------------------------------------------------
-enthought/units/plugin/images:
+scimath/units/plugin/images:
                           error.png | GV
                        quantity.png | OOo
