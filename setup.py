@@ -12,6 +12,7 @@ calculations, beyond the capabilities offered by SciPy.
 - scimath.interpolate
 - scimath.mathematics
 - scimath.units
+- scimath.physical_quantities
 
 Prerequisites
 -------------
