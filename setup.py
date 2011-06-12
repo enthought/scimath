@@ -1,27 +1,5 @@
-#!/usr/bin/env python
-#
 # Copyright (c) 2008-2011 by Enthought, Inc.
 # All rights reserved.
-
-"""
-Scientific and Mathematical calculations.
-
-The SciMath project includes packages to support scientific and mathematical
-calculations, beyond the capabilities offered by SciPy.
-
-- scimath.interpolate
-- scimath.mathematics
-- scimath.units
-- scimath.physical_quantities
-
-Prerequisites
--------------
-You must have the following libraries installed before building or installing
-SciMath:
-
-* `NumPy <http://pypi.python.org/pypi/numpy>`_
-* `SciPy <http://pypi.python.org/pypi/scipy>`_
-"""
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils won't do the correct thing.
@@ -35,10 +13,6 @@ import numpy.distutils.core
 setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
-
-
-# Pull the description values for the setup keywords from our file docstring.
-DOCLINES = __doc__.split("\n")
 
 
 # Setup our extensions to Python.
@@ -90,10 +64,10 @@ numpy.distutils.core.setup(
         Topic :: Software Development
         Topic :: Software Development :: Libraries
         """.splitlines() if len(c.split()) > 0],
-    description = DOCLINES[1],
+    description = 'scientific and mathematical calculations',
+    long_description = open('README.rst').read(),
     install_requires = INFO['install_requires'],
     license = "BSD",
-    long_description = '\n'.join(DOCLINES[3:]),
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
     name = INFO['name'],
