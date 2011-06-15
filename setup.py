@@ -1,5 +1,6 @@
 # Copyright (c) 2008-2011 by Enthought, Inc.
 # All rights reserved.
+from os.path import join
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils won't do the correct thing.
@@ -8,11 +9,8 @@ import setuptools
 import numpy.distutils.core
 
 
-# This works around a setuptools bug which gets setup_data.py metadata
-# from incorrect packages.
-setup_data = dict(__name__='', __file__='setup_data.py')
-execfile('setup_data.py', setup_data)
-INFO = setup_data['INFO']
+info = {}
+execfile(join('scimath', '__init__.py'), info)
 
 
 # Setup our extensions to Python.
@@ -44,10 +42,15 @@ config['packages'] += packages
 
 # The actual setup call.
 numpy.distutils.core.setup(
+    name = 'scimath',
+    version = info['__version__'],
     author = 'Enthought, Inc',
     author_email = 'info@enthought.com',
+    maintainer = 'ETS Developers',
+    maintainer_email = 'enthought-dev@enthought.com',
+    url = 'http://code.enthought.com/projects/sci_math.php',
     download_url = ('http://www.enthought.com/repo/ets/SciMath-%s.tar.gz' %
-                    INFO['version']),
+                    info['__version__']),
     classifiers = [c.strip() for c in """\
         Development Status :: 4 - Beta
         Intended Audience :: Developers
@@ -66,19 +69,10 @@ numpy.distutils.core.setup(
         """.splitlines() if len(c.split()) > 0],
     description = 'scientific and mathematical calculations',
     long_description = open('README.rst').read(),
-    install_requires = INFO['install_requires'],
+    install_requires = info['__requires__'],
     license = "BSD",
-    maintainer = 'ETS Developers',
-    maintainer_email = 'enthought-dev@enthought.com',
-    name = INFO['name'],
     package_data = {'': ['images/*', 'data/*']},
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-    tests_require = [
-        'nose >= 0.10.3',
-        ],
-    test_suite = 'nose.collector',
-    url = 'http://code.enthought.com/projects/sci_math.php',
-    version = INFO['version'],
     zip_safe = False,
     **config
 )
