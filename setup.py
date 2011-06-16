@@ -49,7 +49,7 @@ numpy.distutils.core.setup(
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
     url = 'http://code.enthought.com/projects/sci_math.php',
-    download_url = ('http://www.enthought.com/repo/ets/SciMath-%s.tar.gz' %
+    download_url = ('http://www.enthought.com/repo/ets/scimath-%s.tar.gz' %
                     info['__version__']),
     classifiers = [c.strip() for c in """\
         Development Status :: 4 - Beta
