@@ -65,7 +65,6 @@ cg = centigram
 mg = milligram
 grams = gram
 gm = gram
-g  = gram
 lb = pound
 pounds = pound
 lbs = lb

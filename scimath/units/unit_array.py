@@ -258,6 +258,10 @@ class UnitArray(numpy.ndarray):
 
 
     def __radd__(self, other):
+        """
+        Defines the reverse addition of 2 unitted arrays
+        """
+        # Addition is commutative
         return self.__add__(other)
 
     def __sub__(self, other):
@@ -270,6 +274,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __rsub__(self, other):
+        """
+        Defines the reverse subtraction of 2 unitted arrays
+        """
         su = getattr(self, 'units', dimensionless)
         ou = getattr(other, 'units', dimensionless)
         if su == None and ou == None:
@@ -360,6 +367,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __pow__(self, other):
+        """
+        Defines the exponent operator of a unitted array
+        """
         if isinstance(other, (int, long, float)) or \
                 (isinstance(other, numpy.ndarray) and other.shape == ()):
             if isinstance(other, UnitArray):
@@ -374,12 +384,15 @@ class UnitArray(numpy.ndarray):
             result.units = units
             return result
         else:
-            raise TypeError, "exponent must be an integer, float or 0-d array"
+            raise TypeError("exponent must be an integer, float or 0-d array")
 
     def __rpow__(self, other):
         return NotImplemented
 
     def __le__(self, other):
+        """
+        Defines the 'less or equal' operator of 2 unitted arrays
+        """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__le__(other)
         if isinstance(result, numpy.ndarray):
@@ -387,6 +400,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __lt__(self, other):
+        """
+        Defines the 'less than' operator of 2 unitted arrays
+        """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__lt__(other)
         if isinstance(result, numpy.ndarray):
@@ -394,6 +410,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __ge__(self, other):
+        """
+        Defines the 'greater or equal' operator of 2 unitted arrays
+        """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__ge__(other)
         if isinstance(result, numpy.ndarray):
@@ -401,6 +420,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __gt__(self, other):
+        """
+        Defines the 'greater than' operator of 2 unitted arrays
+        """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__gt__(other)
         if isinstance(result, numpy.ndarray):
@@ -408,6 +430,9 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __eq__(self, other):
+        """
+        Defines the 'equal' operator of 2 unitted arrays
+        """
         try:
             other, u = self.__convert_other(other)
             result = super(UnitArray, self).__eq__(other)
@@ -418,6 +443,9 @@ class UnitArray(numpy.ndarray):
             return False
 
     def __ne__(self, other):
+        """
+        Defines the 'not equal' operator of 2 unitted arrays
+        """
         try:
             other, u = self.__convert_other(other)
             result = super(UnitArray, self).__ne__(other)
