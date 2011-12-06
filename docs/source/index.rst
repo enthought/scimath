@@ -9,15 +9,14 @@ Welcome to scimath's documentation!
 The SciMath project includes packages to support scientific and mathematical
 calculations.
 
-- scimath.interpolate
-- scimath.mathematics
-- scimath.units
-
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   units/index
+   interpolate/index
+   mathematics/index
 
 
 Indices and tables
