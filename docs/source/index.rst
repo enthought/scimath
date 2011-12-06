@@ -1,16 +1,29 @@
-Welcome to the SciMath documentation!
-=====================================
+.. scimath documentation master file, created by
+   sphinx-quickstart on Tue Dec  6 09:05:34 2011.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-The SciMath project includes packages to support scientific and mathematical calculations.
+Welcome to scimath's documentation!
+===================================
 
-    scimath.interpolate
-    scimath.mathematics
-    scimath.units
+The SciMath project includes packages to support scientific and mathematical
+calculations.
 
-Contents
---------
+- scimath.interpolate
+- scimath.mathematics
+- scimath.units
+
+Contents:
 
 .. toctree::
-   
+   :maxdepth: 2
 
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 
