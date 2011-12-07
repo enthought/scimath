@@ -1,1 +1,0 @@
-Search.setIndex({objects:{},terms:{content:0,scimath:0,welcom:0,scientif:0,support:0,project:0,packag:0,calcul:0,mathemat:0,includ:0,interpol:0,document:0,unit:0,enthought:0},objtypes:{},titles:["Welcome to the SciMath documentation!"],objnames:{},filenames:["index"]})
