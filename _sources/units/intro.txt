@@ -15,7 +15,7 @@ and scimath.units makes converting among them easy.
 
 Getting Started
 ===============================================================================
-As a basic example, let's create two UnitScalars and multiply them.::
+As a basic example, let's create two UnitScalars and add them.::
 
     >>> from scimath.units.api import UnitScalar
     >>> a = UnitScalar(0.5, units="meter")
@@ -42,7 +42,7 @@ example above,::
 This does not fundamentally change the value of the variable, but it can lead
 to rounding errors::
 
-   >>> d == e
+   >>> c == e
    UnitScalar(False, units='None')
 
 since::
@@ -78,11 +78,39 @@ use in :ref:`unitted functions <unit-funcs>`, as we'll see in the next
 section.::
 
    >>> from scimath.units.length import foot, inch, meter
-   >>> foot/inch
+   >>> foot / inch
    12.0
-   >>> foot/meter
+   >>> foot / meter
    0.3048
 
+.. _conversion-factor-caveat:
+
+**Caution**: Remember that the conversion factor produced this way is the
+*inverse* of what it looks like. Above, we divided one foot by one meter to get
+the ratio 0.3048. That is, ``foot / meter`` yields the number of meters per
+foot. Be careful to think through the logic clearly when using conversion
+factors.
+
+Thus, you can define your own arbitrary units and use them for calculating
+conversion factors::
+
+   >>> from scimath.units.length import inch
+   >>> from scimath.units.force import lbf
+   >>> from scimath.units.pressure import torr
+   >>> my_psi = 2 * lbf / inch ** 2
+   >>> my_psi / torr
+   103.44718363855331
+
+Remember, though, internally, they are stored as a combination of fundamental
+physical quantities.::
+
+   >>> my_psi
+   13789.509579019157*m**-1*kg*s**-2
+
+We can use a newly-defined unit in a UnitScalar or UnitArray, but first we'll
+need to *extend the unit system*. (We'll come back to this later.) Next, we'll
+see how to use these conversion factors in :ref:`unitted functions
+<unit-funcs>`.
 
 
 .. _NumPy: http://www.numpy.org

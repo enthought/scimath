@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -91,7 +92,7 @@ example above,:</p>
 </div>
 <p>This does not fundamentally change the value of the variable, but it can lead
 to rounding errors:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">==</span> <span class="n">e</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">==</span> <span class="n">e</span>
 <span class="go">UnitScalar(False, units=&#39;None&#39;)</span>
 </pre></div>
 </div>
@@ -123,12 +124,36 @@ too. This can be convenient not only as a desktop conversion tool but also for
 use in <a class="reference internal" href="unit_funcs.html#unit-funcs"><em>unitted functions</em></a>, as we&#8217;ll see in the next
 section.:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">foot</span><span class="p">,</span> <span class="n">inch</span><span class="p">,</span> <span class="n">meter</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span><span class="o">/</span><span class="n">inch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span> <span class="o">/</span> <span class="n">inch</span>
 <span class="go">12.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span><span class="o">/</span><span class="n">meter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span> <span class="o">/</span> <span class="n">meter</span>
 <span class="go">0.3048</span>
 </pre></div>
 </div>
+<p id="conversion-factor-caveat"><strong>Caution</strong>: Remember that the conversion factor produced this way is the
+<em>inverse</em> of what it looks like. Above, we divided one foot by one meter to get
+the ratio 0.3048. That is, <tt class="docutils literal"><span class="pre">foot</span> <span class="pre">/</span> <span class="pre">meter</span></tt> yields the number of meters per
+foot. Be careful to think through the logic clearly when using conversion
+factors.</p>
+<p>Thus, you can define your own arbitrary units and use them for calculating
+conversion factors:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">inch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="kn">import</span> <span class="n">lbf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.pressure</span> <span class="kn">import</span> <span class="n">torr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lbf</span> <span class="o">/</span> <span class="n">inch</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span> <span class="o">/</span> <span class="n">torr</span>
+<span class="go">103.44718363855331</span>
+</pre></div>
+</div>
+<p>Remember, though, internally, they are stored as a combination of fundamental
+physical quantities.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span>
+<span class="go">13789.509579019157*m**-1*kg*s**-2</span>
+</pre></div>
+</div>
+<p>We can use a newly-defined unit in a UnitScalar or UnitArray, but first we&#8217;ll
+need to <em>extend the unit system</em>. (We&#8217;ll come back to this later.) Next, we&#8217;ll
+see how to use these conversion factors in <a class="reference internal" href="unit_funcs.html#unit-funcs"><em>unitted functions</em></a>.</p>
 </div>
 </div>
 

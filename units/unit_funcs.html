@@ -59,15 +59,16 @@
 <p>A function which handles UnitArrays and UnitScalars is a unitted
 function. Unitted functions are created with the
 <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><tt class="xref py py-func docutils literal"><span class="pre">has_units()</span></tt></a> decorator. The units can be
-specified by passing parameters in the decorator or by constructing a special
-docstring.:</p>
+specified by passing arguments to the decorator or by constructing a special
+docstring.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">has_units</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">feet</span><span class="p">,</span> <span class="n">meter</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@has_units</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s">&quot;a:an array:units=ft;b:array:units=ft&quot;</span><span class="p">,</span>
 <span class="gp">... </span>           <span class="n">outputs</span><span class="o">=</span><span class="s">&quot;result:an array:units=m&quot;</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="s">&quot; Add two arrays in ft and convert them to m. &quot;</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3048</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">feet</span> <span class="o">/</span> <span class="n">meter</span>
 </pre></div>
 </div>
 <p>or, equivalently:</p>
@@ -88,9 +89,36 @@ docstring.:</p>
 <span class="gp">... </span><span class="sd">        c : array : units=m</span>
 <span class="gp">... </span><span class="sd">            c = a + b</span>
 <span class="gp">... </span><span class="sd">    &#39;&#39;&#39;</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3048</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">feet</span> <span class="o">/</span> <span class="n">meter</span>
 </pre></div>
 </div>
+<p>In the examples above, we told add() to expect two values, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> and
+convert them to feet for use in the function. Then we specified that the output
+would be in meters. Inside the function, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> are not unitted, and
+the function is responsible for the conversion. (Remember our <a class="reference internal" href="intro.html#conversion-factor-caveat"><em>caveat</em></a> regarding conversion factors.)</p>
+<p>Unitted functions can accept either regular python objects (of the appropriate
+type) or the equivalent unitted objects. The return type depends on what it was
+passed.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">0.9144000000000001</span>
+</pre></div>
+</div>
+<p>In this case, add() accepted two integer arguments in feet, added them and
+returned an integer value in meters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">UnitScalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;foot&quot;</span><span class="p">),</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;foot&quot;</span><span class="p">))</span>
+<span class="go">UnitScalar(0.9144000000000001, units=&#39;1.0*m&#39;)</span>
+</pre></div>
+</div>
+<p>In this case, add() accepted two UnitScalar arguments in feet and returned a
+UnitScalar in pure meters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">UnitScalar</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;meter&quot;</span><span class="p">),</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;cm&quot;</span><span class="p">))</span>
+<span class="go">UnitScalar(1.0, units=&#39;1.0*m&#39;)</span>
+</pre></div>
+</div>
+<p>Finally, in this case, a conversion to feet was made for the calculation inside
+the function, and the value was converted back to meters when returned.</p>
+<p>If no units are specified in the outputs, then a regular scalar data type will
+be returned.</p>
 </div>
 
 
