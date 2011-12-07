@@ -28,8 +28,8 @@
     <link rel="shortcut icon" href="../_static/et.ico"/>
     <link rel="top" title="scimath 4.0.1 documentation" href="../index.html" />
     <link rel="up" title="SciMath Units Documentation" href="index.html" />
-    <link rel="next" title="SciMath Interpolate Documentation" href="../interpolate/index.html" />
-    <link rel="prev" title="SciMath Units Documentation" href="index.html" /> 
+    <link rel="next" title="Unitted Functions" href="unit_funcs.html" />
+    <link rel="prev" title="Scimath Units User Manual Copyright Notice" href="about.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,13 +39,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../interpolate/index.html" title="SciMath Interpolate Documentation"
+          <a href="unit_funcs.html" title="Unitted Functions"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="SciMath Units Documentation"
+          <a href="about.html" title="Scimath Units User Manual Copyright Notice"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">SciMath Units Documentation</a> &raquo;</li> 
@@ -59,169 +56,80 @@
             
   <div class="section" id="introduction-to-scimath-units">
 <h1>Introduction to SciMath Units<a class="headerlink" href="#introduction-to-scimath-units" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-scimath.units">
-<span id="units-module"></span><h2>Units Module<a class="headerlink" href="#module-scimath.units" title="Permalink to this headline">¶</a></h2>
-<p>Unit definitions and management utilities.
-Part of the SciMath project of the Enthought Tool Suite.</p>
-<p>The primary data types of scimath.units are the
-<a class="reference internal" href="#scimath.units.unit_scalar.UnitScalar" title="scimath.units.unit_scalar.UnitScalar"><tt class="xref py py-class docutils literal"><span class="pre">UnitScalar</span></tt></a> and the
-<a class="reference internal" href="#scimath.units.unit_scalar.UnitArray" title="scimath.units.unit_scalar.UnitArray"><tt class="xref py py-class docutils literal"><span class="pre">UnitArray</span></tt></a>.</p>
-</div>
-<div class="section" id="unitscalar">
-<h2>UnitScalar<a class="headerlink" href="#unitscalar" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="scimath.units.unit_scalar.UnitScalar">
-<tt class="descclassname">scimath.units.unit_scalar.</tt><tt class="descname">UnitScalar</tt><big>(</big><em>cls</em>, <em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/unit_scalar.html#UnitScalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.unit_scalar.UnitScalar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scalars with units.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">cm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">units</span>
-<span class="go">(UnitScalar(5, units=&#39;0.01*m&#39;), 0.01*m)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
-<span class="go">(UnitScalar(25, units=&#39;0.0001*m**2&#39;), 0.0001*m**2)</span>
+<p>Scimath units is a system for adding units to <a class="reference external" href="http://www.numpy.org">Numpy</a> <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html">ndarray</a> objects. The
+primary data types of scimath.units are the
+<a class="reference internal" href="user_ref.html#scimath.units.unit_scalar.UnitScalar" title="scimath.units.unit_scalar.UnitScalar"><tt class="xref py py-class docutils literal"><span class="pre">UnitScalar</span></tt></a> and the
+<a class="reference internal" href="user_ref.html#scimath.units.unit_scalar.UnitArray" title="scimath.units.unit_scalar.UnitArray"><tt class="xref py py-class docutils literal"><span class="pre">UnitArray</span></tt></a>. UnitScalars and UnitArrays
+are handled with unitted functions constructed using the
+<a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><tt class="xref py py-func docutils literal"><span class="pre">has_units()</span></tt></a> decorator.</p>
+<p>A large number of units used in science and engineering are available for use,
+and scimath.units makes converting among them easy.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>As a basic example, let&#8217;s create two UnitScalars and multiply them.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">UnitScalar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;meter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;feet&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span>
+<span class="go">UnitScalar(0.8048, units=&#39;1.0*m&#39;)</span>
 </pre></div>
 </div>
-</dd></dl>
-
-</div>
-<div class="section" id="hasunits">
-<h2>HasUnits<a class="headerlink" href="#hasunits" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="scimath.units.has_units.has_units">
-<tt class="descclassname">scimath.units.has_units.</tt><tt class="descname">has_units</tt><big>(</big><em>func=None</em>, <em>summary=''</em>, <em>doc=''</em>, <em>inputs=None</em>, <em>outputs=None</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/has_units.html#has_units"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.has_units.has_units" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function decorator: Wrap a standard python function for unit conversion.</p>
-<dl class="docutils">
-<dt>func <span class="classifier-delimiter">:</span> <span class="classifier">function, optional</span></dt>
-<dd>The function to wrap. Usually, has_units will be used as a bare
-&#8220;&#64;has_units&#8221; decorator, so this argument will usually be supplied by
-the interpreter as it interprets that syntax.</dd>
-<dt>summary <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
-<dd>A short string describing the function.</dd>
-<dt>doc <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
-<dd>A longer string describing the function in detail.</dd>
-<dt>inputs <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
-<dd><p class="first">A string containing information about unit conversion, etc.  for
-arguments in the function.  The argument names in this string must
-match those in the python signature.  The order the arguments are
-specified in does not matter as the order of arguments from the
-wrapped function is always used.  The format of the string is a as
-follows:</p>
-<div class="last highlight-python"><pre>   "a: notes on a:units=m/s;b: notes on b:units=m/s"
-
-That is, information about each argument is separated by
-a semi-colon (';').  Each argument has three fields that are
-separated by colons (':').  The first is the name of the variable.
-The 2nd is a string.  The 3rd specified the units.  Other fields
-may be added later.</pre>
-</div>
-</dd>
-<dt>outputs <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
-<dd>A string with the same format as the &#8216;inputs&#8217; string that specifies
-the output variables.  This <em>is</em> an ordered list as there is no way
-to determine the functions outputs from the function object.</dd>
-</dl>
-<p>This decorator adds a unit conversion step to input and output
-variables of a python function.  The resulting function can be used as
-a standard python function and has an identical calling signature to
-the wrapped function.  If passed standard scalars and arrays as input,
-it will behave identically.  If &#8220;unitted&#8221; objects, such as UnitArray,
-are handed in, however, they will be unit converted from their given
-units to the units expected by the function.  In this case, output
-variables are converted from arrays or scalars to UnitArray or
-UnitScalar so that the results carry the units with them.  Note that
-these objects are derived from standard numpy.ndarray and float objects,
-so they will behave exactly like them.  The only caveat to this is that
-you should use isinstance(value, ndarray) instead of &#8220;type(array) is
-ndarray&#8221; when testing for their type, but you should be doing that
-anyways.</p>
-<p>Regardless of whether the inputs have units or not, the actual values
-passed to the function will be stripped of units. The wrapped function
-will only deal with regular numpy arrays and scalars.</p>
-<p>If units are not assigned to a variable, absolutely no conversion is
-applied to that variable.</p>
-<p>Example definition of a unitted addition function:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">has_units</span><span class="p">,</span> <span class="n">UnitArray</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@has_units</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="sd">&#39;&#39;&#39; Add two arrays in ft and convert them to m.</span>
-<span class="gp">...</span><span class="sd"></span>
-<span class="gp">... </span><span class="sd">        Parameters</span>
-<span class="gp">... </span><span class="sd">        ----------</span>
-<span class="gp">... </span><span class="sd">        a : array : units=ft</span>
-<span class="gp">... </span><span class="sd">            An array</span>
-<span class="gp">... </span><span class="sd">        b : array : units=ft</span>
-<span class="gp">... </span><span class="sd">            Another array</span>
-<span class="gp">...</span><span class="sd"></span>
-<span class="gp">... </span><span class="sd">        Returns</span>
-<span class="gp">... </span><span class="sd">        -------</span>
-<span class="gp">... </span><span class="sd">        c : array : units=m</span>
-<span class="gp">... </span><span class="sd">            c = a + b</span>
-<span class="gp">... </span><span class="sd">    &#39;&#39;&#39;</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3048</span>
+<p>Note that the result <tt class="docutils literal"><span class="pre">c</span></tt> is a UnitScalar whose default units are <em>meters</em>.
+UnitScalar values are stored internally in the SI system, although if the value
+is assigned in a non-SI unit, part of the value may appear in the units.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;inch&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">UnitScalar(2, units=&#39;0.025400000000000002*m&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
-<span class="go">array([ 0.6096,  1.2192,  1.8288])</span>
+<p>A UnitScalar takes on the default units that are first assigned to it. From the
+example above,:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span>
+<span class="go">UnitScalar(2.6404199475065617, units=&#39;0.3048*m&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">m</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitArray</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> <span class="c"># (Converts m -&gt; ft -&gt; m)</span>
-<span class="go">UnitArray([ 2.,  4.,  6.], units=&#39;1.0*m&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
-<span class="go">1.0*m</span>
+<p>This does not fundamentally change the value of the variable, but it can lead
+to rounding errors:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">==</span> <span class="n">e</span>
+<span class="go">UnitScalar(False, units=&#39;None&#39;)</span>
 </pre></div>
 </div>
-<p>Alternatively, parameter information can be specified in the decorator:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">has_units</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@has_units</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s">&quot;a:an array:units=ft;b:array:units=ft&quot;</span><span class="p">,</span>
-<span class="gp">... </span>           <span class="n">outputs</span><span class="o">=</span><span class="s">&quot;result:an array:units=m&quot;</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="s">&quot; Add two arrays in ft and convert them to m. &quot;</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3048</span>
+<p>since:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">-</span> <span class="n">e</span>
+<span class="go">UnitScalar(-1.1102230246251565e-16, units=&#39;1.0*m&#39;)</span>
 </pre></div>
 </div>
-<p>The returned function has several attributes attached to it:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>summary: A short description of the function.  This is taken from the</dt>
-<dd>&#8216;summary&#8217; argument to the decorator.</dd>
-<dt>doc:     A longer description of the function.  This is taken from the</dt>
-<dd>&#8216;doc&#8217; argument to the decorator.</dd>
-<dt>inputs: A list of Variable objects, for each argument to the function</dt>
-<dd><em>in the order they are defined in the python function
-signature</em>.  If you did not supply any information about the
-argument in &#8220;inputs&#8221;, then a default Variable object is
-created.</dd>
-<dt>outputs: A list of Variable objects, for each output of the function</dt>
-<dd>in the order they you specify them in the &#8220;outputs&#8221; variable
-in the argument list.</dd>
-</dl>
-</div></blockquote>
-</dd></dl>
-
+<p>which is close to zero but not quite equal.</p>
+<p>UnitArrays are the array version of UnitScalars.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitArray</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;cm&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">UnitArray([ 0.,  1.,  2.,  3.,  4.,  5.], units=&#39;0.01*m&#39;)</span>
+</pre></div>
 </div>
-<div class="section" id="unitarray">
-<h2>UnitArray<a class="headerlink" href="#unitarray" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="scimath.units.unit_scalar.UnitArray">
-<tt class="descclassname">scimath.units.unit_scalar.</tt><tt class="descname">UnitArray</tt><big>(</big><em>cls</em>, <em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#scimath.units.unit_scalar.UnitArray" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define a UnitArray that subclasses from a Numpy array</p>
-<p>This class simply adds a &#8220;units&#8221; object to a numpy array.  It deals
-with unit adjustments involving basic arithmetic and comparison
-operations between arrays with units.  If incompatible units are
-used, an error will be raised.</p>
-<p>Note that the &#8220;units&#8221; may hold some amount of the magnitude, which can
-be particularly significant for dimensionless quantities.</p>
-<p>You should always convert a UnitArray to the required units before
-extracting the numerical value.</p>
-<p>This code is shamelessly copied from the numpy matrix class.  It is
-of course modified to suite our purposes.</p>
-</dd></dl>
-
+<p>UnitArrays can be multiplied by UnitScalars or other UnitArrays, as in NumPy.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="go">UnitArray([0.,  1.,  2.,  3.,  4.,  5.], units=&#39;0.0030480000000000004*m**2&#39;)</span>
+</pre></div>
+</div>
+<p>Note that part of the value of the is contained in the unit string. To properly
+deal with complicated units, we need to use <a class="reference internal" href="unit_funcs.html#unit-funcs"><em>unitted functions</em></a>.</p>
+</div>
+<div class="section" id="working-with-units-part-1">
+<span id="working-with-units-1"></span><h2>Working with units (part 1)<a class="headerlink" href="#working-with-units-part-1" title="Permalink to this headline">¶</a></h2>
+<p>We can import units and use them outside of UnitScalars and UnitArrays,
+too. This can be convenient not only as a desktop conversion tool but also for
+use in <a class="reference internal" href="unit_funcs.html#unit-funcs"><em>unitted functions</em></a>, as we&#8217;ll see in the next
+section.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">foot</span><span class="p">,</span> <span class="n">inch</span><span class="p">,</span> <span class="n">meter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span><span class="o">/</span><span class="n">inch</span>
+<span class="go">12.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span><span class="o">/</span><span class="n">meter</span>
+<span class="go">0.3048</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -237,20 +145,18 @@ of course modified to suite our purposes.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to SciMath Units</a><ul>
-<li><a class="reference internal" href="#module-scimath.units">Units Module</a></li>
-<li><a class="reference internal" href="#unitscalar">UnitScalar</a></li>
-<li><a class="reference internal" href="#hasunits">HasUnits</a></li>
-<li><a class="reference internal" href="#unitarray">UnitArray</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#working-with-units-part-1">Working with units (part 1)</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">SciMath Units Documentation</a></p>
+  <p class="topless"><a href="about.html"
+                        title="previous chapter">Scimath Units User Manual Copyright Notice</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../interpolate/index.html"
-                        title="next chapter">SciMath Interpolate Documentation</a></p>
+  <p class="topless"><a href="unit_funcs.html"
+                        title="next chapter">Unitted Functions</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/units/intro.txt"
@@ -280,13 +186,10 @@ of course modified to suite our purposes.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../interpolate/index.html" title="SciMath Interpolate Documentation"
+          <a href="unit_funcs.html" title="Unitted Functions"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="SciMath Units Documentation"
+          <a href="about.html" title="Scimath Units User Manual Copyright Notice"
              >previous</a> |</li>
         <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >SciMath Units Documentation</a> &raquo;</li> 
