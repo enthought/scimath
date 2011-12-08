@@ -13,4 +13,5 @@ Contents:
    about.rst
    intro.rst
    unit_funcs.rst
+   working_with_units.rst
    user_ref.rst

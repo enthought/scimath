@@ -70,7 +70,7 @@ deal with complicated units, we need to use :ref:`unitted functions
 
 .. _working-with-units-1:
 
-Working with units (part 1)
+Working with units (sneak peak)
 ===============================================================================
 We can import units and use them outside of UnitScalars and UnitArrays,
 too. This can be convenient not only as a desktop conversion tool but also for
@@ -91,8 +91,8 @@ the ratio 0.3048. That is, ``foot / meter`` yields the number of meters per
 foot. Be careful to think through the logic clearly when using conversion
 factors.
 
-Thus, you can define your own arbitrary units and use them for calculating
-conversion factors::
+You can define your own arbitrary units and use them for calculating conversion
+factors::
 
    >>> from scimath.units.length import inch
    >>> from scimath.units.force import lbf
