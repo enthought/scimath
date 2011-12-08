@@ -4,9 +4,11 @@ from scimath.units.length import foot, inch, m, meter, kilometers
 from scimath.units.mass import grams, lb
 from scimath.units.force import lbf
 from scimath.units.time import microsecond
-from scimath.units.volume import cubic_centimeter, cubic_meter, us_fluid_gallon, \
-                         liter, cubic_foot
-from scimath.units.pressure import GPa, MPa, bar
+from scimath.units.volume import cubic_centimeter, cubic_meter, \
+     us_fluid_gallon, liter, cubic_foot
+from scimath.units.pressure import apsi, bar, bars, gpa, Gpa, GPA, GPa, kbar, \
+     kbars, kilobar, mpa, Mpa, MPA, MPa, pounds_per_square_inch, psi, psig
+     
 
 #############################################################################
 # impedance_units          g*km/cc/s, g*f/cc/s
@@ -20,32 +22,12 @@ g_ft_per_cc_s.label = 'g*ft/(cc*s)'
 # modulus_units            GPa, MPa
 # pressure_units           MPa, psi, kbar, bar
 #############################################################################
-GPa.label = 'GPa'
-MPa.label = 'MPa'
-bar.label = 'bar'
-pounds_per_square_inch = lbf/inch**2
-pounds_per_square_inch.label = 'psi'
-kilobar = kilo*bar
-kilobar.label = 'kbar'
 
 #shorthand
-gpa = GPa
-Gpa = GPa
-GPA = GPa
-mpa = MPa
-Mpa = MPa
-MPA = MPa
 
 lbs = lbf
 lbs.label = 'lbs'
-psi = pounds_per_square_inch
-apsi = psi
-psig = psi
 N = newton
-
-bars = bar
-kbar = kilobar
-kbars = kbar
 
 
 #############################################################################
