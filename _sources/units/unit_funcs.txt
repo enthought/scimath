@@ -9,6 +9,9 @@ function. Unitted functions are created with the
 specified by passing arguments to the decorator or by constructing a special
 docstring.
 
+Decorator arguments
+-------------------------------------------------------------------------------
+
    >>> from numpy import array
    >>> from scimath.units.api import has_units
    >>> from scimath.units.length import feet, meter
@@ -18,7 +21,13 @@ docstring.
    ...     " Add two arrays in ft and convert them to m. "
    ...     return (a + b) * feet / meter
 
-or, equivalently:
+To use has_units with decorator arguments, pass string arguments "inputs" and
+(optionally) "outputs". See the :py:func:`~scimath.units.has_units.has_units`
+docstring or visit the :ref:`User Reference page <user-ref>` for details on the
+syntax.
+
+Formatted docstring
+-------------------------------------------------------------------------------
 
    >>> from scimath.units.api import has_units, UnitArray
    >>> @has_units
@@ -38,6 +47,18 @@ or, equivalently:
    ...             c = a + b
    ...     '''
    ...     return (a + b) * feet / meter
+
+Using the has_units decorator with a docstring has the benefit of
+using a ReST-compatible format, so the unitting specification doubles as a
+documentation entry. See the :py:func:`~scimath.units.has_units.has_units`
+docstring or visit the :ref:`User Reference page <user-ref>` for details on the
+syntax. The example above produces the following documentation entry when built
+with Sphinx:
+
+.. autofunction:: scimath.units.example.add
+
+Unitted function output
+-------------------------------------------------------------------------------
 
 In the examples above, we told add() to expect two values, ``a`` and ``b`` and
 convert them to feet for use in the function. Then we specified that the output
@@ -67,5 +88,5 @@ UnitScalar in pure meters.
 Finally, in this case, a conversion to feet was made for the calculation inside
 the function, and the value was converted back to meters when returned.
 
-If no units are specified in the outputs, then a regular scalar data type will
-be returned.
+If no units are specified in the outputs or if no output string is given, then
+a regular scalar data type will be returned.

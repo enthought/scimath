@@ -28,7 +28,7 @@
     <link rel="shortcut icon" href="../_static/et.ico"/>
     <link rel="top" title="scimath 4.0.1 documentation" href="../index.html" />
     <link rel="up" title="SciMath Units Documentation" href="index.html" />
-    <link rel="next" title="Scimath Units User Reference" href="user_ref.html" />
+    <link rel="next" title="Working With Units" href="working_with_units.html" />
     <link rel="prev" title="Introduction to SciMath Units" href="intro.html" /> 
   </head>
   <body>
@@ -39,7 +39,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="user_ref.html" title="Scimath Units User Reference"
+          <a href="working_with_units.html" title="Working With Units"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="intro.html" title="Introduction to SciMath Units"
@@ -61,6 +61,8 @@ function. Unitted functions are created with the
 <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><tt class="xref py py-func docutils literal"><span class="pre">has_units()</span></tt></a> decorator. The units can be
 specified by passing arguments to the decorator or by constructing a special
 docstring.</p>
+<div class="section" id="decorator-arguments">
+<h2>Decorator arguments<a class="headerlink" href="#decorator-arguments" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">has_units</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">feet</span><span class="p">,</span> <span class="n">meter</span>
@@ -71,7 +73,13 @@ docstring.</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">feet</span> <span class="o">/</span> <span class="n">meter</span>
 </pre></div>
 </div>
-<p>or, equivalently:</p>
+<p>To use has_units with decorator arguments, pass string arguments &#8220;inputs&#8221; and
+(optionally) &#8220;outputs&#8221;. See the <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><tt class="xref py py-func docutils literal"><span class="pre">has_units()</span></tt></a>
+docstring or visit the <a class="reference internal" href="user_ref.html#user-ref"><em>User Reference page</em></a> for details on the
+syntax.</p>
+</div>
+<div class="section" id="formatted-docstring">
+<h2>Formatted docstring<a class="headerlink" href="#formatted-docstring" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">has_units</span><span class="p">,</span> <span class="n">UnitArray</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@has_units</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
@@ -92,6 +100,31 @@ docstring.</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">feet</span> <span class="o">/</span> <span class="n">meter</span>
 </pre></div>
 </div>
+<p>Using the has_units decorator with a docstring has the benefit of
+using a ReST-compatible format, so the unitting specification doubles as a
+documentation entry. See the <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><tt class="xref py py-func docutils literal"><span class="pre">has_units()</span></tt></a>
+docstring or visit the <a class="reference internal" href="user_ref.html#user-ref"><em>User Reference page</em></a> for details on the
+syntax. The example above produces the following documentation entry when built
+with Sphinx:</p>
+<dl class="function">
+<dt id="scimath.units.example.add">
+<tt class="descclassname">scimath.units.example.</tt><tt class="descname">add</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/example.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.example.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add two arrays in ft and convert them to m.</p>
+<dl class="docutils">
+<dt>a <span class="classifier-delimiter">:</span> <span class="classifier">array</span> <span class="classifier-delimiter">:</span> <span class="classifier">units=ft</span></dt>
+<dd>An array</dd>
+<dt>b <span class="classifier-delimiter">:</span> <span class="classifier">array</span> <span class="classifier-delimiter">:</span> <span class="classifier">units=ft</span></dt>
+<dd>Another array</dd>
+</dl>
+<dl class="docutils">
+<dt>c <span class="classifier-delimiter">:</span> <span class="classifier">array</span> <span class="classifier-delimiter">:</span> <span class="classifier">units=m</span></dt>
+<dd>c = a + b</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="unitted-function-output">
+<h2>Unitted function output<a class="headerlink" href="#unitted-function-output" title="Permalink to this headline">¶</a></h2>
 <p>In the examples above, we told add() to expect two values, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> and
 convert them to feet for use in the function. Then we specified that the output
 would be in meters. Inside the function, <tt class="docutils literal"><span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">b</span></tt> are not unitted, and
@@ -117,8 +150,9 @@ UnitScalar in pure meters.</p>
 </div>
 <p>Finally, in this case, a conversion to feet was made for the calculation inside
 the function, and the value was converted back to meters when returned.</p>
-<p>If no units are specified in the outputs, then a regular scalar data type will
-be returned.</p>
+<p>If no units are specified in the outputs or if no output string is given, then
+a regular scalar data type will be returned.</p>
+</div>
 </div>
 
 
@@ -130,12 +164,22 @@ be returned.</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/e-logo-rev.png" alt="Logo"/>
             </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Unitted Functions</a><ul>
+<li><a class="reference internal" href="#decorator-arguments">Decorator arguments</a></li>
+<li><a class="reference internal" href="#formatted-docstring">Formatted docstring</a></li>
+<li><a class="reference internal" href="#unitted-function-output">Unitted function output</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="intro.html"
                         title="previous chapter">Introduction to SciMath Units</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="user_ref.html"
-                        title="next chapter">Scimath Units User Reference</a></p>
+  <p class="topless"><a href="working_with_units.html"
+                        title="next chapter">Working With Units</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/units/unit_funcs.txt"
@@ -165,7 +209,7 @@ be returned.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="user_ref.html" title="Scimath Units User Reference"
+          <a href="working_with_units.html" title="Working With Units"
              >next</a> |</li>
         <li class="right" >
           <a href="intro.html" title="Introduction to SciMath Units"
@@ -176,7 +220,7 @@ be returned.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2011, Enthought.
-      Last updated on Dec 07, 2011.
+      Last updated on Dec 09, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.
     </div>
   </body>
