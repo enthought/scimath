@@ -51,3 +51,4 @@ docs/build/html/units/intro.html
 docs/build/html/units/unit_funcs.html
 docs/build/html/units/user_ref.html
 .DS_Store
+*.so

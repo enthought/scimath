@@ -12,6 +12,7 @@ Contents:
 
    about.rst
    intro.rst
+   unit_numpy.rst
    unit_funcs.rst
-   working_with_units.rst
+   available_units.rst
    user_ref.rst

@@ -29,7 +29,7 @@
     <link rel="top" title="scimath 4.0.1 documentation" href="../index.html" />
     <link rel="up" title="SciMath Units Documentation" href="index.html" />
     <link rel="next" title="SciMath Interpolate Documentation" href="../interpolate/index.html" />
-    <link rel="prev" title="Working With Units" href="working_with_units.html" /> 
+    <link rel="prev" title="Types of Units Available" href="available_units.html" /> 
   </head>
   <body>
     <div class="related">
@@ -42,7 +42,7 @@
           <a href="../interpolate/index.html" title="SciMath Interpolate Documentation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="working_with_units.html" title="Working With Units"
+          <a href="available_units.html" title="Types of Units Available"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">SciMath Units Documentation</a> &raquo;</li> 
@@ -56,26 +56,74 @@
             
   <div class="section" id="scimath-units-user-reference">
 <span id="user-ref"></span><h1>Scimath Units User Reference<a class="headerlink" href="#scimath-units-user-reference" title="Permalink to this headline">¶</a></h1>
-<p>This is the user reference.</p>
-<div class="section" id="unitscalar">
-<h2>UnitScalar<a class="headerlink" href="#unitscalar" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="scimath.units.unit_scalar.UnitScalar">
-<tt class="descclassname">scimath.units.unit_scalar.</tt><tt class="descname">UnitScalar</tt><big>(</big><em>cls</em>, <em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/unit_scalar.html#UnitScalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.unit_scalar.UnitScalar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scalars with units.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">cm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">units</span>
-<span class="go">(UnitScalar(5, units=&#39;0.01*m&#39;), 0.01*m)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
-<span class="go">(UnitScalar(25, units=&#39;0.0001*m**2&#39;), 0.0001*m**2)</span>
+<div class="section" id="internal-representation">
+<span id="id1"></span><h2>Internal Representation<a class="headerlink" href="#internal-representation" title="Permalink to this headline">¶</a></h2>
+<p>Internally, a scimath unit is a unit object:</p>
+<dl class="class">
+<dt id="unit">
+<em class="property">class </em><tt class="descname">unit</tt><big>(</big><em>value</em>, <em>derivation</em><big>)</big><a class="headerlink" href="#unit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="unit.value">
+<tt class="descname">value</tt><a class="headerlink" href="#unit.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>a scalar quantity which holds the magnitude of the unit, relative to the
+derivation in SI units.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="unit.derivation">
+<tt class="descname">derivation</tt><a class="headerlink" href="#unit.derivation" title="Permalink to this definition">¶</a></dt>
+<dd><p>a 7-tuple holding the power of each fundamental quantity in the unit:
+(length, mass, time, electrical current, temperature, amount of
+substance, luminous intensity). The labels of the fundamental quantities
+are given in the attribute _labels=(&#8216;m&#8217;, &#8216;kg&#8217;, &#8216;s&#8217;, &#8216;A&#8217;, &#8216;K&#8217;, &#8216;mol&#8217;,
+&#8216;cd&#8217;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="unit.label">
+<tt class="descname">label</tt><a class="headerlink" href="#unit.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>the display name of the unit.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>For example, the predefined unit Newton has the following attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="kn">import</span> <span class="n">newton</span><span class="p">,</span> <span class="n">lbf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newton</span><span class="o">.</span><span class="n">value</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newton</span><span class="o">.</span><span class="n">derivation</span>
+<span class="go">(1, 1, -2, 0, 0, 0, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newton</span><span class="o">.</span><span class="n">label</span>
+<span class="go">&#39;newton&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lbf</span><span class="o">.</span><span class="n">value</span>
+<span class="go">4.44822</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lbf</span><span class="o">.</span><span class="n">derivation</span>
+<span class="go">(1, 1, -2, 0, 0, 0, 0)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="limited-api-reference">
+<h2>Limited API reference<a class="headerlink" href="#limited-api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="convert">
+<h3>Convert<a class="headerlink" href="#convert" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="scimath.units.convert.convert">
+<tt class="descclassname">scimath.units.convert.</tt><tt class="descname">convert</tt><big>(</big><em>value</em>, <em>from_unit</em>, <em>to_unit</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/convert.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.convert.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enthought has extended the original units implementation to handle
+temperature conversions.  Temperature units are a special case because they
+can have a different origin.</p>
+<p>This causes a fundamental ambiguity. What behavior do we expect when we
+convert temperature?</p>
+<p>Option #1 When we convert 0 degrees centigrade we get 32 fahrenheit.</p>
+<p>Option #2 When we convert a temperature difference of 0 degrees centigrade
+we get a temperature difference of 0 degrees fahrenheit.</p>
+<p>By convention we have made the units system behave like in Option #1.</p>
+<p>Therefore, don&#8217;t pass relative temperatures through the units system.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="hasunits">
-<h2>HasUnits<a class="headerlink" href="#hasunits" title="Permalink to this headline">¶</a></h2>
+<h3>HasUnits<a class="headerlink" href="#hasunits" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="scimath.units.has_units.has_units">
 <tt class="descclassname">scimath.units.has_units.</tt><tt class="descname">has_units</tt><big>(</big><em>func=None</em>, <em>summary=''</em>, <em>doc=''</em>, <em>inputs=None</em>, <em>outputs=None</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/has_units.html#has_units"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.has_units.has_units" title="Permalink to this definition">¶</a></dt>
@@ -194,8 +242,25 @@ in the argument list.</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="unitscalar">
+<h3>UnitScalar<a class="headerlink" href="#unitscalar" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="scimath.units.unit_scalar.UnitScalar">
+<tt class="descclassname">scimath.units.unit_scalar.</tt><tt class="descname">UnitScalar</tt><big>(</big><em>cls</em>, <em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/unit_scalar.html#UnitScalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.unit_scalar.UnitScalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalars with units.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">units</span>
+<span class="go">(UnitScalar(5, units=&#39;0.01*m&#39;), 0.01*m)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
+<span class="go">(UnitScalar(25, units=&#39;0.0001*m**2&#39;), 0.0001*m**2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
 <div class="section" id="unitarray">
-<h2>UnitArray<a class="headerlink" href="#unitarray" title="Permalink to this headline">¶</a></h2>
+<h3>UnitArray<a class="headerlink" href="#unitarray" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="scimath.units.unit_scalar.UnitArray">
 <tt class="descclassname">scimath.units.unit_scalar.</tt><tt class="descname">UnitArray</tt><big>(</big><em>cls</em>, <em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#scimath.units.unit_scalar.UnitArray" title="Permalink to this definition">¶</a></dt>
@@ -214,6 +279,7 @@ of course modified to suite our purposes.</p>
 
 </div>
 </div>
+</div>
 
 
           </div>
@@ -227,16 +293,21 @@ of course modified to suite our purposes.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Scimath Units User Reference</a><ul>
-<li><a class="reference internal" href="#unitscalar">UnitScalar</a></li>
+<li><a class="reference internal" href="#internal-representation">Internal Representation</a></li>
+<li><a class="reference internal" href="#limited-api-reference">Limited API reference</a><ul>
+<li><a class="reference internal" href="#convert">Convert</a></li>
 <li><a class="reference internal" href="#hasunits">HasUnits</a></li>
+<li><a class="reference internal" href="#unitscalar">UnitScalar</a></li>
 <li><a class="reference internal" href="#unitarray">UnitArray</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="working_with_units.html"
-                        title="previous chapter">Working With Units</a></p>
+  <p class="topless"><a href="available_units.html"
+                        title="previous chapter">Types of Units Available</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../interpolate/index.html"
                         title="next chapter">SciMath Interpolate Documentation</a></p>
@@ -272,7 +343,7 @@ of course modified to suite our purposes.</p>
           <a href="../interpolate/index.html" title="SciMath Interpolate Documentation"
              >next</a> |</li>
         <li class="right" >
-          <a href="working_with_units.html" title="Working With Units"
+          <a href="available_units.html" title="Types of Units Available"
              >previous</a> |</li>
         <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >SciMath Units Documentation</a> &raquo;</li> 

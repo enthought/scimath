@@ -12,7 +12,7 @@ calculations.
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    units/index
    interpolate/index
