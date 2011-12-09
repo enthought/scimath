@@ -63,12 +63,11 @@ class Parser(Singleton):
         import angle
         import area
         import density
-        import electricity
+        import electromagnetism
         import energy
         import force
         import frequency
         import length
-        import magnetism
         import mass
         import power
         import pressure
@@ -79,8 +78,8 @@ class Parser(Singleton):
         import volume
         import geo_units
 
-        modules = [ SI, acceleration, angle, area, density, electricity,
-            energy, force, frequency, length, magnetism, mass, power, pressure,
+        modules = [ SI, acceleration, angle, area, density, electromagnetism,
+            energy, force, frequency, length, mass, power, pressure,
             speed, substance, temperature, time, volume, geo_units ]
 
         return modules

@@ -17,5 +17,5 @@ from SI import newton
 N = newton
 
 lbf = 4.44822 * newton
-lbs = lbf
 lbf.label = 'lbf'
+lbs = lbf

@@ -79,15 +79,30 @@ g_per_c3, g_per_cc, g_per_cm3, gcc, gm_per_c3, gm_per_cc, gm_per_cm3,
 grams_per_cc, grams_per_cubic_centimeter, kg_per_m3, kilograms_per_cubic_meter,
 lb_per_gal, lb_per_gallon
 
+scimath.units.dimensionless
+---------------------------
+
+api, dimensionless, dim, fractional, fraction, gapi[#gamma_ray]_, one, parts_per_million, parts_per_one,
+pct, percent, percentage, ppm
+
+scimath.units.electromagnetism
+------------------------------
+
+amp, ampere, amps, amperes, coulomb, farad, henry, henrys, mho, micro_farad, mA, milli_ampere,
+milli_amp, millivolts, mmho, mSiemen, mS, mv, ohms, ohmm, ohm_m, ohm_meter,
+ohms_per_m, ohms_per_meter, pf, pico_farad, siemen, siemens_per_meter,
+siemens_per_m, tesla, teslas, uf, volts, v, weber, webers
+
 scimath.units.energy
 --------------------
 
-Btu, Calorie, GeV, J, KeV, MJ, MeV, cal, calorie, eV, electron_volt, erg, foot_pound, horse_power_hour, joule, kJ, kcal, kilowatt_hour
+Btu, Calorie, GeV, J, KeV, MJ, MeV, cal, calorie, eV, electron_volt, erg,
+foot_pound, horse_power_hour, joule, kJ, kcal, kilowatt_hour
 
 scimath.units.force
 -------------------
 
-lbf, newton
+lbf, lbs, N, newton
 
 scimath.units.frequency
 -----------------------
@@ -97,7 +112,11 @@ Hz, RPM, hertz, hz, khz, kilohertz, rpm
 scimath.units.geo_units
 -----------------------
 
-GPA, GPa, Gpa, MPA, MPa, MPa_per_100f, MPa_per_100ft, MPa_per_f, MPa_per_ft, MPa_per_m, Mpa, api, apsi, becquerel, candela, coulomb, cubic_foot, cubic_meter, farad, foot, frac, fraction, fractional, g_ft_per_cc_s, g_km_per_cc_s, gapi, gpa, grams, gray, henry, hertz, inch, joule, katal, kilogram, kilometers, lb, lb_per_gal, lb_per_gallon, lbf, lbs, liter, lumen, lux, m, mS, mSiemen, meter, mho, microsecond, millivolts, mmho, mole, mpa, mv, nano, newton, ohm, ohm_m, ohm_meter, ohmm, ohms, ohms_per_m, ohms_per_meter, parts_per_million, parts_per_one, pascal, pct, percent, percentage, pico, ppg, ppm, psi_per_f, psi_per_ft, radian, ratio, second, siemen, siemens, siemens_per_m, siemens_per_meter, sievert, steradian, tesla, us_fluid_gallon, us_per_ft, v, volt, volts, watt, weber
+GPa, MPa, MPa_per_100f, MPa_per_100ft, MPa_per_f, MPa_per_ft, MPa_per_m,
+api [#gamma_ray]_, apsi, becquerel, frac, fraction, fractional, g_ft_per_cc_s,
+g_km_per_cc_s, gapi [#gamma_ray]_, gray, lb_per_gal, lb_per_gallon,
+parts_per_million, parts_per_one, pct, percent, percentage, ppg, ppm,
+psi_per_f, psi_per_ft, us_fluid_gallon, us_per_ft
 
 scimath.units.length
 --------------------
@@ -164,3 +183,6 @@ barrel, bbl, c3, cc, centimeter, cm3, cubic_centimeter, cubic_foot, cubic_inch,
 cubic_meter, cuft, f3, ft3, gallon, gallons, liter, liters, m3,
 us_fluid_gallon, us_fluid_ounce, us_fluid_quart, us_pint
 
+.. rubric:: Footnotes
+
+.. [#gamma_ray] `American Petroleum Institute units for gamma radiation <http://www.glossary.oilfield.slb.com/Display.cfm?Term=API%20unit>`_

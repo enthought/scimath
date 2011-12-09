@@ -1,6 +1,7 @@
 from copy import copy
-from scimath.units.SI import ampere, coulomb, farad, henry, joule, ohm, meter, mho, \
-     micro, milli, pico, siemens, volt, watt, weber
+
+from scimath.units.SI import ampere, coulomb, farad, henry, joule, ohm, \
+     meter, micro, milli, pico, siemens, tesla, volt, watt, weber
 
 ###############################################################################
 # electric current

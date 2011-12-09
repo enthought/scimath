@@ -13,12 +13,11 @@ UnitScalar
 .. autofunction:: scimath.units.unit_scalar.UnitScalar
 
 
-HasUnits
-===============================================================================
-.. autofunction:: scimath.units.has_units.has_units
-
-
 UnitArray
 ===============================================================================
 
 .. autofunction:: scimath.units.unit_scalar.UnitArray
+
+HasUnits
+===============================================================================
+.. autofunction:: scimath.units.has_units.has_units
