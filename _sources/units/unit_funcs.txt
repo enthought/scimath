@@ -66,7 +66,7 @@ would be in meters. Inside the function, ``a`` and ``b`` are not unitted, and
 the function is responsible for the conversion. (Remember our :ref:`caveat
 <conversion-factor-caveat>` regarding conversion factors.)
 
-Unitted functions can accept either regular python objects (of the appropriate
+Unitted functions can accept either regular Python objects (of the appropriate
 type) or the equivalent unitted objects. The return type depends on what it was
 passed.
 
