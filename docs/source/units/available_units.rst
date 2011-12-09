@@ -1,54 +1,6 @@
-.. _working-with-units:
+.. _available-units:
 
 ===============================================================================
-Working With Units
-===============================================================================
-
-Internal Representation
-===============================================================================
-
-Internally, a scimath unit is a unit object:
-
-.. py:class:: unit(value, derivation)
-
-   .. py:attribute:: value
-
-      a scalar quantity which holds the magnitude of the unit, relative to the
-      derivation in SI units.
-
-   .. py:attribute:: derivation
-
-      a 7-tuple holding the power of each fundamental quantity in the unit:
-      (length, mass, time, electrical current, temperature, amount of
-      substance, luminous intensity). The labels of the fundamental quantities
-      are given in the attribute _labels=('m', 'kg', 's', 'A', 'K', 'mol',
-      'cd')
-
-   .. py:attribute:: label
-
-      the display name of the unit.
-
-For example, the predefined unit Newton has the following attributes::
-
- >>> from scimath.units.force import newton, lbf
- >>> newton.value
- 1.0
- >>> newton.derivation
- (1, 1, -2, 0, 0, 0, 0)
- >>> newton.label
- 'newton'
- >>> lbf.value
- 4.44822
- >>> lbf.derivation
- (1, 1, -2, 0, 0, 0, 0)
-
-Conversions can be made between units with the same derivation::
-
- >>> from scimath.units.api import convert
- >>> convert(1, lbf, newton)
- 4.44822
-
-
 Types of Units Available
 ===============================================================================
 In the following sections, the units available from each scimath.units
