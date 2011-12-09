@@ -21,8 +21,8 @@ UnitScalar example
 ------------------
 
 As a basic example using scalar values, let's create two UnitScalars and add
-them. Say we were averaging the wing spans of african swallows (a) with
-that of european swallows (e).
+them. Say we were averaging the wing spans of African swallows (a) with
+that of European swallows (e).
 
  >>> from scimath.units.api import UnitScalar
  >>> a = UnitScalar(5, units="inches")
@@ -74,7 +74,7 @@ UnitArrays can be multiplied by UnitScalars or other UnitArrays, as in NumPy.::
    >>> a * b
    UnitArray([0.,  1.,  2.,  3.,  4.,  5.], units='0.0030480000000000004*m**2')
 
-Note that part of the value of the is contained in the unit string.
+Note that part of the value is contained in the unit string.
 
 For high-performance computation with UnitArrays use :ref:`unitted functions
 <unit-funcs>`.
