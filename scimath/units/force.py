@@ -10,12 +10,12 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
+from copy import copy
 
 from SI import newton
+
+N = newton
+
 lbf = 4.44822 * newton
-
-# version
-__id__ = "$Id: force.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
-
-#
-# End of file
+lbs = lbf
+lbf.label = 'lbf'
