@@ -3,8 +3,8 @@
 Unitted Functions
 ===============================================================================
 
-A function which handles UnitArrays and UnitScalars is a unitted
-function. Unitted functions are created with the
+A function which handles UnitArrays and UnitScalars is a unitted function. 
+Unitted functions are created with the
 :py:func:`~scimath.units.has_units.has_units` decorator. The units can be
 specified by passing arguments to the decorator or by constructing a special
 docstring.
@@ -90,3 +90,8 @@ the function, and the value was converted back to meters when returned.
 
 If no units are specified in the outputs or if no output string is given, then
 a regular scalar data type will be returned.
+
+It may be useful to define new units for use in a project and have them
+available throughout an application. This is done by :ref:`extending the unit
+parser <extend-unit-parser>` to handle user-defined units, described in the
+next section.
