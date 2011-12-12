@@ -52,3 +52,10 @@ docs/build/html/units/unit_funcs.html
 docs/build/html/units/user_ref.html
 .DS_Store
 *.so
+build/temp.macosx-10.5-i386-2.7/scimath/interpolate/_interpolate.o
+scimath.egg-info/PKG-INFO
+scimath.egg-info/SOURCES.txt
+scimath.egg-info/dependency_links.txt
+scimath.egg-info/not-zip-safe
+scimath.egg-info/requires.txt
+scimath.egg-info/top_level.txt

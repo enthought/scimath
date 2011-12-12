@@ -28,7 +28,7 @@
     <link rel="shortcut icon" href="../_static/et.ico"/>
     <link rel="top" title="scimath 4.0.1 documentation" href="../index.html" />
     <link rel="up" title="SciMath Units Documentation" href="index.html" />
-    <link rel="next" title="Types of Units Available" href="available_units.html" />
+    <link rel="next" title="Extending the Unit Parser" href="extend_unit_parser.html" />
     <link rel="prev" title="Units with Numpy" href="unit_numpy.html" /> 
   </head>
   <body>
@@ -39,7 +39,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="available_units.html" title="Types of Units Available"
+          <a href="extend_unit_parser.html" title="Extending the Unit Parser"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="unit_numpy.html" title="Units with Numpy"
@@ -56,8 +56,8 @@
             
   <div class="section" id="unitted-functions">
 <span id="unit-funcs"></span><h1>Unitted Functions<a class="headerlink" href="#unitted-functions" title="Permalink to this headline">¶</a></h1>
-<p>A function which handles UnitArrays and UnitScalars is a unitted
-function. Unitted functions are created with the
+<p>A function which handles UnitArrays and UnitScalars is a unitted function.
+Unitted functions are created with the
 <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><tt class="xref py py-func docutils literal"><span class="pre">has_units()</span></tt></a> decorator. The units can be
 specified by passing arguments to the decorator or by constructing a special
 docstring.</p>
@@ -152,6 +152,10 @@ UnitScalar in pure meters.</p>
 the function, and the value was converted back to meters when returned.</p>
 <p>If no units are specified in the outputs or if no output string is given, then
 a regular scalar data type will be returned.</p>
+<p>It may be useful to define new units for use in a project and have them
+available throughout an application. This is done by <a class="reference internal" href="extend_unit_parser.html#extend-unit-parser"><em>extending the unit
+parser</em></a> to handle user-defined units, described in the
+next section.</p>
 </div>
 </div>
 
@@ -178,8 +182,8 @@ a regular scalar data type will be returned.</p>
   <p class="topless"><a href="unit_numpy.html"
                         title="previous chapter">Units with Numpy</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="available_units.html"
-                        title="next chapter">Types of Units Available</a></p>
+  <p class="topless"><a href="extend_unit_parser.html"
+                        title="next chapter">Extending the Unit Parser</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/units/unit_funcs.txt"
@@ -209,7 +213,7 @@ a regular scalar data type will be returned.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="available_units.html" title="Types of Units Available"
+          <a href="extend_unit_parser.html" title="Extending the Unit Parser"
              >next</a> |</li>
         <li class="right" >
           <a href="unit_numpy.html" title="Units with Numpy"
@@ -220,7 +224,7 @@ a regular scalar data type will be returned.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2011, Enthought.
-      Last updated on Dec 09, 2011.
+      Last updated on Dec 12, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.
     </div>
   </body>

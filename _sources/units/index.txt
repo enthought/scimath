@@ -14,5 +14,6 @@ Contents:
    intro.rst
    unit_numpy.rst
    unit_funcs.rst
+   extend_unit_parser.rst
    available_units.rst
    user_ref.rst

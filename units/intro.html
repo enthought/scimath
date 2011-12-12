@@ -60,14 +60,23 @@
 and scimath.units makes working with and converting among them easy.</p>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>We can import units from the scimath.units submodules. (See <a class="reference internal" href="available_units.html#available-units"><em>list of
-available units</em></a> for a listing by submodule.) There are
+<p>We can import unit objects from the scimath.units submodules. (See <a class="reference internal" href="available_units.html#available-units"><em>list
+of available units</em></a> for a listing by submodule.) There are
 submodules for many categories of physical quantities.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">foot</span><span class="p">,</span> <span class="n">inch</span><span class="p">,</span> <span class="n">meter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">*</span> <span class="n">foot</span>
+<span class="go">0.9144000000000001*m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span> <span class="o">/</span> <span class="n">inch</span>
 <span class="go">12.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span> <span class="o">/</span> <span class="n">meter</span>
 <span class="go">0.3048</span>
+</pre></div>
+</div>
+<p>Unit objects display natively in SI fundamental units and can be used to
+generate unit conversion factors or to see how units relate to one another.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.pressure</span> <span class="kn">import</span> <span class="n">pascal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pascal</span> <span class="o">*</span> <span class="n">meter</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="go">1.0*m*kg*s**-2</span>
 </pre></div>
 </div>
 <p id="conversion-factor-caveat"><strong>Caution</strong>: If you are using this tool to produce conversion factors, remember
@@ -85,13 +94,14 @@ factors:</p>
 <span class="go">103.44718363855331</span>
 </pre></div>
 </div>
-<p>Internally, they are stored as a combination of fundamental physical
+<p>Internally, they are stored as a <em>derivation</em> of fundamental physical
 quantities expressed in the SI system</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span>
 <span class="go">13789.509579019157*m**-1*kg*s**-2</span>
 </pre></div>
 </div>
-<p>Conversions can be made between units with the same derivation using <a class="reference internal" href="user_ref.html#scimath.units.convert.convert" title="scimath.units.convert.convert"><tt class="xref py py-func docutils literal"><span class="pre">convert()</span></tt></a>:</p>
+<p>Conversions can be made between units with the same derivation using
+<a class="reference internal" href="user_ref.html#scimath.units.convert.convert" title="scimath.units.convert.convert"><tt class="xref py py-func docutils literal"><span class="pre">convert()</span></tt></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">convert</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="kn">import</span> <span class="n">lbf</span><span class="p">,</span> <span class="n">newton</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lbf</span><span class="p">,</span> <span class="n">newton</span><span class="p">)</span>
@@ -175,7 +185,7 @@ quantities expressed in the SI system</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2011, Enthought.
-      Last updated on Dec 09, 2011.
+      Last updated on Dec 12, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.
     </div>
   </body>
