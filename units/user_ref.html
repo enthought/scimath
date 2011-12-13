@@ -109,16 +109,33 @@ are given in the attribute _labels=(&#8216;m&#8217;, &#8216;kg&#8217;, &#8216;s&
 <dl class="function">
 <dt id="scimath.units.convert.convert">
 <tt class="descclassname">scimath.units.convert.</tt><tt class="descname">convert</tt><big>(</big><em>value</em>, <em>from_unit</em>, <em>to_unit</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/convert.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.convert.convert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enthought has extended the original units implementation to handle
-temperature conversions.  Temperature units are a special case because they
-can have a different origin.</p>
+<dd><p>Coverts value from one unit to another.</p>
+<dl class="docutils">
+<dt>value <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>value to convert</dd>
+<dt>from_unit <span class="classifier-delimiter">:</span> <span class="classifier">scimath.unit object</span></dt>
+<dd>implied units of &#8216;value&#8217;</dd>
+<dt>to_unit <span class="classifier-delimiter">:</span> <span class="classifier">scimath.unit object</span></dt>
+<dd>implied units of the returned float</dd>
+</dl>
+<p>value * conversion_factor + offset : data type is the same as was passed
+in.</p>
+<p>Checks first to see if from_unit and to_unit are equal and passes value
+back in that case. Then conver() forms a conversion factor by dividing the
+units. The offset is zero unless explicitly set otherwise in the unit
+definition. Handling of UnitArrays is done by checking whether value is a
+numpy.ndarray.</p>
+<p><strong>Note</strong>: Enthought has extended the original units implementation to
+handle temperature conversions.  Temperature units are a special case
+because they can have a different origin.</p>
 <p>This causes a fundamental ambiguity. What behavior do we expect when we
 convert temperature?</p>
 <p>Option #1 When we convert 0 degrees centigrade we get 32 fahrenheit.</p>
 <p>Option #2 When we convert a temperature difference of 0 degrees centigrade
 we get a temperature difference of 0 degrees fahrenheit.</p>
-<p>By convention we have made the units system behave like in Option #1.</p>
-<p>Therefore, don&#8217;t pass relative temperatures through the units system.</p>
+<p>By convention we have made the units system behave like in Option
+#1 so that convert() handles absolute temperatures, not temperature
+differences.</p>
 </dd></dl>
 
 </div>
@@ -196,15 +213,13 @@ applied to that variable.</p>
 <span class="gp">... </span><span class="sd">            c = a + b</span>
 <span class="gp">... </span><span class="sd">    &#39;&#39;&#39;</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3048</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
 <span class="go">array([ 0.6096,  1.2192,  1.8288])</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">m</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitArray</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> <span class="c"># (Converts m -&gt; ft -&gt; m)</span>
 <span class="go">UnitArray([ 2.,  4.,  6.], units=&#39;1.0*m&#39;)</span>
@@ -351,7 +366,7 @@ of course modified to suite our purposes.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2011, Enthought.
-      Last updated on Dec 12, 2011.
+      Last updated on Dec 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.
     </div>
   </body>
