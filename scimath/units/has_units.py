@@ -114,7 +114,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
         If units are not assigned to a variable, absolutely no conversion is
         applied to that variable.
 
-        Example definition of a unitted addition function:
+        Example definition of a unitted addition function::
 
             >>> from scimath.units.api import has_units, UnitArray
             >>> @has_units

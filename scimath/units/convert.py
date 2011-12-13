@@ -33,10 +33,8 @@ def convert(value, from_unit, to_unit):
     ----------
     value : float
         value to convert
-        
     from_unit : scimath.unit object
         implied units of 'value'
-
     to_unit : scimath.unit object
         implied units of the returned float
     
