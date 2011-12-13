@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Extending the Unit Parser &mdash; scimath 4.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/et.ico"/>
+    <link rel="top" title="scimath 4.0.1 documentation" href="../index.html" />
+    <link rel="up" title="SciMath Units Documentation" href="index.html" />
+    <link rel="next" title="Types of Units Available" href="available_units.html" />
+    <link rel="prev" title="Unitted Functions" href="unit_funcs.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="available_units.html" title="Types of Units Available"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="unit_funcs.html" title="Unitted Functions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">SciMath Units Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="extending-the-unit-parser">
+<span id="extend-unit-parser"></span><h1>Extending the Unit Parser<a class="headerlink" href="#extending-the-unit-parser" title="Permalink to this headline">¶</a></h1>
+<p>If you define a series of units that you want to be available for import and
+use in unitted functions, then you must use the unit_parser as in the following
+file, imported later as <tt class="docutils literal"><span class="pre">scimath/units/example_units</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">unit_parser</span>
+<span class="kn">from</span> <span class="nn">scimath.units.mass</span> <span class="kn">import</span> <span class="n">kilogram</span>
+
+<span class="n">apple</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">kilogram</span>
+<span class="n">apple</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">&#39;label&#39;</span>
+
+<span class="n">bread</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">kilogram</span>
+<span class="n">bread</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">&#39;loaf of bread&#39;</span>
+
+<span class="n">very_small_rocks</span> <span class="o">=</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">kilogram</span>
+<span class="n">very_small_rocks</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">&#39;very small rocks&#39;</span>
+
+<span class="n">a_duck</span> <span class="o">=</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="n">kilogram</span>
+<span class="n">a_duck</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">&#39;a duck&#39;</span>
+
+<span class="kn">import</span> <span class="nn">example_units</span> <span class="kn">as</span> <span class="nn">u</span>
+<span class="n">unit_parser</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When <tt class="docutils literal"><span class="pre">example_units</span></tt> is imported, unit_parser will be updated, and a unitted
+function can be built, as follows, from <tt class="docutils literal"><span class="pre">scimath/units/example.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">has_units</span>
+<span class="kn">from</span> <span class="nn">scimath.units.example_units</span> <span class="kn">import</span> <span class="n">a_duck</span>
+
+<span class="nd">@has_units</span>
+<span class="k">def</span> <span class="nf">witch_test</span><span class="p">(</span><span class="n">mass_of_maiden</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot; Test to determine if one or more young maidens is a witch.</span>
+
+<span class="sd">     Parameters</span>
+<span class="sd">     ----------</span>
+<span class="sd">     mass_of_maiden : array : units=a_duck</span>
+<span class="sd">         array of masses to check against the weight of a duck</span>
+
+<span class="sd">     Returns</span>
+<span class="sd">     -------</span>
+<span class="sd">     truth : bool</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+     <span class="k">return</span> <span class="n">mass_of_maiden</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>The behavior is as expected:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.example</span> <span class="kn">import</span> <span class="n">witch_test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.mass</span> <span class="kn">import</span> <span class="n">pound</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">UnitArray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maidens</span> <span class="o">=</span> <span class="n">UnitArray</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;pound&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">witch_test</span><span class="p">(</span><span class="n">maidens</span><span class="p">)</span>
+<span class="go">array([ True,  True,  True,  True,  True], dtype=bool)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/e-logo-rev.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unit_funcs.html"
+                        title="previous chapter">Unitted Functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="available_units.html"
+                        title="next chapter">Types of Units Available</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/units/extend_unit_parser.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="available_units.html" title="Types of Units Available"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="unit_funcs.html" title="Unitted Functions"
+             >previous</a> |</li>
+        <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >SciMath Units Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2011, Enthought.
+      Last updated on Dec 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.
+    </div>
+  </body>
+</html>
