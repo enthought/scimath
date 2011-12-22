@@ -75,16 +75,16 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
             arguments in the function.  The argument names in this string must
             match those in the python signature.  The order the arguments are
             specified in does not matter as the order of arguments from the
-            wrapped function is always used.  The format of the string is a as
+            wrapped function is always used.  The format of the string is as
             follows::
 
                 "a: notes on a:units=m/s;b: notes on b:units=m/s"
 
-             That is, information about each argument is separated by
-             a semi-colon (';').  Each argument has three fields that are
-             separated by colons (':').  The first is the name of the variable.
-             The 2nd is a string.  The 3rd specified the units.  Other fields
-             may be added later.
+            That is, information about each argument is separated by
+            a semi-colon (';').  Each argument has three fields that are
+            separated by colons (':').  The first is the name of the variable.
+            The 2nd is a string.  The 3rd specified the units.  Other fields
+            may be added later.
         outputs : str, optional
              A string with the same format as the 'inputs' string that specifies
              the output variables.  This *is* an ordered list as there is no way
@@ -114,7 +114,7 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
         If units are not assigned to a variable, absolutely no conversion is
         applied to that variable.
 
-        Example definition of a unitted addition function:
+        Example definition of a unitted addition function::
 
             >>> from scimath.units.api import has_units, UnitArray
             >>> @has_units

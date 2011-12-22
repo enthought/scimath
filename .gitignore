@@ -8,3 +8,5 @@
 build/
 dist/
 docs/build/
+.DS_Store
+docs/source/units/.DS_Store

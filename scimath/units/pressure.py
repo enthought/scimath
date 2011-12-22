@@ -12,6 +12,8 @@
 #
 
 from SI import pascal, kilo, mega, giga
+from scimath.units.force import lbf
+from scimath.units.length import inch
 
 #
 # Definitions of common pressure units
@@ -28,20 +30,47 @@ from SI import pascal, kilo, mega, giga
 # aliases
 
 Pa = pascal
+Pa.label = 'Pa'
+
 kPa = kilo*pascal
+kPa.label = 'kPa'
+
 MPa = mega*pascal
+MPa.label = 'MPa'
+mpa = MPa
+Mpa = MPa
+MPA = MPa
+
 GPa = giga*pascal
+GPa.label = 'GPa'
+gpa = GPa
+Gpa = GPa
+GPA = GPa
 
 
 # others
 
 bar = 1e5 * pascal
+bar.label = 'bar'
+bars = bar
+
+kilobar = kilo * bar
+kilobar.label = 'kbar'
+kbar = kilobar
+kbars = kbar
+
 millibar = 100 * pascal
 
 torr = 133.3 * pascal
 atmosphere = 101325 * pascal
 
 atm = atmosphere
+
+pounds_per_square_inch = lbf / inch ** 2
+pounds_per_square_inch.label = 'psi'
+psi = pounds_per_square_inch
+apsi = psi
+psig = psi
 
 
 # version
