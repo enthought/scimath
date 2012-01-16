@@ -19,12 +19,12 @@ from scimath.units.unit import unit, dimensionless, none
 
 # basic SI units
 
-meter = unit(1.0, (1, 0, 0, 0, 0, 0, 0))
+meter    = unit(1.0, (1, 0, 0, 0, 0, 0, 0))
 kilogram = unit(1.0, (0, 1, 0, 0, 0, 0, 0))
-second = unit(1.0, (0, 0, 1, 0, 0, 0, 0))
-ampere = unit(1.0, (0, 0, 0, 1, 0, 0, 0))
-mole = unit(1.0, (0, 0, 0, 0, 0, 1, 0))
-candela = unit(1.0, (0, 0, 0, 0, 0, 0, 1))
+second   = unit(1.0, (0, 0, 1, 0, 0, 0, 0))
+ampere   = unit(1.0, (0, 0, 0, 1, 0, 0, 0))
+mole     = unit(1.0, (0, 0, 0, 0, 0, 1, 0))
+candela  = unit(1.0, (0, 0, 0, 0, 0, 0, 1))
 # moved kelvin to temperature for now
 
 # the 22 derived SI units with special names
@@ -60,7 +60,7 @@ ohm = volt/ampere                      #  electric resistance
 ohm.label = 'ohm'
 
 siemens = ampere/volt                  #  electric conductance
-siemens.label = 'siemen'
+siemens.label = 'siemens'
 
 weber = volt*second                    #  magnetic flux
 weber.label = 'weber'
