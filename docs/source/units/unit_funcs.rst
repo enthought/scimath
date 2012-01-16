@@ -11,15 +11,18 @@ docstring.
 
 Decorator arguments
 -------------------------------------------------------------------------------
+::
 
-   >>> from numpy import array
-   >>> from scimath.units.api import has_units
-   >>> from scimath.units.length import feet, meter
-   >>> @has_units(inputs="a:an array:units=ft;b:array:units=ft",
-   ...            outputs="result:an array:units=m")
-   ... def add(a,b):
-   ...     " Add two arrays in ft and convert them to m. "
-   ...     return (a + b) * feet / meter
+   from numpy import array
+   from scimath.units.api import has_units
+   from scimath.units.length import feet, meter
+   @has_units(inputs="a:an array:units=ft;b:array:units=ft",
+              outputs="result:an array:units=m")
+   def add(a,b):
+       """ Add two arrays in ft and convert them to m. 
+
+       """
+       return (a + b) * feet / meter
 
 To use has_units with decorator arguments, pass string arguments "inputs" and
 (optionally) "outputs". See the :py:func:`~scimath.units.has_units.has_units`
@@ -28,25 +31,26 @@ syntax.
 
 Formatted docstring
 -------------------------------------------------------------------------------
+::
 
-   >>> from scimath.units.api import has_units, UnitArray
-   >>> @has_units
-   ... def add(a,b):
-   ...     ''' Add two arrays in ft and convert them to m.
-   ...
-   ...         Parameters
-   ...         ----------
-   ...         a : array : units=ft
-   ...             An array
-   ...         b : array : units=ft
-   ...             Another array
-   ...
-   ...         Returns
-   ...         -------
-   ...         c : array : units=m
-   ...             c = a + b
-   ...     '''
-   ...     return (a + b) * feet / meter
+   from scimath.units.api import has_units, UnitArray
+   @has_units
+   def add(a,b):
+       """ Add two arrays in ft and convert them to m.
+   
+           Parameters
+           ----------
+           a : array : units=ft
+               An array
+           b : array : units=ft
+               Another array
+   
+           Returns
+           -------
+           c : array : units=m
+               c = a + b
+       """
+       return (a + b) * feet / meter
 
 Using the has_units decorator with a docstring has the benefit of
 using a ReST-compatible format, so the unitting specification doubles as a
