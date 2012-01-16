@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Scimath Units User Reference &mdash; scimath 4.0.1 documentation</title>
+    <title>Scimath Units User Reference &mdash; scimath 4.0.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.0.1',
+        VERSION:     '4.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/et.ico"/>
-    <link rel="top" title="scimath 4.0.1 documentation" href="../index.html" />
+    <link rel="top" title="scimath 4.0.2 documentation" href="../index.html" />
     <link rel="up" title="SciMath Units Documentation" href="index.html" />
     <link rel="next" title="SciMath Interpolate Documentation" href="../interpolate/index.html" />
     <link rel="prev" title="Types of Units Available" href="available_units.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="available_units.html" title="Types of Units Available"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">SciMath Units Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -144,8 +144,11 @@ differences.</p>
 <dl class="function">
 <dt id="scimath.units.has_units.has_units">
 <tt class="descclassname">scimath.units.has_units.</tt><tt class="descname">has_units</tt><big>(</big><em>func=None</em>, <em>summary=''</em>, <em>doc=''</em>, <em>inputs=None</em>, <em>outputs=None</em><big>)</big><a class="reference internal" href="../_modules/scimath/units/has_units.html#has_units"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.has_units.has_units" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function decorator: Wrap a standard python function for unit conversion.</p>
-<dl class="docutils">
+<dd><p>Function decorator: Wrap a standard python function for unit
+conversion. Note that conversion arguments must be supplied through
+the decorator aguments or in a formatted docstring as shown below.</p>
+<blockquote>
+<div><dl class="docutils">
 <dt>func <span class="classifier-delimiter">:</span> <span class="classifier">function, optional</span></dt>
 <dd>The function to wrap. Usually, has_units will be used as a bare
 &#8220;&#64;has_units&#8221; decorator, so this argument will usually be supplied by
@@ -254,6 +257,7 @@ created.</dd>
 in the argument list.</dd>
 </dl>
 </div></blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -360,14 +364,14 @@ of course modified to suite our purposes.</p>
         <li class="right" >
           <a href="available_units.html" title="Types of Units Available"
              >previous</a> |</li>
-        <li><a href="../index.html">scimath 4.0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
           <li><a href="index.html" >SciMath Units Documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2011, Enthought.
-      Last updated on Dec 13, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre.
+      Last updated on Jan 16, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre/65e4c29a24e4.
     </div>
   </body>
 </html>
