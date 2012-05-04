@@ -70,7 +70,7 @@ class UnitArray(numpy.ndarray):
     def __repr__(self):
         # this is a little more complicated than it should be in order
         # to be more resilient to changes to numpy ndarray API
-        base_str = numpy.ndarray.__repr__(self)
+        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
         start = base_str.find('(')
         end = base_str.rfind(')')
 
