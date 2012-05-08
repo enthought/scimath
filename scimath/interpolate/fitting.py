@@ -9,12 +9,9 @@
        is returned for all calculated y values.
 """
 
-# standard library imports
-from new import instance as new_instance
-
 # major package imports
 import numpy
-from scipy import interpolate, stats
+from scipy import interpolate
 
 #enthought imports
 from traits.api import HasPrivateTraits, Bool, TraitEnum, Trait, Float
@@ -38,8 +35,6 @@ class DataFit(HasPrivateTraits):
         HasPrivateTraits.__init__(self, **traits)
 
     def clone(self):
-        # fix me: New style traits don't work with new_instance
-        #new_int = new_instance(self.__class__)
         new_int = self.__class__()
         new_int.__dict__.update(self.__dict__)
         return new_int
@@ -237,8 +232,8 @@ class EndAverage(DataFit):
         indices = (self._x[0]+self.index_interval,
                    self._x[-1]-self.index_interval)
         first, last = numpy.searchsorted(self._x, indices)
-        y_low = stats.mean(self._y[:first])
-        y_hi = stats.mean(self._y[last:])
+        y_low = numpy.mean(self._y[:first])
+        y_hi = numpy.mean(self._y[last:])
 
         dist_low = abs(x - self._x[0])
         dist_hi = abs(x - self._x[-1])
