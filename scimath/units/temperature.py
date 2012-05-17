@@ -12,19 +12,19 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-from scimath.units.smart_unit import OffsetUnit
+from scimath.units.unit import unit
 
 # Tk = Tk
 # Tk = 1 * (Tc+273.15)
 # Tk = 5/9 * (Tr)
 # Tk = 5/9 * (Tf + 459.67)
 
-kelvin = OffsetUnit(1.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
+kelvin = unit(1.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
 kelvin.label = 'kelvin'
-celsius = OffsetUnit(1.0, (0, 0, 0, 0, 1, 0, 0), 273.15)
+celsius = unit(1.0, (0, 0, 0, 0, 1, 0, 0), 273.15)
 celsius.label = 'celsius'
-rankine = OffsetUnit(5.0/9.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
-fahrenheit = OffsetUnit(5.0/9.0,(0, 0, 0, 0, 1, 0, 0),  459.67)
+rankine = unit(5.0/9.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
+fahrenheit = unit(5.0/9.0,(0, 0, 0, 0, 1, 0, 0),  459.67)
 fahrenheit.label = 'fahrenheit'
 
 # aliases

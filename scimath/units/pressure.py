@@ -14,7 +14,7 @@
 from SI import pascal, kilo, mega, giga
 from scimath.units.force import lbf
 from scimath.units.length import inch
-
+from scimath.units.unit import unit
 #
 # Definitions of common pressure units
 #
@@ -70,7 +70,7 @@ pounds_per_square_inch = lbf / inch ** 2
 pounds_per_square_inch.label = 'psi'
 psi = pounds_per_square_inch
 apsi = psi
-psig = psi
+psig = unit(psi.value, psi.derivation, 14.6959494)
 
 
 # version
