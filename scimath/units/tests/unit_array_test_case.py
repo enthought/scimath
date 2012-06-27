@@ -4,11 +4,10 @@ import timeit
 import unittest
 import operator
 
-from nose import SkipTest
-
 # Numeric library imports
 import numpy
 from numpy import all, array, sqrt
+from numpy.testing import assert_array_equal
 
 # Enthought Library imports
 import scimath.units as units
@@ -327,17 +326,17 @@ class PassUnitsTestCase(unittest.TestCase):
         b = 1
         result = a - b
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([0,1,2], units=dimensionless))
+        assert_array_equal(result, UnitArray([0,1,2], units=dimensionless))
         result = b - a
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([0,-1,-2], units=dimensionless))
+        assert_array_equal(result, UnitArray([0,-1,-2], units=dimensionless))
         c = array([3,2,1])
         result = a - c
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([-2,0,2], units=dimensionless))
+        assert_array_equal(result, UnitArray([-2,0,2], units=dimensionless))
         result = c - a
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([2,0,-2], units=dimensionless))
+        assert_array_equal(result, UnitArray([2,0,-2], units=dimensionless))
 
     def test_divide_pass(self):
         a = UnitArray([1,2,3],units=meters/second)
@@ -399,9 +398,6 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,1.0,1], units=2.0*dimensionless)
         result = a <= b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
@@ -419,18 +415,15 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a < b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], False)
-        c = 4.0
+        c = 3.0
         result = b < c
         self.assertEqual(result[0], False)
-        self.assertEqual(result[1], False)
+        self.assertEqual(result[1], True)
         self.assertEqual(result[2], True)
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b < d
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], False)
@@ -441,18 +434,15 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a >= b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], True)
-        c = 4.0
+        c = 2.0
         result = b >= c
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b >= d
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
@@ -463,13 +453,10 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a > b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
-        c = 4.0
+        c = 2.0
         result = b > c
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
@@ -485,18 +472,15 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a == b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
-        c = 4.0
+        c = 2.0
         result = b == c
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b == d
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
@@ -507,19 +491,16 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a != b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
-        c = 4.0
+        c = 2.0
         result = b != c
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
 
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b != d
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
