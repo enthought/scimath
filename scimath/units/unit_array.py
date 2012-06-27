@@ -241,9 +241,6 @@ class UnitArray(numpy.ndarray):
                     # Handles array([1,2,3] * liters)
                     ou = units.unit.unit(1, other.item(0).derivation)
                     other = units.convert(other/ou, ou, su)
-            else:
-                #Everything else
-                other = units.convert(numpy.array(other), ou, su)
             u = su
         return other, u
 
