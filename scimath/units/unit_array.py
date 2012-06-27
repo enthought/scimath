@@ -2,8 +2,8 @@
 import numpy
 
 # Enthought library imports
-import scimath.units as units
-from scimath.units.unit import dimensionless
+from scimath.units import convert
+from scimath.units.unit import unit, dimensionless, IncompatibleUnits
 from scimath.units.unit_parser import unit_parser
 
 def __newobj__ ( cls, *args ):
@@ -55,7 +55,7 @@ class UnitArray(numpy.ndarray):
     ############################################################################
 
     # Units specification.  it is a scimath.units.unit object, not a string.
-    # units = Instance(units.unit)
+    # units = Instance(unit)
 
     # 'type' specifies the type of UnitArray.
     # This could be useful for specifying that this is a 'tops' UnitArray or of
@@ -229,18 +229,18 @@ class UnitArray(numpy.ndarray):
         if su == None and ou == None:
             u = None
         else:
-            if isinstance(other, units.unit.unit):
+            if isinstance(other, unit):
                 # Handles 5 * liters
-                ou = units.unit.unit(1, other.derivation)
-                other = units.convert(other.value, ou, su)
+                ou = unit(1, other.derivation)
+                other = convert(other.value, ou, su)
             elif isinstance(other, UnitArray):
                 # Handles UnitArray or UnitScalar
-                other = units.convert(numpy.array(other), ou, su)
+                other = convert(numpy.array(other), ou, su)
             elif isinstance(other, numpy.ndarray):
                 if len(other.shape) > 0 and hasattr(other.item(0), 'derivation'):
                     # Handles array([1,2,3] * liters)
-                    ou = units.unit.unit(1, other.item(0).derivation)
-                    other = units.convert(other/ou, ou, su)
+                    ou = unit(1, other.item(0).derivation)
+                    other = convert(other/ou, ou, su)
             u = su
         return other, u
 
@@ -373,7 +373,7 @@ class UnitArray(numpy.ndarray):
                 if getattr(other, "units", dimensionless) == dimensionless:
                     other = float(other)
                 else:
-                    raise units.IncompatibleUnits, "exponent must be dimensionless"
+                    raise IncompatibleUnits("exponent must be dimensionless")
             result = super(UnitArray, self).__pow__(other)
             su = getattr(self, 'units', None)
             if su:
@@ -451,8 +451,8 @@ class UnitArray(numpy.ndarray):
         """ Convert UnitArray from its current units to a new set of units.
 
         """
-        result = self.__class__(units.convert(self.view(numpy.ndarray),
-                                              self.units, new_units))
+        result = self.__class__(convert(self.view(numpy.ndarray),
+                                        self.units, new_units))
         result.units = new_units
 
         return result
