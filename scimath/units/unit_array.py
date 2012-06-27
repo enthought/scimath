@@ -395,8 +395,6 @@ class UnitArray(numpy.ndarray):
         """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__le__(other)
-        if isinstance(result, numpy.ndarray):
-            return result.all()
         return result
 
     def __lt__(self, other):
@@ -405,8 +403,6 @@ class UnitArray(numpy.ndarray):
         """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__lt__(other)
-        if isinstance(result, numpy.ndarray):
-            return result.all()
         return result
 
     def __ge__(self, other):
@@ -415,8 +411,6 @@ class UnitArray(numpy.ndarray):
         """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__ge__(other)
-        if isinstance(result, numpy.ndarray):
-            return result.all()
         return result
 
     def __gt__(self, other):
@@ -425,8 +419,6 @@ class UnitArray(numpy.ndarray):
         """
         other, u = self.__convert_other(other)
         result = super(UnitArray, self).__gt__(other)
-        if isinstance(result, numpy.ndarray):
-            return result.all()
         return result
 
     def __eq__(self, other):
@@ -436,8 +428,6 @@ class UnitArray(numpy.ndarray):
         try:
             other, u = self.__convert_other(other)
             result = super(UnitArray, self).__eq__(other)
-            if isinstance(result, numpy.ndarray):
-                return result.all()
             return result
         except:
             return False
@@ -449,8 +439,6 @@ class UnitArray(numpy.ndarray):
         try:
             other, u = self.__convert_other(other)
             result = super(UnitArray, self).__ne__(other)
-            if isinstance(result, numpy.ndarray):
-                return result.all()
             return result
         except:
             return True
