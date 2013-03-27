@@ -19,7 +19,7 @@
 #############################################################################
 # Imports:
 #############################################################################
-
+import warnings
 import numpy
 
 # Local imports.
@@ -32,6 +32,9 @@ class OffsetUnit(unit):
     """ Special unit to handle temperatures as absolutes--including offsets """
 
     def __init__(self,factor,derivation,offset=0.0):
+        warnings.warn("Using the OffsetUnit class is not recommended as its offset"
+                      " attribute is now available on the more general parent "
+                      "class: scimath.units.unit.unit.")
         unit.__init__(self,factor,derivation)
         self.offset = offset
 
