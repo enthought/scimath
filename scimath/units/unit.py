@@ -28,10 +28,11 @@ class unit(object):
     _negativeOne = (-1, ) * len(_labels)
 
 
-    def __init__(self, value, derivation):
+    def __init__(self, value, derivation, offset=0.0):
         self.value = value
         self.derivation = derivation
         self.label = None
+        self.offset = offset
         return
 
     def __eq__(self, other):
@@ -43,7 +44,9 @@ class unit(object):
         if not isinstance(other, unit):
             return False
 
-        return self.value == other.value and self.derivation == other.derivation
+        return self.value == other.value and \
+               self.derivation == other.derivation and \
+               self.offset == other.offset
 
 
     def __ne__(self, other):
@@ -54,7 +57,9 @@ class unit(object):
         if not isinstance(other, unit):
             return True
 
-        return self.value != other.value or self.derivation != other.derivation
+        return self.value != other.value or \
+               self.derivation != other.derivation or\
+               self.offset != other.offset
 
 
     def __add__(self, other):
@@ -155,7 +160,7 @@ class unit(object):
         if not derivation:
             return st
 
-        return st + "*" + derivation
+        return st + "*" + derivation + "+" + str(self.offset)
 
     # TODO: something's broken here, I think...perhaps a rename is needed for
     # _strDerivation either here or in the helper function.
@@ -170,7 +175,7 @@ class unit(object):
         if not derivation:
             return st
 
-        return st + "*" + derivation
+        return st + "*" + derivation + "+" + repr(self.offset)
 
     def _strDerivation(self):
         return _strDerivation(self._labels, self.derivation)
