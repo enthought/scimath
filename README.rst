@@ -2,7 +2,7 @@
 scimath: Scientific and Mathematical calculations
 =================================================
 
-http://github.enthought.com/scimath
+http://scimath.readthedocs.org/en/latest/
 
 The SciMath project includes packages to support scientific and mathematical
 calculations, beyond the capabilities offered by SciPy.
