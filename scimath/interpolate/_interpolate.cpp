@@ -20,23 +20,23 @@ static PyObject* linear_method(PyObject*self, PyObject* args, PyObject* kywds)
                                      const_cast<char**>(kwlist), &py_x, &py_y,
                                      &py_new_x, &py_new_y))
        return NULL;
-    arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_x = PyArray_FROMANY(py_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_x) {
         PyErr_SetString(PyExc_ValueError, "x must be a 1-D array of floats");
         goto fail;
     }
-    arr_y = PyArray_FROMANY(py_y, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_y = PyArray_FROMANY(py_y, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_y) {
         PyErr_SetString(PyExc_ValueError, "y must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_new_x = PyArray_FROMANY(py_new_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_new_x) {
         PyErr_SetString(PyExc_ValueError,
                         "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+    arr_new_y = PyArray_FROMANY(py_new_y, NPY_DOUBLE, 1, 1,
                                 NPY_ARRAY_INOUT_ARRAY);
     if (!arr_new_y) {
         PyErr_SetString(PyExc_ValueError,
@@ -76,23 +76,23 @@ static PyObject* loginterp_method(PyObject*self, PyObject* args,
                                      const_cast<char **>(kwlist), &py_x, &py_y,
                                      &py_new_x, &py_new_y))
        return NULL;
-    arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_x = PyArray_FROMANY(py_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_x) {
         PyErr_SetString(PyExc_ValueError, "x must be a 1-D array of floats");
         goto fail;
     }
-    arr_y = PyArray_FROMANY(py_y, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_y = PyArray_FROMANY(py_y, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_y) {
         PyErr_SetString(PyExc_ValueError, "y must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_new_x = PyArray_FROMANY(py_new_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_new_x) {
         PyErr_SetString(PyExc_ValueError,
                         "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+    arr_new_y = PyArray_FROMANY(py_new_y, NPY_DOUBLE, 1, 1,
                                 NPY_ARRAY_INOUT_ARRAY);
     if (!arr_new_y) {
         PyErr_SetString(PyExc_ValueError,
@@ -133,23 +133,23 @@ static PyObject* window_average_method(PyObject*self, PyObject* args,
                                      const_cast<char **>(kwlist), &py_x, &py_y,
                                      &py_new_x, &py_new_y, &width))
        return NULL;
-    arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_x = PyArray_FROMANY(py_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_x) {
         PyErr_SetString(PyExc_ValueError, "x must be a 1-D array of floats");
         goto fail;
     }
-    arr_y = PyArray_FROMANY(py_y, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_y = PyArray_FROMANY(py_y, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_y) {
         PyErr_SetString(PyExc_ValueError, "y must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_new_x = PyArray_FROMANY(py_new_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_new_x) {
         PyErr_SetString(PyExc_ValueError,
                         "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+    arr_new_y = PyArray_FROMANY(py_new_y, NPY_DOUBLE, 1, 1,
                                 NPY_ARRAY_INOUT_ARRAY);
     if (!arr_new_y) {
         PyErr_SetString(PyExc_ValueError,
@@ -189,23 +189,23 @@ static PyObject* block_average_above_method(PyObject*self, PyObject* args,
                                      const_cast<char **>(kwlist), &py_x, &py_y,
                                      &py_new_x, &py_new_y))
        return NULL;
-    arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_x = PyArray_FROMANY(py_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_x) {
         PyErr_SetString(PyExc_ValueError, "x must be a 1-D array of floats");
         goto fail;
     }
-    arr_y = PyArray_FROMANY(py_y, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_y = PyArray_FROMANY(py_y, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_y) {
         PyErr_SetString(PyExc_ValueError, "y must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
+    arr_new_x = PyArray_FROMANY(py_new_x, NPY_DOUBLE, 1, 1, NPY_ARRAY_IN_ARRAY);
     if (!arr_new_x) {
         PyErr_SetString(PyExc_ValueError,
                         "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+    arr_new_y = PyArray_FROMANY(py_new_y, NPY_DOUBLE, 1, 1,
                                 NPY_ARRAY_INOUT_ARRAY);
     if (!arr_new_y) {
         PyErr_SetString(PyExc_ValueError,
