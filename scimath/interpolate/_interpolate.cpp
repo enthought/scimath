@@ -44,9 +44,12 @@ static PyObject* linear_method(PyObject*self, PyObject* args, PyObject* kywds)
         goto fail;
     }
 
-    linear((double*)PyArray_DATA(arr_x), (double*)PyArray_DATA(arr_y),
-            PyArray_DIM(arr_x, 0), (double*)PyArray_DATA(arr_new_x),
-            (double*)PyArray_DATA(arr_new_y), PyArray_DIM(arr_new_x, 0));
+    linear((double*)PyArray_DATA((PyArrayObject*)arr_x),
+           (double*)PyArray_DATA((PyArrayObject*)arr_y),
+           PyArray_DIM((PyArrayObject*)arr_x, 0),
+           (double*)PyArray_DATA((PyArrayObject*)arr_new_x),
+           (double*)PyArray_DATA((PyArrayObject*)arr_new_y),
+           PyArray_DIM((PyArrayObject*)arr_new_x, 0));
 
     Py_DECREF(arr_x);
     Py_DECREF(arr_y);
@@ -100,9 +103,12 @@ static PyObject* loginterp_method(PyObject*self, PyObject* args,
         goto fail;
     }
 
-    loginterp((double*)PyArray_DATA(arr_x), (double*)PyArray_DATA(arr_y),
-            PyArray_DIM(arr_x,0), (double*)PyArray_DATA(arr_new_x),
-            (double*)PyArray_DATA(arr_new_y), PyArray_DIM(arr_new_x,0));
+    loginterp((double*)PyArray_DATA((PyArrayObject*)arr_x),
+              (double*)PyArray_DATA((PyArrayObject*)arr_y),
+              PyArray_DIM((PyArrayObject*)arr_x,0),
+              (double*)PyArray_DATA((PyArrayObject*)arr_new_x),
+              (double*)PyArray_DATA((PyArrayObject*)arr_new_y),
+              PyArray_DIM((PyArrayObject*)arr_new_x,0));
 
     Py_DECREF(arr_x);
     Py_DECREF(arr_y);
@@ -157,9 +163,12 @@ static PyObject* window_average_method(PyObject*self, PyObject* args,
         goto fail;
     }
 
-    window_average((double*)PyArray_DATA(arr_x), (double*)PyArray_DATA(arr_y),
-            PyArray_DIM(arr_x,0), (double*)PyArray_DATA(arr_new_x),
-            (double*)PyArray_DATA(arr_new_y), PyArray_DIM(arr_new_x,0), width);
+    window_average((double*)PyArray_DATA((PyArrayObject*)arr_x),
+                   (double*)PyArray_DATA((PyArrayObject*)arr_y),
+                   PyArray_DIM((PyArrayObject*)arr_x,0),
+                   (double*)PyArray_DATA((PyArrayObject*)arr_new_x),
+                   (double*)PyArray_DATA((PyArrayObject*)arr_new_y),
+                   PyArray_DIM((PyArrayObject*)arr_new_x,0), width);
 
     Py_DECREF(arr_x);
     Py_DECREF(arr_y);
@@ -213,12 +222,12 @@ static PyObject* block_average_above_method(PyObject*self, PyObject* args,
         goto fail;
     }
 
-    block_average_above((double*)PyArray_DATA(arr_x),
-                        (double*)PyArray_DATA(arr_y),
-                        PyArray_DIM(arr_x,0),
-                        (double*)PyArray_DATA(arr_new_x),
-                        (double*)PyArray_DATA(arr_new_y),
-                        PyArray_DIM(arr_new_x,0));
+    block_average_above((double*)PyArray_DATA((PyArrayObject*)arr_x),
+                        (double*)PyArray_DATA((PyArrayObject*)arr_y),
+                        PyArray_DIM((PyArrayObject*)arr_x,0),
+                        (double*)PyArray_DATA((PyArrayObject*)arr_new_x),
+                        (double*)PyArray_DATA((PyArrayObject*)arr_new_y),
+                        PyArray_DIM((PyArrayObject*)arr_new_x,0));
 
     Py_DECREF(arr_x);
     Py_DECREF(arr_y);
