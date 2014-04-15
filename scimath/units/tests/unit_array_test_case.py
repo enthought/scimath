@@ -525,6 +525,60 @@ class PassUnitsTestCase(unittest.TestCase):
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
 
+
+class UnitArrayUnitScalarTestCase(unittest.TestCase):
+    """ Test the behavior of UnitArrays with UnitScalars
+    """
+    def test_add(self):
+        "Test adding UnitArray and UnitScalar returns UnitArray"
+        a = UnitArray([1, 2, 3], units=meters)
+        s = UnitScalar(1, units=meters)
+        r = a + s
+        msg = "Adding UnitScalar to a UnitArray should return a UnitArray"
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+        r = s + a
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+
+    def test_subtract(self):
+        "Test subtracting UnitArray and UnitScalar returns UnitArray"
+        a = UnitArray([1, 2, 3], units=meters)
+        s = UnitScalar(1, units=meters)
+        r = a - s
+        msg = "Subtracting UnitScalar from UnitArray should return UnitArray"
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+        r = s - a
+        msg = "Subtracting UnitArray from UnitScalar should return UnitArray"
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+
+    def test_mul(self):
+        "Test multiplying UnitArray and UnitScalar returns UnitArray"
+        a = UnitArray([1, 2, 3], units=meters)
+        s = UnitScalar(1, units=meters)
+        r = a * s
+        msg = "Multiplying UnitScalar by a UnitArray should return a UnitArray"
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+        r = s * a
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+
+    def test_div(self):
+        "Test dividing UnitArray and UnitScalar returns UnitArray"
+        a = UnitArray([1, 2, 3], units=meters)
+        s = UnitScalar(1, units=meters)
+        r = a / s
+        msg = "Dividing UnitScalar by a UnitArray should return a UnitArray"
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+        r = s / a
+        self.assertTrue(isinstance(r, UnitArray), msg)
+        self.assertFalse(isinstance(r, UnitScalar), msg)
+
+
 if __name__ == '__main__':
     import sys
     unittest.main(argv=sys.argv)
