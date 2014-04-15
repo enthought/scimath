@@ -10,13 +10,13 @@ extern "C" {
 
 static PyObject* linear_method(PyObject*self, PyObject* args, PyObject* kywds)
 {
-    static char *kwlist[] = {"x","y","new_x","new_y", NULL};
+    const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
     py_x = py_y = py_new_x = py_new_y = NULL;
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:linear_dddd",kwlist,&py_x, &py_y, &py_new_x, &py_new_y))
+    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:linear_dddd",const_cast<char**>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -60,13 +60,13 @@ fail:
 
 static PyObject* loginterp_method(PyObject*self, PyObject* args, PyObject* kywds)
 {
-    static char *kwlist[] = {"x","y","new_x","new_y", NULL};
+    const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
     py_x = py_y = py_new_x = py_new_y = NULL;
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:loginterp_dddd",kwlist,&py_x, &py_y, &py_new_x, &py_new_y))
+    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:loginterp_dddd",const_cast<char **>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -110,14 +110,14 @@ fail:
 
 static PyObject* window_average_method(PyObject*self, PyObject* args, PyObject* kywds)
 {
-    static char *kwlist[] = {"x","y","new_x","new_y", NULL};
+    const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
     py_x = py_y = py_new_x = py_new_y = NULL;
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
     double width;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOOd:loginterp_dddd",kwlist,&py_x, &py_y, &py_new_x, &py_new_y, &width))
+    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOOd:loginterp_dddd",const_cast<char **>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y, &width))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -161,13 +161,13 @@ fail:
 
 static PyObject* block_average_above_method(PyObject*self, PyObject* args, PyObject* kywds)
 {
-    static char *kwlist[] = {"x","y","new_x","new_y", NULL};
+    const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
     py_x = py_y = py_new_x = py_new_y = NULL;
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:loginterp_dddd",kwlist,&py_x, &py_y, &py_new_x, &py_new_y))
+    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:loginterp_dddd",const_cast<char **>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -225,7 +225,7 @@ static PyMethodDef interpolate_methods[] = {
 PyMODINIT_FUNC init_interpolate(void)
 {
     PyObject* m;
-    m = Py_InitModule3("_interpolate", interpolate_methods, 
+    m = Py_InitModule3("_interpolate", interpolate_methods,
         "A few interpolation routines.\n"
         );
     if (m == NULL)
