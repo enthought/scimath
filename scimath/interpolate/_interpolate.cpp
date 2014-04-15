@@ -16,7 +16,9 @@ static PyObject* linear_method(PyObject*self, PyObject* args, PyObject* kywds)
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:linear_dddd",const_cast<char**>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y))
+    if (!PyArg_ParseTupleAndKeywords(args, kywds, "OOOO:linear_dddd",
+                                     const_cast<char**>(kwlist), &py_x, &py_y,
+                                     &py_new_x, &py_new_y))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -30,18 +32,21 @@ static PyObject* linear_method(PyObject*self, PyObject* args, PyObject* kywds)
     }
     arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_new_x) {
-        PyErr_SetString(PyExc_ValueError, "new_x must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1, NPY_INOUT_ARRAY);
+    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+                                NPY_INOUT_ARRAY);
     if (!arr_new_y) {
-        PyErr_SetString(PyExc_ValueError, "new_y must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_y must be a 1-D array of floats");
         goto fail;
     }
 
     linear((double*)PyArray_DATA(arr_x), (double*)PyArray_DATA(arr_y),
-            PyArray_DIM(arr_x,0), (double*)PyArray_DATA(arr_new_x),
-            (double*)PyArray_DATA(arr_new_y), PyArray_DIM(arr_new_x,0));
+            PyArray_DIM(arr_x, 0), (double*)PyArray_DATA(arr_new_x),
+            (double*)PyArray_DATA(arr_new_y), PyArray_DIM(arr_new_x, 0));
 
     Py_DECREF(arr_x);
     Py_DECREF(arr_y);
@@ -58,7 +63,8 @@ fail:
     return NULL;
 }
 
-static PyObject* loginterp_method(PyObject*self, PyObject* args, PyObject* kywds)
+static PyObject* loginterp_method(PyObject*self, PyObject* args,
+                                  PyObject* kywds)
 {
     const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
@@ -66,7 +72,9 @@ static PyObject* loginterp_method(PyObject*self, PyObject* args, PyObject* kywds
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:loginterp_dddd",const_cast<char **>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y))
+    if (!PyArg_ParseTupleAndKeywords(args, kywds, "OOOO:loginterp_dddd",
+                                     const_cast<char **>(kwlist), &py_x, &py_y,
+                                     &py_new_x, &py_new_y))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -80,12 +88,15 @@ static PyObject* loginterp_method(PyObject*self, PyObject* args, PyObject* kywds
     }
     arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_new_x) {
-        PyErr_SetString(PyExc_ValueError, "new_x must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1, NPY_INOUT_ARRAY);
+    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+                                NPY_INOUT_ARRAY);
     if (!arr_new_y) {
-        PyErr_SetString(PyExc_ValueError, "new_y must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_y must be a 1-D array of floats");
         goto fail;
     }
 
@@ -108,7 +119,8 @@ fail:
     return NULL;
 }
 
-static PyObject* window_average_method(PyObject*self, PyObject* args, PyObject* kywds)
+static PyObject* window_average_method(PyObject*self, PyObject* args,
+                                       PyObject* kywds)
 {
     const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
@@ -117,7 +129,9 @@ static PyObject* window_average_method(PyObject*self, PyObject* args, PyObject* 
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
     double width;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOOd:loginterp_dddd",const_cast<char **>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y, &width))
+    if (!PyArg_ParseTupleAndKeywords(args, kywds, "OOOOd:loginterp_dddd",
+                                     const_cast<char **>(kwlist), &py_x, &py_y,
+                                     &py_new_x, &py_new_y, &width))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -131,12 +145,15 @@ static PyObject* window_average_method(PyObject*self, PyObject* args, PyObject* 
     }
     arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_new_x) {
-        PyErr_SetString(PyExc_ValueError, "new_x must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1, NPY_INOUT_ARRAY);
+    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+                                NPY_INOUT_ARRAY);
     if (!arr_new_y) {
-        PyErr_SetString(PyExc_ValueError, "new_y must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_y must be a 1-D array of floats");
         goto fail;
     }
 
@@ -159,7 +176,8 @@ fail:
     return NULL;
 }
 
-static PyObject* block_average_above_method(PyObject*self, PyObject* args, PyObject* kywds)
+static PyObject* block_average_above_method(PyObject*self, PyObject* args,
+                                            PyObject* kywds)
 {
     const char *kwlist[] = {"x","y","new_x","new_y", NULL};
     PyObject *py_x, *py_y, *py_new_x, *py_new_y;
@@ -167,7 +185,9 @@ static PyObject* block_average_above_method(PyObject*self, PyObject* args, PyObj
     PyObject *arr_x, *arr_y, *arr_new_x, *arr_new_y;
     arr_x = arr_y = arr_new_x = arr_new_y = NULL;
 
-    if(!PyArg_ParseTupleAndKeywords(args,kywds,"OOOO:loginterp_dddd",const_cast<char **>(kwlist),&py_x, &py_y, &py_new_x, &py_new_y))
+    if (!PyArg_ParseTupleAndKeywords(args, kywds, "OOOO:loginterp_dddd",
+                                     const_cast<char **>(kwlist), &py_x, &py_y,
+                                     &py_new_x, &py_new_y))
        return NULL;
     arr_x = PyArray_FROMANY(py_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_x) {
@@ -181,18 +201,24 @@ static PyObject* block_average_above_method(PyObject*self, PyObject* args, PyObj
     }
     arr_new_x = PyArray_FROMANY(py_new_x, PyArray_DOUBLE, 1, 1, NPY_IN_ARRAY);
     if (!arr_new_x) {
-        PyErr_SetString(PyExc_ValueError, "new_x must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_x must be a 1-D array of floats");
         goto fail;
     }
-    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1, NPY_INOUT_ARRAY);
+    arr_new_y = PyArray_FROMANY(py_new_y, PyArray_DOUBLE, 1, 1,
+                                NPY_INOUT_ARRAY);
     if (!arr_new_y) {
-        PyErr_SetString(PyExc_ValueError, "new_y must be a 1-D array of floats");
+        PyErr_SetString(PyExc_ValueError,
+                        "new_y must be a 1-D array of floats");
         goto fail;
     }
 
-    block_average_above((double*)PyArray_DATA(arr_x), (double*)PyArray_DATA(arr_y),
-            PyArray_DIM(arr_x,0), (double*)PyArray_DATA(arr_new_x),
-            (double*)PyArray_DATA(arr_new_y), PyArray_DIM(arr_new_x,0));
+    block_average_above((double*)PyArray_DATA(arr_x),
+                        (double*)PyArray_DATA(arr_y),
+                        PyArray_DIM(arr_x,0),
+                        (double*)PyArray_DATA(arr_new_x),
+                        (double*)PyArray_DATA(arr_new_y),
+                        PyArray_DIM(arr_new_x,0));
 
     Py_DECREF(arr_x);
     Py_DECREF(arr_y);
@@ -210,14 +236,14 @@ fail:
 }
 
 static PyMethodDef interpolate_methods[] = {
-    {"linear_dddd", (PyCFunction)linear_method, METH_VARARGS|METH_KEYWORDS,
-        ""},
-    {"loginterp_dddd", (PyCFunction)loginterp_method, METH_VARARGS|METH_KEYWORDS,
-        ""},
-    {"window_average_ddddd", (PyCFunction)window_average_method, METH_VARARGS|METH_KEYWORDS,
-        ""},
-    {"block_average_above_dddd", (PyCFunction)block_average_above_method, METH_VARARGS|METH_KEYWORDS,
-        ""},
+    {"linear_dddd", (PyCFunction)linear_method,
+     METH_VARARGS|METH_KEYWORDS, ""},
+    {"loginterp_dddd", (PyCFunction)loginterp_method,
+     METH_VARARGS|METH_KEYWORDS, ""},
+    {"window_average_ddddd", (PyCFunction)window_average_method,
+     METH_VARARGS|METH_KEYWORDS, ""},
+    {"block_average_above_dddd", (PyCFunction)block_average_above_method,
+     METH_VARARGS|METH_KEYWORDS, ""},
     {NULL, NULL, 0, NULL}
 };
 
