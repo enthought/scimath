@@ -28,8 +28,8 @@ import numpy
 import scimath.units as units
 from scimath.units.mass import kg, metric_ton
 from scimath.units.temperature import kelvin, celsius, fahrenheit
-from scimath.units import area, density, speed, time, frequency, \
-        acceleration, temperature, length
+from scimath.units import acceleration, area, density, frequency, geo_units, \
+    length, speed, temperature, time
 from scimath.units.quantity import Quantity
 from scimath.units.style_manager import style_manager
 from scimath.units.unit_manager import unit_manager
@@ -308,6 +308,11 @@ class test_units(unittest.TestCase):
         self.assertEqual(kgs.units('rhog').derivation, unit_parser.parse_unit('1000*kg/m**3').derivation)
         self.assertEqual(kgs.units('pvelocity').derivation, unit_parser.parse_unit('1000*m/s').derivation)
 
+    def test_ppg(self):
+        # PPG is a density measurement. It is not a pressure gradient unit. The
+        # pressure gradient can be found by multiplying the density by the
+        # acceleration due to gravity.
+        self.assertEqual(geo_units.ppg.derivation, density.gcc.derivation)
 
     #########################################################################
     # Private Methods:
