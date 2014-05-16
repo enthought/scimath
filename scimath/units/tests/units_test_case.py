@@ -359,6 +359,11 @@ class test_units(unittest.TestCase):
         self.assertEqual(kgs.units('rhog').derivation, unit_parser.parse_unit('1000*kg/m**3').derivation)
         self.assertEqual(kgs.units('pvelocity').derivation, unit_parser.parse_unit('1000*m/s').derivation)
 
+    def test_ppg(self):
+        # PPG is a density measurement. It is not a pressure gradient unit. The
+        # pressure gradient can be found by multiplying the density by the
+        # acceleration due to gravity.
+        self.assertEqual(geo_units.ppg.derivation, density.gcc.derivation)
 
     #########################################################################
     # Private Methods:
