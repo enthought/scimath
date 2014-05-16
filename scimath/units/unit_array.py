@@ -381,7 +381,7 @@ class UnitArray(numpy.ndarray):
             su = getattr(self, 'units', None)
             if su:
                 units = su**other
-            result.units = units
+                result.units = units
             return result
         else:
             raise TypeError("exponent must be an integer, float or 0-d array")
