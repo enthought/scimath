@@ -267,6 +267,15 @@ class test_units(unittest.TestCase):
         for u in odd_units:
             self.assertEqual(parse(u.label), u)
 
+    def test_unit_parser_offsets(self):
+        parse = lambda s: unit_parser.parse_unit(s, suppress_unknown=False)
+        offset_units = [
+            temperature.degC,
+            temperature.degF,
+        ]
+        for u in offset_units:
+            self.assertEqual(parse(repr(u)), u)
+
     def test_family_compatibility(self):
         """ test are_compatible_families """
 

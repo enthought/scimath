@@ -12,8 +12,9 @@
 #
 
 # Standard library imports.
-import re
+import ast
 import logging
+import re
 
 # Local imports.
 from scimath.units.unit import unit
@@ -143,15 +144,39 @@ class UnitParser:
 
     def parse_unit(self, label, suppress_warnings=True, suppress_unknown=True):
         """ Parses a string description of a unit e.g., 'g/cc'.
-        if suppress_unkown is True and the label cannot be parsed, the returned
+        if suppress_unknown is True and the label cannot be parsed, the returned
         unit is dimensionless otherwise UnableToParseUnits is raised.
         """
 
         # someone (or some s/w) writes out units like ohm.m
-        label  = self.remove_dots(label)
+        label = self.remove_dots(label)
 
         # retain the user's original description of the unit
         pretty_label = label
+
+        valid = True
+        offset_value = 0.0
+
+        # Handle offsets.
+        plusses = label.count('+')
+        if plusses > 1:
+            self._error(label, suppress_warnings, suppress_unknown)
+            valid = False
+        elif plusses == 1:
+            label, offset_label = label.split('+')
+            label = label.strip()
+            offset_label = offset_label.strip()
+            try:
+                offset_value = ast.literal_eval(offset_label)
+            except Exception:
+                self._error(label, suppress_warnings, suppress_unknown)
+                valid = False
+            else:
+                if not isinstance(offset_value, (int, float)):
+                    self._error(label, suppress_warnings, suppress_unknown)
+                    valid = False
+                else:
+                    has_offset = True
 
         # make sure we can parse the label ....
         if label == "%":
@@ -166,7 +191,6 @@ class UnitParser:
             label = "dimensionless"
             pretty_label = "none"
 
-        valid = True
         try:
             _unit = self.parser.parse(label)
         except:
@@ -174,13 +198,11 @@ class UnitParser:
                 _unit = self.parser.parse(label.lower())
                 pretty_label = label.lower()
             except:
-                if ( not suppress_warnings ):
-                    logger.debug( 'Could not parse unit: %s' % label)
-                if suppress_unknown:
-                    _unit = dimensionless
-                    valid = False
-                else:
-                    raise UnableToParseUnits(label)
+                self._error(label, suppress_warnings, suppress_unknown)
+                valid = False
+
+        if not valid:
+            _unit = dimensionless
 
         if isinstance(_unit, unit):
 
@@ -189,11 +211,15 @@ class UnitParser:
             else:
                 offset = 0.0
 
-            _unit = SmartUnit(pretty_label, _unit.value, _unit.derivation, offset, valid)
+            offset += offset_value
+
+            _unit = SmartUnit(pretty_label, _unit.value, _unit.derivation,
+                              offset, valid)
         else:
             # some dimensionless units such as liters/liters still need to have
             # pretty labels etc.
-            _unit = SmartUnit(pretty_label, _unit, dimensionless.derivation, 0.0, valid)
+            _unit = SmartUnit(pretty_label, _unit, dimensionless.derivation,
+                              offset_value, valid)
 
         return _unit
 
@@ -220,6 +246,32 @@ class UnitParser:
 
         return label
 
+    def _error(self, label, suppress_warnings, suppress_unknown):
+        """ Indicate that there was an error in parsing the label.
+
+        Parameters
+        ----------
+        label : str
+            The problematic label.
+        suppress_warnings : bool
+            Do not log warnings if True.
+        suppress_unknown : bool
+            Raise an exception if True.
+
+        Returns
+        -------
+        u : unit
+            The dummy unit to use in place of the parsed unit.
+
+        Raises
+        ------
+        UnableToParseUnits :
+            Raised if `suppress_unknown` is True.
+        """
+        if not suppress_warnings:
+            logger.debug( 'Could not parse unit: %r', label)
+        if not suppress_unknown:
+            raise UnableToParseUnits(label)
 
 #-------------------------------------------------------------------------------
 #  Singleton for unit parsing ....
