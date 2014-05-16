@@ -41,18 +41,27 @@ class Parser(Singleton):
         for module in modules:
             self.context.update(module.__dict__)
         self._cleanContext(context)
+        self._cacheExactLabels()
 
     def parse(self, string):
         # FIXME: we should compile this to an AST, whitelist the
         # arithmetic operations, numbers, and the names in our context
         # before evaluating.
         self.context['__builtins__'] = None
-        value = eval(string, self.context)
-        self.context.pop('__builtins__', None)
+        try:
+            value = eval(string, self.context)
+        except Exception:
+            if string in self.exact_labels:
+                return self.exact_labels[string]
+            else:
+                raise
+        finally:
+            self.context.pop('__builtins__', None)
         return value
 
     def init(self, *args, **kwds):
         self.context = self._initializeContext()
+        self._cacheExactLabels()
 
     def _initializeContext(self):
         context = {}
@@ -75,6 +84,12 @@ class Parser(Singleton):
         for name in list(context):
             if not isinstance(context[name], (float, int, unit)):
                 del context[name]
+
+    def _cacheExactLabels(self):
+        self.exact_labels = {}
+        for name, value in self.context.items():
+            if isinstance(value, unit) and value.label is not None:
+                self.exact_labels[value.label] = value
 
     def _loadModules(self):
 

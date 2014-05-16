@@ -29,8 +29,9 @@ import scimath.units as units
 from scimath.units.unit import unit
 from scimath.units.mass import kg, metric_ton
 from scimath.units.temperature import kelvin, celsius, fahrenheit
-from scimath.units import SI, area, density, speed, time, frequency, \
-        acceleration, temperature, length
+from scimath.units import SI, acceleration, angle, area, density, \
+    electromagnetism, frequency, geo_units, length, speed, temperature, \
+    time, volume
 from scimath.units.quantity import Quantity
 from scimath.units.style_manager import style_manager
 from scimath.units.unit_manager import unit_manager
@@ -237,7 +238,7 @@ class test_units(unittest.TestCase):
             self.assertTrue(is_dimensionless(
                 unit_parser.parse_unit(good_name, suppress_unknown=False)))
 
-    def test_derivation_valid(self):
+    def test_unit_parser_derivation_valid(self):
         # Make sure every derivation of the SI core units can be parsed.
         for i, label in enumerate(unit._labels):
             derivation = [0] * len(unit._labels)
@@ -248,6 +249,23 @@ class test_units(unittest.TestCase):
                 unit_parser.parse_unit(label, suppress_unknown=False),
                 base_unit,
             )
+        self.assertEqual(
+            unit_parser.parse_unit('S', suppress_unknown=False),
+            SI.siemens,
+        )
+
+    def test_unit_parser_non_python(self):
+        parse = lambda s: unit_parser.parse_unit(s, suppress_unknown=False)
+        odd_units = [
+            angle.circle,
+            angle.grad,
+            angle.minutes,
+            acceleration.m_per_s2,
+            electromagnetism.mf,
+            volume.cm3,
+        ]
+        for u in odd_units:
+            self.assertEqual(parse(u.label), u)
 
     def test_family_compatibility(self):
         """ test are_compatible_families """
