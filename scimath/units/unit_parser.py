@@ -60,9 +60,11 @@ class Parser(Singleton):
         for module in  modules:
             context.update(module.__dict__)
         self._cleanContext(context)
-        # Add the SI names used in the derivation but not already in the context.
+        # Add the SI names used in the derivations and labels but not
+        # already in the context.
         context['A'] = context['amp']
         context['cd'] = context['candela']
+        context['S'] = context['siemens']
         return context
 
     def _cleanContext(self, context):
