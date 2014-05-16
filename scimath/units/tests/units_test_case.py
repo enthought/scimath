@@ -26,9 +26,10 @@ import numpy
 
 # Local units imports
 import scimath.units as units
+from scimath.units.unit import unit
 from scimath.units.mass import kg, metric_ton
 from scimath.units.temperature import kelvin, celsius, fahrenheit
-from scimath.units import area, density, speed, time, frequency, \
+from scimath.units import SI, area, density, speed, time, frequency, \
         acceleration, temperature, length
 from scimath.units.quantity import Quantity
 from scimath.units.style_manager import style_manager
@@ -37,7 +38,7 @@ from scimath.units.smart_unit import is_dimensionless
 
 from scimath.units.speed import meters_per_second
 
-from scimath.units.unit_parser import unit_parser
+from scimath.units.unit_parser import UnableToParseUnits, unit_parser
 
 
 logger = logging.getLogger(__name__)
@@ -224,6 +225,29 @@ class test_units(unittest.TestCase):
         self.assertEqual(mpers_in_caps.units.derivation, meters_per_second.derivation,
             "Capitalized units rejected")
 
+    def test_unit_parser_only_units(self):
+        for bad_name in ['copy', 'math', '__id__', '__doc__', '__builtin__',
+                         'Exception']:
+            self.assertRaises(
+                UnableToParseUnits,
+                unit_parser.parse_unit, bad_name, suppress_unknown=False,
+            )
+        # But plain numbers like the SI prefixes are kept.
+        for good_name in ['hecto', 'yotta']:
+            self.assertTrue(is_dimensionless(
+                unit_parser.parse_unit(good_name, suppress_unknown=False)))
+
+    def test_derivation_valid(self):
+        # Make sure every derivation of the SI core units can be parsed.
+        for i, label in enumerate(unit._labels):
+            derivation = [0] * len(unit._labels)
+            derivation[i] = 1
+            base_unit = unit(1.0, tuple(derivation))
+            base_unit.label = label
+            self.assertEqual(
+                unit_parser.parse_unit(label, suppress_unknown=False),
+                base_unit,
+            )
 
     def test_family_compatibility(self):
         """ test are_compatible_families """

@@ -40,21 +40,39 @@ class Parser(Singleton):
     def extend(self, *modules):
         for module in modules:
             self.context.update(module.__dict__)
-        return
+        self._cleanContext(context)
 
     def parse(self, string):
-        return eval(string, self.context)
+        # FIXME: we should compile this to an AST, whitelist the
+        # arithmetic operations, numbers, and the names in our context
+        # before evaluating.
+        self.context['__builtins__'] = None
+        value = eval(string, self.context)
+        self.context.pop('__builtins__', None)
+        return value
 
     def init(self, *args, **kwds):
         self.context = self._initializeContext()
-        return
 
     def _initializeContext(self):
         context = {}
         modules = self._loadModules()
         for module in  modules:
             context.update(module.__dict__)
+        self._cleanContext(context)
+        # Add the SI names used in the derivation but not already in the context.
+        context['A'] = context['amp']
+        context['cd'] = context['candela']
         return context
+
+    def _cleanContext(self, context):
+        """ Remove any non-unit from the context.
+
+        Numbers can remain.
+        """
+        for name in list(context):
+            if not isinstance(context[name], (float, int, unit)):
+                del context[name]
 
     def _loadModules(self):
 
