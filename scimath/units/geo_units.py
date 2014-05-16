@@ -33,7 +33,7 @@ g_ft_per_cc_s.label = 'g*ft/(cc*s)'
 
 
 ###############################################################################
-# pressure_gradient_units  psi/f, MPa/m, lb/gal, MPa/100f
+# pressure_gradient_units  psi/f, MPa/m, MPa/100f
 ###############################################################################
 
 psi_per_f  = psi/foot
@@ -43,19 +43,7 @@ psi_per_ft = psi_per_f
 MPa_per_m = MPa/meter
 MPa_per_m.label = 'MPa/m'
 
-lb_per_gal    = lb/us_fluid_gallon
-lb_per_gallon = lb_per_gal
-
-###############################################################################
-# PPG seems to have units of mass/volume and not weight/volume so we cannot
-# use the unit system to automatically convert for us unless we lie about
-# the dimensionality of ppg and pretend it is the same as psi/ft.
-###############################################################################
-# This is dimensionally inconsistant which may bite us later.
-###############################################################################
-
 psi_per_ft = pounds_per_square_inch /foot
-ppg        = psi_per_ft / 0.0519
 
 MPa_per_f  = MPa/foot
 MPa_per_f.label = 'MPa/ft'
@@ -64,6 +52,15 @@ MPa_per_100f  = MPa/(100*foot)
 MPa_per_100f.label = 'MPa/100ft'
 MPa_per_100ft = MPa_per_100f
 
+###############################################################################
+# Density units used in pressure gradient calculations
+###############################################################################
+
+lb_per_gal    = lb/us_fluid_gallon
+lb_per_gallon = lb_per_gal
+
+ppg = copy(lb_per_gal)
+ppg.label = 'ppg'
 
 ###############################################################################
 # Gamma Ray
@@ -75,4 +72,4 @@ gapi = copy(dimensionless)
 # psonic
 ###############################################################################
 us_per_ft = microsecond/foot
-us_per_ft = 'us/ft'
+us_per_ft.label = 'us/ft'
