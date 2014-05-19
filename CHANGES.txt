@@ -4,6 +4,8 @@ SciMath CHANGELOG
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* UnitArray comparisons will return boolean arrays, like their unadorned
+  ndarray counterpart. (#29)
 * Correct the definition of PPG to be a density unit instead of a pressure
   gradient unit. Calculations using PPG as a pressure gradient unit can be
   recovered simply by multiplying the PPG quantity by g, the acceleration due
