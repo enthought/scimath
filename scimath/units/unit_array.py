@@ -376,9 +376,8 @@ class UnitArray(numpy.ndarray):
                     raise IncompatibleUnits("exponent must be dimensionless")
             result = super(UnitArray, self).__pow__(other)
             su = getattr(self, 'units', None)
-            if su:
-                units = su**other
-            result.units = units
+            if su is not None:
+                result.units = su**other
             return result
         else:
             raise TypeError("exponent must be an integer, float or 0-d array")

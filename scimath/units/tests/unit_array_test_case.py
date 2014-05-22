@@ -304,6 +304,9 @@ class PassUnitsTestCase(unittest.TestCase):
         d = UnitArray(0.5, units=dimensionless)
         result = a**d
         self.assertEqual(result.units, meters**0.5)
+        e = UnitArray([1, 2, 3], units=None)
+        result = e ** 2
+        self.assertEqual(result.units, None)
 
     def test_sqrt_no_pass(self):
         a = UnitArray([1.0,2.0,3.0], units=meters/second)
