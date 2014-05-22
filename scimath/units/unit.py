@@ -160,7 +160,13 @@ class unit(object):
         if not derivation:
             return st
 
-        return st + "*" + derivation + "+" + str(self.offset)
+        # Only include the offset if it is nonzero. Unfortunately, this will
+        # not be parseable because you cannot add offsets to units by addition.
+        string = st + "*" + derivation
+        if self.offset:
+            string += "+" + str(self.offset)
+
+        return string
 
     # TODO: something's broken here, I think...perhaps a rename is needed for
     # _strDerivation either here or in the helper function.
@@ -175,7 +181,13 @@ class unit(object):
         if not derivation:
             return st
 
-        return st + "*" + derivation + "+" + repr(self.offset)
+        # Only include the offset if it is nonzero. Unfortunately, this will
+        # not be parseable because you cannot add offsets to units by addition.
+        string = st + "*" + derivation
+        if self.offset:
+            string += "+" + repr(self.offset)
+
+        return string
 
     def _strDerivation(self):
         return _strDerivation(self._labels, self.derivation)
