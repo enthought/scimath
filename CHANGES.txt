@@ -4,6 +4,8 @@ SciMath CHANGELOG
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* Remove trivial (0.0) offsets from the string representation of units. (#27)
+
 * Enhance the unit parser to parse all of the provided units, with or without
   offsets. (#25)
 
