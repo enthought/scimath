@@ -26,10 +26,12 @@ import numpy
 
 # Local units imports
 import scimath.units as units
+from scimath.units.unit import unit
 from scimath.units.mass import kg, metric_ton
 from scimath.units.temperature import kelvin, celsius, fahrenheit
-from scimath.units import area, density, speed, time, frequency, \
-        acceleration, temperature, length
+from scimath.units import SI, acceleration, angle, area, density, \
+    electromagnetism, frequency, geo_units, length, speed, temperature, \
+    time, volume
 from scimath.units.quantity import Quantity
 from scimath.units.style_manager import style_manager
 from scimath.units.unit_manager import unit_manager
@@ -37,7 +39,7 @@ from scimath.units.smart_unit import is_dimensionless
 
 from scimath.units.speed import meters_per_second
 
-from scimath.units.unit_parser import unit_parser
+from scimath.units.unit_parser import UnableToParseUnits, unit_parser
 
 
 logger = logging.getLogger(__name__)
@@ -224,6 +226,55 @@ class test_units(unittest.TestCase):
         self.assertEqual(mpers_in_caps.units.derivation, meters_per_second.derivation,
             "Capitalized units rejected")
 
+    def test_unit_parser_only_units(self):
+        for bad_name in ['copy', 'math', '__id__', '__doc__', '__builtin__',
+                         'Exception']:
+            self.assertRaises(
+                UnableToParseUnits,
+                unit_parser.parse_unit, bad_name, suppress_unknown=False,
+            )
+        # But plain numbers like the SI prefixes are kept.
+        for good_name in ['hecto', 'yotta']:
+            self.assertTrue(is_dimensionless(
+                unit_parser.parse_unit(good_name, suppress_unknown=False)))
+
+    def test_unit_parser_derivation_valid(self):
+        # Make sure every derivation of the SI core units can be parsed.
+        for i, label in enumerate(unit._labels):
+            derivation = [0] * len(unit._labels)
+            derivation[i] = 1
+            base_unit = unit(1.0, tuple(derivation))
+            base_unit.label = label
+            self.assertEqual(
+                unit_parser.parse_unit(label, suppress_unknown=False),
+                base_unit,
+            )
+        self.assertEqual(
+            unit_parser.parse_unit('S', suppress_unknown=False),
+            SI.siemens,
+        )
+
+    def test_unit_parser_non_python(self):
+        parse = lambda s: unit_parser.parse_unit(s, suppress_unknown=False)
+        odd_units = [
+            angle.circle,
+            angle.grad,
+            angle.minutes,
+            acceleration.m_per_s2,
+            electromagnetism.mf,
+            volume.cm3,
+        ]
+        for u in odd_units:
+            self.assertEqual(parse(u.label), u)
+
+    def test_unit_parser_offsets(self):
+        parse = lambda s: unit_parser.parse_unit(s, suppress_unknown=False)
+        offset_units = [
+            temperature.degC,
+            temperature.degF,
+        ]
+        for u in offset_units:
+            self.assertEqual(parse(repr(u)), u)
 
     def test_family_compatibility(self):
         """ test are_compatible_families """
@@ -308,6 +359,11 @@ class test_units(unittest.TestCase):
         self.assertEqual(kgs.units('rhog').derivation, unit_parser.parse_unit('1000*kg/m**3').derivation)
         self.assertEqual(kgs.units('pvelocity').derivation, unit_parser.parse_unit('1000*m/s').derivation)
 
+    def test_ppg(self):
+        # PPG is a density measurement. It is not a pressure gradient unit. The
+        # pressure gradient can be found by multiplying the density by the
+        # acceleration due to gravity.
+        self.assertEqual(geo_units.ppg.derivation, density.gcc.derivation)
 
     #########################################################################
     # Private Methods:

@@ -222,7 +222,10 @@ def _has_units(summary, doc, inputs, outputs):
     def units_wrap(_func_):
         # This special-cases the output of numpy.vectorize
         if isinstance(_func_, numpy.vectorize):
-            thefunc = _func_.thefunc
+            thefunc = getattr(_func_, 'pyfunc', None)
+            if thefunc is None:
+                # Perhaps an older version of numpy.
+                thefunc = _func_.thefunc
         else:
             thefunc = _func_
 

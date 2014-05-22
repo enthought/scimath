@@ -1,0 +1,15 @@
+SciMath CHANGELOG
+=================
+
+Change summary since 4.1.2
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Enhance the unit parser to parse all of the provided units, with or without
+  offsets. (#25)
+
+* Correct the definition of PPG to be a density unit instead of a pressure
+  gradient unit. Calculations using PPG as a pressure gradient unit can be
+  recovered simply by multiplying the PPG quantity by g, the acceleration due
+  to gravity. To precisely recover the exact values from the previous
+  definition, use ``0.0519 * psi_per_f / ppg`` for this value, which is not
+  necessarily the best estimate for g.
