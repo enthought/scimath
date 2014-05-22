@@ -4,6 +4,9 @@ SciMath CHANGELOG
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* Fix raising a unitless `UnitArray` raised to a power. Thanks to @rupertnash
+  for reporting and fixing the bug. (#5)
+
 * Remove trivial (0.0) offsets from the string representation of units. (#27)
 
 * Enhance the unit parser to parse all of the provided units, with or without
