@@ -145,9 +145,9 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
             >>> from scimath.units.length import m
             >>> a = UnitArray((1,2,3), units=m)
             >>> add(a,a) # (Converts m -> ft -> m)
-            UnitArray([ 2.,  4.,  6.], units='1.0*m+0.0')
+            UnitArray([ 2.,  4.,  6.], units='1.0*m')
             >>> add(a,a).units
-            1.0*m+0.0
+            1.0*m
 
         Alternatively, parameter information can be specified in the decorator:
 
@@ -222,7 +222,10 @@ def _has_units(summary, doc, inputs, outputs):
     def units_wrap(_func_):
         # This special-cases the output of numpy.vectorize
         if isinstance(_func_, numpy.vectorize):
-            thefunc = _func_.thefunc
+            thefunc = getattr(_func_, 'pyfunc', None)
+            if thefunc is None:
+                # Perhaps an older version of numpy.
+                thefunc = _func_.thefunc
         else:
             thefunc = _func_
 
