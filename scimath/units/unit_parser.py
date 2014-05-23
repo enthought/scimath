@@ -186,8 +186,11 @@ class UnitParser:
         if label.lower() == "in":
             label = "inch"
 
-        if label == None or label == "" or \
-           label.lower() == 'unitless' or label.lower() == 'unknown':
+        if (label == None or
+                label == '' or
+                label == 'None' or
+                label.lower() == 'unitless' or
+                label.lower() == 'unknown'):
             label = "dimensionless"
             pretty_label = "none"
 
