@@ -217,9 +217,10 @@ class test_units(unittest.TestCase):
         return
 
     def test_unit_parser_dimensionless(self):
-        dless = Quantity(1.0, units="", family_name="unknown")
-        self.assert_( is_dimensionless(dless.units),
-            "Dimensionless units not properly parsed")
+        for label in ['', 'None', 'none', 'unknown', 'unitless']:
+            dless = unit_parser.parse_unit(label, suppress_unknown=False)
+            self.assertTrue(is_dimensionless(dless))
+            self.assertEqual(dless.value, 1)
 
     def test_unit_parser_caps(self):
         mpers_in_caps = Quantity(1.0, units="M/S", family_name="pvelocity")
