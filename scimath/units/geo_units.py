@@ -14,7 +14,7 @@ from scimath.units.pressure import apsi, bar, bars, gpa, Gpa, GPA, GPa, kbar, \
 from scimath.units.time import microsecond
 from scimath.units.volume import cubic_centimeter, cubic_meter, \
      us_fluid_gallon, liter, cubic_foot
-     
+
 
 ###############################################################################
 # impedance_units          g*km/cc/s, g*f/cc/s
@@ -24,6 +24,12 @@ g_km_per_cc_s.label = 'g*km/(cc*s)'
 g_ft_per_cc_s = (grams*foot)/(cubic_centimeter*second)
 g_ft_per_cc_s.label = 'g*ft/(cc*s)'
 
+# This is the MKS variant.
+rayl = pascal * second / meter
+rayl.label = 'Rayl'
+mrayl = mega * rayl
+mrayl.label = 'MRayl'
+
 ###############################################################################
 # modulus_units            GPa, MPa
 # pressure_units           MPa, psi, kbar, bar
@@ -31,6 +37,12 @@ g_ft_per_cc_s.label = 'g*ft/(cc*s)'
 ###############################################################################
 
 
+###############################################################################
+# Photoelectric absorption factor
+###############################################################################
+
+barns_per_electron = copy(dimensionless)
+barns_per_electron.label = 'b/e'
 
 ###############################################################################
 # pressure_gradient_units  psi/f, MPa/m, MPa/100f
