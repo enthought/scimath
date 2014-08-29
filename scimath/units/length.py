@@ -64,6 +64,10 @@ nautical_mile = 1852 * meter
 # others
 angstrom = 1e-10 * meter
 fermi = 1e-15 * meter
+survey_foot = 1200.0 / 3937.0 * meter
+survey_foot.label = 'us_foot'
+us_foot = survey_foot
+us_feet = survey_foot
 
 astronomical_unit = 1.49598e11 * meter
 light_year = 9.460e12 * kilometer
