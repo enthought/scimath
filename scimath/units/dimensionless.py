@@ -9,7 +9,7 @@ from scimath.units.unit import one, dim
 fractional = copy(dimensionless)
 fractional.label = 'V/V'
 fraction = fractional
-ratio = frac = fractional
+ratio = frac = fract = fractional
 
 percent = fractional / 100.
 percent.label = '%'
