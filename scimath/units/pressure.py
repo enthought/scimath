@@ -72,6 +72,8 @@ psi = pounds_per_square_inch
 apsi = psi
 psig = unit(psi.value, psi.derivation, 14.6959494)
 
+inHg = 3386.389 * pascal
+inHg.label = 'inHg'
 
 # version
 __id__ = "$Id: pressure.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
