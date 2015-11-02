@@ -41,7 +41,7 @@ class Parser(Singleton):
     def extend(self, *modules):
         for module in modules:
             self.context.update(module.__dict__)
-        self._cleanContext(context)
+        self._cleanContext(self.context)
         self._cacheExactLabels()
 
     def parse(self, string):
