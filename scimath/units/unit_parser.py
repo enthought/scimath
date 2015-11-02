@@ -61,15 +61,13 @@ class Parser(Singleton):
         return value
 
     def init(self, *args, **kwds):
-        self.context = self._initializeContext()
-        self._cacheExactLabels()
+        self._initializeContext()
 
     def _initializeContext(self):
-        context = {}
+        self.context = context = {}
         modules = self._loadModules()
-        for module in  modules:
-            context.update(module.__dict__)
-        self._cleanContext(context)
+        self.extend(*modules)
+
         # Add the SI names used in the derivations and labels but not
         # already in the context.
         context['A'] = context['amp']
