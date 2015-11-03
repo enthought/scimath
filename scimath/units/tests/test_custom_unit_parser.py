@@ -12,10 +12,7 @@ class TestCustomUnitParser(unittest.TestCase):
     def test_extend_from_module(self):
         # Custom units are not known initially
         with self.assertRaises(UnableToParseUnits):
-            unit_parser.parse_unit("cuwl", suppress_unknown=False)
-        with self.assertRaises(UnableToParseUnits):
             unit_parser.parse_unit("custom_unit", suppress_unknown=False)
 
         unit_parser.parser.extend(sample_units)
         self.assertEqual(unit_parser.parse_unit("cuwl"), mm)
-        self.assertEqual(unit_parser.parse_unit("custom_unit"), mm)
