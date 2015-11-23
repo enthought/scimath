@@ -75,19 +75,6 @@ class UnitArray(numpy.ndarray):
         base_str = self._get_values_base_str()
         return "UnitArray(%s, units='%s')" % (base_str, self.units.label)
 
-    def _get_values_base_str(self):
-        """ Build a string representation of the array values. """
-        # this is a little more complicated than it should be in order
-        # to be more resilient to changes to numpy ndarray API
-        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
-        start = base_str.find('(')
-        end = base_str.rfind(')')
-
-        if start > -1 and end > -1:
-            base_str = base_str[start+1:end]
-
-        return base_str
-
     def __reduce_ex__(self, protocol):
         """
         pickling function for classes which inherit from tuple.
@@ -479,6 +466,22 @@ class UnitArray(numpy.ndarray):
         result.units = new_units
 
         return result
+
+    ### Unit Conversion ########################################################
+
+    def _get_values_base_str(self):
+        """ Build a string representation of the array values.
+        """
+        # this is a little more complicated than it should be in order
+        # to be more resilient to changes to numpy ndarray API
+        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
+        start = base_str.find('(')
+        end = base_str.rfind(')')
+
+        if start > -1 and end > -1:
+            base_str = base_str[start+1:end]
+
+        return base_str
 
     ############################################################################
     # static methods which wrap numpy builtin functions
