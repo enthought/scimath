@@ -68,12 +68,19 @@ class UnitArray(numpy.ndarray):
     # object interface
     ############################################################################
     def __repr__(self):
+        """ String representation using the label of the unit."""
         base_str = self._get_values_base_str()
-        return "UnitArray(%s, units='%s')" % (base_str, repr(self.units))
+        s = "{}({}, units='{}')"
+        return s.format(type(self).__name__, base_str, repr(self.units))
 
     def __str__(self):
-        base_str = self._get_values_base_str()
-        return "UnitArray(%s, units='%s')" % (base_str, self.units.label)
+        """ String representation using the label of the unit."""
+        if self.units.label is not None:
+            base_str = self._get_values_base_str()
+            s = "{}({}, units={!r})"
+            return s.format(type(self).__name__, base_str, self.units.label)
+        else:
+            return self.__repr__()
 
     def __reduce_ex__(self, protocol):
         """
