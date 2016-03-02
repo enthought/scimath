@@ -13,7 +13,8 @@ from numpy import all, array, sqrt
 # Enthought Library imports
 import scimath.units as units
 from traits.testing.api import skip
-from scimath.units.length import meters, feet
+from scimath.units.length import meters, feet, cm
+from scimath.units.mass import gram
 from scimath.units.time import second, seconds
 from scimath.units.unit import InvalidConversion, dimensionless
 
@@ -32,7 +33,6 @@ class UnitArrayTestCase(unittest.TestCase):
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
-
     ############################################################################
     # Test construction from arrays
     ############################################################################
@@ -50,6 +50,31 @@ class UnitArrayTestCase(unittest.TestCase):
                  [4,5,6]])
         assert(a[1,2] == 6)
 
+    ############################################################################
+    # Test construction from arrays
+    ############################################################################
+
+    def test_repr(self):
+        """ Test output of repr()"""
+        a = UnitArray([1,2,3], units="cm")
+        self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='0.01*m')")
+
+        # unit with no label
+        labelless_unit = cm * gram
+        a = UnitArray([1,2,3], units=labelless_unit)
+        self.assertEqual(str(a), "UnitArray([1, 2, 3], units='1e-05*m*kg')")
+
+
+    def test_str(self):
+        """ Test output of str() """
+        a = UnitArray([1,2,3], units="cm")
+        self.assertEqual(str(a), "UnitArray([1, 2, 3], units='cm')")
+
+        # unit with no label
+        labelless_unit = cm * gram
+        a = UnitArray([1,2,3], units=labelless_unit)
+        # For units with no label, the output of repr is used.
+        self.assertEqual(str(a), repr(a))
 
     ############################################################################
     # Test mathematical operations
