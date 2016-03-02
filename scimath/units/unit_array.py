@@ -68,7 +68,7 @@ class UnitArray(numpy.ndarray):
     # object interface
     ############################################################################
     def __repr__(self):
-        """ String representation using the label of the unit."""
+        """ String representation using the repr of the unit."""
         base_str = self._get_values_base_str()
         s = "{}({}, units='{}')"
         return s.format(type(self).__name__, base_str, repr(self.units))
