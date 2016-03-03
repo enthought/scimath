@@ -77,7 +77,7 @@ class UnitArray(numpy.ndarray):
         """ String representation using the label of the unit."""
         if self.units.label is not None:
             base_str = self._get_values_base_str()
-            s = "{}({}, units={!r})"
+            s = "{}: {} {}"
             return s.format(type(self).__name__, base_str, self.units.label)
         else:
             return self.__repr__()

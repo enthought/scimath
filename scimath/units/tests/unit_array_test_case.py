@@ -68,7 +68,7 @@ class UnitArrayTestCase(unittest.TestCase):
     def test_str(self):
         """ Test output of str() """
         a = UnitArray([1,2,3], units="cm")
-        self.assertEqual(str(a), "UnitArray([1, 2, 3], units='cm')")
+        self.assertEqual(str(a), "UnitArray: [1, 2, 3]  cm")
 
         # unit with no label
         labelless_unit = cm * gram
