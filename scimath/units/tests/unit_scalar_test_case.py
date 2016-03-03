@@ -1,10 +1,12 @@
+from copy import copy
 import unittest
+
 from traits.testing.api import doctest_for_module
 
 import scimath.units.unit_scalar as unit_scalar
-from scimath.units.unit_scalar import UnitScalar
-from scimath.units.length import m, cm
+from scimath.units.api import dimensionless, UnitScalar
 from scimath.units.mass import gram
+from scimath.units.length import m, cm
 from scimath.units.unit import unit
 
 
@@ -13,6 +15,7 @@ class UnitScalarDocTestCase(doctest_for_module(unit_scalar)):
 
 
 class UnitScalarTest(unittest.TestCase):
+
     def test_offset_unit_computations(self):
         """ Basic computations with a basic custom unit with offset.
         """
@@ -32,6 +35,12 @@ class UnitScalarTest(unittest.TestCase):
         a = UnitScalar(1, units=labelless_unit)
         self.assertEqual(str(a), "UnitScalar(1, units='1e-05*m*kg')")
 
+        # dimensionless quantity
+        dimensionless_unit = copy(dimensionless)
+        dimensionless_unit.label = "Cool unit"
+        a = UnitScalar(1, units=dimensionless_unit)
+        self.assertEqual(repr(a), "UnitScalar(1, units='1')")
+
 
     def test_str(self):
         """ Test output of str() """
@@ -43,6 +52,12 @@ class UnitScalarTest(unittest.TestCase):
         a = UnitScalar(1, units=labelless_unit)
         # For units with no label, the output of repr is used.
         self.assertEqual(str(a), repr(a))
+
+        # dimensionless quantity
+        dimensionless_unit = copy(dimensionless)
+        dimensionless_unit.label = "Cool unit"
+        a = UnitScalar(1, units=dimensionless_unit)
+        self.assertEqual(str(a), "UnitScalar: 1 Cool unit")
 
 
 

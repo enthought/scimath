@@ -1,4 +1,5 @@
 # Standard library imports
+from copy import copy
 from cPickle import dumps, loads
 import timeit
 import unittest
@@ -56,25 +57,37 @@ class UnitArrayTestCase(unittest.TestCase):
 
     def test_repr(self):
         """ Test output of repr()"""
-        a = UnitArray([1,2,3], units="cm")
+        a = UnitArray([1, 2, 3], units="cm")
         self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='0.01*m')")
 
         # unit with no label
         labelless_unit = cm * gram
-        a = UnitArray([1,2,3], units=labelless_unit)
+        a = UnitArray([1, 2, 3], units=labelless_unit)
         self.assertEqual(str(a), "UnitArray([1, 2, 3], units='1e-05*m*kg')")
+
+        # dimensionless quantity
+        dimensionless_unit = copy(dimensionless)
+        dimensionless_unit.label = "Cool unit"
+        a = UnitArray([1, 2, 3], units=dimensionless_unit)
+        self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='1')")
 
 
     def test_str(self):
         """ Test output of str() """
-        a = UnitArray([1,2,3], units="cm")
-        self.assertEqual(str(a), "UnitArray: [1, 2, 3]  cm")
+        a = UnitArray([1, 2, 3], units="cm")
+        self.assertEqual(str(a), "UnitArray: [1, 2, 3] cm")
 
         # unit with no label
         labelless_unit = cm * gram
-        a = UnitArray([1,2,3], units=labelless_unit)
+        a = UnitArray([1, 2, 3], units=labelless_unit)
         # For units with no label, the output of repr is used.
         self.assertEqual(str(a), repr(a))
+
+        # dimensionless quantity
+        dimensionless_unit = copy(dimensionless)
+        dimensionless_unit.label = "Cool unit"
+        a = UnitArray([1, 2, 3], units=dimensionless_unit)
+        self.assertEqual(str(a), "UnitArray: [1, 2, 3] Cool unit")
 
     ############################################################################
     # Test mathematical operations
