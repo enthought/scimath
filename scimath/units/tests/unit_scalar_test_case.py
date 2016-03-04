@@ -33,7 +33,7 @@ class UnitScalarTest(unittest.TestCase):
         # unit with no label
         labelless_unit = cm * gram
         a = UnitScalar(1, units=labelless_unit)
-        self.assertEqual(str(a), "UnitScalar(1, units='1e-05*m*kg')")
+        self.assertEqual(repr(a), "UnitScalar(1, units='1e-05*m*kg')")
 
         # dimensionless quantity
         dimensionless_unit = copy(dimensionless)
@@ -45,19 +45,19 @@ class UnitScalarTest(unittest.TestCase):
     def test_str(self):
         """ Test output of str() """
         a = UnitScalar(1, units="cm")
-        self.assertEqual(str(a), "UnitScalar: 1 cm")
+        self.assertEqual(str(a), "UnitScalar (cm): 1")
 
         # unit with no label
         labelless_unit = cm * gram
         a = UnitScalar(1, units=labelless_unit)
-        # For units with no label, the output of repr is used.
-        self.assertEqual(str(a), repr(a))
+        # For units with no label, the repr of the unit is used.
+        self.assertEqual(str(a), "UnitScalar (1e-05*m*kg): 1")
 
         # dimensionless quantity
         dimensionless_unit = copy(dimensionless)
         dimensionless_unit.label = "Cool unit"
         a = UnitScalar(1, units=dimensionless_unit)
-        self.assertEqual(str(a), "UnitScalar: 1 Cool unit")
+        self.assertEqual(str(a), "UnitScalar (Cool unit): 1")
 
 
 

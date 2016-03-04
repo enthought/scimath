@@ -17,14 +17,17 @@ class UnitScalar(UnitArray):
         (UnitScalar(25, units='0.0001*m**2'), 0.0001*m**2)
     '''
     def __repr__(self):
-        s = "{}({}, units='{}')"
+        s = "{klass}({val}, units='{unit}')"
         str_val = self.item().__repr__()
-        return s.format(type(self).__name__, str_val, repr(self.units))
+        klass = type(self).__name__
+        return s.format(klass=klass, val=str_val, unit=repr(self.units))
 
     def __str__(self):
+        s = "{klass} ({unit}): {val}"
+        str_val = self.item().__str__()
         if self.units.label is not None:
-            s = "{}: {} {}"
-            str_val = self.item().__str__()
-            return s.format(type(self).__name__, str_val, self.units.label)
+            str_unit = self.units.label
         else:
-            return self.__repr__()
+            str_unit = repr(self.units)
+
+        return s.format(klass=type(self).__name__, val=str_val, unit=str_unit)

@@ -70,17 +70,20 @@ class UnitArray(numpy.ndarray):
     def __repr__(self):
         """ String representation using the repr of the unit."""
         base_str = self._get_values_base_str()
-        s = "{}({}, units='{}')"
-        return s.format(type(self).__name__, base_str, repr(self.units))
+        s = "{klass}({val}, units='{unit}')"
+        klass = type(self).__name__
+        return s.format(klass=klass, val=base_str, unit=repr(self.units))
 
     def __str__(self):
         """ String representation using the label of the unit."""
+        s = "{klass} ({unit}): {val}"
+        base_str = self._get_values_base_str()
         if self.units.label is not None:
-            base_str = self._get_values_base_str()
-            s = "{}: {} {}"
-            return s.format(type(self).__name__, base_str, self.units.label)
+            str_unit = self.units.label
         else:
-            return self.__repr__()
+            str_unit = repr(self.units)
+
+        return s.format(klass=type(self).__name__, val=base_str, unit=str_unit)
 
     def __reduce_ex__(self, protocol):
         """

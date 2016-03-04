@@ -63,7 +63,7 @@ class UnitArrayTestCase(unittest.TestCase):
         # unit with no label
         labelless_unit = cm * gram
         a = UnitArray([1, 2, 3], units=labelless_unit)
-        self.assertEqual(str(a), "UnitArray([1, 2, 3], units='1e-05*m*kg')")
+        self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='1e-05*m*kg')")
 
         # dimensionless quantity
         dimensionless_unit = copy(dimensionless)
@@ -75,19 +75,19 @@ class UnitArrayTestCase(unittest.TestCase):
     def test_str(self):
         """ Test output of str() """
         a = UnitArray([1, 2, 3], units="cm")
-        self.assertEqual(str(a), "UnitArray: [1, 2, 3] cm")
+        self.assertEqual(str(a), "UnitArray (cm): [1, 2, 3]")
 
         # unit with no label
         labelless_unit = cm * gram
         a = UnitArray([1, 2, 3], units=labelless_unit)
-        # For units with no label, the output of repr is used.
-        self.assertEqual(str(a), repr(a))
+        # For units with no label, the repr of the unit is used.
+        self.assertEqual(str(a), "UnitArray (1e-05*m*kg): [1, 2, 3]")
 
         # dimensionless quantity
         dimensionless_unit = copy(dimensionless)
         dimensionless_unit.label = "Cool unit"
         a = UnitArray([1, 2, 3], units=dimensionless_unit)
-        self.assertEqual(str(a), "UnitArray: [1, 2, 3] Cool unit")
+        self.assertEqual(str(a), "UnitArray (Cool unit): [1, 2, 3]")
 
     ############################################################################
     # Test mathematical operations
