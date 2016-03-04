@@ -70,9 +70,9 @@ class UnitArray(numpy.ndarray):
     def __repr__(self):
         """ String representation using the repr of the unit."""
         base_str = self._get_values_base_str()
-        s = "{klass}({val}, units='{unit}')"
+        s = "{klass}({val}, units='{unit!r}')"
         klass = type(self).__name__
-        return s.format(klass=klass, val=base_str, unit=repr(self.units))
+        return s.format(klass=klass, val=base_str, unit=self.units)
 
     def __str__(self):
         """ String representation using the label of the unit."""
