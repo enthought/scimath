@@ -18,8 +18,9 @@
 #
 #------------------------------------------------------------------------------
 
+from __future__ import absolute_import
 import numpy
-from unit import InvalidConversion
+from .unit import InvalidConversion
 
 
 #####################################################################
@@ -94,7 +95,7 @@ def convert(value, from_unit, to_unit):
         try:
             # try a straight conversion
             factor = float(from_unit / to_unit)
-        except InvalidConversion, ex:
+        except InvalidConversion as ex:
             # try an inversion
             factor = from_unit * to_unit
             if not isinstance(factor, float):

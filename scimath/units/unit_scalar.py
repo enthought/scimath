@@ -1,4 +1,5 @@
-from unit_array import UnitArray
+from __future__ import absolute_import
+from .unit_array import UnitArray
 
 # `array(x)` behaves like `x`, so we get unitted scalars for free. Efficiency
 # is of course a concern, but there are no other solutions in sight, and this

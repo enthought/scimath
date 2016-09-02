@@ -1,4 +1,5 @@
 # Enthought library imports
+from __future__ import absolute_import
 from traits.api import HasTraits, Instance, Str
 from scimath.units.unit import unit
 from scimath.units.unit_parser import unit_parser

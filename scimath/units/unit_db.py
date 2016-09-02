@@ -16,6 +16,8 @@
 
 
 # Standard library imports:
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os
 import logging
@@ -25,6 +27,7 @@ from traits.util.resource import get_path
 
 # Local Imports:
 from scimath.units.unit_parser import unit_parser
+from six.moves import map
 
 
 logger = logging.getLogger(__name__)
@@ -59,7 +62,7 @@ class UnitDB(object):
         if not filename:
             filename= os.path.join( get_path( self ), 'data',
                    'unit_family_membership.txt' )
-        fh = file(filename)
+        fh = open(filename)
 
         csv_reader = csv.reader( fh, delimiter = ' ', skipinitialspace = True )
 
@@ -74,8 +77,8 @@ class UnitDB(object):
                 family_name = data[0].lower()
                 # add the family name to the alias list as well ....
                 for member_name in data:
-                    if self.member_names.has_key(member_name):
-                        print 'Warning: duplicate key: %s in %s' % (member_name, filename)
+                    if member_name in self.member_names:
+                        print('Warning: duplicate key: %s in %s' % (member_name, filename))
                     #print '    adding %s to member_names...' % member_name
                     self.member_names[member_name] = family_name
 
@@ -109,7 +112,7 @@ class UnitDB(object):
         if not filename:
             filename= os.path.join( get_path( self ), 'data',
                    'unit_formatting.txt' )
-        fh = file(filename)
+        fh = open(filename)
 
         csv_reader = csv.reader( fh, delimiter = ' ', skipinitialspace = True )
 
@@ -158,7 +161,7 @@ class UnitDB(object):
                    'unit_families.txt' )
 
         is_data           = False
-        fh                = file( filename )
+        fh                = open( filename )
 
         logger.debug('Loading default unit info from %s...' % filename)
 
@@ -167,9 +170,9 @@ class UnitDB(object):
                 # Ignore blank lines and comment lines:
                 pass
             elif is_data:
-                self.unit_names[ data[0].lower() ] = map( lambda func,
+                self.unit_names[ data[0].lower() ] = list(map( lambda func,
                                                           x: func( x ),
-                                                          converters, data )
+                                                          converters, data ))
             else:
                 # Parse the header line
                 is_data      = True
@@ -203,7 +206,7 @@ class UnitDB(object):
         if not filename:
             filename= os.path.join( get_path( self ), 'data',
                    'unit_ranges.txt' )
-        fh = file(filename)
+        fh = open(filename)
 
         csv_reader = csv.reader( fh, delimiter = ' ', skipinitialspace = True )
 
@@ -314,17 +317,17 @@ if __name__ == '__main__':
         from scimath.units import unit_db
 
         udb = gotcha.profile(unit_db.UnitDB)
-        print 'Getting family members...'
+        print('Getting family members...')
         gotcha.profile(udb.get_family_members_from_file)
-        print 'Getting unit families...'
+        print('Getting unit families...')
         gotcha.profile(udb.get_unit_families_from_file)
-        print 'Systems: %s' % udb.unit_systems
-        print 'Families: %s' % len(udb.preferred_names)
-        print 'Members: %s' % len(udb.member_names)
+        print('Systems: %s' % udb.unit_systems)
+        print('Families: %s' % len(udb.preferred_names))
+        print('Members: %s' % len(udb.member_names))
 
         gotcha.end_profiling()
     except ImportError:
-        print 'Unable to provide a profile -- enthought.gotcha not found.'
+        print('Unable to provide a profile -- enthought.gotcha not found.')
 
         from scimath.units import unit_db
 

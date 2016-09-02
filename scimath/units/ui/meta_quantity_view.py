@@ -7,6 +7,7 @@
 #
 #-----------------------------------------------------------------------------
 
+from __future__ import absolute_import
 from traits.api import Bool, TraitError
 from traitsui.api import EnumEditor, Handler, Item, List, View
 
@@ -61,10 +62,10 @@ class MetaQuantityViewHandler(Handler):
         name = name.strip()
 
         if self.any_name and len(name) == 0:
-            raise TraitError, 'name must be specified'
+            raise TraitError('name must be specified')
 
         if not (self.any_name or name in self.known_names):
-            raise TraitError, 'invalid name %s' % name
+            raise TraitError('invalid name %s' % name)
 
         return name
 

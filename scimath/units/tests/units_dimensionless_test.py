@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from numpy.testing import assert_equal
 from scimath.units.unit_scalar import UnitScalar
 from scimath.units.unit import dimensionless

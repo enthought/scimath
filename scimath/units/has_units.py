@@ -1,4 +1,5 @@
 # Standard library imports
+from __future__ import absolute_import
 import copy
 from string import Template
 import re
@@ -6,10 +7,10 @@ import re
 import numpy
 
 # Local imports
-from variable import Variable
-from function_signature import (call_signature, def_signature,
+from .variable import Variable
+from .function_signature import (call_signature, def_signature,
                                 function_arguments)
-from unit_manipulation import (convert_units, set_units, have_some_units,
+from .unit_manipulation import (convert_units, set_units, have_some_units,
     strip_units)
 
 section_marker = re.compile(r'[!-/:-@[-`{-~]+ *$')
@@ -229,7 +230,7 @@ def _has_units(summary, doc, inputs, outputs):
         else:
             thefunc = _func_
 
-        name = thefunc.func_name
+        name = thefunc.__name__
         define = def_signature(thefunc) #@UnusedVariable
         call = call_signature(thefunc, '_func_') #@UnusedVariable
         args, kw, args_ordered = function_arguments(thefunc) #@UnusedVariable
@@ -244,7 +245,7 @@ def _has_units(summary, doc, inputs, outputs):
         input_units = []
         input_list = []
         for arg in args_ordered:
-            if inputs.has_key(arg):
+            if arg in inputs:
                 input_units.append(inputs[arg].units)
                 input_list.append(copy.copy(inputs[arg]))
             else:
@@ -300,7 +301,7 @@ def _has_units(summary, doc, inputs, outputs):
                 'summary':summary,
                 'doc':doc,
                 }
-        exec code in vars
+        exec(code, vars)
 
         # return freshly created wrapper version of the function.
         return vars[name]

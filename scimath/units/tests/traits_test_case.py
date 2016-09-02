@@ -7,6 +7,8 @@
 #
 #-----------------------------------------------------------------------------
 
+from __future__ import absolute_import
+from __future__ import print_function
 from unittest import TestCase
 
 from traits.api import HasTraits, TraitError
@@ -55,7 +57,7 @@ class FamilyNameWithUnitsLinkage(HasTraits):
         # order (its a dictionary).  However, this class defines a relationship
         # between units and family_name and therefore must make sure the
         # assignments are done in the proper order.
-        if traits.has_key('units') and traits.has_key('family_name'):
+        if 'units' in traits and 'family_name' in traits:
             units = traits.pop('units')
             family_name = traits.pop('family_name')
 
@@ -306,7 +308,7 @@ class TraitsTestCase(TestCase):
     def ui_family_with_units(self):
         obj = FamilyNameWithUnitsLinkage()
         obj.configure_traits( kind='modal' )
-        print '\n'
+        print('\n')
         obj.print_traits()
 
         return

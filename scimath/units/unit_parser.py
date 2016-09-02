@@ -12,6 +12,7 @@
 #
 
 # Standard library imports.
+from __future__ import absolute_import
 import ast
 import logging
 import re
@@ -92,26 +93,26 @@ class Parser(Singleton):
 
     def _loadModules(self):
 
-        import SI
-        import acceleration
-        import angle
-        import area
-        import density
-        import dimensionless
-        import electromagnetism
-        import energy
-        import force
-        import frequency
-        import length
-        import mass
-        import power
-        import pressure
-        import speed
-        import substance
-        import temperature
-        import time
-        import volume
-        import geo_units
+        from . import SI
+        from . import acceleration
+        from . import angle
+        from . import area
+        from . import density
+        from . import dimensionless
+        from . import electromagnetism
+        from . import energy
+        from . import force
+        from . import frequency
+        from . import length
+        from . import mass
+        from . import power
+        from . import pressure
+        from . import speed
+        from . import substance
+        from . import temperature
+        from . import time
+        from . import volume
+        from . import geo_units
 
         modules = [
             SI, acceleration, angle, area, density, dimensionless,

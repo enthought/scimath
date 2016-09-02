@@ -26,8 +26,9 @@
 # Imports:
 #############################################################################
 
-from time   import hour, second, millisecond
-from length import foot, kilometer, meter, nautical_mile, mile
+from __future__ import absolute_import
+from .time   import hour, second, millisecond
+from .length import foot, kilometer, meter, nautical_mile, mile
 
 #############################################################################
 # Definitions:

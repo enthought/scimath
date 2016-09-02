@@ -12,7 +12,9 @@
 """
 
 # Major library imports.
+from __future__ import absolute_import
 import numpy as np
+from six.moves import map
 
 
 def normq(quat):
@@ -106,7 +108,7 @@ def rotquat(vhat1, vhat2):
     # NOTE: This is an expanded version of the old version of numpy's
     # 'column_stack' function.
     tup = (cost2, np.transpose(sint2v))
-    arrays = map(np.transpose, map(np.atleast_2d, tup))
+    arrays = list(map(np.transpose, list(map(np.atleast_2d, tup))))
     return np.concatenate(arrays, 1)
 
 
@@ -125,7 +127,7 @@ def _crossv(vertices1, vertices2):
         v11*v22-v12*v21,
         v12*v20-v10*v22,
         v10*v21-v11*v20)
-    arrays = map(np.transpose, map(np.atleast_2d, tup))
+    arrays = list(map(np.transpose, list(map(np.atleast_2d, tup))))
     return np.concatenate(arrays, 1)
 
 

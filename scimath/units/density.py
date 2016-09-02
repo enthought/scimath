@@ -27,8 +27,9 @@
 # Imports:
 #############################################################################
 
-from mass import gram, kilogram, pound
-from volume import cubic_centimeter, cubic_meter, us_fluid_gallon
+from __future__ import absolute_import
+from .mass import gram, kilogram, pound
+from .volume import cubic_centimeter, cubic_meter, us_fluid_gallon
 #############################################################################
 # Definitions:
 #############################################################################

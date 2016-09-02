@@ -1,5 +1,6 @@
 """ A wizard that creates a new Scalar """
 
+from __future__ import absolute_import
 from traits.api import Instance
 
 from envisage.project.wizard import NewResourceWizard
@@ -7,8 +8,8 @@ from envisage.project.wizard import NewNamedResourcePage
 
 from scimath.units.scalar     import Scalar
 
-from new_quantity_wizard        import QuantityFactory
-from new_quantity_resource_page import NewQuantityResourcePage
+from .new_quantity_wizard        import QuantityFactory
+from .new_quantity_resource_page import NewQuantityResourcePage
 
 class ScalarFactory( QuantityFactory ):
     """ A factory that creates Scalar resources. """

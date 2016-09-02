@@ -21,6 +21,7 @@
 #############################################################################
 
 # Standard library imports.
+from __future__ import absolute_import
 from fnmatch import fnmatch
 import logging
 
@@ -33,8 +34,9 @@ from scimath.units.unit_db        import UnitDB
 from scimath.units.unit_system    import UnitSystem
 from scimath.units.unit_converter import default_unit_converters
 from scimath.units.convert        import convert as unit_convert
-from unit                           import unit
-from unit_parser                    import unit_parser
+from .unit                           import unit
+from .unit_parser                    import unit_parser
+import six
 
 
 logger = logging.getLogger(__name__)
@@ -163,7 +165,7 @@ class UnitManager(HasPrivateTraits):
         Probably called when the project is loaded.
 
         """
-        if isinstance(system, basestring):
+        if isinstance(system, six.string_types):
             self.default_system = self.lookup_system(system.upper())
 
         elif isinstance(system, UnitSystem):
@@ -190,7 +192,7 @@ class UnitManager(HasPrivateTraits):
         else:
             msg = "Unknown unit system: %s.  Currently available systems are %s" \
                 % (name, [us.name for us in self.unit_systems])
-            raise KeyError, msg
+            raise KeyError(msg)
 
         return unit_system
 
@@ -204,7 +206,7 @@ class UnitManager(HasPrivateTraits):
             if isinstance(system, UnitSystem):
                 result = system
             # case #2 - system specified as a string eg 'IMPERIAL'
-            elif isinstance(system, basestring):
+            elif isinstance(system, six.string_types):
                 result = self.lookup_system(system.upper())
             # case #3 - no system supplied so use the unit_manager's default
             elif system is None:
@@ -213,7 +215,7 @@ class UnitManager(HasPrivateTraits):
             else:
                 raise Exception
 
-        except Exception, msg:
+        except Exception as msg:
             logger.exception("Unrecognized unit system %s" % system)
             result = self.get_default()
 
@@ -273,7 +275,7 @@ class UnitManager(HasPrivateTraits):
 
         # Successively remove _x at end of name and check for match
         # If name has no '_', this yields name = ''
-        while name <> '' and not self.unit_members.has_key(name):
+        while name != '' and name not in self.unit_members:
             name = '_'.join(name.split('_')[:-1])
 
         if name == '':
@@ -365,7 +367,7 @@ class UnitManager(HasPrivateTraits):
         elif isinstance( units, unit ):
             units_label = units.label
 
-        elif isinstance( units, basestring ):
+        elif isinstance( units, six.string_types ):
             units_label = units
             units = unit_parser.parse_unit(units)
 
@@ -458,7 +460,7 @@ class UnitManager(HasPrivateTraits):
             conv_func = self.get_unit_converter(obj)
             return conv_func(obj, new_unit_system)
 
-        except Exception, ex:
+        except Exception as ex:
             logger.exception(ex)
             logger.warning("Could not convert object: %s to system: %s" % \
                               (obj,new_unit_system))
@@ -477,7 +479,7 @@ class UnitManager(HasPrivateTraits):
     # TODO: this method does not seem to ever be called--consider deleting.
     def _convert (self, value, from_units, to_units):
 
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             converted_data = value.data
         elif isinstance( value, numpy.ndarray) and \
               value.dtype.char == 'S':

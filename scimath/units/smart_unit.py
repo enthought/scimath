@@ -19,6 +19,7 @@
 #############################################################################
 # Imports:
 #############################################################################
+from __future__ import absolute_import
 import warnings
 import numpy
 
@@ -111,7 +112,7 @@ class SmartUnit(OffsetUnit):
         try:
             convert(1.0, self, new_unit)
             ok = True
-        except Exception, msg:
+        except Exception as msg:
             #print 'Failed at convert stage ', msg
             ok = False
 

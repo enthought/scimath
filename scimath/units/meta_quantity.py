@@ -9,12 +9,13 @@
 
 """ The specification for Quantity objects. """
 
+from __future__ import absolute_import
 from traits.api import HasStrictTraits, Str
 
-from unit_traits import UnitsTrait
-from family_name_trait import FamilyNameTrait
+from .unit_traits import UnitsTrait
+from .family_name_trait import FamilyNameTrait
 
-from unit_manager import unit_manager
+from .unit_manager import unit_manager
 
 class MetaQuantity(HasStrictTraits):
     """ The specification for Quantity objects. """
@@ -33,7 +34,7 @@ class MetaQuantity(HasStrictTraits):
     def __init__(self, **traits):
         """ Create a new MetaQuantity. """
 
-        if traits.has_key('units') and traits.has_key('family_name'):
+        if 'units' in traits and 'family_name' in traits:
             # must be set in the correct order.
             units = traits.pop('units')
             family_name = traits.pop('family_name')

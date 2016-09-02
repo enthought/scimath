@@ -1,10 +1,12 @@
 # Numeric Library Imports
+from __future__ import absolute_import
 import numpy
 
 # Enthought library imports
 import scimath.units as units
 from scimath.units.unit import dimensionless
 from scimath.units.unit_parser import unit_parser
+import six
 
 def __newobj__ ( cls, *args ):
     """ Unpickles new-style objects.
@@ -148,7 +150,7 @@ class UnitArray(numpy.ndarray):
                                         buffer=arr)
 
         ### Configure Other Attributes #########################################
-        if isinstance(units, basestring):
+        if isinstance(units, six.string_types):
             units = unit_parser.parse_unit(units)
 
         res.units = units
@@ -370,13 +372,13 @@ class UnitArray(numpy.ndarray):
         """
         Defines the exponent operator of a unitted array
         """
-        if isinstance(other, (int, long, float)) or \
+        if isinstance(other, (int, int, float)) or \
                 (isinstance(other, numpy.ndarray) and other.shape == ()):
             if isinstance(other, UnitArray):
                 if getattr(other, "units", dimensionless) == dimensionless:
                     other = float(other)
                 else:
-                    raise units.IncompatibleUnits, "exponent must be dimensionless"
+                    raise units.IncompatibleUnits("exponent must be dimensionless")
             result = super(UnitArray, self).__pow__(other)
             su = getattr(self, 'units', None)
             if su is not None:

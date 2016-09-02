@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from scimath.units.api import has_units
 from scimath.units.example_units import a_duck
 from scimath.units.length import foot, meter

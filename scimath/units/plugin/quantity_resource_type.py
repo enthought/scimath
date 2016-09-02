@@ -2,13 +2,14 @@
 
 
 # Enthought library imports.
+from __future__ import absolute_import
 from envisage.resource import ObjectResourceType
 from traits.api import Instance
 from scimath.units.quantity import Quantity
 
 # Local imports.
-from quantity_node_type import QuantityNodeType
-from quantity_resource_editor import QuantityResourceEditor
+from .quantity_node_type import QuantityNodeType
+from .quantity_resource_editor import QuantityResourceEditor
 
 class QuantityResourceType(ObjectResourceType):
     """ The resource type for quantities. """

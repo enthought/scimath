@@ -2,6 +2,8 @@
     function objects.
 """
 
+from __future__ import absolute_import
+from six.moves import zip
 def function_arguments(func):
     """ Given a function, return its args, keywords, and full argument list.
 
@@ -14,10 +16,10 @@ def function_arguments(func):
     """
 
     # Number of arguments to the function.
-    arg_count = func.func_code.co_argcount
+    arg_count = func.__code__.co_argcount
 
     # Names of the local variables in the function.
-    var_names = func.func_code.co_varnames
+    var_names = func.__code__.co_varnames
 
     # The variables that come from the function inputs are at the from of the
     # local variable list.
@@ -26,14 +28,14 @@ def function_arguments(func):
     # Tuple of default values.  They are the values supplied to keyword
     # arguments and match to the last arguments in the
     # args_ordered list. It is None, if there are no keyword arguments.
-    defaults = func.func_defaults
+    defaults = func.__defaults__
 
     if defaults is not None:
         # If there are keywords, then slice the variable list into
         # positional and keyword arguments.
         kw_count = len(defaults)
         args = args_ordered[:-kw_count]
-        kw = dict(zip(args_ordered[-kw_count:], defaults))
+        kw = dict(list(zip(args_ordered[-kw_count:], defaults)))
     else:
         # If there are no keyword arguments, then everything is positional.
         args = args_ordered[:]
@@ -57,7 +59,7 @@ def def_signature(func, name=None):
     """
 
     if name is None:
-        name = func.func_name
+        name = func.__name__
 
     args, kw, args_ordered = function_arguments(func) #@UnusedVariable
 
@@ -89,7 +91,7 @@ def call_signature(func, name=None):
             'foo(a, b)'
     """
     if name is None:
-        name = func.func_name
+        name = func.__name__
 
     args, kw, args_ordered = function_arguments(func) #@UnusedVariable
 

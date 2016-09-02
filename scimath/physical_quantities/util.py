@@ -14,6 +14,7 @@
 from __future__ import division
 
 # Global module imports
+from __future__ import absolute_import
 from copy import copy
 
 def dict_mul(a, n):

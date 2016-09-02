@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import unittest
 from traits.testing.api import doctest_for_module
 

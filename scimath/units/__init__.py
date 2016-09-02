@@ -18,7 +18,8 @@
     Part of the SciMath project of the Enthought Tool Suite.
     http://github.enthought.com/scimath/units/index.html
 """
-from convert import convert, parser
+from __future__ import absolute_import
+from .convert import convert, parser
 from scimath.units.unit_manager import unit_manager
 
 #### EOF #######################################################################

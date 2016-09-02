@@ -10,6 +10,7 @@
 """
 
 # major package imports
+from __future__ import absolute_import
 import numpy
 from scipy import interpolate
 
@@ -17,7 +18,7 @@ from scipy import interpolate
 from traits.api import HasPrivateTraits, Bool, TraitEnum, Trait, Float
 
 # local imports
-from interpolate import linear, logarithmic, block_average_above, window_average
+from .interpolate import linear, logarithmic, block_average_above, window_average
 
 # use traits for these in the future.
 
@@ -92,11 +93,11 @@ class DataFit(HasPrivateTraits):
         return y
 
     def interp(self, x):
-        raise NotImplementedError, "override in subclass"
+        raise NotImplementedError("override in subclass")
 
     def __call__(self, x):
         if not self.initialized:
-            raise ValueError, "call set_xy(x, y) before trying to fit data"
+            raise ValueError("call set_xy(x, y) before trying to fit data")
 
         if self.using_special_case():
             y = self.calc_special_case(x)
@@ -224,7 +225,7 @@ class EndAverage(DataFit):
             msg = "end_average() only works for extrapolation.  Some of the "\
                   "in x fall between the endpoints (x[0], x[-1]) of the "\
                   "x numpy.array."
-            raise ValueError, msg
+            raise ValueError(msg)
 
         # find the average y value within depth_interval at both the start and
         # end of the data set that is within depth_interval distance from the

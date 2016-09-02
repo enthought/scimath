@@ -16,6 +16,7 @@
 
 
 # Standard library imports.
+from __future__ import absolute_import
 import logging
 import numpy
 
@@ -30,6 +31,7 @@ from scimath.units.smart_unit   import SmartUnit
 from scimath.units.unit_parser  import unit_parser
 from scimath.units.unit_manager import unit_manager
 from scimath.units.family_name_trait  import FamilyNameTrait
+import six
 
 
 # Setup a logger for this module.
@@ -118,10 +120,10 @@ class Quantity(HasPrivateTraits):
 
         # Allow for parsing a unit string as the units argument
         else:
-            if isinstance(units, basestring):
+            if isinstance(units, six.string_types):
                 units = unit_parser.parse_unit(units, suppress_warnings=False)
 
-        if not traits.has_key('family_name'):
+        if 'family_name' not in traits:
             # If the family name wasn't passed in, we try to guess it.
             # TODO: Should lower() be called here--one can do an
             # 'obj.family_name='xxx'" that would not call a 'lower' method.
@@ -154,8 +156,8 @@ class Quantity(HasPrivateTraits):
         # If we haven't checked compatibilty before, and units
         if (compatibility_checked != True and
             not unit_manager.is_compatible( units, self.family_name )):
-            raise ValueError, "units (%s) not compatible with family_name (%s)" \
-                            % (units.label, self.family_name)
+            raise ValueError("units (%s) not compatible with family_name (%s)" \
+                            % (units.label, self.family_name))
 
         self.units = units
 
@@ -352,7 +354,7 @@ class Quantity(HasPrivateTraits):
         if isinstance( data, Quantity ):
             # if data is a string or an array of strings, ignore the conversion
             # because convert will fail for string data
-            if isinstance(data.data, basestring):
+            if isinstance(data.data, six.string_types):
                 converted_data = data.data
             elif isinstance(data.data, numpy.ndarray) \
                     and data.data.dtype.char == 'S':

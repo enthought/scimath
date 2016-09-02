@@ -12,10 +12,11 @@
 quantities in various unit systems.
 """
 
+from __future__ import absolute_import
 from traits.api import Bool, HasTraits, List, Str, \
     Trait, TraitError, TraitFactory, TraitHandler
 
-from unit_manager import unit_manager
+from .unit_manager import unit_manager
 
 class FamilyNameTraitHandler(TraitHandler, HasTraits):
     """ TraitHandler for units that validates unit string parsing and,
@@ -43,7 +44,7 @@ class FamilyNameTraitHandler(TraitHandler, HasTraits):
         and is_strict attributes.
         """
         if ( (value is None and not self.allow_none)
-            or (self.is_strict and not unit_manager.unit_families.has_key(value))):
+            or (self.is_strict and value not in unit_manager.unit_families)):
             self.error(obj, name, value)
 
         return value
@@ -86,7 +87,7 @@ def family_name_traits_factory_function( value=None, is_strict=False,
                                          editor=None,
                                          **metadata):
     if not allow_none and value is None:
-        raise TraitError, "value must not be None"
+        raise TraitError("value must not be None")
 
     if editor is None:
         # Delay UI imports until here such that this library can be used without

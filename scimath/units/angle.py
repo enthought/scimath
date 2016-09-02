@@ -21,8 +21,9 @@
 # Imports:
 #############################################################################
 
+from __future__ import absolute_import
 import math
-from SI import radian
+from .SI import radian
 
 #############################################################################
 # Definitions:

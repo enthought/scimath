@@ -1,6 +1,9 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import numpy
 
-import _interpolate
+from . import _interpolate
+from six.moves import range
 
 def make_array_safe(ary, typecode):
     ary = numpy.atleast_1d(numpy.asarray(ary, typecode))
@@ -95,7 +98,7 @@ def block_average_above(x, y, new_x):
         msg = "block_average_above cannot extrapolate and new_x[%d]=%f "\
               "is out of the x range (%f, %f)" % \
               (bad_index, new_x[bad_index], x[0], x[-1])
-        raise ValueError, msg
+        raise ValueError(msg)
 
     return new_y
 
@@ -127,8 +130,8 @@ def main():
     t1 = time.clock()
     new_y = linear(x, y, new_x)
     t2 = time.clock()
-    print '1d interp (sec):', t2 - t1
-    print new_y[:5]
+    print('1d interp (sec):', t2 - t1)
+    print(new_y[:5])
 
     N = 3000.
     x = arange(N)
@@ -138,8 +141,8 @@ def main():
     t1 = time.clock()
     new_y = block_average_above(x, y, new_x)
     t2 = time.clock()
-    print '1d block_average_above (sec):', t2 - t1
-    print new_y[:5]
+    print('1d block_average_above (sec):', t2 - t1)
+    print(new_y[:5])
 
     N = 3000.
     x = arange(N)
@@ -148,8 +151,8 @@ def main():
     t1 = time.clock()
     new_y = linear(x, y, new_x)
     t2 = time.clock()
-    print 'fast interpolate (sec):', t2 - t1
-    print new_y[:5,:5]
+    print('fast interpolate (sec):', t2 - t1)
+    print(new_y[:5,:5])
 
     import scipy
     N = 3000.
@@ -160,8 +163,8 @@ def main():
     interp = scipy.interpolate.interp1d(x, y)
     new_y = interp(new_x)
     t2 = time.clock()
-    print 'scipy interp1d (sec):', t2 - t1
-    print new_y[:5,:5]
+    print('scipy interp1d (sec):', t2 - t1)
+    print(new_y[:5,:5])
 
 if __name__ == '__main__':
     main()

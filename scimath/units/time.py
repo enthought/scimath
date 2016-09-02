@@ -26,8 +26,9 @@
 # Imports:
 #############################################################################
 
-from SI import second
-from SI import pico, nano, micro, milli
+from __future__ import absolute_import
+from .SI import second
+from .SI import pico, nano, micro, milli
 
 #############################################################################
 # Definitions:

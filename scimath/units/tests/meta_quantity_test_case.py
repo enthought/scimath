@@ -7,6 +7,8 @@
 #
 #-----------------------------------------------------------------------------
 
+from __future__ import absolute_import
+from __future__ import print_function
 from unittest import TestCase
 
 from traits.api import TraitError
@@ -66,7 +68,7 @@ class TraitsTestCase(TestCase):
     def ui_simple(self):
         mq = MetaQuantity()
         mq.configure_traits(kind='modal')
-        print '\n'
+        print('\n')
         mq.print_traits()
         return
 

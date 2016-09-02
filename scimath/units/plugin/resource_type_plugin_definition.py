@@ -1,6 +1,7 @@
 """ The resource type plugin. """
 
 # Plugin definition imports.
+from __future__ import absolute_import
 from envisage.core.core_plugin_definition import PluginDefinition
 
 from envisage.resource.resource_plugin_definition \

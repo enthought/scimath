@@ -1,4 +1,5 @@
 # Enthought library imports.
+from __future__ import absolute_import
 from envisage import Plugin
 from scimath.units import unit_manager
 

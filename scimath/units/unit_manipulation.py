@@ -15,6 +15,7 @@
 """
 
 # Numeric library imports
+from __future__ import absolute_import
 from numpy import ndarray
 
 # Enthought library imports
@@ -23,6 +24,7 @@ import scimath.units as units
 # Numerical modeling libary imports
 from scimath.units.unit_array import UnitArray
 from scimath.units.unit_scalar import UnitScalar
+from six.moves import zip
 
 def manipulate_units(units, converters, *args):
     """ Convert the \*args to the specified units using the converters.
@@ -60,7 +62,7 @@ def manipulate_units(units, converters, *args):
     if len(units)!=len(args):
         msg = 'There must be a unit definition for each argument (%d!=%d)' % \
                     (len(units), len(args))
-        raise ValueError, msg
+        raise ValueError(msg)
 
     results = []
     for value, unit in zip(args, units):

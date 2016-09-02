@@ -2,6 +2,7 @@
 
 
 # Enthought library imports.
+from __future__ import absolute_import
 from traits.api import Float, Instance, Str
 from scimath.units.family_name_trait import FamilyNameTrait
 
@@ -11,7 +12,7 @@ from envisage.project.wizard import ResourceFactory
 
 from scimath.units.quantity import Quantity
 
-from new_quantity_resource_page import NewQuantityResourcePage
+from .new_quantity_resource_page import NewQuantityResourcePage
 
 class QuantityFactory(ResourceFactory):
     """ A factory that creates Quantity resources. """

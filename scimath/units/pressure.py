@@ -11,7 +11,8 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-from SI import pascal, kilo, mega, giga
+from __future__ import absolute_import
+from .SI import pascal, kilo, mega, giga
 from scimath.units.force import lbf
 from scimath.units.length import inch
 from scimath.units.unit import unit

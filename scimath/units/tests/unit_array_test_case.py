@@ -1,5 +1,6 @@
 # Standard library imports
-from cPickle import dumps, loads
+from __future__ import absolute_import
+from six.moves.cPickle import dumps, loads
 import timeit
 import unittest
 import operator

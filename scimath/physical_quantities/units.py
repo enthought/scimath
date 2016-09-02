@@ -3,13 +3,14 @@
 # we don't want integer division when dealing with units
 from __future__ import division
 
+from __future__ import absolute_import
 from numpy import array, log10
 
 from traits.api import HasTraits, Float, String, Unicode, Bool, \
     Dict, Any, Instance, Property, cached_property
 #from traitsui.api import View, Item, Group
 
-from dimensions import Dimensions, Dim
+from .dimensions import Dimensions, Dim
 
 
 class Unit(HasTraits):
@@ -150,19 +151,19 @@ class Unit(HasTraits):
                     self.scale, self.offset, self.logarithmic, self.log_base))
 
     def __mul__(self, other):
-        if isinstance(other, (float, int, long, array)):
+        if isinstance(other, (float, int, int, array)):
             return Quantity(magnitude=other, units=self)
         else:
             raise NotImplementedError
 
     def __rmul__(self, other):
-        if isinstance(other, (float, int, long, array)):
+        if isinstance(other, (float, int, int, array)):
             return Quantity(magnitude=other, units=self)
         else:
             raise NotImplementedError
 
     def __div__(self, other):
-        if isinstance(other, (float, int, long, array)):
+        if isinstance(other, (float, int, int, array)):
             return Quantity(magnitude=1.0/other, units=self)
         else:
             raise NotImplementedError
@@ -215,7 +216,7 @@ class MultiplicativeUnit(Unit):
             raise NotImplementedError
 
     def __pow__(self, other):
-        if isinstance(other, (float, int, long)):
+        if isinstance(other, (float, int, int)):
             return DerivedUnit(derivation=dict_mul(self.derivation,
                                                    other.derivation),
                         scale=self.scale**other)

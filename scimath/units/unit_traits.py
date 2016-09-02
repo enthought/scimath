@@ -7,13 +7,14 @@
 #
 #-----------------------------------------------------------------------------
 
+from __future__ import absolute_import
 from traits.api import Bool, HasTraits, List, Str, \
     Trait, TraitError, TraitFactory, TraitHandler
 
-from unit_manager import unit_manager
-from unit_system import UnitSystem
-from unit_parser import unit_parser, UnableToParseUnits
-from unit import unit
+from .unit_manager import unit_manager
+from .unit_system import UnitSystem
+from .unit_parser import unit_parser, UnableToParseUnits
+from .unit import unit
 
 
 
@@ -69,7 +70,7 @@ class UnitsTraitHandler(TraitHandler, HasTraits):
             try:
                 value = unit_parser.parse_unit(value,
                                            suppress_unknown=not self.is_strict)
-            except UnableToParseUnits, ex:
+            except UnableToParseUnits as ex:
                 self.error(obj, name, value)
 
         # During Traits class definition the unit trait might be processed
@@ -109,7 +110,7 @@ def units_traits_factory_function( value=None, is_strict=False, allow_none=True,
                                   family_trait='',
                                   **metadata):
     if not allow_none and value is None:
-        raise TraitError, "value must not be None"
+        raise TraitError("value must not be None")
 
     # Force identity comparison for change notification.
     # This considers 'ft' to 'feet' to be a change, but more importantly

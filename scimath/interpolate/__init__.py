@@ -6,7 +6,8 @@
     standards linear interpolation in SciPy. Part of the SciMath project of
     the Enthought Tool Suite.
 """
-from interpolate import linear, block_average_above, window_average
+from __future__ import absolute_import
+from .interpolate import linear, block_average_above, window_average
 
-from fitting import DataFit, Spline, Linear, Logarithmic, BlockAverageAbove, \
+from .fitting import DataFit, Spline, Linear, Logarithmic, BlockAverageAbove, \
                     Block, EndAverage, WindowAverage, FillNaN

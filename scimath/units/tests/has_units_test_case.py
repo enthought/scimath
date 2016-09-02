@@ -1,4 +1,5 @@
 # Standard Library imports
+from __future__ import absolute_import
 import unittest
 import time
 
@@ -16,6 +17,7 @@ from scimath.units.unit_parser import unit_parser
 # Numerical modeling library imports
 import scimath.units.has_units as has_units_
 from scimath.units.api import has_units, UnitArray, UnitScalar
+from six.moves import range
 
 class HasUnitsDocTestCase(doctest_for_module(has_units_)):
     pass
@@ -39,8 +41,7 @@ class HasUnitsTestCase(unittest.TestCase):
            We've overloaded this here to handle arrays.
         """
         if not all(first == second):
-            raise self.failureException, \
-                  (msg or '%r != %r' % (first, second))
+            raise self.failureException(msg or '%r != %r' % (first, second))
 
     assertEqual = failUnlessEqual
 

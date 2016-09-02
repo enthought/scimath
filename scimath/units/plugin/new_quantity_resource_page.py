@@ -1,4 +1,5 @@
 
+from __future__ import absolute_import
 import wx  # ugh!
 
 from pyface.api import HeadingText, ImageResource, Sorter
