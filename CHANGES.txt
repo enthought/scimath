@@ -4,6 +4,9 @@ SciMath CHANGELOG
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* UnitArray comparisons will return boolean arrays, like their unadorned
+  ndarray counterpart. (#29)
+
 * Fix raising a unitless `UnitArray` raised to a power. Thanks to @rupertnash
   for reporting and fixing the bug. (#5)
 

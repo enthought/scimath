@@ -1,7 +1,6 @@
 # Standard Library imports
 from __future__ import absolute_import
 import unittest
-import time
 
 # Numeric library imports
 import numpy
@@ -9,7 +8,7 @@ from numpy import arange, allclose, array, all  # @UnresolvedImport
 from numpy.testing import assert_array_almost_equal
 
 # Enthought library imports
-from traits.testing.api import doctest_for_module, skip
+from traits.testing.api import doctest_for_module
 from scimath.units.length import feet, meters
 from scimath.units.time import second
 from scimath.units.unit_parser import unit_parser
@@ -17,7 +16,6 @@ from scimath.units.unit_parser import unit_parser
 # Numerical modeling library imports
 import scimath.units.has_units as has_units_
 from scimath.units.api import has_units, UnitArray, UnitScalar
-from six.moves import range
 
 
 class HasUnitsDocTestCase(doctest_for_module(has_units_)):
@@ -281,71 +279,8 @@ class HasUnitsTestCase(unittest.TestCase):
         self.assertTrue(func.outputs[0].name == 'out')
         self.assertTrue(func.outputs[0].units == unit_parser.parse_unit('m/s'))
 
-    def _time_conversion_decorated(self, inputs, array_size=1000, iters=1000):
-        """ Wrapped vs. normal have slowdown<1.2 (no conversion)?
-        """
-        def func(a, b, c, d):
-            return a + a, b + b, c + c, d+d
-
-        @has_units(inputs=inputs)
-        def func_wrapped(a, b, c, d):
-            return a + a, b + b, c + c, d+d
-
-        a = UnitArray(arange(array_size), units=meters / second)
-        #aa = arange(array_size)
-
-        N = iters
-        t1 = time.clock()
-        for i in range(N):  # @UnusedVariable
-            w, x, y, z = func(a, a, a, a)  # @UnusedVariable
-        t2 = time.clock()
-        standard = t2 - t1
-
-        t1 = time.clock()
-        for i in range(N):  # @UnusedVariable
-            w, x, y, z = func_wrapped(a, a, a, a)  # @UnusedVariable
-        t2 = time.clock()
-        wrapped = t2 - t1
-
-        b = a
-        c = a
-        d = a
-        t1 = time.clock()
-        for i in range(N):  # @UnusedVariable
-            w, x, y, z = a + a, b + b, c +c, d+d  # @UnusedVariable
-        t2 = time.clock()
-        bare = t2 - t1
-
-        slowdown = wrapped / standard
-        msg = ("call/s = %s, slowdown = %s; call/s = %s, slowdown = %s" %
-               (N / wrapped, slowdown, N / bare, wrapped /bare))
-        self.assertTrue(slowdown < 1.2, msg)
-
-    @skip
-    def test_time_no_conversion_decorated(self):
-        """ Wrapped vs. normal have slowdown<1.2 (no conversion)?
-        """
-        inputs = """a: description of a: units=m/s;
-                  b: description of b: units=m/s;
-                  c: description of c: units=m/s;
-                  d: description of d: units=m/s;
-               """
-        self._time_conversion_decorated(inputs=inputs)
-
-    @skip
-    def test_time_conversion_decorated(self):
-        """ Wrapped vs. normal have slowdown<1.2 (with conversion)?
-        """
-        inputs = """a: description of a: units=ft/s;
-                  b: description of b: units=ft/s;
-                  c: description of c: units=ft/s;
-                  d: description of d: units=ft/s;
-               """
-        self._time_conversion_decorated(inputs=inputs)
 
 # Some functions to play with.
-
-
 def foo(x, y):
     """ Foo
 
