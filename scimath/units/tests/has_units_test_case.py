@@ -4,7 +4,7 @@ import time
 
 # Numeric library imports
 import numpy
-from numpy import arange, allclose, array, all #@UnresolvedImport
+from numpy import arange, array, all #@UnresolvedImport
 from numpy.testing import assert_array_almost_equal
 
 # Enthought library imports
@@ -130,12 +130,14 @@ class HasUnitsTestCase(unittest.TestCase):
             return value
 
         a = UnitArray(arange(100), units=meters/second)
-        self.assertTrue(allclose(func(a).as_units(meters/second),
-                                 func_wrapped(a)))
+        assert_array_almost_equal(
+            func(a).as_units(meters/second), func_wrapped(a)
+        )
 
         a = UnitArray(arange(100), units=feet/second)
-        self.assertTrue(allclose(func(a).as_units(meters/second),
-                                 func_wrapped(a)))
+        assert_array_almost_equal(
+            func(a).as_units(meters/second), func_wrapped(a)
+        )
 
     def test_unit_array_with_decorated_docstring_function(self):
         """Does has_units wrap with docstring work ?
@@ -164,13 +166,15 @@ class HasUnitsTestCase(unittest.TestCase):
 
         a = UnitArray(arange(100), units=feet/second)
         b = UnitArray(arange(100)**2, units=feet/second)
-        self.assertTrue(allclose(addfunc(a,b).as_units(meters/second),
-                                 add(a,b)))
+        assert_array_almost_equal(
+            addfunc(a, b).as_units(meters / second), add(a, b)
+        )
 
         a = UnitArray(arange(100), units=meters/second)
         b = UnitArray(arange(100)**2, units=meters/second)
-        self.assertTrue(allclose(addfunc(a,b).as_units(meters/second),
-                                 add(a,b)))
+        assert_array_almost_equal(
+            addfunc(a, b).as_units(meters / second), add(a, b)
+        )
 
     def test_unit_array_with_decorated_docstring_and_inputted_parameters(self):
         """Does has_units wrap with expanded docstring and inputting
@@ -203,13 +207,11 @@ class HasUnitsTestCase(unittest.TestCase):
 
         a = UnitArray(arange(100), units=feet/second)
         b = UnitArray(arange(100)**2, units=feet/second)
-        self.assertTrue(allclose(add_doc(a,b),
-                                 add(a,b)))
+        assert_array_almost_equal(add_doc(a, b), add(a, b))
 
         a = UnitArray(arange(100), units=meters/second)
         b = UnitArray(arange(100)**2, units=meters/second)
-        self.assertTrue(allclose(add_doc(a,b),
-                                 add(a,b)))
+        assert_array_almost_equal(add_doc(a, b), add(a, b))
 
     def test_wrapped_adds_summary(self):
         """ Is summary information added correctly?

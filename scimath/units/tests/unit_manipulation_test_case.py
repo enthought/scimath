@@ -7,7 +7,8 @@
 import unittest
 
 # Numeric library imports
-from numpy import array, all, allclose, ndarray
+from numpy import array, all, ndarray
+from numpy.testing import assert_array_almost_equal
 
 # Enthought library imports
 from scimath.units.unit import InvalidConversion
@@ -18,6 +19,7 @@ from scimath.units.time import second
 from scimath.units.api import UnitArray, UnitScalar
 from scimath.units.unit_manipulation import \
     convert_units, set_units, have_some_units, strip_units
+
 
 class ConvertUnitsTestCase(unittest.TestCase):
     """ ConvertUnits should pretty much leave anything without units alone
@@ -84,7 +86,7 @@ class ConvertUnitsTestCase(unittest.TestCase):
         units = [feet]
         a = UnitArray((1,2,3),units=meters)
         aa = convert_units(units, a)
-        self.assertTrue(allclose(a,aa.as_units(meters)))
+        assert_array_almost_equal(a, aa.as_units(meters))
         # fixme: This actually may be something we don't want.  For speed,
         #        if this were just a standard array, we would be better off.
         self.assertEqual(aa.units, feet)
@@ -95,7 +97,7 @@ class ConvertUnitsTestCase(unittest.TestCase):
         units = [feet]
         a = UnitScalar(3.,units=meters)
         aa = convert_units(units, a)
-        self.assertTrue(allclose(a,aa.as_units(meters)))
+        assert_array_almost_equal(a,aa.as_units(meters))
         self.assertEqual(aa.units, feet)
 
     def test_incompatible_array_units_raise_exception(self):
@@ -147,10 +149,9 @@ class ConvertUnitsTestCase(unittest.TestCase):
         c = 1
         d = UnitScalar(3.,units=meters)
         aa, bb, cc, dd = convert_units(units, a, b, c, d)
-        self.assertTrue(allclose(a,aa.as_units(meters)))
-        self.assertTrue(allclose(b,bb))
-        self.assertEqual(c,cc)
-        self.assertTrue(allclose(d,dd.as_units(meters)))
+        assert_array_almost_equal(a, aa.as_units(meters))
+        assert_array_almost_equal(b, bb)
+        assert_array_almost_equal(c, cc)
 
 class SetUnitsTestCase(unittest.TestCase):
 
