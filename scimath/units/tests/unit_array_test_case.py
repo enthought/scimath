@@ -4,15 +4,13 @@ import timeit
 import unittest
 import operator
 
-from nose import SkipTest
-
 # Numeric library imports
 import numpy
 from numpy import all, array, sqrt
+from numpy.testing import assert_array_equal
 
 # Enthought Library imports
 import scimath.units as units
-from traits.testing.api import skip
 from scimath.units.length import meters, feet
 from scimath.units.time import second, seconds
 from scimath.units.unit import InvalidConversion, dimensionless
@@ -186,83 +184,6 @@ class UnitArrayTestCase(unittest.TestCase):
         self.assertEqual(unit_ary.index_name, "depth")
 
 
-    ############################################################################
-    # Test Construction Speed
-    ############################################################################
-
-    @skip
-    def test_construction_is_not_slow(self):
-        """ Ensure instantiating a UnitArray is <1.1 slower than for arrays.
-
-            Note that we are using a very small array to test this case so that
-            we are seeing the "worst case" overhead.
-        """
-
-        ### Parameters #########################################################
-
-        # Slowdown we will allow compared to standard python evaluation
-        allowed_slowdown = 1.1
-
-        # Number of timer iterations.
-        N = 30000
-
-        ### Array creation #####################################################
-        setup = "from numpy import array\n"
-        expr = 'array((1,2,3))'
-        std = timeit.Timer(expr, setup)
-        std_res = std.timeit(N)
-
-        ### UnitArray creation #################################################
-        setup = "from scimath.units.api import UnitArray\n"
-        expr = 'UnitArray((1,2,3))'
-        unit_ary = timeit.Timer(expr, setup)
-        unit_ary_res = unit_ary.timeit(N)
-
-        slowdown = unit_ary_res/std_res
-        assert slowdown < allowed_slowdown, 'actual slowdown: %f' % slowdown
-
-    @skip
-    def test_finalize_is_not_slow(self):
-        """ Finalizing (cloning) a UnitArray is less than 1.1 slower than arrays
-
-            __array_finalize__ is called every time a math operation, slice,
-            etc. are called on a unit_array.  We do not want this to have much
-            overhead compared to stanard array operations.
-
-            Here, we compare the speed of adding 1 to an array and to a
-            UnitArray.
-
-            Note that we are using a very small array to test this case so that
-            we are seeing the "worst case" overhead.
-        """
-
-        ### Parameters #########################################################
-
-        # Slowdown we will allow compared to standard python evaluation
-        allowed_slowdown = 1.1
-
-        # Number of timer iterations.
-        N = 30000
-
-        ### Array ##############################################################
-        setup = "from numpy import array\n" \
-                "val = array((1,2,3))\n"
-        expr = 'val+1'
-        std = timeit.Timer(expr, setup)
-        std_res = std.timeit(N)
-
-        ### UnitArray ##########################################################
-        setup = (
-            "from scimath.units.api import UnitArray\n"
-            "val = UnitArray((1,2,3))\n"
-        )
-        expr = 'val+1'
-        unit_ary = timeit.Timer(expr, setup)
-        unit_ary_res = unit_ary.timeit(N)
-
-        slowdown = unit_ary_res/std_res
-        assert slowdown < allowed_slowdown, 'actual slowdown: %f' % slowdown
-
 class UnitArrayPickleTestCase(unittest.TestCase):
 
     def test_pickle(self):
@@ -327,17 +248,17 @@ class PassUnitsTestCase(unittest.TestCase):
         b = 1
         result = a - b
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([0,1,2], units=dimensionless))
+        assert_array_equal(result, UnitArray([0,1,2], units=dimensionless))
         result = b - a
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([0,-1,-2], units=dimensionless))
+        assert_array_equal(result, UnitArray([0,-1,-2], units=dimensionless))
         c = array([3,2,1])
         result = a - c
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([-2,0,2], units=dimensionless))
+        assert_array_equal(result, UnitArray([-2,0,2], units=dimensionless))
         result = c - a
         self.assertEqual(result.units, dimensionless)
-        self.assertEqual(result, UnitArray([2,0,-2], units=dimensionless))
+        assert_array_equal(result, UnitArray([2,0,-2], units=dimensionless))
 
     def test_divide_pass(self):
         a = UnitArray([1,2,3],units=meters/second)
@@ -402,9 +323,6 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,1.0,1], units=2.0*dimensionless)
         result = a <= b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
@@ -422,18 +340,15 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a < b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], False)
-        c = 4.0
+        c = 3.0
         result = b < c
         self.assertEqual(result[0], False)
-        self.assertEqual(result[1], False)
+        self.assertEqual(result[1], True)
         self.assertEqual(result[2], True)
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b < d
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], False)
@@ -444,18 +359,15 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a >= b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], True)
-        c = 4.0
+        c = 2.0
         result = b >= c
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b >= d
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], True)
@@ -466,13 +378,10 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a > b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
-        c = 4.0
+        c = 2.0
         result = b > c
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
@@ -488,18 +397,15 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a == b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
-        c = 4.0
+        c = 2.0
         result = b == c
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
         self.assertEqual(result[2], False)
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b == d
         self.assertEqual(result[0], False)
         self.assertEqual(result[1], True)
@@ -510,19 +416,16 @@ class PassUnitsTestCase(unittest.TestCase):
         b = UnitArray([3.0,2.0,1], units=2.0*dimensionless)
         result = a != b
 
-        # FIXME: these tests fail
-        raise SkipTest
-
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
-        c = 4.0
+        c = 2.0
         result = b != c
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
 
-        d = array([1.0, 4.0, 3.0])
+        d = array([1.0, 2.0, 3.0])
         result = b != d
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
