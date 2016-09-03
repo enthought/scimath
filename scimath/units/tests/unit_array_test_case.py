@@ -1,7 +1,6 @@
 # Standard library imports
 from copy import copy
 from cPickle import dumps, loads
-import timeit
 import unittest
 import operator
 
@@ -11,7 +10,9 @@ from numpy import all, array, sqrt
 from numpy.testing import assert_array_equal
 
 # Enthought Library imports
-from scimath.units.length import meters, feet
+import scimath.units as units
+from scimath.units.length import cm, feet, meters
+from scimath.units.mass import gram
 from scimath.units.time import second, seconds
 from scimath.units.unit import InvalidConversion, dimensionless
 
