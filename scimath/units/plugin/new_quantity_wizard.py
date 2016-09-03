@@ -14,6 +14,7 @@ from scimath.units.quantity import Quantity
 
 from .new_quantity_resource_page import NewQuantityResourcePage
 
+
 class QuantityFactory(ResourceFactory):
     """ A factory that creates Quantity resources. """
 
@@ -35,8 +36,8 @@ class QuantityFactory(ResourceFactory):
 
         # Create a new quantity.
         quantity = Quantity(self.value, self.units,
-            name=self.name, family_name=self.value_unit_family
-        )
+                            name=self.name, family_name=self.value_unit_family
+                            )
 
         # Bind it in the namespace
         self.parent_folder.obj.bind(self.name, quantity)
@@ -65,15 +66,15 @@ class NewQuantityWizard(NewResourceWizard):
         # The pages in the wizard.
         self.pages = [
             NewNamedResourcePage(
-                id     = 'resource_page',
-                text   = 'Select the parent folder',
-                prefix = 'New Quantity',
-                obj    = self.factory
+                id='resource_page',
+                text='Select the parent folder',
+                prefix='New Quantity',
+                obj=self.factory
             ),
             NewQuantityResourcePage(
-                id     = 'quantity_details',
-                text   = 'Quantity Properties',
-                obj    = self.factory
+                id='quantity_details',
+                text='Quantity Properties',
+                obj=self.factory
             )
         ]
 

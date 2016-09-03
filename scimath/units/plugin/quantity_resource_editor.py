@@ -10,7 +10,8 @@ from envisage.ui.traits_ui_editor import TraitsUIEditor
 
 from apptools.naming.api import Context, NameNotFoundError
 
-class QuantityResourceEditor( TraitsUIEditor ):
+
+class QuantityResourceEditor(TraitsUIEditor):
     """ Resource editor for QuantityResourceType """
 
     context = Instance(Context)
@@ -24,7 +25,7 @@ class QuantityResourceEditor( TraitsUIEditor ):
 
         self.title = "Edit %s" % qty.name
 
-        traits_ui = qty.edit_traits( parent=parent, kind='panel' )
+        traits_ui = qty.edit_traits(parent=parent, kind='panel')
 
         # Reach into the Quantity traits view and 1) turn off the buttons
         traits_ui.view.buttons = NoButtons
@@ -44,4 +45,4 @@ class QuantityResourceEditor( TraitsUIEditor ):
         return traits_ui
 
 
-### EOF
+# EOF

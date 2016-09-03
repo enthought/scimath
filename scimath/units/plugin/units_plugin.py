@@ -5,6 +5,7 @@ from scimath.units import unit_manager
 
 DEFAULT_UNIT_SYSTEM = 'default_unit_system'
 
+
 class UnitsPlugin(Plugin):
     """ The Units plugin. """
     # The shared plugin instance.

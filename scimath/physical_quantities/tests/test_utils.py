@@ -7,6 +7,7 @@ from scimath.physical_quantities.util import dict_add, dict_sub, dict_mul, \
 
 
 class DictArithmeticTest(TestCase):
+
     def test_add(self):
         a = {'a': 3.0, 'b': -4.0, 'd': 2.0}
         b = {'a': 1.5, 'c': 12.0, 'd': -2.0}
@@ -34,6 +35,7 @@ class DictArithmeticTest(TestCase):
 
 
 class FormatTest(TestCase):
+
     def setUp(self):
         self.coulomb = {"A": 1.0, 's': 1.0}
         self.joule = {"kg": 1.0, "m": 2.0, "s": -2.0}

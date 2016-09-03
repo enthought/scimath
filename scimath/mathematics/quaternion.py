@@ -35,8 +35,8 @@ def qmult(q1, q2):
 
     s1, v1 = q1[0], q1[1:]
     s2, v2 = q2[0], q2[1:]
-    scalar = s1*s2 - np.dot(v1, v2)
-    vector = s2*v1 + s1*v2 + _crossv(v1, v2)[0]
+    scalar = s1 * s2 - np.dot(v1, v2)
+    vector = s2 * v1 + s1 * v2 + _crossv(v1, v2)[0]
     return np.hstack((scalar, vector))
 
 
@@ -48,26 +48,26 @@ def rotmat(q):
     """
 
     w, x, y, z = q
-    xx2 = 2*x*x
-    yy2 = 2*y*y
-    zz2 = 2*z*z
-    xy2 = 2*x*y
-    wz2 = 2*w*z
-    zx2 = 2*z*x
-    wy2 = 2*w*y
-    yz2 = 2*y*z
-    wx2 = 2*w*x
+    xx2 = 2 * x * x
+    yy2 = 2 * y * y
+    zz2 = 2 * z * z
+    xy2 = 2 * x * y
+    wz2 = 2 * w * z
+    zx2 = 2 * z * x
+    wy2 = 2 * w * y
+    yz2 = 2 * y * z
+    wx2 = 2 * w * x
 
     rmat = np.empty((3, 3), float)
-    rmat[0,0] = 1. - yy2 - zz2
-    rmat[0,1] = xy2 - wz2
-    rmat[0,2] = zx2 + wy2
-    rmat[1,0] = xy2 + wz2
-    rmat[1,1] = 1. - xx2 - zz2
-    rmat[1,2] = yz2 - wx2
-    rmat[2,0] = zx2 - wy2
-    rmat[2,1] = yz2 + wx2
-    rmat[2,2] = 1. - xx2 - yy2
+    rmat[0, 0] = 1. - yy2 - zz2
+    rmat[0, 1] = xy2 - wz2
+    rmat[0, 2] = zx2 + wy2
+    rmat[1, 0] = xy2 + wz2
+    rmat[1, 1] = 1. - xx2 - zz2
+    rmat[1, 2] = yz2 - wx2
+    rmat[2, 0] = zx2 - wy2
+    rmat[2, 1] = yz2 + wx2
+    rmat[2, 2] = 1. - xx2 - yy2
 
     return rmat
 
@@ -84,15 +84,16 @@ def rotquat(vhat1, vhat2):
     bisector = vhat1 + vhat2
 
     # Handle the case where the bisector is an array of zeros.
-    null_indices = np.nonzero((bisector==np.array([0., 0., 0.])).all(axis=-1))
+    null_indices = np.nonzero(
+        (bisector == np.array([0., 0., 0.])).all(axis=-1))
     index = 0
 
     while len(null_indices) > 0 and index < 3:
-        unit_vector = np.zeros((1,3))
+        unit_vector = np.zeros((1, 3))
         unit_vector[:, index] = 1.0
         bisector = _crossv(vhat1[null_indices],
                            np.repeat(unit_vector, len(null_indices)))
-        null_indices = np.nonzero((bisector==np.array([0., 0., 0.])).all(
+        null_indices = np.nonzero((bisector == np.array([0., 0., 0.])).all(
             axis=-1))
         index += 1
 
@@ -124,9 +125,9 @@ def _crossv(vertices1, vertices2):
     # NOTE: This is an expanded version of the old version of numpy's
     # 'column_stack' function.
     tup = (
-        v11*v22-v12*v21,
-        v12*v20-v10*v22,
-        v10*v21-v11*v20)
+        v11 * v22 - v12 * v21,
+        v12 * v20 - v10 * v22,
+        v10 * v21 - v11 * v20)
     arrays = list(map(np.transpose, list(map(np.atleast_2d, tup))))
     return np.concatenate(arrays, 1)
 
@@ -137,7 +138,7 @@ def _dotv(vertices1, vertices2):
 
     """
 
-    return np.sum(vertices1*vertices2, axis=-1)
+    return np.sum(vertices1 * vertices2, axis=-1)
 
 
 def _normv(vertices):
@@ -147,5 +148,4 @@ def _normv(vertices):
     """
 
     vertices = np.asarray(vertices)
-    return vertices / np.sqrt(_dotv(vertices, vertices))[:,np.newaxis]
-
+    return vertices / np.sqrt(_dotv(vertices, vertices))[:, np.newaxis]

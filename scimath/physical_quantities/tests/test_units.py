@@ -8,52 +8,54 @@ from scimath.physical_quantities.dimensions import Dimensions, Dim
 from scimath.physical_quantities.units import Unit, MultiplicativeUnit, \
     NamedUnit, BaseUnit
 
+
 class UnitClassTest(TestCase):
+
     def setUp(self):
         self.length = Dimensions({"length": 1.0})
         self.mass = Dimensions({"mass": 1.0})
         self.time = Dimensions({"time": 1.0})
         self.temperature = Dimensions({"temperature": 1.0})
-        self.force = self.mass*self.length/self.time**2
-        self.power = self.force*self.length
+        self.force = self.mass * self.length / self.time**2
+        self.power = self.force * self.length
 
         self.newton = Unit(symbol="N", expression="N", latex="\mathrm{N}",
-                      dimensions=self.force)
+                           dimensions=self.force)
 
         self.watt = Unit(symbol="W", expression="W", latex="\mathrm{W}",
                          dimensions=self.power)
         self.milliwatt = Unit(symbol="mW", expression="mW", latex="\mathrm{mW}",
-                         scale=1000.0, dimensions=self.power)
+                              scale=1000.0, dimensions=self.power)
         self.decibel = Unit(symbol="dB", expression="decibel",
                             latex="\mathrm{dB}", dimensions=self.power,
                             logarithmic=True, scale=10.0, offset=-3.0)
         self.neper = Unit(symbol="np", expression="neper",
-                            latex="\mathrm{np}", dimensions=self.power,
-                            logarithmic=True, scale=0.5, offset=-math.log(1000),
-                            log_base=math.exp(1.0))
+                          latex="\mathrm{np}", dimensions=self.power,
+                          logarithmic=True, scale=0.5, offset=-math.log(1000),
+                          log_base=math.exp(1.0))
 
         self.kelvin = Unit(symbol="K", expression="K", latex="\mathrm{K}",
-                      dimensions=self.temperature)
+                           dimensions=self.temperature)
         self.also_kelvin = Unit(symbol="K", expression="K", latex="\mathrm{K}",
-                      dimensions=self.temperature)
+                                dimensions=self.temperature)
         self.kelvin_named = NamedUnit(symbol="K", expression="K", latex="\mathrm{K}",
-                      dimensions=self.temperature)
+                                      dimensions=self.temperature)
         self.millikelvin = Unit(symbol="mK", expression="mK", latex="\mathrm{mK}",
-                      dimensions=self.temperature, scale=1000.0)
+                                dimensions=self.temperature, scale=1000.0)
         self.millikelvin_named = NamedUnit(symbol="mK", expression="mK", latex="\mathrm{mK}",
-                      dimensions=self.temperature, scale=1000.0)
+                                           dimensions=self.temperature, scale=1000.0)
         self.kelvin_base = BaseUnit(symbol="K", expression="K", latex="\mathrm{K}",
-                      dimensions=self.temperature)
+                                    dimensions=self.temperature)
         self.rankine = Unit(symbol="R", expression="R", latex="\mathrm{R}",
-                      dimensions=self.temperature, scale=9.0/5.0)
+                            dimensions=self.temperature, scale=9.0 / 5.0)
         self.rankine_named = NamedUnit(symbol="R", expression="R", latex="\mathrm{R}",
-                      dimensions=self.temperature, scale=9.0/5.0)
+                                       dimensions=self.temperature, scale=9.0 / 5.0)
         self.degree_C = Unit(symbol=u"\u00B0C", expression="degree_C",
-                       latex="\,^{\circ}\mathrm{C}", dimensions=self.temperature,
-                       offset=273.15)
+                             latex="\,^{\circ}\mathrm{C}", dimensions=self.temperature,
+                             offset=273.15)
         self.degree_F = Unit(symbol=u"\u00B0F", expression="degree_F",
-                       latex="\,^{\circ}\mathrm{F}", dimensions=self.temperature,
-                       scale=9.0/5.0, offset=459.67*5.0/9.0)
+                             latex="\,^{\circ}\mathrm{F}", dimensions=self.temperature,
+                             scale=9.0 / 5.0, offset=459.67 * 5.0 /9.0)
 
     # Test equality
     def test_equality_simple_true(self):
@@ -71,7 +73,8 @@ class UnitClassTest(TestCase):
         self.assertAlmostEqual(self.decibel.convert_to_base(0.0), 0.001)
 
     def test_convert_to_base_logarithmic_natural(self):
-        self.assertAlmostEqual(self.neper.convert_to_base(3.4538776394910684), 1.0)
+        self.assertAlmostEqual(
+            self.neper.convert_to_base(3.4538776394910684), 1.0)
         self.assertAlmostEqual(self.neper.convert_to_base(0.0), 0.001)
 
     # Automatically generated test cases to cover all cases of non-logarithmic
@@ -143,141 +146,251 @@ for from_unit in units:
     """
 
     def test_convert_to_base_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_to_base(-459.66999999999996), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_to_base(0.0), 255.37222222222221)
-        self.assertAlmostEqual(self.degree_F.convert_to_base(32.0), 273.14999999999998)
-        self.assertAlmostEqual(self.degree_F.convert_to_base(212.0), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.degree_F.convert_to_base(-459.66999999999996), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_to_base(0.0),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.degree_F.convert_to_base(32.0),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.degree_F.convert_to_base(212.0),
+            373.14999999999998)
 
     def test_convert_from_base_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_base(0.0), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_base(255.37222222222221), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_base(273.14999999999998), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_base(373.14999999999998), 212.0)
-
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_base(0.0), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_base(255.37222222222221), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_base(273.14999999999998), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_base(373.14999999999998), 212.0)
 
     def test_convert_to_base_kelvin_base(self):
         self.assertAlmostEqual(self.kelvin_base.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_to_base(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_to_base(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_to_base(373.14999999999998), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_to_base(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_to_base(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_to_base(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_base_kelvin_base(self):
         self.assertAlmostEqual(self.kelvin_base.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_base(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_base(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_base(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_base(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_base(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_base(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_to_base_rankine(self):
         self.assertAlmostEqual(self.rankine.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_to_base(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(self.rankine.convert_to_base(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(self.rankine.convert_to_base(671.66999999999996), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.rankine.convert_to_base(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.rankine.convert_to_base(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.rankine.convert_to_base(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_base_rankine(self):
         self.assertAlmostEqual(self.rankine.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_base(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_base(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_base(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            self.rankine.convert_from_base(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_base(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_base(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_to_base_kelvin(self):
         self.assertAlmostEqual(self.kelvin.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_to_base(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_to_base(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_to_base(373.14999999999998), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_to_base(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_to_base(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_to_base(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_base_kelvin(self):
         self.assertAlmostEqual(self.kelvin.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_base(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_base(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_base(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_base(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_base(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_base(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_to_base_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_to_base(255372.22222222222), 255.37222222222221)
-        self.assertAlmostEqual(self.millikelvin_named.convert_to_base(273150.0), 273.14999999999998)
-        self.assertAlmostEqual(self.millikelvin_named.convert_to_base(373150.0), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_to_base(0.0), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_to_base(255372.22222222222),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_to_base(273150.0),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_to_base(373150.0),
+            373.14999999999998)
 
     def test_convert_from_base_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_base(255.37222222222221), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_base(273.14999999999998), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_base(373.14999999999998), 373150.0)
-
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_base(0.0), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_base(255.37222222222221),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_base(273.14999999999998),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_base(373.14999999999998),
+            373150.0)
 
     def test_convert_to_base_millikelvin(self):
         self.assertAlmostEqual(self.millikelvin.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_to_base(255372.22222222222), 255.37222222222221)
-        self.assertAlmostEqual(self.millikelvin.convert_to_base(273150.0), 273.14999999999998)
-        self.assertAlmostEqual(self.millikelvin.convert_to_base(373150.0), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_to_base(255372.22222222222),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_to_base(273150.0),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_to_base(373150.0),
+            373.14999999999998)
 
     def test_convert_from_base_millikelvin(self):
         self.assertAlmostEqual(self.millikelvin.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_base(255.37222222222221), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_base(273.14999999999998), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_base(373.14999999999998), 373150.0)
-
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_base(255.37222222222221),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_base(273.14999999999998), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_base(373.14999999999998), 373150.0)
 
     def test_convert_to_base_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_to_base(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_to_base(-17.777777777777779), 255.37222222222221)
-        self.assertAlmostEqual(self.degree_C.convert_to_base(0.0), 273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_to_base(100.0), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.degree_C.convert_to_base(-273.14999999999998), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_to_base(-17.777777777777779), 255.37222222222221)
+        self.assertAlmostEqual(
+            self.degree_C.convert_to_base(0.0),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.degree_C.convert_to_base(100.0),
+            373.14999999999998)
 
     def test_convert_from_base_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_base(0.0), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_base(255.37222222222221), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_base(273.14999999999998), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_base(373.14999999999998), 100.0)
-
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_base(0.0), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_base(
+            255.37222222222221), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_base(273.14999999999998), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_base(373.14999999999998), 100.0)
 
     def test_convert_to_base_rankine_named(self):
         self.assertAlmostEqual(self.rankine_named.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_to_base(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(self.rankine_named.convert_to_base(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(self.rankine_named.convert_to_base(671.66999999999996), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_to_base(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_to_base(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_to_base(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_base_rankine_named(self):
         self.assertAlmostEqual(self.rankine_named.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_base(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_base(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_base(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_base(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_base(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_base(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_to_base_kelvin_named(self):
         self.assertAlmostEqual(self.kelvin_named.convert_to_base(0.0), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_to_base(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_to_base(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_to_base(373.14999999999998), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_to_base(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_to_base(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_to_base(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_base_kelvin_named(self):
         self.assertAlmostEqual(self.kelvin_named.convert_from_base(0.0), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_base(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_base(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_base(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_base(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_base(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_base(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_degree_F_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(-459.66999999999996, self.degree_F), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(32.0, self.degree_F), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(212.0, self.degree_F), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(-459.66999999999996, self.degree_F), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                32.0, self.degree_F), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                212.0, self.degree_F), 212.0)
 
     def test_make_converter_degree_F_from_degree_F(self):
         converter = self.degree_F.make_converter(self.degree_F)
-        self.assertAlmostEqual(converter(-459.66999999999996), -459.66999999999996)
+        self.assertAlmostEqual(
+            converter(-459.66999999999996), -459.66999999999996)
         self.assertAlmostEqual(converter(0.0), 0.0)
         self.assertAlmostEqual(converter(32.0), 32.0)
         self.assertAlmostEqual(converter(212.0), 212.0)
 
-
     def test_convert_from_unit_degree_F_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.degree_F), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(32.0, self.degree_F), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(212.0, self.degree_F), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.degree_F), 255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                32.0, self.degree_F), 273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                212.0, self.degree_F), 373.14999999999998)
 
     def test_make_converter_degree_F_from_kelvin_base(self):
         converter = self.degree_F.make_converter(self.kelvin_base)
@@ -286,12 +399,18 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 273.14999999999998)
         self.assertAlmostEqual(converter(212.0), 373.14999999999998)
 
-
     def test_convert_from_unit_degree_F_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.degree_F), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(32.0, self.degree_F), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(212.0, self.degree_F), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.degree_F), 459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                32.0, self.degree_F), 491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                212.0, self.degree_F), 671.66999999999996)
 
     def test_make_converter_degree_F_from_rankine(self):
         converter = self.degree_F.make_converter(self.rankine)
@@ -300,12 +419,20 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 491.66999999999996)
         self.assertAlmostEqual(converter(212.0), 671.66999999999996)
 
-
     def test_convert_from_unit_degree_F_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.degree_F), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(32.0, self.degree_F), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(212.0, self.degree_F), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.degree_F), 255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                32.0, self.degree_F), 273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                212.0,
+                self.degree_F),
+            373.14999999999998)
 
     def test_make_converter_degree_F_from_kelvin(self):
         converter = self.degree_F.make_converter(self.kelvin)
@@ -314,12 +441,18 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 273.14999999999998)
         self.assertAlmostEqual(converter(212.0), 373.14999999999998)
 
-
     def test_convert_from_unit_degree_F_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.degree_F), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(32.0, self.degree_F), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(212.0, self.degree_F), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.degree_F), 255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                32.0, self.degree_F), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                212.0, self.degree_F), 373150.0)
 
     def test_make_converter_degree_F_from_millikelvin_named(self):
         converter = self.degree_F.make_converter(self.millikelvin_named)
@@ -328,12 +461,18 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 273150.0)
         self.assertAlmostEqual(converter(212.0), 373150.0)
 
-
     def test_convert_from_unit_degree_F_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.degree_F), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(32.0, self.degree_F), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(212.0, self.degree_F), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.degree_F), 255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                32.0, self.degree_F), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                212.0, self.degree_F), 373150.0)
 
     def test_make_converter_degree_F_from_millikelvin(self):
         converter = self.degree_F.make_converter(self.millikelvin)
@@ -342,26 +481,39 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 273150.0)
         self.assertAlmostEqual(converter(212.0), 373150.0)
 
-
     def test_convert_from_unit_degree_F_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(-459.66999999999996, self.degree_F), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.degree_F), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(32.0, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(212.0, self.degree_F), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(-459.66999999999996, self.degree_F), -273.14999999999998)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.degree_F), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                32.0, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                212.0, self.degree_F), 100.0)
 
     def test_make_converter_degree_F_from_degree_C(self):
         converter = self.degree_F.make_converter(self.degree_C)
-        self.assertAlmostEqual(converter(-459.66999999999996), -273.14999999999998)
+        self.assertAlmostEqual(
+            converter(-459.66999999999996), -273.14999999999998)
         self.assertAlmostEqual(converter(0.0), -17.777777777777779)
         self.assertAlmostEqual(converter(32.0), 0.0)
         self.assertAlmostEqual(converter(212.0), 100.0)
 
-
     def test_convert_from_unit_degree_F_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.degree_F), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(32.0, self.degree_F), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(212.0, self.degree_F), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.degree_F), 459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                32.0, self.degree_F), 491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                212.0, self.degree_F), 671.66999999999996)
 
     def test_make_converter_degree_F_from_rankine_named(self):
         converter = self.degree_F.make_converter(self.rankine_named)
@@ -370,12 +522,18 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 491.66999999999996)
         self.assertAlmostEqual(converter(212.0), 671.66999999999996)
 
-
     def test_convert_from_unit_degree_F_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.degree_F), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(32.0, self.degree_F), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(212.0, self.degree_F), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(-459.66999999999996, self.degree_F), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.degree_F), 255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                32.0, self.degree_F), 273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                212.0, self.degree_F), 373.14999999999998)
 
     def test_make_converter_degree_F_from_kelvin_named(self):
         converter = self.degree_F.make_converter(self.kelvin_named)
@@ -384,12 +542,23 @@ for from_unit in units:
         self.assertAlmostEqual(converter(32.0), 273.14999999999998)
         self.assertAlmostEqual(converter(212.0), 373.14999999999998)
 
-
     def test_convert_from_unit_kelvin_base_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.kelvin_base), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(255.37222222222221, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(273.14999999999998, self.kelvin_base), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(373.14999999999998, self.kelvin_base), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.kelvin_base), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                255.37222222222221, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            212.0)
 
     def test_make_converter_kelvin_base_from_degree_F(self):
         converter = self.kelvin_base.make_converter(self.degree_F)
@@ -398,124 +567,265 @@ for from_unit in units:
         self.assertAlmostEqual(converter(273.14999999999998), 32.0)
         self.assertAlmostEqual(converter(373.14999999999998), 212.0)
 
-
     def test_convert_from_unit_kelvin_base_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(255.37222222222221, self.kelvin_base), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(273.14999999999998, self.kelvin_base), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(373.14999999999998, self.kelvin_base), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            373.14999999999998)
 
     def test_make_converter_kelvin_base_from_kelvin_base(self):
         converter = self.kelvin_base.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_base_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(255.37222222222221, self.kelvin_base), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(273.14999999999998, self.kelvin_base), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(373.14999999999998, self.kelvin_base), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            671.66999999999996)
 
     def test_make_converter_kelvin_base_from_rankine(self):
         converter = self.kelvin_base.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(converter(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(converter(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_from_unit_kelvin_base_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(255.37222222222221, self.kelvin_base), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(273.14999999999998, self.kelvin_base), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(373.14999999999998, self.kelvin_base), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            373.14999999999998)
 
     def test_make_converter_kelvin_base_from_kelvin(self):
         converter = self.kelvin_base.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_base_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(255.37222222222221, self.kelvin_base), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(273.14999999999998, self.kelvin_base), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(373.14999999999998, self.kelvin_base), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            373150.0)
 
     def test_make_converter_kelvin_base_from_millikelvin_named(self):
         converter = self.kelvin_base.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273.14999999999998), 273150.0)
         self.assertAlmostEqual(converter(373.14999999999998), 373150.0)
 
-
     def test_convert_from_unit_kelvin_base_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(255.37222222222221, self.kelvin_base), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(273.14999999999998, self.kelvin_base), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(373.14999999999998, self.kelvin_base), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            373150.0)
 
     def test_make_converter_kelvin_base_from_millikelvin(self):
         converter = self.kelvin_base.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273.14999999999998), 273150.0)
         self.assertAlmostEqual(converter(373.14999999999998), 373150.0)
 
-
     def test_convert_from_unit_kelvin_base_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.kelvin_base), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(255.37222222222221, self.kelvin_base), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(273.14999999999998, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(373.14999999999998, self.kelvin_base), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.kelvin_base), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            255.37222222222221, self.kelvin_base), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                273.14999999999998, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            100.0)
 
     def test_make_converter_kelvin_base_from_degree_C(self):
         converter = self.kelvin_base.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(255.37222222222221), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(255.37222222222221), -17.777777777777779)
         self.assertAlmostEqual(converter(273.14999999999998), 0.0)
         self.assertAlmostEqual(converter(373.14999999999998), 100.0)
 
-
     def test_convert_from_unit_kelvin_base_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(255.37222222222221, self.kelvin_base), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(273.14999999999998, self.kelvin_base), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(373.14999999999998, self.kelvin_base), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            671.66999999999996)
 
     def test_make_converter_kelvin_base_from_rankine_named(self):
         converter = self.kelvin_base.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(converter(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(converter(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_from_unit_kelvin_base_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.kelvin_base), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(255.37222222222221, self.kelvin_base), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(273.14999999999998, self.kelvin_base), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(373.14999999999998, self.kelvin_base), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.kelvin_base), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_base),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_base),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_base),
+            373.14999999999998)
 
     def test_make_converter_kelvin_base_from_kelvin_named(self):
         converter = self.kelvin_base.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_rankine_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.rankine), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(459.66999999999996, self.rankine), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(491.66999999999996, self.rankine), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(671.66999999999996, self.rankine), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.rankine), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                459.66999999999996, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                491.66999999999996, self.rankine), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                671.66999999999996, self.rankine), 212.0)
 
     def test_make_converter_rankine_from_degree_F(self):
         converter = self.rankine.make_converter(self.degree_F)
@@ -524,124 +834,259 @@ for from_unit in units:
         self.assertAlmostEqual(converter(491.66999999999996), 32.0)
         self.assertAlmostEqual(converter(671.66999999999996), 212.0)
 
-
     def test_convert_from_unit_rankine_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(459.66999999999996, self.rankine), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(491.66999999999996, self.rankine), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(671.66999999999996, self.rankine), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                491.66999999999996,
+                self.rankine),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                671.66999999999996,
+                self.rankine),
+            373.14999999999998)
 
     def test_make_converter_rankine_from_kelvin_base(self):
         converter = self.rankine.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(converter(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(converter(671.66999999999996), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_unit_rankine_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(459.66999999999996, self.rankine), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(491.66999999999996, self.rankine), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(671.66999999999996, self.rankine), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                491.66999999999996,
+                self.rankine),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                671.66999999999996,
+                self.rankine),
+            671.66999999999996)
 
     def test_make_converter_rankine_from_rankine(self):
         converter = self.rankine.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 459.66999999999996)
-        self.assertAlmostEqual(converter(491.66999999999996), 491.66999999999996)
-        self.assertAlmostEqual(converter(671.66999999999996), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            671.66999999999996)
 
     def test_convert_from_unit_rankine_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(459.66999999999996, self.rankine), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(491.66999999999996, self.rankine), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(671.66999999999996, self.rankine), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                491.66999999999996,
+                self.rankine),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                671.66999999999996,
+                self.rankine),
+            373.14999999999998)
 
     def test_make_converter_rankine_from_kelvin(self):
         converter = self.rankine.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(converter(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(converter(671.66999999999996), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_unit_rankine_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(459.66999999999996, self.rankine), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(491.66999999999996, self.rankine), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(671.66999999999996, self.rankine), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                491.66999999999996, self.rankine), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                671.66999999999996, self.rankine), 373150.0)
 
     def test_make_converter_rankine_from_millikelvin_named(self):
         converter = self.rankine.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255372.22222222222)
         self.assertAlmostEqual(converter(491.66999999999996), 273150.0)
         self.assertAlmostEqual(converter(671.66999999999996), 373150.0)
 
-
     def test_convert_from_unit_rankine_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(459.66999999999996, self.rankine), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(491.66999999999996, self.rankine), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(671.66999999999996, self.rankine), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                491.66999999999996,
+                self.rankine),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                671.66999999999996,
+                self.rankine),
+            373150.0)
 
     def test_make_converter_rankine_from_millikelvin(self):
         converter = self.rankine.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255372.22222222222)
         self.assertAlmostEqual(converter(491.66999999999996), 273150.0)
         self.assertAlmostEqual(converter(671.66999999999996), 373150.0)
 
-
     def test_convert_from_unit_rankine_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.rankine), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(459.66999999999996, self.rankine), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(491.66999999999996, self.rankine), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(671.66999999999996, self.rankine), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.rankine), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            459.66999999999996, self.rankine), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                491.66999999999996, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                671.66999999999996, self.rankine), 100.0)
 
     def test_make_converter_rankine_from_degree_C(self):
         converter = self.rankine.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(459.66999999999996), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(459.66999999999996), -17.777777777777779)
         self.assertAlmostEqual(converter(491.66999999999996), 0.0)
         self.assertAlmostEqual(converter(671.66999999999996), 100.0)
 
-
     def test_convert_from_unit_rankine_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(459.66999999999996, self.rankine), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(491.66999999999996, self.rankine), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(671.66999999999996, self.rankine), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                491.66999999999996,
+                self.rankine),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                671.66999999999996,
+                self.rankine),
+            671.66999999999996)
 
     def test_make_converter_rankine_from_rankine_named(self):
         converter = self.rankine.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 459.66999999999996)
-        self.assertAlmostEqual(converter(491.66999999999996), 491.66999999999996)
-        self.assertAlmostEqual(converter(671.66999999999996), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            671.66999999999996)
 
     def test_convert_from_unit_rankine_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.rankine), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(459.66999999999996, self.rankine), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(491.66999999999996, self.rankine), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(671.66999999999996, self.rankine), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.rankine), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                459.66999999999996,
+                self.rankine),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                491.66999999999996,
+                self.rankine),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                671.66999999999996,
+                self.rankine),
+            373.14999999999998)
 
     def test_make_converter_rankine_from_kelvin_named(self):
         converter = self.rankine.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(converter(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(converter(671.66999999999996), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.kelvin), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(255.37222222222221, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(273.14999999999998, self.kelvin), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(373.14999999999998, self.kelvin), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.kelvin), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                255.37222222222221, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                273.14999999999998, self.kelvin), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                373.14999999999998, self.kelvin), 212.0)
 
     def test_make_converter_kelvin_from_degree_F(self):
         converter = self.kelvin.make_converter(self.degree_F)
@@ -650,124 +1095,256 @@ for from_unit in units:
         self.assertAlmostEqual(converter(273.14999999999998), 32.0)
         self.assertAlmostEqual(converter(373.14999999999998), 212.0)
 
-
     def test_convert_from_unit_kelvin_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(255.37222222222221, self.kelvin), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(273.14999999999998, self.kelvin), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(373.14999999999998, self.kelvin), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                273.14999999999998,
+                self.kelvin),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                373.14999999999998,
+                self.kelvin),
+            373.14999999999998)
 
     def test_make_converter_kelvin_from_kelvin_base(self):
         converter = self.kelvin.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(255.37222222222221, self.kelvin), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(273.14999999999998, self.kelvin), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(373.14999999999998, self.kelvin), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                273.14999999999998,
+                self.kelvin),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                373.14999999999998,
+                self.kelvin),
+            671.66999999999996)
 
     def test_make_converter_kelvin_from_rankine(self):
         converter = self.kelvin.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(converter(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(converter(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_from_unit_kelvin_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(255.37222222222221, self.kelvin), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(273.14999999999998, self.kelvin), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(373.14999999999998, self.kelvin), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                273.14999999999998,
+                self.kelvin),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                373.14999999999998,
+                self.kelvin),
+            373.14999999999998)
 
     def test_make_converter_kelvin_from_kelvin(self):
         converter = self.kelvin.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(255.37222222222221, self.kelvin), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(273.14999999999998, self.kelvin), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(373.14999999999998, self.kelvin), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                273.14999999999998, self.kelvin), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                373.14999999999998, self.kelvin), 373150.0)
 
     def test_make_converter_kelvin_from_millikelvin_named(self):
         converter = self.kelvin.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273.14999999999998), 273150.0)
         self.assertAlmostEqual(converter(373.14999999999998), 373150.0)
 
-
     def test_convert_from_unit_kelvin_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(255.37222222222221, self.kelvin), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(273.14999999999998, self.kelvin), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(373.14999999999998, self.kelvin), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                273.14999999999998, self.kelvin), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                373.14999999999998, self.kelvin), 373150.0)
 
     def test_make_converter_kelvin_from_millikelvin(self):
         converter = self.kelvin.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273.14999999999998), 273150.0)
         self.assertAlmostEqual(converter(373.14999999999998), 373150.0)
 
-
     def test_convert_from_unit_kelvin_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.kelvin), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(255.37222222222221, self.kelvin), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(273.14999999999998, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(373.14999999999998, self.kelvin), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.kelvin), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            255.37222222222221, self.kelvin), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                273.14999999999998, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                373.14999999999998, self.kelvin), 100.0)
 
     def test_make_converter_kelvin_from_degree_C(self):
         converter = self.kelvin.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(255.37222222222221), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(255.37222222222221), -17.777777777777779)
         self.assertAlmostEqual(converter(273.14999999999998), 0.0)
         self.assertAlmostEqual(converter(373.14999999999998), 100.0)
 
-
     def test_convert_from_unit_kelvin_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(255.37222222222221, self.kelvin), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(273.14999999999998, self.kelvin), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(373.14999999999998, self.kelvin), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin),
+            671.66999999999996)
 
     def test_make_converter_kelvin_from_rankine_named(self):
         converter = self.kelvin.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(converter(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(converter(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_from_unit_kelvin_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.kelvin), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(255.37222222222221, self.kelvin), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(273.14999999999998, self.kelvin), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(373.14999999999998, self.kelvin), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.kelvin), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin),
+            373.14999999999998)
 
     def test_make_converter_kelvin_from_kelvin_named(self):
         converter = self.kelvin.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_millikelvin_named_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.millikelvin_named), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(255372.22222222222, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(273150.0, self.millikelvin_named), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(373150.0, self.millikelvin_named), 212.0)
+        self.assertAlmostEqual(self.degree_F.convert_from_unit(
+            0.0, self.millikelvin_named), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                273150.0, self.millikelvin_named), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                373150.0, self.millikelvin_named), 212.0)
 
     def test_make_converter_millikelvin_named_from_degree_F(self):
         converter = self.millikelvin_named.make_converter(self.degree_F)
@@ -776,124 +1353,235 @@ for from_unit in units:
         self.assertAlmostEqual(converter(273150.0), 32.0)
         self.assertAlmostEqual(converter(373150.0), 212.0)
 
-
     def test_convert_from_unit_millikelvin_named_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(255372.22222222222, self.millikelvin_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(273150.0, self.millikelvin_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(373150.0, self.millikelvin_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                273150.0,
+                self.millikelvin_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                373150.0,
+                self.millikelvin_named),
+            373.14999999999998)
 
     def test_make_converter_millikelvin_named_from_kelvin_base(self):
         converter = self.millikelvin_named.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255.37222222222221)
         self.assertAlmostEqual(converter(273150.0), 273.14999999999998)
         self.assertAlmostEqual(converter(373150.0), 373.14999999999998)
 
-
     def test_convert_from_unit_millikelvin_named_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(255372.22222222222, self.millikelvin_named), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(273150.0, self.millikelvin_named), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(373150.0, self.millikelvin_named), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                273150.0,
+                self.millikelvin_named),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                373150.0,
+                self.millikelvin_named),
+            671.66999999999996)
 
     def test_make_converter_millikelvin_named_from_rankine(self):
         converter = self.millikelvin_named.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 459.66999999999996)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            459.66999999999996)
         self.assertAlmostEqual(converter(273150.0), 491.66999999999996)
         self.assertAlmostEqual(converter(373150.0), 671.66999999999996)
 
-
     def test_convert_from_unit_millikelvin_named_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(255372.22222222222, self.millikelvin_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(273150.0, self.millikelvin_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(373150.0, self.millikelvin_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                273150.0,
+                self.millikelvin_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                373150.0,
+                self.millikelvin_named),
+            373.14999999999998)
 
     def test_make_converter_millikelvin_named_from_kelvin(self):
         converter = self.millikelvin_named.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255.37222222222221)
         self.assertAlmostEqual(converter(273150.0), 273.14999999999998)
         self.assertAlmostEqual(converter(373150.0), 373.14999999999998)
 
-
     def test_convert_from_unit_millikelvin_named_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(255372.22222222222, self.millikelvin_named), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(273150.0, self.millikelvin_named), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(373150.0, self.millikelvin_named), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                273150.0, self.millikelvin_named), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                373150.0, self.millikelvin_named), 373150.0)
 
     def test_make_converter_millikelvin_named_from_millikelvin_named(self):
-        converter = self.millikelvin_named.make_converter(self.millikelvin_named)
+        converter = self.millikelvin_named.make_converter(
+            self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273150.0), 273150.0)
         self.assertAlmostEqual(converter(373150.0), 373150.0)
 
-
     def test_convert_from_unit_millikelvin_named_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(255372.22222222222, self.millikelvin_named), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(273150.0, self.millikelvin_named), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(373150.0, self.millikelvin_named), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                273150.0, self.millikelvin_named), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                373150.0, self.millikelvin_named), 373150.0)
 
     def test_make_converter_millikelvin_named_from_millikelvin(self):
         converter = self.millikelvin_named.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273150.0), 273150.0)
         self.assertAlmostEqual(converter(373150.0), 373150.0)
 
-
     def test_convert_from_unit_millikelvin_named_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.millikelvin_named), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(255372.22222222222, self.millikelvin_named), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(273150.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(373150.0, self.millikelvin_named), 100.0)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            0.0, self.millikelvin_named), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            255372.22222222222, self.millikelvin_named), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                273150.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                373150.0, self.millikelvin_named), 100.0)
 
     def test_make_converter_millikelvin_named_from_degree_C(self):
         converter = self.millikelvin_named.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(255372.22222222222), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(255372.22222222222), -17.777777777777779)
         self.assertAlmostEqual(converter(273150.0), 0.0)
         self.assertAlmostEqual(converter(373150.0), 100.0)
 
-
     def test_convert_from_unit_millikelvin_named_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(255372.22222222222, self.millikelvin_named), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(273150.0, self.millikelvin_named), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(373150.0, self.millikelvin_named), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                273150.0,
+                self.millikelvin_named),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                373150.0,
+                self.millikelvin_named),
+            671.66999999999996)
 
     def test_make_converter_millikelvin_named_from_rankine_named(self):
         converter = self.millikelvin_named.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 459.66999999999996)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            459.66999999999996)
         self.assertAlmostEqual(converter(273150.0), 491.66999999999996)
         self.assertAlmostEqual(converter(373150.0), 671.66999999999996)
 
-
     def test_convert_from_unit_millikelvin_named_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.millikelvin_named), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(255372.22222222222, self.millikelvin_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(273150.0, self.millikelvin_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(373150.0, self.millikelvin_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.millikelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                273150.0,
+                self.millikelvin_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                373150.0,
+                self.millikelvin_named),
+            373.14999999999998)
 
     def test_make_converter_millikelvin_named_from_kelvin_named(self):
         converter = self.millikelvin_named.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255.37222222222221)
         self.assertAlmostEqual(converter(273150.0), 273.14999999999998)
         self.assertAlmostEqual(converter(373150.0), 373.14999999999998)
 
-
     def test_convert_from_unit_millikelvin_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.millikelvin), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(255372.22222222222, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(273150.0, self.millikelvin), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(373150.0, self.millikelvin), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.millikelvin), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                255372.22222222222, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                273150.0, self.millikelvin), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                373150.0, self.millikelvin), 212.0)
 
     def test_make_converter_millikelvin_from_degree_F(self):
         converter = self.millikelvin.make_converter(self.degree_F)
@@ -902,250 +1590,439 @@ for from_unit in units:
         self.assertAlmostEqual(converter(273150.0), 32.0)
         self.assertAlmostEqual(converter(373150.0), 212.0)
 
-
     def test_convert_from_unit_millikelvin_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(255372.22222222222, self.millikelvin), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(273150.0, self.millikelvin), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(373150.0, self.millikelvin), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                273150.0,
+                self.millikelvin),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                373150.0,
+                self.millikelvin),
+            373.14999999999998)
 
     def test_make_converter_millikelvin_from_kelvin_base(self):
         converter = self.millikelvin.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255.37222222222221)
         self.assertAlmostEqual(converter(273150.0), 273.14999999999998)
         self.assertAlmostEqual(converter(373150.0), 373.14999999999998)
 
-
     def test_convert_from_unit_millikelvin_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(255372.22222222222, self.millikelvin), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(273150.0, self.millikelvin), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(373150.0, self.millikelvin), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                273150.0,
+                self.millikelvin),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                373150.0,
+                self.millikelvin),
+            671.66999999999996)
 
     def test_make_converter_millikelvin_from_rankine(self):
         converter = self.millikelvin.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 459.66999999999996)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            459.66999999999996)
         self.assertAlmostEqual(converter(273150.0), 491.66999999999996)
         self.assertAlmostEqual(converter(373150.0), 671.66999999999996)
 
-
     def test_convert_from_unit_millikelvin_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(255372.22222222222, self.millikelvin), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(273150.0, self.millikelvin), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(373150.0, self.millikelvin), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                273150.0,
+                self.millikelvin),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                373150.0,
+                self.millikelvin),
+            373.14999999999998)
 
     def test_make_converter_millikelvin_from_kelvin(self):
         converter = self.millikelvin.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255.37222222222221)
         self.assertAlmostEqual(converter(273150.0), 273.14999999999998)
         self.assertAlmostEqual(converter(373150.0), 373.14999999999998)
 
-
     def test_convert_from_unit_millikelvin_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(255372.22222222222, self.millikelvin), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(273150.0, self.millikelvin), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(373150.0, self.millikelvin), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                273150.0, self.millikelvin), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                373150.0, self.millikelvin), 373150.0)
 
     def test_make_converter_millikelvin_from_millikelvin_named(self):
         converter = self.millikelvin.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273150.0), 273150.0)
         self.assertAlmostEqual(converter(373150.0), 373150.0)
 
-
     def test_convert_from_unit_millikelvin_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(255372.22222222222, self.millikelvin), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(273150.0, self.millikelvin), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(373150.0, self.millikelvin), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                273150.0, self.millikelvin), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                373150.0, self.millikelvin), 373150.0)
 
     def test_make_converter_millikelvin_from_millikelvin(self):
         converter = self.millikelvin.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273150.0), 273150.0)
         self.assertAlmostEqual(converter(373150.0), 373150.0)
 
-
     def test_convert_from_unit_millikelvin_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.millikelvin), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(255372.22222222222, self.millikelvin), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(273150.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(373150.0, self.millikelvin), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.millikelvin), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            255372.22222222222, self.millikelvin), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                273150.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                373150.0, self.millikelvin), 100.0)
 
     def test_make_converter_millikelvin_from_degree_C(self):
         converter = self.millikelvin.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(255372.22222222222), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(255372.22222222222), -17.777777777777779)
         self.assertAlmostEqual(converter(273150.0), 0.0)
         self.assertAlmostEqual(converter(373150.0), 100.0)
 
-
     def test_convert_from_unit_millikelvin_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(255372.22222222222, self.millikelvin), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(273150.0, self.millikelvin), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(373150.0, self.millikelvin), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                273150.0,
+                self.millikelvin),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                373150.0,
+                self.millikelvin),
+            671.66999999999996)
 
     def test_make_converter_millikelvin_from_rankine_named(self):
         converter = self.millikelvin.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 459.66999999999996)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            459.66999999999996)
         self.assertAlmostEqual(converter(273150.0), 491.66999999999996)
         self.assertAlmostEqual(converter(373150.0), 671.66999999999996)
 
-
     def test_convert_from_unit_millikelvin_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.millikelvin), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(255372.22222222222, self.millikelvin), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(273150.0, self.millikelvin), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(373150.0, self.millikelvin), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.millikelvin), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                255372.22222222222,
+                self.millikelvin),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                273150.0,
+                self.millikelvin),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                373150.0,
+                self.millikelvin),
+            373.14999999999998)
 
     def test_make_converter_millikelvin_from_kelvin_named(self):
         converter = self.millikelvin.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255372.22222222222), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(255372.22222222222),
+            255.37222222222221)
         self.assertAlmostEqual(converter(273150.0), 273.14999999999998)
         self.assertAlmostEqual(converter(373150.0), 373.14999999999998)
 
-
     def test_convert_from_unit_degree_C_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(-273.14999999999998, self.degree_C), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(-17.777777777777779, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.degree_C), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(100.0, self.degree_C), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(-273.14999999999998, self.degree_C), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(-17.777777777777779, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.degree_C), 32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                100.0, self.degree_C), 212.0)
 
     def test_make_converter_degree_C_from_degree_F(self):
         converter = self.degree_C.make_converter(self.degree_F)
-        self.assertAlmostEqual(converter(-273.14999999999998), -459.66999999999996)
+        self.assertAlmostEqual(
+            converter(-273.14999999999998), -459.66999999999996)
         self.assertAlmostEqual(converter(-17.777777777777779), 0.0)
         self.assertAlmostEqual(converter(0.0), 32.0)
         self.assertAlmostEqual(converter(100.0), 212.0)
 
-
     def test_convert_from_unit_degree_C_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(-17.777777777777779, self.degree_C), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.degree_C), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(100.0, self.degree_C), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                -17.777777777777779,
+                self.degree_C),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.degree_C), 273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                100.0, self.degree_C), 373.14999999999998)
 
     def test_make_converter_degree_C_from_kelvin_base(self):
         converter = self.degree_C.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 255.37222222222221)
         self.assertAlmostEqual(converter(0.0), 273.14999999999998)
         self.assertAlmostEqual(converter(100.0), 373.14999999999998)
 
-
     def test_convert_from_unit_degree_C_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(-17.777777777777779, self.degree_C), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.degree_C), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(100.0, self.degree_C), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(-17.777777777777779, self.degree_C), 459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.degree_C), 491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                100.0, self.degree_C), 671.66999999999996)
 
     def test_make_converter_degree_C_from_rankine(self):
         converter = self.degree_C.make_converter(self.rankine)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 459.66999999999996)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 459.66999999999996)
         self.assertAlmostEqual(converter(0.0), 491.66999999999996)
         self.assertAlmostEqual(converter(100.0), 671.66999999999996)
 
-
     def test_convert_from_unit_degree_C_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(-17.777777777777779, self.degree_C), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.degree_C), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(100.0, self.degree_C), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(-17.777777777777779, self.degree_C), 255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.degree_C), 273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                100.0,
+                self.degree_C),
+            373.14999999999998)
 
     def test_make_converter_degree_C_from_kelvin(self):
         converter = self.degree_C.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 255.37222222222221)
         self.assertAlmostEqual(converter(0.0), 273.14999999999998)
         self.assertAlmostEqual(converter(100.0), 373.14999999999998)
 
-
     def test_convert_from_unit_degree_C_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(-17.777777777777779, self.degree_C), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.degree_C), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(100.0, self.degree_C), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                -17.777777777777779,
+                self.degree_C),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.degree_C), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                100.0, self.degree_C), 373150.0)
 
     def test_make_converter_degree_C_from_millikelvin_named(self):
         converter = self.degree_C.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 255372.22222222222)
         self.assertAlmostEqual(converter(0.0), 273150.0)
         self.assertAlmostEqual(converter(100.0), 373150.0)
 
-
     def test_convert_from_unit_degree_C_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(-17.777777777777779, self.degree_C), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.degree_C), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(100.0, self.degree_C), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                -17.777777777777779,
+                self.degree_C),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.degree_C), 273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                100.0, self.degree_C), 373150.0)
 
     def test_make_converter_degree_C_from_millikelvin(self):
         converter = self.degree_C.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 255372.22222222222)
         self.assertAlmostEqual(converter(0.0), 273150.0)
         self.assertAlmostEqual(converter(100.0), 373150.0)
 
-
     def test_convert_from_unit_degree_C_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(-273.14999999999998, self.degree_C), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(-17.777777777777779, self.degree_C), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(100.0, self.degree_C), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(-273.14999999999998, self.degree_C), -273.14999999999998)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(-17.777777777777779, self.degree_C), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                100.0, self.degree_C), 100.0)
 
     def test_make_converter_degree_C_from_degree_C(self):
         converter = self.degree_C.make_converter(self.degree_C)
-        self.assertAlmostEqual(converter(-273.14999999999998), -273.14999999999998)
-        self.assertAlmostEqual(converter(-17.777777777777779), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(-273.14999999999998), -273.14999999999998)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), -17.777777777777779)
         self.assertAlmostEqual(converter(0.0), 0.0)
         self.assertAlmostEqual(converter(100.0), 100.0)
 
-
     def test_convert_from_unit_degree_C_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(-17.777777777777779, self.degree_C), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.degree_C), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(100.0, self.degree_C), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                -17.777777777777779,
+                self.degree_C),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.degree_C), 491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                100.0, self.degree_C), 671.66999999999996)
 
     def test_make_converter_degree_C_from_rankine_named(self):
         converter = self.degree_C.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 459.66999999999996)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 459.66999999999996)
         self.assertAlmostEqual(converter(0.0), 491.66999999999996)
         self.assertAlmostEqual(converter(100.0), 671.66999999999996)
 
-
     def test_convert_from_unit_degree_C_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(-17.777777777777779, self.degree_C), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.degree_C), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(100.0, self.degree_C), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(-273.14999999999998, self.degree_C), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                -17.777777777777779,
+                self.degree_C),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.degree_C), 273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                100.0, self.degree_C), 373.14999999999998)
 
     def test_make_converter_degree_C_from_kelvin_named(self):
         converter = self.degree_C.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(-273.14999999999998), 0.0)
-        self.assertAlmostEqual(converter(-17.777777777777779), 255.37222222222221)
+        self.assertAlmostEqual(
+            converter(-17.777777777777779), 255.37222222222221)
         self.assertAlmostEqual(converter(0.0), 273.14999999999998)
         self.assertAlmostEqual(converter(100.0), 373.14999999999998)
 
-
     def test_convert_from_unit_rankine_named_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.rankine_named), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(459.66999999999996, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(491.66999999999996, self.rankine_named), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(671.66999999999996, self.rankine_named), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.rankine_named), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            212.0)
 
     def test_make_converter_rankine_named_from_degree_F(self):
         converter = self.rankine_named.make_converter(self.degree_F)
@@ -1154,124 +2031,273 @@ for from_unit in units:
         self.assertAlmostEqual(converter(491.66999999999996), 32.0)
         self.assertAlmostEqual(converter(671.66999999999996), 212.0)
 
-
     def test_convert_from_unit_rankine_named_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(459.66999999999996, self.rankine_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(491.66999999999996, self.rankine_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(671.66999999999996, self.rankine_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            373.14999999999998)
 
     def test_make_converter_rankine_named_from_kelvin_base(self):
         converter = self.rankine_named.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(converter(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(converter(671.66999999999996), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_unit_rankine_named_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(459.66999999999996, self.rankine_named), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(491.66999999999996, self.rankine_named), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(671.66999999999996, self.rankine_named), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            671.66999999999996)
 
     def test_make_converter_rankine_named_from_rankine(self):
         converter = self.rankine_named.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 459.66999999999996)
-        self.assertAlmostEqual(converter(491.66999999999996), 491.66999999999996)
-        self.assertAlmostEqual(converter(671.66999999999996), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            671.66999999999996)
 
     def test_convert_from_unit_rankine_named_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(459.66999999999996, self.rankine_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(491.66999999999996, self.rankine_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(671.66999999999996, self.rankine_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            373.14999999999998)
 
     def test_make_converter_rankine_named_from_kelvin(self):
         converter = self.rankine_named.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(converter(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(converter(671.66999999999996), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_unit_rankine_named_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(459.66999999999996, self.rankine_named), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(491.66999999999996, self.rankine_named), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(671.66999999999996, self.rankine_named), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            373150.0)
 
     def test_make_converter_rankine_named_from_millikelvin_named(self):
         converter = self.rankine_named.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255372.22222222222)
         self.assertAlmostEqual(converter(491.66999999999996), 273150.0)
         self.assertAlmostEqual(converter(671.66999999999996), 373150.0)
 
-
     def test_convert_from_unit_rankine_named_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(459.66999999999996, self.rankine_named), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(491.66999999999996, self.rankine_named), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(671.66999999999996, self.rankine_named), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            373150.0)
 
     def test_make_converter_rankine_named_from_millikelvin(self):
         converter = self.rankine_named.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255372.22222222222)
         self.assertAlmostEqual(converter(491.66999999999996), 273150.0)
         self.assertAlmostEqual(converter(671.66999999999996), 373150.0)
 
-
     def test_convert_from_unit_rankine_named_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.rankine_named), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(459.66999999999996, self.rankine_named), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(491.66999999999996, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(671.66999999999996, self.rankine_named), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.rankine_named), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            459.66999999999996, self.rankine_named), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            100.0)
 
     def test_make_converter_rankine_named_from_degree_C(self):
         converter = self.rankine_named.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(459.66999999999996), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(459.66999999999996), -17.777777777777779)
         self.assertAlmostEqual(converter(491.66999999999996), 0.0)
         self.assertAlmostEqual(converter(671.66999999999996), 100.0)
 
-
     def test_convert_from_unit_rankine_named_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(459.66999999999996, self.rankine_named), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(491.66999999999996, self.rankine_named), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(671.66999999999996, self.rankine_named), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            671.66999999999996)
 
     def test_make_converter_rankine_named_from_rankine_named(self):
         converter = self.rankine_named.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 459.66999999999996)
-        self.assertAlmostEqual(converter(491.66999999999996), 491.66999999999996)
-        self.assertAlmostEqual(converter(671.66999999999996), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            671.66999999999996)
 
     def test_convert_from_unit_rankine_named_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.rankine_named), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(459.66999999999996, self.rankine_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(491.66999999999996, self.rankine_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(671.66999999999996, self.rankine_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.rankine_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                459.66999999999996,
+                self.rankine_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                491.66999999999996,
+                self.rankine_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                671.66999999999996,
+                self.rankine_named),
+            373.14999999999998)
 
     def test_make_converter_rankine_named_from_kelvin_named(self):
         converter = self.rankine_named.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(459.66999999999996), 255.37222222222221)
-        self.assertAlmostEqual(converter(491.66999999999996), 273.14999999999998)
-        self.assertAlmostEqual(converter(671.66999999999996), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(459.66999999999996),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(491.66999999999996),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(671.66999999999996),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_named_from_degree_F(self):
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(0.0, self.kelvin_named), -459.66999999999996)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(255.37222222222221, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(273.14999999999998, self.kelvin_named), 32.0)
-        self.assertAlmostEqual(self.degree_F.convert_from_unit(373.14999999999998, self.kelvin_named), 212.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                0.0, self.kelvin_named), -459.66999999999996)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            0.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            32.0)
+        self.assertAlmostEqual(
+            self.degree_F.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            212.0)
 
     def test_make_converter_kelvin_named_from_degree_F(self):
         converter = self.kelvin_named.make_converter(self.degree_F)
@@ -1280,115 +2306,250 @@ for from_unit in units:
         self.assertAlmostEqual(converter(273.14999999999998), 32.0)
         self.assertAlmostEqual(converter(373.14999999999998), 212.0)
 
-
     def test_convert_from_unit_kelvin_named_from_kelvin_base(self):
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(255.37222222222221, self.kelvin_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(273.14999999999998, self.kelvin_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_base.convert_from_unit(373.14999999999998, self.kelvin_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_base.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            373.14999999999998)
 
     def test_make_converter_kelvin_named_from_kelvin_base(self):
         converter = self.kelvin_named.make_converter(self.kelvin_base)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_named_from_rankine(self):
-        self.assertAlmostEqual(self.rankine.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(255.37222222222221, self.kelvin_named), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(273.14999999999998, self.kelvin_named), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine.convert_from_unit(373.14999999999998, self.kelvin_named), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            671.66999999999996)
 
     def test_make_converter_kelvin_named_from_rankine(self):
         converter = self.kelvin_named.make_converter(self.rankine)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(converter(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(converter(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_from_unit_kelvin_named_from_kelvin(self):
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(255.37222222222221, self.kelvin_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(273.14999999999998, self.kelvin_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin.convert_from_unit(373.14999999999998, self.kelvin_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            373.14999999999998)
 
     def test_make_converter_kelvin_named_from_kelvin(self):
         converter = self.kelvin_named.make_converter(self.kelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)
 
     def test_convert_from_unit_kelvin_named_from_millikelvin_named(self):
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(255.37222222222221, self.kelvin_named), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(273.14999999999998, self.kelvin_named), 273150.0)
-        self.assertAlmostEqual(self.millikelvin_named.convert_from_unit(373.14999999999998, self.kelvin_named), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            373150.0)
 
     def test_make_converter_kelvin_named_from_millikelvin_named(self):
         converter = self.kelvin_named.make_converter(self.millikelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273.14999999999998), 273150.0)
         self.assertAlmostEqual(converter(373.14999999999998), 373150.0)
 
-
     def test_convert_from_unit_kelvin_named_from_millikelvin(self):
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(255.37222222222221, self.kelvin_named), 255372.22222222222)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(273.14999999999998, self.kelvin_named), 273150.0)
-        self.assertAlmostEqual(self.millikelvin.convert_from_unit(373.14999999999998, self.kelvin_named), 373150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            255372.22222222222)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            273150.0)
+        self.assertAlmostEqual(
+            self.millikelvin.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            373150.0)
 
     def test_make_converter_kelvin_named_from_millikelvin(self):
         converter = self.kelvin_named.make_converter(self.millikelvin)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255372.22222222222)
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255372.22222222222)
         self.assertAlmostEqual(converter(273.14999999999998), 273150.0)
         self.assertAlmostEqual(converter(373.14999999999998), 373150.0)
 
-
     def test_convert_from_unit_kelvin_named_from_degree_C(self):
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(0.0, self.kelvin_named), -273.14999999999998)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(255.37222222222221, self.kelvin_named), -17.777777777777779)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(273.14999999999998, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.degree_C.convert_from_unit(373.14999999999998, self.kelvin_named), 100.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                0.0, self.kelvin_named), -273.14999999999998)
+        self.assertAlmostEqual(self.degree_C.convert_from_unit(
+            255.37222222222221, self.kelvin_named), -17.777777777777779)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            0.0)
+        self.assertAlmostEqual(
+            self.degree_C.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            100.0)
 
     def test_make_converter_kelvin_named_from_degree_C(self):
         converter = self.kelvin_named.make_converter(self.degree_C)
         self.assertAlmostEqual(converter(0.0), -273.14999999999998)
-        self.assertAlmostEqual(converter(255.37222222222221), -17.777777777777779)
+        self.assertAlmostEqual(
+            converter(255.37222222222221), -17.777777777777779)
         self.assertAlmostEqual(converter(273.14999999999998), 0.0)
         self.assertAlmostEqual(converter(373.14999999999998), 100.0)
 
-
     def test_convert_from_unit_kelvin_named_from_rankine_named(self):
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(255.37222222222221, self.kelvin_named), 459.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(273.14999999999998, self.kelvin_named), 491.66999999999996)
-        self.assertAlmostEqual(self.rankine_named.convert_from_unit(373.14999999999998, self.kelvin_named), 671.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            self.rankine_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            671.66999999999996)
 
     def test_make_converter_kelvin_named_from_rankine_named(self):
         converter = self.kelvin_named.make_converter(self.rankine_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 459.66999999999996)
-        self.assertAlmostEqual(converter(273.14999999999998), 491.66999999999996)
-        self.assertAlmostEqual(converter(373.14999999999998), 671.66999999999996)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            459.66999999999996)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            491.66999999999996)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            671.66999999999996)
 
     def test_convert_from_unit_kelvin_named_from_kelvin_named(self):
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(0.0, self.kelvin_named), 0.0)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(255.37222222222221, self.kelvin_named), 255.37222222222221)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(273.14999999999998, self.kelvin_named), 273.14999999999998)
-        self.assertAlmostEqual(self.kelvin_named.convert_from_unit(373.14999999999998, self.kelvin_named), 373.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                0.0, self.kelvin_named), 0.0)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                255.37222222222221,
+                self.kelvin_named),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                273.14999999999998,
+                self.kelvin_named),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            self.kelvin_named.convert_from_unit(
+                373.14999999999998,
+                self.kelvin_named),
+            373.14999999999998)
 
     def test_make_converter_kelvin_named_from_kelvin_named(self):
         converter = self.kelvin_named.make_converter(self.kelvin_named)
         self.assertAlmostEqual(converter(0.0), 0.0)
-        self.assertAlmostEqual(converter(255.37222222222221), 255.37222222222221)
-        self.assertAlmostEqual(converter(273.14999999999998), 273.14999999999998)
-        self.assertAlmostEqual(converter(373.14999999999998), 373.14999999999998)
-
+        self.assertAlmostEqual(
+            converter(255.37222222222221),
+            255.37222222222221)
+        self.assertAlmostEqual(
+            converter(273.14999999999998),
+            273.14999999999998)
+        self.assertAlmostEqual(
+            converter(373.14999999999998),
+            373.14999999999998)

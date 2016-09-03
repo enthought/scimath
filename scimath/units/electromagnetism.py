@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from copy import copy
 
 from scimath.units.SI import ampere, coulomb, farad, henry, joule, ohm, \
-     meter, micro, milli, pico, siemens, tesla, volt, watt, weber
+    meter, micro, milli, pico, siemens, tesla, volt, watt, weber
 
 ###############################################################################
 # electric current

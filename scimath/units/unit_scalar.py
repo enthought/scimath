@@ -7,6 +7,8 @@ from .unit_array import UnitArray
 #
 # TODO Profile!
 #
+
+
 class UnitScalar(UnitArray):
     ''' Scalars with units.
 
@@ -17,6 +19,7 @@ class UnitScalar(UnitArray):
         >>> x**2, (x**2).units
         (UnitScalar(25, units='0.0001*m**2'), 0.0001*m**2)
     '''
+
     def __repr__(self):
-        return ("UnitScalar(%s, units='%s')" 
+        return ("UnitScalar(%s, units='%s')"
                 % (self.item().__repr__(), repr(self.units)))

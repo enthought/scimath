@@ -62,10 +62,9 @@ class Unit(HasTraits):
                 the value in the base units
         """
         if self.logarithmic:
-            return self.log_base**(x/self.scale+self.offset)
+            return self.log_base**(x / self.scale + self.offset)
         else:
-            return x/self.scale + self.offset
-
+            return x / self.scale + self.offset
 
     def convert_from_base(self, x):
         """ Convert a value from base units
@@ -85,10 +84,9 @@ class Unit(HasTraits):
                 the value in this set of units
         """
         if self.logarithmic:
-            return self.scale*(log10(x)/log10(self.log_base) - self.offset)
+            return self.scale * (log10(x) / log10(self.log_base) - self.offset)
         else:
-            return self.scale*(x - self.offset)
-
+            return self.scale * (x - self.offset)
 
     def convert_to_unit(self, x, unit):
         """ Convert a value to compatible units
@@ -148,7 +146,7 @@ class Unit(HasTraits):
 
     def __hash__(self):
         return hash((tuple(item for item in self.dimensions.dimension_dict.items()),
-                    self.scale, self.offset, self.logarithmic, self.log_base))
+                     self.scale, self.offset, self.logarithmic, self.log_base))
 
     def __mul__(self, other):
         if isinstance(other, (float, int, int, array)):
@@ -164,7 +162,7 @@ class Unit(HasTraits):
 
     def __div__(self, other):
         if isinstance(other, (float, int, int, array)):
-            return Quantity(magnitude=1.0/other, units=self)
+            return Quantity(magnitude=1.0 / other, units=self)
         else:
             raise NotImplementedError
 
@@ -186,16 +184,16 @@ class MultiplicativeUnit(Unit):
     derivation = Dict
 
     def convert_to_base(self, x):
-        return x/self.scale
+        return x / self.scale
 
     def convert_from_base(self, x):
-        return x*self.scale
+        return x * self.scale
 
     def make_converter(self, other):
         """Return a function which converts from self to other.
         """
         if isinstance(other, MultiplicativeUnit):
-            return lambda x: x*(other.scale/self.scale)
+            return lambda x: x * (other.scale / self.scale)
         else:
             return super(MultiplicativeUnit, self).make_converter(other)
 
@@ -203,15 +201,15 @@ class MultiplicativeUnit(Unit):
         if isinstance(other, MultiplicativeUnit):
             return DerivedUnit(derivation=dict_add(self.derivation,
                                                    other.derivation),
-                        scale=self.scale*other.scale)
+                               scale=self.scale * other.scale)
         else:
             raise NotImplementedError
 
     def __div__(self, other):
         if isinstance(other, Unit):
-            return DerivedUnit( derivation=dict_sub(self.derivation,
-                                                    other.derivation),
-                        scale=self.scale/other.scale)
+            return DerivedUnit(derivation=dict_sub(self.derivation,
+                                                   other.derivation),
+                               scale=self.scale / other.scale)
         else:
             raise NotImplementedError
 
@@ -219,7 +217,7 @@ class MultiplicativeUnit(Unit):
         if isinstance(other, (float, int, int)):
             return DerivedUnit(derivation=dict_mul(self.derivation,
                                                    other.derivation),
-                        scale=self.scale**other)
+                               scale=self.scale**other)
         else:
             raise NotImplementedError
 
@@ -260,14 +258,16 @@ class DerivedUnit(MultiplicativeUnit):
 
 
 class NamedUnit(MultiplicativeUnit):
+
     def __init__(self, **kw):
         kw['derivation'] = {self: 1.0}
         super(NamedUnit, self).__init__(**kw)
 
 
 class BaseUnit(NamedUnit):
+
     def convert_to_base(self, x):
-        return x*self.scale
+        return x * self.scale
 
     def convert_from_base(self, x):
-        return x/self.scale
+        return x / self.scale

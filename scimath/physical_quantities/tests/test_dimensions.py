@@ -4,7 +4,9 @@ from unittest import TestCase
 
 from scimath.physical_quantities.dimensions import Dimensions, Dim
 
+
 class DimensionsTest(TestCase):
+
     def setUp(self):
         self.dimensionless = Dimensions({})
         self.length = Dimensions({"length": 1.0})
@@ -13,7 +15,7 @@ class DimensionsTest(TestCase):
         self.acceleration = Dimensions({"length": 1.0, "time": -2.0})
         self.force = Dimensions({"mass": 1.0, "length": 1.0, "time": -2.0})
         self.also_force = Dimensions({"mass": 1.0, "length": 1.0,
-                                              "time": -2.0})
+                                      "time": -2.0})
 
     # Tests for basic initialization
     def test_setup_simple(self):
@@ -33,11 +35,11 @@ class DimensionsTest(TestCase):
         assert self.force.expansion == "length*mass*time**-2"
 
     def test_expansion_expression(self):
-        velocity = self.length/self.time
+        velocity = self.length / self.time
         assert velocity.expansion == "length*time**-1"
 
     def test_expansion_complete_cancellation(self):
-        dimensionless = self.force/self.force
+        dimensionless = self.force / self.force
         assert dimensionless.expansion == "dimensionless"
 
     # Tests for __str__ method
@@ -51,7 +53,7 @@ class DimensionsTest(TestCase):
         assert str(self.force) == "length*mass*time**-2"
 
     def test_str_expression(self):
-        velocity = self.length/self.time
+        velocity = self.length / self.time
         assert str(velocity) == "length*time**-1"
 
     # Tests for equality and inequality
@@ -72,11 +74,12 @@ class DimensionsTest(TestCase):
 
     # Tests for arithmetic operations
     def test_mul(self):
-        force = self.acceleration*self.mass
-        assert force.dimension_dict == {"length": 1.0, "time": -2.0, "mass": 1.0}
+        force = self.acceleration * self.mass
+        assert force.dimension_dict == {
+            "length": 1.0, "time": -2.0, "mass": 1.0}
 
     def test_div(self):
-        velocity = self.length/self.time
+        velocity = self.length / self.time
         assert velocity.dimension_dict == {"length": 1.0, "time": -1.0}
 
     def test_pow(self):
@@ -84,11 +87,11 @@ class DimensionsTest(TestCase):
         assert area.dimension_dict == {"length": 2.0}
 
     def test_cancellation(self):
-        acceleration = self.force*self.time/self.mass
+        acceleration = self.force * self.time / self.mass
         assert acceleration.dimension_dict == {"length": 1.0, "time": -1.0}
 
     def test_complete_cancellation(self):
-        dimensionless = self.force/self.force
+        dimensionless = self.force / self.force
         assert dimensionless.dimension_dict == {}
 
 

@@ -41,7 +41,8 @@ quantity_editors = {}
 #  'QuantityTrait' trait factory:
 #------------------------------------------------------------------------------
 
-def QuantityTrait ( default_value, units, family_name, auto_set = False, display_units = None ):
+
+def QuantityTrait (default_value, units, family_name, auto_set=False, display_units= None):
     """ Returns a trait definition for a Quantity whose default value is
         'default_value' (a float). The quantity's units are specified by
         'units' (a units object), and the family name of the units
@@ -49,52 +50,54 @@ def QuantityTrait ( default_value, units, family_name, auto_set = False, display
         If display_units is given, it is used for the display of the Quantity, otherwise
         the default units for the given family_name is used.
     """
-    return Trait( Quantity( default_value, units       = units,
-                                           family_name = family_name ),
-                  QuantityHandler( family_name, display_units ),
-                  auto_set = auto_set)
+    return Trait(Quantity(default_value, units=units,
+                          family_name=family_name),
+                 QuantityHandler(family_name, display_units),
+                 auto_set=auto_set)
 
 #------------------------------------------------------------------------------
 #  'QuantityHandler' class:
 #------------------------------------------------------------------------------
 
-class QuantityHandler ( TraitHandler ):
 
-    def __init__ ( self, family_name, display_units ):
+class QuantityHandler (TraitHandler):
+
+    def __init__(self, family_name, display_units):
         self.family_name = family_name
         self.display_units = display_units
 
-    def validate ( self, object, name, value ):
+    def validate(self, object, name, value):
         try:
-            if isinstance( value, Quantity ):
+            if isinstance(value, Quantity):
                 if value.family_name == self.family_name:
                     return value
             else:
                 if self.display_units is None:
-                    units = unit_manager.default_units_for( self.family_name )
+                    units = unit_manager.default_units_for(self.family_name)
                 else:
                     units = self.display_units
-                return Quantity( value, units       = units,
-                                        family_name = self.family_name )
+                return Quantity(value, units=units,
+                                family_name=self.family_name)
         except:
             pass
-        self.error( object, name, self.repr( value ) )
+        self.error(object, name, self.repr(value))
 
-    def info ( self ):
+    def info(self):
         article = 'a'
-        fn      = self.family_name
+        fn = self.family_name
         if fn[:1].lower() in 'aeiou':
             article = 'an'
-        return '%s %s Quantity' % ( article, fn )
+        return '%s %s Quantity' % (article, fn)
 
-    def get_editor ( self, trait ):
+    def get_editor(self, trait):
         auto_set = trait.auto_set
         if auto_set is None:
             auto_set = True
         return ToolkitEditorFactory(self,
-                                    auto_set = auto_set,
-                                    family_name = self.family_name,
-                                    display_units = self.display_units)
+                                    auto_set=auto_set,
+                                    family_name=self.family_name,
+                                    display_units=self.display_units)
+
 
 class ToolkitEditorFactory(EditorFactory):
     """ EditorFactory for creating Quantity editors. """
@@ -103,11 +106,10 @@ class ToolkitEditorFactory(EditorFactory):
     family_name = Str
     display_units = Instance(unit)
 
-    auto_set    = true
+    auto_set = true
 
     def init(self, *args):
         pass
-
 
     ###########################################################################
     # 'EditorFactory' interface:
@@ -120,11 +122,11 @@ class ToolkitEditorFactory(EditorFactory):
             msg = 'QuantityEditor not implemented for %r' % ETSConfig.toolkit
             raise NotImplementedError(msg)
         return SimpleQuantityEditor(parent,
-                                    factory     = self,
-                                    ui          = ui,
-                                    object      = object,
-                                    name        = name,
-                                    description = description)
+                                    factory=self,
+                                    ui=ui,
+                                    object=object,
+                                    name=name,
+                                    description=description)
 
     def readonly_editor(self, ui, object, name, description, parent):
         if ETSConfig.toolkit == 'wx':
@@ -133,12 +135,11 @@ class ToolkitEditorFactory(EditorFactory):
             msg = 'QuantityEditor not implemented for %r' % ETSConfig.toolkit
             raise NotImplementedError(msg)
         return ReadOnlyQuantityEditor(parent,
-                                      factory     = self,
-                                      ui          = ui,
-                                      object      = object,
-                                      name        = name,
-                                      description = description)
+                                      factory=self,
+                                      ui=ui,
+                                      object=object,
+                                      name=name,
+                                      description=description)
 
 
-
-### EOF ########################################################################
+### EOF ##################################################################

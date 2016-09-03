@@ -17,7 +17,6 @@ from .unit_parser import unit_parser, UnableToParseUnits
 from .unit import unit
 
 
-
 def unit_system_trait_factory_function(value=None, editor=None, **metadata):
     if value is None:
         value = unit_manager.get_default(),
@@ -27,15 +26,13 @@ def unit_system_trait_factory_function(value=None, editor=None, **metadata):
         # a UI.
         from traitsui import EnumEditor
         editor = EnumEditor(values=dict((str(us), us) for us in
-            unit_manager.unit_systems), mode='list')
+                                        unit_manager.unit_systems), mode='list')
 
     return Trait(value, UnitSystem, editor=editor, **metadata)
 
 UnitSystemTrait = TraitFactory(unit_system_trait_factory_function)
 
 unit_system_trait = UnitSystemTrait
-
-
 
 
 class UnitsTraitHandler(TraitHandler, HasTraits):
@@ -69,7 +66,7 @@ class UnitsTraitHandler(TraitHandler, HasTraits):
         if not isinstance(value, unit):
             try:
                 value = unit_parser.parse_unit(value,
-                                           suppress_unknown=not self.is_strict)
+                                               suppress_unknown=not self.is_strict)
             except UnableToParseUnits as ex:
                 self.error(obj, name, value)
 
@@ -77,8 +74,8 @@ class UnitsTraitHandler(TraitHandler, HasTraits):
         # prior to the family_trait.  During that processing validate is called
         # and getattr below can fail unless guarded, hence the hasattr.
         if self.family_trait is not '' and hasattr(obj, self.family_trait):
-            family_name = getattr(obj, self.family_trait )
-            if not unit_manager.is_compatible( value, family_name ):
+            family_name = getattr(obj, self.family_trait)
+            if not unit_manager.is_compatible(value, family_name):
                 self.error(obj, name, value)
 
         return value
@@ -106,7 +103,7 @@ class UnitsTraitHandler(TraitHandler, HasTraits):
         return msg
 
 
-def units_traits_factory_function( value=None, is_strict=False, allow_none=True,
+def units_traits_factory_function(value=None, is_strict=False, allow_none=True,
                                   family_trait='',
                                   **metadata):
     if not allow_none and value is None:
@@ -116,15 +113,15 @@ def units_traits_factory_function( value=None, is_strict=False, allow_none=True,
     # This considers 'ft' to 'feet' to be a change, but more importantly
     # 'none' to 'gapi' or other units with the same derivation are considered
     # different.
-    metadata.setdefault( 'rich_compare', False )
+    metadata.setdefault('rich_compare', False)
 
-    return Trait( value, UnitsTraitHandler(allow_none=allow_none,
+    return Trait(value, UnitsTraitHandler(allow_none=allow_none,
                                           is_strict=is_strict,
                                           family_trait=family_trait),
-                  **metadata )
+                 **metadata)
 
 # A Trait where the value is a Unit object.  See UnitTraitHandler for details.
-UnitsTrait = TraitFactory( units_traits_factory_function )
+UnitsTrait = TraitFactory(units_traits_factory_function)
 
 
-### EOF
+# EOF

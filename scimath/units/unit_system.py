@@ -47,8 +47,8 @@ class UnitSystem(HasTraits):
     unit_manager = Any
     # commented for testing...
     #unit_manager = Instance('scimath.units.unit_manager.UnitManager', copy='shallow')
-    name         = Str
-    families     = Dict
+    name = Str
+    families = Dict
 
     def __init__(self, name, families={}):
 
@@ -62,7 +62,11 @@ class UnitSystem(HasTraits):
                 # not sure how to accept args here--right now families is a
                 # dictionary of keys and lists, where the list contains
                 # [unit, description, inverse]
-                self.add_family(fam, families[fam][0], families[1], families[2])
+                self.add_family(
+                    fam,
+                    families[fam][0],
+                    families[1],
+                    families[2])
 
         return
 
@@ -70,16 +74,16 @@ class UnitSystem(HasTraits):
         """ Method to return a unit for a given family or member name """
 
         # TODO: This seems like a very slow way to do this
-        result = self.families.get(name,self.families.get(
-                      self.unit_manager.unit_members.get(
-                      self.unit_manager.get_family_name(name))))
-
+        result = self.families.get(name, self.families.get(
+            self.unit_manager.unit_members.get(
+                self.unit_manager.get_family_name(name))))
 
         if not result:
             logger.exception('Could not find %s in this unit_system' % name)
         return result
 
-    def add_family(self, family_name, fam_unit, description=None, inverse=None):
+    def add_family(self, family_name, fam_unit,
+                   description=None, inverse=None):
         """ Add to families dictionary
 
             parameters
@@ -94,7 +98,7 @@ class UnitSystem(HasTraits):
         """
 
         # convert string to unit
-        if type(fam_unit)== type(''):
+        if isinstance(fam_unit, type('')):
             fam_unit = unit_parser.parse_unit(fam_unit)
 
         self.families[family_name] = fam_unit
@@ -104,7 +108,6 @@ class UnitSystem(HasTraits):
         # as well.
         if self.unit_manager and (description or inverse):
             self.unit_manager.add_family(family_name, description, inverse)
-
 
     def get_manager_families(self):
         """ Convenience method to get the dict of families from
@@ -123,20 +126,25 @@ class UnitSystem(HasTraits):
         """ Returns the family name for a given alias (member)
         """
         try:
-            fam_name=self.unit_manager.unit_members[quant_name]
+            fam_name = self.unit_manager.unit_members[quant_name]
         except KeyError:
-            logger.exception('Could not find a family name for %s' % quant_name)
+            logger.exception(
+                'Could not find a family name for %s' %
+                quant_name)
             fam_name = None
         return fam_name
 
     def get_inverse_log_name(self, quant_name):
         """ Returns the default name of the inverted log
         """
-        #fixme - why are these here?
+        # fixme - why are these here?
         try:
-            inv_name=self.unit_manager.unit_families[self.get_family_name(quant_name)].inverse
+            inv_name = self.unit_manager.unit_families[
+                self.get_family_name(quant_name)].inverse
         except KeyError:
-            logger.exception('Could not find an inverse log name for %s' % quant_name)
+            logger.exception(
+                'Could not find an inverse log name for %s' %
+                quant_name)
             inv_name = None
         return inv_name
 
@@ -146,7 +154,4 @@ class UnitSystem(HasTraits):
 #kgs = UnitSystem('KGS')
 
 
-
-##### EOF ######################################################################
-
-
+##### EOF ################################################################

@@ -27,15 +27,15 @@ import logging
 
 # Enthought library imports.
 from traits.api  import HasTraits, HasPrivateTraits, Trait, List, Dict, \
-                              Instance, Str, Any, Int
+    Instance, Str, Any, Int
 
 # local imports
-from scimath.units.unit_db        import UnitDB
-from scimath.units.unit_system    import UnitSystem
+from scimath.units.unit_db import UnitDB
+from scimath.units.unit_system import UnitSystem
 from scimath.units.unit_converter import default_unit_converters
-from scimath.units.convert        import convert as unit_convert
-from .unit                           import unit
-from .unit_parser                    import unit_parser
+from scimath.units.convert import convert as unit_convert
+from .unit import unit
+from .unit_parser import unit_parser
 import six
 
 
@@ -47,7 +47,7 @@ class UnitFamily(HasPrivateTraits):
 
     family_name = Str
     description = Str
-    inverse     = Str
+    inverse = Str
 
     def __init__(self, family_name, description, inverse):
 
@@ -82,6 +82,7 @@ class UnitCache(HasTraits):
     def reset(self):
         self.cache = {}
 
+
 class UnitManager(HasPrivateTraits):
     """ The unit manager to be used as a singleton in a particular application
 
@@ -90,19 +91,19 @@ class UnitManager(HasPrivateTraits):
 
     """
 
-    unit_systems    = List(Instance(UnitSystem))
+    unit_systems = List(Instance(UnitSystem))
     unit_converters = Dict(Str, Any)
-    unit_members    = Dict(Str, Str)
+    unit_members = Dict(Str, Str)
     preferred_names = Dict(Str, Str)
-    default_system  = Instance(UnitSystem)
-    unit_families   = Dict(Str, Instance(UnitFamily))
+    default_system = Instance(UnitSystem)
+    unit_families = Dict(Str, Instance(UnitFamily))
 
     _family_cache = Instance(UnitCache)
 
     def __init__(self):
         """ Creates a new unit manager. """
 
-        self._family_cache = UnitCache(max_size = 200)
+        self._family_cache = UnitCache(max_size=200)
         self._wildcards = []
         # instantiate default UnitDB object using default text files:
         udb = UnitDB()
@@ -121,15 +122,17 @@ class UnitManager(HasPrivateTraits):
             column_name = '%s_%s' % (udb_sys.upper(), 'UNITS')
 
             for fam in udb.unit_names:
-                us.add_family(fam, \
-                    udb.unit_names[fam][udb.column_names[column_name]],
-                    description=udb.unit_names[fam][udb.column_names['DESCRIPTION']],
-                    inverse=udb.unit_names[fam][udb.column_names['INVERSE']])
+                us.add_family(fam,
+                              udb.unit_names[fam][
+                                  udb.column_names[column_name]],
+                              description=udb.unit_names[fam][
+                                  udb.column_names['DESCRIPTION']],
+                              inverse=udb.unit_names[fam][udb.column_names['INVERSE']])
 
             self.add_unit_system(us)
 
         # Add unit members/preferred names from unit_db defaults
-        self.unit_members    = udb.member_names
+        self.unit_members = udb.member_names
         self.preferred_names = udb.preferred_names
 
         for name in udb.member_names:
@@ -174,8 +177,9 @@ class UnitManager(HasPrivateTraits):
         else:
             self.default_system = self.unit_systems[0]
 
-
-        logger.info("Unit manager - default unit system set to: %s" % self.default_system)
+        logger.info(
+            "Unit manager - default unit system set to: %s" %
+            self.default_system)
 
         return
 
@@ -226,7 +230,6 @@ class UnitManager(HasPrivateTraits):
         """
         self.unit_systems.append(us)
 
-
     def add_member(self, member_name, family):
         """ Adds a member to the unit_members dict used to lookup unit aliases
 
@@ -239,25 +242,24 @@ class UnitManager(HasPrivateTraits):
                 the name of the unit_family to which the alias maps
         """
 
-        self.unit_members[member_name]=family
+        self.unit_members[member_name] = family
         if member_name.find('*') != -1:
             self._wildcards.append(member_name)
         # clear out the cache
         self._family_cache.reset()
         return
 
-
     def add_family(self, family_name, description, inverse):
         """ Maintains dict of families w/ description & inverse values """
 
-        self.unit_families[family_name]=UnitFamily(family_name,
-                                                   description, inverse)
+        self.unit_families[family_name] = UnitFamily(family_name,
+                                                     description, inverse)
 
     def get_family_name(self, name):
         """ Returns family name given a member name """
 
         # keep from going through the fnmatch case on an empty name
-        if name == '' or name == None:
+        if name == '' or name is None:
             return 'unknown'
 
         try:
@@ -313,13 +315,12 @@ class UnitManager(HasPrivateTraits):
         return valid_units
 
     def get_valid_unit_strings(self, family_name):
-
         """ Returns a list of units that are compatible with
             a family given a family name (or alias)"""
 
-        valid_units = [x.label for x in self.get_valid_units(family_name)]
+        valid_units = sorted(
+            [x.label for x in self.get_valid_units(family_name)])
 
-        valid_units.sort()
         return valid_units
 
     def get_inverse_family_name(self, family_name):
@@ -355,7 +356,6 @@ class UnitManager(HasPrivateTraits):
 
         return None
 
-
     def is_compatible(self, units, family_name):
         """ Returns True if the family_name and units are compatible.
         Just because two units have the same derivation, does not mean they
@@ -364,10 +364,10 @@ class UnitManager(HasPrivateTraits):
         if units is None:
             units_label = None
 
-        elif isinstance( units, unit ):
+        elif isinstance(units, unit):
             units_label = units.label
 
-        elif isinstance( units, six.string_types ):
+        elif isinstance(units, six.string_types):
             units_label = units
             units = unit_parser.parse_unit(units)
 
@@ -376,15 +376,15 @@ class UnitManager(HasPrivateTraits):
         if family_name == 'unknown':
             return True
 
-        if units_label in self.get_valid_unit_strings( family_name ):
+        if units_label in self.get_valid_unit_strings(family_name):
             return True
 
         if family_name != 'none' and units_label in ['none', 'unknown']:
             return False
 
         try:
-            default_units = self.default_units_for( family_name )
-            unit_convert( 1.0, units, default_units)
+            default_units = self.default_units_for(family_name)
+            unit_convert(1.0, units, default_units)
             return True
 
         except:
@@ -445,8 +445,8 @@ class UnitManager(HasPrivateTraits):
             return result
 
         except:
-            logger.warning("Could not convert object: %s to system: %s" % \
-                              (obj,new_unit_system))
+            logger.warning("Could not convert object: %s to system: %s" %
+                           (obj, new_unit_system))
             raise
 
     def convert(self, obj, new_unit_system=None):
@@ -462,8 +462,8 @@ class UnitManager(HasPrivateTraits):
 
         except Exception as ex:
             logger.exception(ex)
-            logger.warning("Could not convert object: %s to system: %s" % \
-                              (obj,new_unit_system))
+            logger.warning("Could not convert object: %s to system: %s" %
+                           (obj, new_unit_system))
             return obj
 
     def get_unit_converter(self, obj):
@@ -471,21 +471,20 @@ class UnitManager(HasPrivateTraits):
 
         return self.unit_converters[str(obj.__class__)]
 
-
     ##########################################################################
     # Private Interface
     ##########################################################################
 
     # TODO: this method does not seem to ever be called--consider deleting.
-    def _convert (self, value, from_units, to_units):
+    def _convert(self, value, from_units, to_units):
 
         if isinstance(value, six.string_types):
             converted_data = value.data
         elif isinstance( value, numpy.ndarray) and \
-              value.dtype.char == 'S':
+                value.dtype.char == 'S':
             converted_data = value
         else:
-            converted_data = unit_convert( value, from_units, to_units )
+            converted_data = unit_convert(value, from_units, to_units)
 
         return converted_data
 
@@ -493,13 +492,13 @@ class UnitManager(HasPrivateTraits):
 
 unit_manager = UnitManager()
 
+
 class IncompatibleUnitFamilies(Exception):
 
     def __init__(self, fromFamily, toFamily):
         self._toFamily = toFamily
         self._fromFamily = fromFamily
         return
-
 
     def __str__(self):
         str = "Cannot convert across unit families: '%s' and '%s'" % \

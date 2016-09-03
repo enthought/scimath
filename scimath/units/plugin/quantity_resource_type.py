@@ -11,6 +11,7 @@ from scimath.units.quantity import Quantity
 from .quantity_node_type import QuantityNodeType
 from .quantity_resource_editor import QuantityResourceEditor
 
+
 class QuantityResourceType(ObjectResourceType):
     """ The resource type for quantities. """
 
@@ -33,7 +34,6 @@ class QuantityResourceType(ObjectResourceType):
         """ Initializes the node type. """
 
         return QuantityNodeType(resource_type=self)
-
 
     #### Methods ##############################################################
 

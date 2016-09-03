@@ -86,7 +86,7 @@ mm = millimeter
 cm = centimeter
 km = kilometer
 
-f  = foot
+f = foot
 ft = foot
 feet = foot
 
@@ -98,4 +98,3 @@ kilometers = kilometer
 inches = IN = inch
 
 #### EOF ######################################################################
-

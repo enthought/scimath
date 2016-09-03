@@ -5,28 +5,29 @@ from traits.api import Instance, TraitError
 from traitsui.api import View, Item, InstanceEditor, Handler
 
 from scimath.units.quantity import Quantity
-from scimath.units.unit_parser  import unit_parser
+from scimath.units.unit_parser import unit_parser
 from scimath.units.unit_manager import unit_manager
 
-class QuantityView( View ):
+
+class QuantityView(View):
     """ Default Traits View for Quantity objects. """
 
     def __init__(self, **traits):
         """ Create a new QuantityView. """
 
-        super( QuantityView, self ).__init__(
-            Item( name='name', style='readonly' ),
-            Item( name='units' ),
-            Item( name='family_name', label='Measure of' ),
-            Item( name='data', label='Value'),
-            handler = QuantityViewHandler(),
-            buttons= ['OK', 'Cancel'],
+        super(QuantityView, self).__init__(
+            Item(name='name', style='readonly'),
+            Item(name='units'),
+            Item(name='family_name', label='Measure of'),
+            Item(name='data', label='Value'),
+            handler=QuantityViewHandler(),
+            buttons=['OK', 'Cancel'],
             width=300,
             height=200
-            )
+        )
 
 
-class QuantityViewHandler( Handler ):
+class QuantityViewHandler(Handler):
     """ Handler for the QuantityView.
     It validates the consistency of the units and family_name and
     rolls back the changes if the control is canceled when closed.
@@ -36,24 +37,24 @@ class QuantityViewHandler( Handler ):
     """
     original = Instance(Quantity)
 
-    def init ( self, info ):
+    def init(self, info):
         qty = info.ui.context['object']
         self.original = qty.clone()
 
-        return super(QuantityViewHandler,self).init(info)
+        return super(QuantityViewHandler, self).init(info)
 
-    def close( self, info, is_ok ):
+    def close(self, info, is_ok):
         return True
 
-    def closed( self, info, is_ok ):
+    def closed(self, info, is_ok):
         """ Handles a dialog-based user interface being closed by the user.
         """
         if not is_ok:
             qty = info.ui.context['object']
-            qty.copy_traits( self.original )
+            qty.copy_traits(self.original)
         return
 
-    def setattr ( self, info, object, name, value ):
+    def setattr(self, info, object, name, value):
         """ Handles setting a specified object trait's value.
 
         Parameters
@@ -70,7 +71,7 @@ class QuantityViewHandler( Handler ):
 
         if name == 'units':
             # Convert units label to units object.
-            if not unit_manager.is_compatible( value, object.family_name ):
+            if not unit_manager.is_compatible(value, object.family_name):
                 raise TraitError()
 
             value = unit_parser.parse_unit(value, suppress_warnings=False)
@@ -95,4 +96,4 @@ class QuantityViewHandler( Handler ):
 
         return
 
-### EOF
+# EOF

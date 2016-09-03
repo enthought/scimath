@@ -43,8 +43,8 @@ electron_volt = 1.60218e-19 * joule
 # aliases
 
 J = joule
-kJ = kilo*joule
-MJ = mega*joule
+kJ = kilo * joule
+MJ = mega * joule
 
 eV = electron_volt
 KeV = kilo * eV
@@ -52,7 +52,7 @@ MeV = mega * eV
 GeV = giga * eV
 
 cal = calorie
-kcal = kilo*calorie
+kcal = kilo * calorie
 
 
 # version

@@ -5,7 +5,7 @@ import time
 
 # Numeric library imports
 import numpy
-from numpy import arange, allclose, array, all #@UnresolvedImport
+from numpy import arange, allclose, array, all  # @UnresolvedImport
 from numpy.testing import assert_array_almost_equal
 
 # Enthought library imports
@@ -19,14 +19,16 @@ import scimath.units.has_units as has_units_
 from scimath.units.api import has_units, UnitArray, UnitScalar
 from six.moves import range
 
+
 class HasUnitsDocTestCase(doctest_for_module(has_units_)):
     pass
 
+
 class HasUnitsTestCase(unittest.TestCase):
 
-    ############################################################################
+    ##########################################################################
     # TestCase interface.
-    ############################################################################
+    ##########################################################################
 
     def setUp(self):
         unittest.TestCase.setUp(self)
@@ -45,9 +47,9 @@ class HasUnitsTestCase(unittest.TestCase):
 
     assertEqual = failUnlessEqual
 
-    ############################################################################
+    ##########################################################################
     # HasUnitsTestCase interface.
-    ############################################################################
+    ##########################################################################
 
     def test_wrapped_behaves_like_unwrapped(self):
         """ Does wrapped function behave like non-wrapped function.
@@ -59,7 +61,7 @@ class HasUnitsTestCase(unittest.TestCase):
         decorater = has_units()
         func_wrapped = decorater(func)
 
-        self.assertEqual(func(1),func_wrapped(1))
+        self.assertEqual(func(1), func_wrapped(1))
 
     def test_wrapped_with_input_units(self):
         """ Does wrapped function with inputs behave like non-wrapped function?
@@ -72,7 +74,7 @@ class HasUnitsTestCase(unittest.TestCase):
         decorater = has_units(inputs="value: a value: units=m/s;")
         func_wrapped = decorater(func)
 
-        self.assertEqual(func(1),func_wrapped(1))
+        self.assertEqual(func(1), func_wrapped(1))
 
     def test_wrapped_with_output_units(self):
         """ Does wrapped function with outputs behave like non-wrapped function?
@@ -85,10 +87,10 @@ class HasUnitsTestCase(unittest.TestCase):
         decorater = has_units(outputs="value: a value: units=m/s;")
         func_wrapped = decorater(func)
 
-        arg = array((1,2,3))
+        arg = array((1, 2, 3))
         std = func(arg)
         actual = func_wrapped(arg)
-        self.assertEqual(std,actual)
+        self.assertEqual(std, actual)
 
     def test_wrapped_with_two_output_units(self):
         """ Are two outputs handled correctly?
@@ -103,9 +105,9 @@ class HasUnitsTestCase(unittest.TestCase):
                                      """)
         func_wrapped = decorater(func)
 
-        arg = array((1,2,3))
-        std_v1, std_v2 = func(arg, arg+1)
-        actual_v1, actual_v2 = func_wrapped(arg, arg+1)
+        arg = array((1, 2, 3))
+        std_v1, std_v2 = func(arg, arg + 1)
+        actual_v1, actual_v2 = func_wrapped(arg, arg + 1)
         self.assertEqual(std_v1, actual_v1)
         self.assertEqual(std_v2, actual_v2)
 
@@ -118,8 +120,7 @@ class HasUnitsTestCase(unittest.TestCase):
         def func_wrapped(value):
             return value
 
-
-        self.assertEqual(func(1),func_wrapped(1))
+        self.assertEqual(func(1), func_wrapped(1))
 
     def test_unit_array_with_units_decorated(self):
 
@@ -130,23 +131,23 @@ class HasUnitsTestCase(unittest.TestCase):
         def func_wrapped(value):
             return value
 
-        a = UnitArray(arange(100), units=meters/second)
-        self.assertTrue(allclose(func(a).as_units(meters/second),
+        a = UnitArray(arange(100), units=meters / second)
+        self.assertTrue(allclose(func(a).as_units(meters / second),
                                  func_wrapped(a)))
 
-        a = UnitArray(arange(100), units=feet/second)
-        self.assertTrue(allclose(func(a).as_units(meters/second),
+        a = UnitArray(arange(100), units=feet / second)
+        self.assertTrue(allclose(func(a).as_units(meters / second),
                                  func_wrapped(a)))
 
     def test_unit_array_with_decorated_docstring_function(self):
         """Does has_units wrap with docstring work ?
         """
 
-        def addfunc(a,b):
-            return a+b
+        def addfunc(a, b):
+            return a + b
 
         @has_units
-        def add(a,b):
+        def add(a, b):
             ''' Add two arrays in ft/s and convert them to m/s.
 
             Parameters
@@ -161,17 +162,17 @@ class HasUnitsTestCase(unittest.TestCase):
             c : array : units=m/s
                 c = a + b
             '''
-            return (a+b)*0.3048
+            return (a + b) * 0.3048
 
-        a = UnitArray(arange(100), units=feet/second)
-        b = UnitArray(arange(100)**2, units=feet/second)
-        self.assertTrue(allclose(addfunc(a,b).as_units(meters/second),
-                                 add(a,b)))
+        a = UnitArray(arange(100), units=feet / second)
+        b = UnitArray(arange(100)**2, units=feet / second)
+        self.assertTrue(allclose(addfunc(a, b).as_units(meters / second),
+                                 add(a, b)))
 
-        a = UnitArray(arange(100), units=meters/second)
-        b = UnitArray(arange(100)**2, units=meters/second)
-        self.assertTrue(allclose(addfunc(a,b).as_units(meters/second),
-                                 add(a,b)))
+        a = UnitArray(arange(100), units=meters / second)
+        b = UnitArray(arange(100)**2, units=meters / second)
+        self.assertTrue(allclose(addfunc(a, b).as_units(meters / second),
+                                 add(a, b)))
 
     def test_unit_array_with_decorated_docstring_and_inputted_parameters(self):
         """Does has_units wrap with expanded docstring and inputting
@@ -180,9 +181,9 @@ class HasUnitsTestCase(unittest.TestCase):
 
         @has_units(inputs="a:an array:units=ft/s;b:array:units=ft/s",
                    outputs="c:an array:units=m/s")
-        def add(a,b):
+        def add(a, b):
             " Add two arrays in ft/s and convert them to m/s. "
-            return (a+b)*0.3048
+            return (a + b) * 0.3048
 
         @has_units
         def add_doc(a, b):
@@ -200,37 +201,39 @@ class HasUnitsTestCase(unittest.TestCase):
             c : array : units=m/s
                 c = a + b
             '''
-            return (a+b)*0.3048
+            return (a + b) * 0.3048
 
-        a = UnitArray(arange(100), units=feet/second)
-        b = UnitArray(arange(100)**2, units=feet/second)
-        self.assertTrue(allclose(add_doc(a,b),
-                                 add(a,b)))
+        a = UnitArray(arange(100), units=feet / second)
+        b = UnitArray(arange(100)**2, units=feet / second)
+        self.assertTrue(allclose(add_doc(a, b),
+                                 add(a, b)))
 
-        a = UnitArray(arange(100), units=meters/second)
-        b = UnitArray(arange(100)**2, units=meters/second)
-        self.assertTrue(allclose(add_doc(a,b),
-                                 add(a,b)))
+        a = UnitArray(arange(100), units=meters / second)
+        b = UnitArray(arange(100)**2, units=meters / second)
+        self.assertTrue(allclose(add_doc(a, b),
+                                 add(a, b)))
 
     def test_wrapped_adds_summary(self):
         """ Is summary information added correctly?
         """
         summary = "a function"
+
         @has_units(summary=summary)
         def func(value):
             return value
 
-        self.assertTrue(func.summary==summary)
+        self.assertTrue(func.summary == summary)
 
     def test_wrapped_adds_doc(self):
         """ Is doc information added correctly?
         """
         doc = "documenation about the function"
+
         @has_units(doc=doc)
         def func(value):
             return value
 
-        self.assertTrue(func.doc==doc)
+        self.assertTrue(func.doc == doc)
 
     def test_wrapped_adds_inputs(self):
         """ Are input specifications added correctly?
@@ -238,17 +241,17 @@ class HasUnitsTestCase(unittest.TestCase):
 
         @has_units(inputs="v1:a value:units=m/s")
         def func(v1, v2):
-            return v1+v2
+            return v1 + v2
 
-        self.assertTrue(len(func.inputs)==2)
+        self.assertTrue(len(func.inputs) == 2)
 
         # Does the 1st variable have its name and units assigned correctly?
-        self.assertTrue(func.inputs[0].name=='v1')
-        self.assertTrue(func.inputs[0].units==unit_parser.parse_unit('m/s'))
+        self.assertTrue(func.inputs[0].name == 'v1')
+        self.assertTrue(func.inputs[0].units == unit_parser.parse_unit('m/s'))
 
         # Was the 2nd (unspecified) input given an input variable?
-        self.assertTrue(func.inputs[1].name=='v2')
-        self.assertTrue(func.inputs[1].units==None)
+        self.assertTrue(func.inputs[1].name == 'v2')
+        self.assertTrue(func.inputs[1].units is None)
 
     def test_wrapped_adds_outputs(self):
         """ Are output specifications added correctly?
@@ -256,13 +259,13 @@ class HasUnitsTestCase(unittest.TestCase):
 
         @has_units()
         def func(v1, v2):
-            return v1+v2
+            return v1 + v2
 
-        self.assertTrue(len(func.outputs)==1)
+        self.assertTrue(len(func.outputs) == 1)
 
         # Does the output have its name and units assigned correctly?
-        self.assertTrue(func.outputs[0].name=='result')
-        self.assertTrue(func.outputs[0].units==None)
+        self.assertTrue(func.outputs[0].name == 'result')
+        self.assertTrue(func.outputs[0].units is None)
 
     def test_wrapped_adds_outputs2(self):
         """ Are output specifications added correctly?
@@ -270,59 +273,59 @@ class HasUnitsTestCase(unittest.TestCase):
 
         @has_units(outputs="out: out desc:units=m/s")
         def func(v1, v2):
-            return v1+v2
+            return v1 + v2
 
-        self.assertTrue(len(func.outputs)==1)
+        self.assertTrue(len(func.outputs) == 1)
 
         # Does the output have its name and units assigned correctly?
-        self.assertTrue(func.outputs[0].name=='out')
-        self.assertTrue(func.outputs[0].units==unit_parser.parse_unit('m/s'))
+        self.assertTrue(func.outputs[0].name == 'out')
+        self.assertTrue(func.outputs[0].units == unit_parser.parse_unit('m/s'))
 
-    def _time_conversion_decorated(self, inputs, array_size=1000,iters=1000):
+    def _time_conversion_decorated(self, inputs, array_size=1000, iters=1000):
         """ Wrapped vs. normal have slowdown<1.2 (no conversion)?
         """
-        def func(a,b,c,d):
-            return a+a,b+b,c+c,d+d
+        def func(a, b, c, d):
+            return a + a, b + b, c + c, d+d
 
         @has_units(inputs=inputs)
-        def func_wrapped(a,b,c,d):
-            return a+a,b+b,c+c,d+d
+        def func_wrapped(a, b, c, d):
+            return a + a, b + b, c + c, d+d
 
-        a = UnitArray(arange(array_size), units=meters/second)
+        a = UnitArray(arange(array_size), units=meters / second)
         #aa = arange(array_size)
 
         N = iters
         t1 = time.clock()
-        for i in range(N): #@UnusedVariable
-            w,x,y,z = func(a,a,a,a) #@UnusedVariable
+        for i in range(N):  # @UnusedVariable
+            w, x, y, z = func(a, a, a, a)  # @UnusedVariable
         t2 = time.clock()
         standard = t2 - t1
 
         t1 = time.clock()
-        for i in range(N): #@UnusedVariable
-            w,x,y,z = func_wrapped(a,a,a,a) #@UnusedVariable
+        for i in range(N):  # @UnusedVariable
+            w, x, y, z = func_wrapped(a, a, a, a)  # @UnusedVariable
         t2 = time.clock()
-        wrapped = t2-t1
+        wrapped = t2 - t1
 
-        b=a
-        c=a
-        d=a
+        b = a
+        c = a
+        d = a
         t1 = time.clock()
-        for i in range(N): #@UnusedVariable
-            w,x,y,z = a+a,b+b,c+c,d+d #@UnusedVariable
+        for i in range(N):  # @UnusedVariable
+            w, x, y, z = a + a, b + b, c +c, d+d  # @UnusedVariable
         t2 = time.clock()
-        bare = t2-t1
+        bare = t2 - t1
 
-        slowdown = wrapped/standard
+        slowdown = wrapped / standard
         msg = ("call/s = %s, slowdown = %s; call/s = %s, slowdown = %s" %
-                  (N/wrapped, slowdown, N/bare, wrapped/bare))
-        self.assertTrue(slowdown<1.2, msg)
+               (N / wrapped, slowdown, N / bare, wrapped /bare))
+        self.assertTrue(slowdown < 1.2, msg)
 
     @skip
     def test_time_no_conversion_decorated(self):
         """ Wrapped vs. normal have slowdown<1.2 (no conversion)?
         """
-        inputs="""a: description of a: units=m/s;
+        inputs = """a: description of a: units=m/s;
                   b: description of b: units=m/s;
                   c: description of c: units=m/s;
                   d: description of d: units=m/s;
@@ -333,7 +336,7 @@ class HasUnitsTestCase(unittest.TestCase):
     def test_time_conversion_decorated(self):
         """ Wrapped vs. normal have slowdown<1.2 (with conversion)?
         """
-        inputs="""a: description of a: units=ft/s;
+        inputs = """a: description of a: units=ft/s;
                   b: description of b: units=ft/s;
                   c: description of c: units=ft/s;
                   d: description of d: units=ft/s;
@@ -341,6 +344,8 @@ class HasUnitsTestCase(unittest.TestCase):
         self._time_conversion_decorated(inputs=inputs)
 
 # Some functions to play with.
+
+
 def foo(x, y):
     """ Foo
 
@@ -361,6 +366,7 @@ def foo(x, y):
     return z
 
 foo_with_units = has_units(foo)
+
 
 def bar(x, y):
     """ Bar
@@ -391,9 +397,9 @@ class HasUnitsDecoratorTestCase(unittest.TestCase):
 
     def setUp(self):
         # Make some data to play with.
-        self.meter_array = UnitArray([1.,2,3], units=meters)
-        self.second_array = UnitArray([3.,2,1], units=second)
-        self.feet_array = UnitArray([4.,5,6], units=feet)
+        self.meter_array = UnitArray([1., 2, 3], units=meters)
+        self.second_array = UnitArray([3., 2, 1], units=second)
+        self.feet_array = UnitArray([4., 5, 6], units=feet)
         self.meter_scalar = UnitScalar(1., units=meters)
         self.second_scalar = UnitScalar(3., units=second)
         self.feet_scalar = UnitScalar(4., units=feet)
@@ -416,26 +422,26 @@ class HasUnitsDecoratorTestCase(unittest.TestCase):
         outputs = foo_with_units.outputs
         self.assertEquals(len(outputs), 1)
         self.assertEquals(outputs[0].name, 'z')
-        self.assertEquals(outputs[0].units, meters/second)
+        self.assertEquals(outputs[0].units, meters / second)
 
     def test_no_internal_units_array(self):
-        z = foo_with_units( self.meter_array, self.second_array)
+        z = foo_with_units(self.meter_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
-        self.assertEquals(z.units, meters/second)
+        self.assertEquals(z.units, meters / second)
 
     def test_no_internal_units_scalar(self):
-        z = foo_with_units( self.meter_scalar, self.second_scalar)
+        z = foo_with_units(self.meter_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
-        self.assertEquals(z.units, meters/second)
+        self.assertEquals(z.units, meters / second)
 
     def test_feet(self):
-        z = foo_with_units( self.feet_array, self.second_array)
+        z = foo_with_units(self.feet_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
-        self.assertEquals(z.units, meters/second)
-        assert_array_almost_equal(z, numpy.array([ 0.4064,  0.762 ,  1.8288]))
-        z = foo_with_units( self.feet_scalar, self.second_scalar)
+        self.assertEquals(z.units, meters / second)
+        assert_array_almost_equal(z, numpy.array([0.4064, 0.762, 1.8288]))
+        z = foo_with_units(self.feet_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
-        self.assertEquals(z.units, meters/second)
+        self.assertEquals(z.units, meters / second)
         assert_array_almost_equal(z, 0.4064)
 
     def test_v_decorator_plays_nice(self):
@@ -458,28 +464,29 @@ class HasUnitsDecoratorTestCase(unittest.TestCase):
         self.assertEquals(outputs[0].units, meters)
 
     def test_v_no_internal_units_array(self):
-        z = vec_bar_with_units( self.meter_array, self.second_array)
+        z = vec_bar_with_units(self.meter_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
         self.assertEquals(z.units, meters)
 
     def test_v_no_internal_units_scalar(self):
-        z = vec_bar_with_units( self.meter_scalar, self.second_scalar)
+        z = vec_bar_with_units(self.meter_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
         self.assertEquals(z.units, meters)
 
     def test_v_feet(self):
-        z = vec_bar_with_units( self.feet_array, self.second_array)
+        z = vec_bar_with_units(self.feet_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
         self.assertEquals(z.units, meters)
-        assert_array_almost_equal(z, numpy.array([ 0.0,  0.0 ,  3.6576]))
-        z = vec_bar_with_units( self.feet_scalar, self.second_scalar)
+        assert_array_almost_equal(z, numpy.array([0.0, 0.0, 3.6576]))
+        z = vec_bar_with_units(self.feet_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
         self.assertEquals(z.units, meters)
         assert_array_almost_equal(z, 0.0)
 
 if __name__ == '__main__':
     # profile the test suite.
-    import hotshot, hotshot.stats
+    import hotshot
+    import hotshot.stats
     prof = hotshot.Profile("convert.prof")
     prof.runcall(unittest.main)
     prof.close()
@@ -488,4 +495,4 @@ if __name__ == '__main__':
     stats.sort_stats('time', 'calls')
     stats.print_stats(20)
     #import sys
-    #unittest.main(argv=sys.argv)
+    # unittest.main(argv=sys.argv)

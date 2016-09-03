@@ -33,16 +33,16 @@ from scimath.units.unit import unit
 Pa = pascal
 Pa.label = 'Pa'
 
-kPa = kilo*pascal
+kPa = kilo * pascal
 kPa.label = 'kPa'
 
-MPa = mega*pascal
+MPa = mega * pascal
 MPa.label = 'MPa'
 mpa = MPa
 Mpa = MPa
 MPA = MPa
 
-GPa = giga*pascal
+GPa = giga * pascal
 GPa.label = 'GPa'
 gpa = GPa
 Gpa = GPa

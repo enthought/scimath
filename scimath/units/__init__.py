@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 #
 #  ===========================
 #  Units Library
@@ -12,7 +12,7 @@
 #  Adds UnitManager et al
 #  (c) Copyright 2005-11 by Enthought Inc.
 #
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 """ Unit definitions and management utilities.
 
     Part of the SciMath project of the Enthought Tool Suite.
@@ -22,4 +22,4 @@ from __future__ import absolute_import
 from .convert import convert, parser
 from scimath.units.unit_manager import unit_manager
 
-#### EOF #######################################################################
+#### EOF #################################################################

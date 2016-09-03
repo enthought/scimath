@@ -18,7 +18,7 @@ from .SI import mole, kilo
 # Aliases
 
 mol = mole
-kmol = kilo*mole
+kmol = kilo * mole
 
 
 # version

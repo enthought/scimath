@@ -14,13 +14,14 @@ from __future__ import absolute_import
 import numpy
 from scipy import interpolate
 
-#enthought imports
+# enthought imports
 from traits.api import HasPrivateTraits, Bool, TraitEnum, Trait, Float
 
 # local imports
 from .interpolate import linear, logarithmic, block_average_above, window_average
 
 # use traits for these in the future.
+
 
 class DataFit(HasPrivateTraits):
     initialized = Bool(False)
@@ -44,7 +45,8 @@ class DataFit(HasPrivateTraits):
         x = numpy.atleast_1d(x)
         y = numpy.atleast_1d(y)
 
-        assert len(x) == y.shape[-1], "x and y arrays must have the same length"
+        assert len(
+            x) == y.shape[-1], "x and y arrays must have the same length"
 
         self.determine_special_case(x, y)
         self._x = x
@@ -83,12 +85,17 @@ class DataFit(HasPrivateTraits):
         # This code is a little strange -- we really want a routine that
         # returns the index of values where x[j] < x[index]
         TINY = 1e-10
-        indices = numpy.searchsorted(self._x, x+TINY)-1
+        indices = numpy.searchsorted(self._x, x + TINY) - 1
 
         # If the value is at the front of the list, it'll have -1.
         # In this case, we will use the first (0), element in the array.
         # take requires the index array to be an Int
-        indices = numpy.atleast_1d(numpy.clip(indices, 0, numpy.Inf).astype(numpy.int))
+        indices = numpy.atleast_1d(
+            numpy.clip(
+                indices,
+                0,
+                numpy.Inf).astype(
+                numpy.int))
         y = numpy.take(self._y, indices, axis=-1)
         return y
 
@@ -114,12 +121,13 @@ class DataFit(HasPrivateTraits):
             del trait_names['trait_added']
             del trait_names['trait_modified']
             for tr in trait_names:
-                if getattr(self,tr) != getattr(other,tr):
+                if getattr(self, tr) != getattr(other, tr):
                     result = False
-                    break;
+                    break
         else:
             result = False
         return result
+
 
 class Spline(DataFit):
     """ Cubic-spline interpolation
@@ -183,32 +191,43 @@ class Spline(DataFit):
 
         return numpy.atleast_1d(y)
 
+
 class Linear(DataFit):
+
     def interp(self, x):
         return linear(self._x, self._y, x)
 
+
 class Logarithmic(DataFit):
+
     def interp(self, x):
         return logarithmic(self._x, self._y, x)
 
+
 class BlockAverageAbove(DataFit):
+
     def interp(self, x):
         return block_average_above(self._x, self._y, x)
 
+
 class Block(DataFit):
+
     def interp(self, x):
         """ The base class defines a block interpolation routine to use
             for special cases.  We just use this from here.
         """
         return self.block_interp(x)
 
+
 class WindowAverage(DataFit):
     width = Float(0.0)
 
     def __init__(self, x=None, y=None, width=10.0):
         DataFit.__init__(self, x, y, width=width)
+
     def interp(self, x):
         return window_average(self._x, self._y, x, width=self.width)
+
 
 class EndAverage(DataFit):
     index_interval = Float(0.0)
@@ -230,8 +249,8 @@ class EndAverage(DataFit):
         # find the average y value within depth_interval at both the start and
         # end of the data set that is within depth_interval distance from the
         # ends.
-        indices = (self._x[0]+self.index_interval,
-                   self._x[-1]-self.index_interval)
+        indices = (self._x[0] + self.index_interval,
+                   self._x[-1] - self.index_interval)
         first, last = numpy.searchsorted(self._x, indices)
         y_low = numpy.mean(self._y[:first])
         y_hi = numpy.mean(self._y[last:])
@@ -240,6 +259,7 @@ class EndAverage(DataFit):
         dist_hi = abs(x - self._x[-1])
         y = numpy.choose(dist_low > dist_hi, (y_low, y_hi))
         return y
+
 
 class FillNaN(DataFit):
     """ A DataFit which just returns all NaN's. """

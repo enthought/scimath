@@ -7,6 +7,7 @@ from __future__ import absolute_import
 from envisage import get_application
 from envisage.project.action.open_cookie import OpenCookie
 
+
 class QuantityResourceOpenCookie(OpenCookie):
     """ The open cookie for Quantity resources. """
 
@@ -21,7 +22,7 @@ class QuantityResourceOpenCookie(OpenCookie):
 
         qty = binding.obj
 
-        qty.edit_traits( parent=window.control, naming_context=context )
+        qty.edit_traits(parent=window.control, naming_context=context)
         return
 
 ##### EOF #####################################################################

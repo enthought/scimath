@@ -26,13 +26,16 @@ from scimath.units.smart_unit import SmartUnit
 logger = logging.getLogger(__name__)
 
 
-#factory method
+# factory method
 def parser():
     return Parser()
 
 # implementation of the Parser singleton
+
+
 class Singleton:
     __shared_state = {}
+
     def __init__(self):
         self.__dict__ = self.__shared_state
 
@@ -137,7 +140,7 @@ class UnitParser:
 
         # We have defined many units commonly used by geophysicists .....
         # import cp.units.geo_units
-        #self.parser.extend(cp.units.geo_units)
+        # self.parser.extend(cp.units.geo_units)
 
         # This is used to clean up labels like ohm.m in remove_dots()
         self.regex = re.compile(r'([A-Za-z])\.([A-Za-z])')
@@ -188,7 +191,7 @@ class UnitParser:
         if label.lower() == "in":
             label = "inch"
 
-        if (label == None or
+        if (label is None or
                 label == '' or
                 label == 'None' or
                 label.lower() == 'unitless' or
@@ -227,7 +230,6 @@ class UnitParser:
                               offset_value, valid)
 
         return _unit
-
 
     def remove_dots(self, label):
         """ Some LAS files contain units written like 'ohm.m', which this class
@@ -274,15 +276,14 @@ class UnitParser:
             Raised if `suppress_unknown` is True.
         """
         if not suppress_warnings:
-            logger.debug( 'Could not parse unit: %r', label)
+            logger.debug('Could not parse unit: %r', label)
         if not suppress_unknown:
             raise UnableToParseUnits(label)
 
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 #  Singleton for unit parsing ....
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 unit_parser = UnitParser()
-
 
 
 class UnableToParseUnits(Exception):
@@ -296,4 +297,4 @@ class UnableToParseUnits(Exception):
               (self.label)
         return str
 
-#### EOF #######################################################################
+#### EOF #################################################################

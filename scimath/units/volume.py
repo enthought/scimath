@@ -60,7 +60,7 @@ liter.label = 'liters'
 barrel = 5.61458 * cubic_foot
 barrel.label = 'barrel'
 
-us_fluid_ounce = 231./128. * cubic_inch
+us_fluid_ounce = 231. / 128. * cubic_inch
 us_pint = 16 * us_fluid_ounce
 us_fluid_quart = 2 * us_pint
 us_fluid_gallon = 4 * us_fluid_quart

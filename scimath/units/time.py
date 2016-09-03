@@ -38,13 +38,13 @@ from .SI import pico, nano, micro, milli
 #     "Fundamentals of Physics", fourth edition, John Willey and Sons, 1993
 
 second.label = 'second'
-picosecond = pico*second
+picosecond = pico * second
 picosecond.label = 'picosecond'
-nanosecond = nano*second
+nanosecond = nano * second
 nanosecond.label = 'nanosecond'
-microsecond = micro*second
+microsecond = micro * second
 microsecond.label = 'microsecond'
-millisecond = milli*second
+millisecond = milli * second
 millisecond.label = 'millisecond'
 
 # other common units
