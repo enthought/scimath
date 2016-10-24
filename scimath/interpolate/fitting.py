@@ -45,8 +45,8 @@ class DataFit(HasPrivateTraits):
         x = numpy.atleast_1d(x)
         y = numpy.atleast_1d(y)
 
-        assert len(
-            x) == y.shape[-1], "x and y arrays must have the same length"
+        assert len(x) == y.shape[-1], \
+            "x and y arrays must have the same length"
 
         self.determine_special_case(x, y)
         self._x = x
@@ -186,7 +186,7 @@ class Spline(DataFit):
 
         # !! fix for bug in splev that seg-faults if handed 1 element
         # !! array http://www.scipy.net/roundup/scipy/issue126
-        if scalar == True:
+        if scalar:
             y = y[0]
 
         return numpy.atleast_1d(y)
