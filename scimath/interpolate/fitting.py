@@ -90,12 +90,8 @@ class DataFit(HasPrivateTraits):
         # If the value is at the front of the list, it'll have -1.
         # In this case, we will use the first (0), element in the array.
         # take requires the index array to be an Int
-        indices = numpy.atleast_1d(
-            numpy.clip(
-                indices,
-                0,
-                numpy.Inf).astype(
-                numpy.int))
+        indices = numpy.clip(indices, 0, numpy.Inf).astype(numpy.int)
+        indices = numpy.atleast_1d(indices)
         y = numpy.take(self._y, indices, axis=-1)
         return y
 
