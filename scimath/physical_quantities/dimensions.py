@@ -21,11 +21,13 @@ from __future__ import division
 
 # Enthought module imports
 from __future__ import absolute_import
-from traits.api import HasTraits, String, DictStrFloat, TraitType, \
-    Property, cached_property
+from traits.api import (
+    HasTraits, String, DictStrFloat, Property, TraitType, TraitError,
+    cached_property
+)
 
 # local imports
-from .util import dict_mul, dict_div, dict_add, dict_sub, format_expansion
+from .util import dict_mul, dict_add, dict_sub, format_expansion
 import six
 
 
@@ -54,9 +56,7 @@ class Dimensions(HasTraits):
     expansion = Property(String, depends_on='dimension_dict')
 
     def __init__(self, dimension_dict, **kwargs):
-        for key, value in dimension_dict.items():
-            if not value:
-                del dimension_dict[key]
+        dimension_dict = {k: v for k, v in dimension_dict.items() if v}
         super(
             self.__class__,
             self).__init__(
@@ -144,8 +144,8 @@ class Dim(TraitType):
             try:
                 return Dimensions.from_expansion(value)
             except InvalidExpansionError:
-                raise TraitsError
-        raise TraitsError
+                raise TraitError
+        raise TraitError
 
 
 class InvalidExpansionError(ArithmeticError):
