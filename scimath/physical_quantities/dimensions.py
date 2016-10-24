@@ -115,6 +115,9 @@ class Dimensions(HasTraits):
             raise NotImplementedError
 
     def __div__(self, other):
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
         if isinstance(other, Dimensions):
             return Dimensions(dict_sub(self.dimension_dict,
                                        other.dimension_dict))

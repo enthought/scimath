@@ -38,7 +38,7 @@ class UnitSystem(HasTraits):
     """
     A UnitSystem represents a set of 'units' designations for a list of
     families.  This is initially populated from the columns in the
-    enthought\units\data\unit_families.txt file (by the unit_manager).
+    scimath/units/data/unit_families.txt file (by the unit_manager).
 
     The common unit sytems are likely named 'KGS', 'IMPERIAL' etc.
     """

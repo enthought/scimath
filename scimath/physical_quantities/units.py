@@ -161,8 +161,11 @@ class Unit(HasTraits):
             raise NotImplementedError
 
     def __div__(self, other):
-        if isinstance(other, (float, int, int, array)):
-            return Quantity(magnitude=1.0 / other, units=self)
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
+        if isinstance(other, (float, int, array)):
+            return Quantity(magnitude=1.0/other, units=self)
         else:
             raise NotImplementedError
 
@@ -206,6 +209,9 @@ class MultiplicativeUnit(Unit):
             raise NotImplementedError
 
     def __div__(self, other):
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
         if isinstance(other, Unit):
             return DerivedUnit(derivation=dict_sub(self.derivation,
                                                    other.derivation),

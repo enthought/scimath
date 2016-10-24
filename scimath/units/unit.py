@@ -87,6 +87,9 @@ class unit(object):
         return unit(value, derivation)
 
     def __div__(self, other):
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
         if self._compatibleNumericType(other):
             return unit(self.value / other, self.derivation)
 
@@ -128,6 +131,9 @@ class unit(object):
         return unit(other * self.value, self.derivation)
 
     def __rdiv__(self, other):
+        return type(self).__rtruediv__(self, other)
+
+    def __rtruediv__(self, other):
         if not self._compatibleNumericType(other):
             raise InvalidOperation("/", other, self)
 

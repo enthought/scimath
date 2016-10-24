@@ -320,10 +320,13 @@ class UnitArray(numpy.ndarray):
         return self.__mul__(other)
 
     def __div__(self, other):
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
         """
         Defines the division of 2 unitted arrays
         """
-        result = super(UnitArray, self).__div__(other)
+        result = super(UnitArray, self).__truediv__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
         if su and ou:
@@ -344,10 +347,13 @@ class UnitArray(numpy.ndarray):
         return result
 
     def __rdiv__(self, other):
+        return type(self).__rtruediv__(self, other)
+
+    def __rtruediv__(self, other):
         """
         Defines the reverse division of 2 unitted arrays
         """
-        result = super(UnitArray, self).__rdiv__(other)
+        result = super(UnitArray, self).__rtruediv__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
         if su and ou:
