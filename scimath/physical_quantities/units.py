@@ -5,6 +5,7 @@ from __future__ import division
 
 from __future__ import absolute_import
 from numpy import array, log10
+import six
 
 from traits.api import HasTraits, Float, String, Unicode, Bool, \
     Dict, Any, Instance, Property, cached_property
@@ -149,13 +150,13 @@ class Unit(HasTraits):
                      self.scale, self.offset, self.logarithmic, self.log_base))
 
     def __mul__(self, other):
-        if isinstance(other, (float, int, int, array)):
+        if isinstance(other, (float,) + six.integer_types + array):
             return Quantity(magnitude=other, units=self)
         else:
             raise NotImplementedError
 
     def __rmul__(self, other):
-        if isinstance(other, (float, int, int, array)):
+        if isinstance(other, (float,) + six.integer_types + array):
             return Quantity(magnitude=other, units=self)
         else:
             raise NotImplementedError
@@ -164,7 +165,7 @@ class Unit(HasTraits):
         return type(self).__truediv__(self, other)
 
     def __truediv__(self, other):
-        if isinstance(other, (float, int, array)):
+        if isinstance(other, (float,) + six.integer_types + array):
             return Quantity(magnitude=1.0/other, units=self)
         else:
             raise NotImplementedError
@@ -220,7 +221,7 @@ class MultiplicativeUnit(Unit):
             raise NotImplementedError
 
     def __pow__(self, other):
-        if isinstance(other, (float, int, int)):
+        if isinstance(other, (float,) + six.integer_types):
             return DerivedUnit(derivation=dict_mul(self.derivation,
                                                    other.derivation),
                                scale=self.scale**other)
