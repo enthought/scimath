@@ -276,7 +276,7 @@ def _has_units(summary, doc, inputs, outputs):
             '        elif len(output_units) > 1:',
             '            results = set_units(output_units, *results)',
             '    return results',
-            '$name.func_name = thefunc.func_name',
+            '$name.__name__ = thefunc.__name__',
             '$name.__doc__ = thefunc.__doc__',
             '$name.__module__ = thefunc.__module__',
             '$name.inputs = input_list[:]',

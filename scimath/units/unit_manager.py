@@ -311,7 +311,8 @@ class UnitManager(HasPrivateTraits):
             if unit not in valid_units:
                 valid_units.append(unit)
 
-        valid_units.sort()
+        valid_units.sort(key=lambda x: x.label)
+
         return valid_units
 
     def get_valid_unit_strings(self, family_name):
