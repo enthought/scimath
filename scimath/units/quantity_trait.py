@@ -31,7 +31,7 @@ from .quantity \
 #-------------------------------------------------------------------------
 
 
-def AQuantity (value=1.0, units= 'm', family = '', **metadata):
+def AQuantity(value=1.0, units= 'm', family = '', **metadata):
     quantity = Quantity(value, units, family_name=family)
     return Trait(quantity, QuantityTraitHandler(quantity), **metadata)
 

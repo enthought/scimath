@@ -42,7 +42,7 @@ quantity_editors = {}
 #------------------------------------------------------------------------------
 
 
-def QuantityTrait (default_value, units, family_name, auto_set=False, display_units= None):
+def QuantityTrait(default_value, units, family_name, auto_set=False, display_units= None):
     """ Returns a trait definition for a Quantity whose default value is
         'default_value' (a float). The quantity's units are specified by
         'units' (a units object), and the family name of the units
