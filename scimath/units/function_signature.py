@@ -37,7 +37,7 @@ def function_arguments(func):
         # positional and keyword arguments.
         kw_count = len(defaults)
         args = args_ordered[:-kw_count]
-        kw = dict(list(zip(args_ordered[-kw_count:], defaults)))
+        kw = dict(zip(args_ordered[-kw_count:], defaults))
     else:
         # If there are no keyword arguments, then everything is positional.
         args = args_ordered[:]
