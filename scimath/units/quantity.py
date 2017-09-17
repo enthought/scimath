@@ -16,20 +16,22 @@
 
 
 # Standard library imports.
+from __future__ import absolute_import
 import logging
 import numpy
 
 # Enthought library imports.
-from traits.api             import Any, HasPrivateTraits, Instance, Str
+from traits.api import Any, HasPrivateTraits, Instance, Str
 
 # Local imports
-from scimath.units.convert      import convert as units_convert
-from scimath.units.SI           import dimensionless
-from scimath.units.unit         import unit
-from scimath.units.smart_unit   import SmartUnit
-from scimath.units.unit_parser  import unit_parser
+from scimath.units.convert import convert as units_convert
+from scimath.units.SI import dimensionless
+from scimath.units.unit import unit
+from scimath.units.smart_unit import SmartUnit
+from scimath.units.unit_parser import unit_parser
 from scimath.units.unit_manager import unit_manager
-from scimath.units.family_name_trait  import FamilyNameTrait
+from scimath.units.family_name_trait import FamilyNameTrait
+import six
 
 
 # Setup a logger for this module.
@@ -99,12 +101,11 @@ class Quantity(HasPrivateTraits):
     # 'object' interface.
     ###########################################################################
 
-    def __init__(self, data, units = None, name = '', **traits):
+    def __init__(self, data, units=None, name='', **traits):
         """ Constructor. """
 
         # Base class constructors.
         super(Quantity, self).__init__(**traits)
-
 
         # Flag used to save a compare if units/family_name compatibility has
         # already been validated.
@@ -114,14 +115,14 @@ class Quantity(HasPrivateTraits):
 
         # Determine what units to use and if they are family compatible.
         if units is None:
-            units = unit_manager.default_units_for( self.family_name )
+            units = unit_manager.default_units_for(self.family_name)
 
         # Allow for parsing a unit string as the units argument
         else:
-            if isinstance(units, basestring):
+            if isinstance(units, six.string_types):
                 units = unit_parser.parse_unit(units, suppress_warnings=False)
 
-        if not traits.has_key('family_name'):
+        if 'family_name' not in traits:
             # If the family name wasn't passed in, we try to guess it.
             # TODO: Should lower() be called here--one can do an
             # 'obj.family_name='xxx'" that would not call a 'lower' method.
@@ -133,29 +134,28 @@ class Quantity(HasPrivateTraits):
                 else:
                     family_name = self.family_name.lower()
                 self.family_name = \
-                               um.get_family_name(family_name) or \
-                               em.get_family_name(name.lower())
+                    um.get_family_name(family_name) or \
+                    em.get_family_name(name.lower())
 
                 # If units were passed in, but don't match the guessed family_name,
                 # punt.
-                if not unit_manager.is_compatible( units, self.family_name ):
+                if not unit_manager.is_compatible(units, self.family_name):
                     self.family_name = "unknown"
                     compatibility_checked = True
 
             except KeyError:
-                logger.warn("Could not find family name: %s" % \
-                              self.family_name or name)
+                logger.warn("Could not find family name: %s" %
+                            self.family_name or name)
         else:
             # fixme: This is subverting the FamilyNameTrait behavior,
             #        but it gets around proava ticket:1715-comment14,item 2.
             self.family_name = traits['family_name']
 
-
         # If we haven't checked compatibilty before, and units
         if (compatibility_checked != True and
-            not unit_manager.is_compatible( units, self.family_name )):
-            raise ValueError, "units (%s) not compatible with family_name (%s)" \
-                            % (units.label, self.family_name)
+                not unit_manager.is_compatible(units, self.family_name)):
+            raise ValueError("units (%s) not compatible with family_name (%s)"
+                             % (units.label, self.family_name))
 
         self.units = units
 
@@ -187,9 +187,8 @@ class Quantity(HasPrivateTraits):
             data_repr = self.data
 
         return '%s(name=%s, data=%s, units=%s, family_name=%s)' % \
-                (self.__class__.__name__,
-                 self.name, data_repr, self.units, self.family_name)
-
+            (self.__class__.__name__,
+             self.name, data_repr, self.units, self.family_name)
 
     ########################################################################
     # 'HasTraits' interface.
@@ -197,9 +196,9 @@ class Quantity(HasPrivateTraits):
 
     def trait_view(self, name=None, view_element=None):
         """ Return view object for self. """
-        if (name or view_element) != None:
-            return super(Quantity, self).trait_view( name=name,
-                                                     view_element=view_element )
+        if (name or view_element) is not None:
+            return super(Quantity, self).trait_view(name=name,
+                                                    view_element=view_element)
 
         from scimath.units.ui.quantity_view import QuantityView
         view = QuantityView()
@@ -207,8 +206,8 @@ class Quantity(HasPrivateTraits):
 
         return view
 
-    def edit_traits ( self, view=None, context=None, naming_context=None,
-                      **args ):
+    def edit_traits(self, view=None, context=None, naming_context=None,
+                    **args):
         """ Displays a user interface window for editing trait attribute values.
 
         naming_context - context in which the quantity is bound.  Editor will
@@ -219,11 +218,8 @@ class Quantity(HasPrivateTraits):
 
         context['naming_context'] = naming_context
 
-        return super(Quantity, self).edit_traits( view=view, context=context,
-                                                  **args )
-
-
-
+        return super(Quantity, self).edit_traits(view=view, context=context,
+                                                 **args)
 
     ########################################################################
     # 'HasTraitsPlus' interface.
@@ -241,8 +237,8 @@ class Quantity(HasPrivateTraits):
 
         clone = self.__class__(
             data,
-            name        = self.name,
-            units       = self.units,
+            name=self.name,
+            units=self.units,
         )
 
         # Note:  This is done outside of the context of the constructor in case
@@ -265,24 +261,23 @@ class Quantity(HasPrivateTraits):
         # FIXME: TODO: Keyword args should be passed on to the converter.
         return unit_manager.change_unit_system(self, new_unit_system)
 
-
     def get_unit_converter(self):
         """ Convenience function to lookup converter """
 
         return unit_manager.get_unit_converter(self)
-
 
     def invert(self, unit_system=None):
         """ Inverts quantity to units, family and name listed by unit manager
             as the quantity inverse. """
 
         try:
-            inverse_family = unit_manager.get_inverse_family_name(self.family_name)
-            inverse_name   = unit_manager.get_inverse_name(self.family_name)
+            inverse_family = unit_manager.get_inverse_family_name(
+                self.family_name)
+            inverse_name = unit_manager.get_inverse_name(self.family_name)
 
             new_quantity = self.clone()
-            new_quantity.data = 1.0/self.data
-            new_quantity.units = 1.0/self.units
+            new_quantity.data = 1.0 / self.data
+            new_quantity.units = 1.0 / self.units
             new_quantity.family_name = inverse_family
             new_quantity.name = inverse_name
             # Call to set the inverted quantity to the units of the current
@@ -291,8 +286,8 @@ class Quantity(HasPrivateTraits):
             return result
 
         except KeyError:
-            logger.warn("Could not find inverse of family %s" % \
-                         self.family_name)
+            logger.warn("Could not find inverse of family %s" %
+                        self.family_name)
 
     def propagate_data_changes(self):
         """ Propagate data changes up the conversion stack.
@@ -335,7 +330,7 @@ class Quantity(HasPrivateTraits):
 
         # Otherwise, walk the stack.
         else:
-            result =  predecessor.get_original()
+            result = predecessor.get_original()
 
         return result
 
@@ -343,22 +338,22 @@ class Quantity(HasPrivateTraits):
     # Private interface.
     ########################################################################
 
-    def _convert ( self, data, units ):
+    def _convert(self, data, units):
         """ Handles the conversion to the desired units.
 
         If the incoming object is NOT a Quantity object, just returns the data.
         """
 
-        if isinstance( data, Quantity ):
+        if isinstance(data, Quantity):
             # if data is a string or an array of strings, ignore the conversion
             # because convert will fail for string data
-            if isinstance(data.data, basestring):
+            if isinstance(data.data, six.string_types):
                 converted_data = data.data
             elif isinstance(data.data, numpy.ndarray) \
                     and data.data.dtype.char == 'S':
                 converted_data = data.data
             else:
-                converted_data = units_convert( data.data, data.units, units )
+                converted_data = units_convert(data.data, data.units, units)
         else:
             converted_data = data
 

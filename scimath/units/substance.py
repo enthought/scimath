@@ -11,13 +11,14 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-from SI import mole, kilo
+from __future__ import absolute_import
+from .SI import mole, kilo
 
 
 # Aliases
 
 mol = mole
-kmol = kilo*mole
+kmol = kilo * mole
 
 
 # version

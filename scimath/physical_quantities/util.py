@@ -14,7 +14,9 @@
 from __future__ import division
 
 # Global module imports
+from __future__ import absolute_import
 from copy import copy
+
 
 def dict_mul(a, n):
     """Given a dictionary, multiply values by a scalar
@@ -89,7 +91,7 @@ def dict_add(a, b):
     """
     c = copy(b)
     for key, value in a.items():
-        c[key] = value+b.get(key, 0)
+        c[key] = value + b.get(key, 0)
         if c[key] == 0.0:
             del c[key]
     return c
@@ -114,10 +116,11 @@ def dict_sub(a, b):
     """
     c = copy(a)
     for key, value in b.items():
-        c[key] = a.get(key, 0)-value
+        c[key] = a.get(key, 0) - value
         if c[key] == 0.0:
             del c[key]
     return c
+
 
 def python_powers(key, value):
     """ Convert a value to a power expressed in standard Python syntax
@@ -135,7 +138,7 @@ def python_powers(key, value):
     if value == 1:
         return key
     else:
-        return key+"**"+str(value).rstrip(".0")
+        return key + "**" + str(value).rstrip(".0")
 
 _unicode_supers = {
     "0": u"\u2070",
@@ -174,11 +177,12 @@ def unicode_powers(key, value):
     else:
         s = str(value).rstrip(".0")
         try:
-            return key+u"".join(_unicode_supers[char] for char in s)
+            return key + u"".join(_unicode_supers[char] for char in s)
         except KeyError:
             # don't know how to handle, so punt - most likely reason is
             # a decimal point in the expression
-            return key+u"^"+s
+            return key + u"^" + s
+
 
 def tex_powers(key, value):
     """ Convert a value to a power expression in TeX/LaTeX
@@ -196,7 +200,7 @@ def tex_powers(key, value):
     if value == 1:
         return key
     else:
-        return key+"^{"+str(value).rstrip(".0")+"}"
+        return key + "^{" + str(value).rstrip(".0") + "}"
 
 _named_powers = {
     2: "square",
@@ -227,22 +231,21 @@ def name_powers(key, value):
         return key + " to the " + str(value).rstrip(".0")
 
 
-
 def format_expansion(dimensions, mul="*", pow_func=python_powers, div=False,
                      empty_numerator="1", div_symbol="/", group_symbols="()"):
     """ Format a dictionary of symbol, power pairs """
     if div:
         numerator = mul.join(pow_func(key, value)
-                        for key, value in sorted(dimensions.items())
-                            if value > 0)
+                             for key, value in sorted(dimensions.items())
+                             if value > 0)
         if numerator == "":
             numerator = empty_numerator
         denominator_terms = [pow_func(key, -value)
-                        for key, value in sorted(dimensions.items())
-                            if value < 0]
+                             for key, value in sorted(dimensions.items())
+                             if value < 0]
         if len(denominator_terms) > 1:
             return numerator + div_symbol + group_symbols[0] + \
-                    mul.join(denominator_terms) + group_symbols[1]
+                mul.join(denominator_terms) + group_symbols[1]
         elif len(denominator_terms) == 1:
             return numerator + div_symbol + denominator_terms[0]
         else:
@@ -250,4 +253,4 @@ def format_expansion(dimensions, mul="*", pow_func=python_powers, div=False,
     else:
         return mul.join(pow_func(key, value)
                         for key, value in sorted(dimensions.items())
-                            if value != 0)
+                        if value != 0)
