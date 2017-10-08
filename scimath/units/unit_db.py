@@ -14,8 +14,9 @@
 #---------------------------------------------------------------------------
 
 
-
 # Standard library imports:
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os
 import logging
@@ -25,6 +26,7 @@ from traits.util.resource import get_path
 
 # Local Imports:
 from scimath.units.unit_parser import unit_parser
+from six.moves import map
 
 
 logger = logging.getLogger(__name__)
@@ -41,11 +43,11 @@ class UnitDB(object):
         """
         self.member_names = {}
         self.preferred_names = {}
-        self.unit_names   = unit_names = {}
+        self.unit_names = unit_names = {}
         self.column_names = column_names = {}
         self.unit_systems = unit_systems = []
         self.unit_formats = unit_formats = {}
-        self.unit_ranges  = unit_ranges = {}
+        self.unit_ranges = unit_ranges = {}
 
     def get_family_members_from_file(self, filename=None):
         """Retrieves a list of family names and member lists from a file.
@@ -57,11 +59,11 @@ class UnitDB(object):
         """
 
         if not filename:
-            filename= os.path.join( get_path( self ), 'data',
-                   'unit_family_membership.txt' )
-        fh = file(filename)
+            filename = os.path.join(get_path(self), 'data',
+                                    'unit_family_membership.txt')
+        fh = open(filename)
 
-        csv_reader = csv.reader( fh, delimiter = ' ', skipinitialspace = True )
+        csv_reader = csv.reader(fh, delimiter=' ', skipinitialspace=True)
 
         logger.debug('Loading default unit info from %s...' % filename)
 
@@ -74,9 +76,11 @@ class UnitDB(object):
                 family_name = data[0].lower()
                 # add the family name to the alias list as well ....
                 for member_name in data:
-                    if self.member_names.has_key(member_name):
-                        print 'Warning: duplicate key: %s in %s' % (member_name, filename)
-                    #print '    adding %s to member_names...' % member_name
+                    if member_name in self.member_names:
+                        print(
+                            'Warning: duplicate key: %s in %s' %
+                            (member_name, filename))
+                    # print '    adding %s to member_names...' % member_name
                     self.member_names[member_name] = family_name
 
                 # set up the preferred log name for the family to be the
@@ -91,7 +95,6 @@ class UnitDB(object):
         logger.debug('Loading default unit info...Done')
         return
 
-
     def get_family_format_from_file(self, filename=None):
         """Retrieves a list of formatting parameters from a file.
 
@@ -104,28 +107,28 @@ class UnitDB(object):
         # this function should probably live somewhere else (refactor style-
         #  manager).
 
-        is_data           = False
+        is_data = False
 
         if not filename:
-            filename= os.path.join( get_path( self ), 'data',
-                   'unit_formatting.txt' )
-        fh = file(filename)
+            filename = os.path.join(get_path(self), 'data',
+                                    'unit_formatting.txt')
+        fh = open(filename)
 
-        csv_reader = csv.reader( fh, delimiter = ' ', skipinitialspace = True )
+        csv_reader = csv.reader(fh, delimiter=' ', skipinitialspace=True)
 
         logger.debug('Loading default unit info from %s...' % filename)
 
         for data in csv_reader:
-            if (len( data ) == 0) or (data[0][0:1] == '#'):
+            if (len(data) == 0) or (data[0][0:1] == '#'):
                 # Ignore blank lines and comment lines:
                 pass
 
             elif is_data:
                 try:
-                    self.unit_formats[data[0]]={}
+                    self.unit_formats[data[0]] = {}
                     for i, column in enumerate(column_names):
                         # skip the first one (family name)
-                        if i==0:
+                        if i == 0:
                             pass
                         else:
                             self.unit_formats[data[0]][column] = data[i]
@@ -134,7 +137,7 @@ class UnitDB(object):
 
             else:
                 # Parse the header line
-                is_data      = True
+                is_data = True
                 column_names = []
                 for column in data:
                     column_names.append(column.lower())
@@ -142,7 +145,6 @@ class UnitDB(object):
         fh.close()
         logger.debug('Loading default unit info...Done')
         return
-
 
     def get_unit_families_from_file(self, filename=None):
         """Retrieves a list of family names and member lists from a file.
@@ -154,34 +156,34 @@ class UnitDB(object):
         """
 
         if not filename:
-            filename=os.path.join( get_path( self ), 'data',
-                   'unit_families.txt' )
+            filename = os.path.join(get_path(self), 'data',
+                                    'unit_families.txt')
 
-        is_data           = False
-        fh                = file( filename )
+        is_data = False
+        fh = open(filename)
 
         logger.debug('Loading default unit info from %s...' % filename)
 
-        for data in csv.reader( fh, delimiter = ' ', skipinitialspace = True ):
-            if (len( data ) == 0) or (data[0][0:1] == '#'):
+        for data in csv.reader(fh, delimiter=' ', skipinitialspace=True):
+            if (len(data) == 0) or (data[0][0:1] == '#'):
                 # Ignore blank lines and comment lines:
                 pass
             elif is_data:
-                self.unit_names[ data[0].lower() ] = map( lambda func,
-                                                          x: func( x ),
-                                                          converters, data )
+                self.unit_names[data[0].lower()] = list(map(lambda func,
+                                                            x: func(x),
+                                                            converters, data))
             else:
                 # Parse the header line
-                is_data      = True
+                is_data = True
                 column_names = self.column_names
-                converters   = []
-                for i, column in enumerate( data ):
-                    column_names[ column ] = i
+                converters = []
+                for i, column in enumerate(data):
+                    column_names[column] = i
                     if column[-6:] == '_UNITS':
-                        converters.append( cvt_unit )
+                        converters.append(cvt_unit)
                         self.unit_systems.append(column[:-6])
                     else:
-                        converters.append( cvt_str )
+                        converters.append(cvt_str)
         fh.close()
         logger.debug('Loading default unit info...Done')
         return
@@ -198,49 +200,51 @@ class UnitDB(object):
         # this function should probably live somewhere else (refactor style-
         #  manager).
 
-        is_data           = False
+        is_data = False
 
         if not filename:
-            filename= os.path.join( get_path( self ), 'data',
-                   'unit_ranges.txt' )
-        fh = file(filename)
+            filename = os.path.join(get_path(self), 'data',
+                                    'unit_ranges.txt')
+        fh = open(filename)
 
-        csv_reader = csv.reader( fh, delimiter = ' ', skipinitialspace = True )
+        csv_reader = csv.reader(fh, delimiter=' ', skipinitialspace=True)
 
         logger.debug('Loading default unit info from %s...' % filename)
 
         for data in csv_reader:
-            if (len( data ) == 0) or (data[0][0:1] == '#'):
+            if (len(data) == 0) or (data[0][0:1] == '#'):
                 # Ignore blank lines and comment lines:
                 pass
 
             elif is_data:
                 try:
-                    self.unit_ranges[data[0]]={}
-                    col_count = 1 #skip first column (family_name)
+                    self.unit_ranges[data[0]] = {}
+                    col_count = 1  # skip first column (family_name)
                     for system in system_names:
-                        self.unit_ranges[data[0]][system] = (cvt_float(data[col_count]), cvt_float(data[col_count+1]))
-                        col_count+=2
+                        self.unit_ranges[
+                            data[0]][system] = (
+                            cvt_float(
+                                data[col_count]), cvt_float(
+                data[
+                    col_count + 1]))
+                        col_count += 2
 
                 except KeyError:
                     logger.warn('Duplicate family found for %s')
 
             else:
                 # Parse the header line
-                is_data      = True
+                is_data = True
                 column_names = []
                 system_names = []
                 for column in data:
                     if column[-5:] == '_LEFT':
                         system_names.append(column[:-5].lower())
-                    column_names.append(column.lower()) # not used?
+                    column_names.append(column.lower())  # not used?
 
         fh.close()
         logger.debug('Loading default unit info...Done')
         return
-
-
-
 
     #  Return a list of the available unit systems eg 'kgs','metric','imperial'
     def get_unit_systems(self):
@@ -249,8 +253,8 @@ class UnitDB(object):
     #  Return the family name corresponding to a specified unit name:
 
     def get_inverse_family_name(self, unit_name):
-        family = self.get_family_name( unit_name )
-        inverse = self(family,column_name='INVERSE')
+        family = self.get_family_name(unit_name)
+        inverse = self(family, column_name='INVERSE')
         if inverse == "none":
             inverse = ''
         return inverse
@@ -284,20 +288,23 @@ class UnitDB(object):
 #  Convenience Functions:
 #---------------------------------------------------------------------------
 
-def cvt_str ( text ):
+
+def cvt_str(text):
     """ Convert a string to itself or None if its values is '?' """
     if text == '?':
         return None
     return text
 
-def cvt_float ( text ):
+
+def cvt_float(text):
     """ Convert a string to its floating point value or None if its value is '?'
     """
     if text == '?':
         return None
-    return float( text )
+    return float(text)
 
-def cvt_unit ( unit_label ):
+
+def cvt_unit(unit_label):
     """ Parse a unit description """
     units = unit_parser.parse_unit(unit_label)
     return units
@@ -314,18 +321,16 @@ if __name__ == '__main__':
         from scimath.units import unit_db
 
         udb = gotcha.profile(unit_db.UnitDB)
-        print 'Getting family members...'
+        print('Getting family members...')
         gotcha.profile(udb.get_family_members_from_file)
-        print 'Getting unit families...'
+        print('Getting unit families...')
         gotcha.profile(udb.get_unit_families_from_file)
-        print 'Systems: %s' % udb.unit_systems
-        print 'Families: %s' % len(udb.preferred_names)
-        print 'Members: %s' % len(udb.member_names)
+        print('Systems: %s' % udb.unit_systems)
+        print('Families: %s' % len(udb.preferred_names))
+        print('Members: %s' % len(udb.member_names))
 
         gotcha.end_profiling()
     except ImportError:
-        print 'Unable to provide a profile -- enthought.gotcha not found.'
+        print('Unable to provide a profile -- enthought.gotcha not found.')
 
         from scimath.units import unit_db
-
-

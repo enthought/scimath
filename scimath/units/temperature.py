@@ -12,6 +12,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
+from __future__ import absolute_import
 from scimath.units.unit import unit
 
 # Tk = Tk
@@ -23,8 +24,8 @@ kelvin = unit(1.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
 kelvin.label = 'kelvin'
 celsius = unit(1.0, (0, 0, 0, 0, 1, 0, 0), 273.15)
 celsius.label = 'celsius'
-rankine = unit(5.0/9.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
-fahrenheit = unit(5.0/9.0,(0, 0, 0, 0, 1, 0, 0),  459.67)
+rankine = unit(5.0 / 9.0, (0, 0, 0, 0, 1, 0, 0), 0.0)
+fahrenheit = unit(5.0 / 9.0, (0, 0, 0, 0, 1, 0, 0), 459.67)
 fahrenheit.label = 'fahrenheit'
 
 # aliases

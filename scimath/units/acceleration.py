@@ -20,16 +20,17 @@
 #####################################################################
 # Imports:
 #####################################################################
-from length import meter, foot
-from time   import second
+from __future__ import absolute_import
+from .length import meter, foot
+from .time import second
 
 #####################################################################
 # Definitions:
 #####################################################################
 
-feet_per_second_squared = foot/second**2
+feet_per_second_squared = foot / second**2
 feet_per_second_squared.label = 'ft/s^2'
-meters_per_second_squared = meter/second**2
+meters_per_second_squared = meter / second**2
 meters_per_second_squared.label = 'm/s^2'
 
 #####################################################################

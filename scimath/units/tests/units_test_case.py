@@ -18,6 +18,7 @@
 # Imports:
 #############################################################################
 # Standard library imports
+from __future__ import absolute_import
 import unittest
 import logging
 
@@ -58,11 +59,12 @@ acc_imp = 32.152231
 
 converters = unit_manager.unit_converters
 systems = unit_manager.unit_systems
-test_data = numpy.arange(1,100, .10)
+test_data = numpy.arange(1, 100, .10)
 
 #############################################################################
 # Tests:
 #############################################################################
+
 
 class test_units(unittest.TestCase):
 
@@ -72,13 +74,13 @@ class test_units(unittest.TestCase):
         return
 
     def test_with_ton(self):
-        f = self._compute_force(mass / 1000, acc, mass_units = metric_ton)
+        f = self._compute_force(mass / 1000, acc, mass_units=metric_ton)
         self.assertEqual(f, mass * acc)
         return
 
     def test_with_imp(self):
-        f = self._compute_force(mass, acc_imp, acc_units = fs2)
-        self.assertAlmostEqual(f, mass * acc,4)
+        f = self._compute_force(mass, acc_imp, acc_units=fs2)
+        self.assertAlmostEqual(f, mass * acc, 4)
         return
 
     def test_temperature(self):
@@ -86,11 +88,11 @@ class test_units(unittest.TestCase):
         c = -73.15
         f = -99.67
         k2c = units.convert(k, kelvin, celsius)
-        self.assertAlmostEqual(k2c,c)
+        self.assertAlmostEqual(k2c, c)
         k2f = units.convert(k, kelvin, fahrenheit)
-        self.assertAlmostEqual(k2f,f)
+        self.assertAlmostEqual(k2f, f)
         f2c = units.convert(f, fahrenheit, celsius)
-        self.assertAlmostEqual(f2c,c)
+        self.assertAlmostEqual(f2c, c)
         t1 = units.convert(-40.0, temperature.fahrenheit, temperature.celsius)
         self.assertAlmostEqual(t1, -40.0, 6)
         t2 = units.convert(0.0, temperature.celsius, temperature.fahrenheit)
@@ -98,23 +100,23 @@ class test_units(unittest.TestCase):
         return
 
     def test_area(self):
-        self.assertEqual(1*area.square_mile/(640*area.acre),1.0)
+        self.assertEqual(1 * area.square_mile / (640 * area.acre), 1.0)
         return
 
     def test_density(self):
         d1 = units.convert(1, density.lb_per_gal,
                            density.grams_per_cubic_centimeter)
-        self.assertAlmostEqual(d1,0.1198284429,6)
+        self.assertAlmostEqual(d1, 0.1198284429, 6)
         return
 
     def test_frequency(self):
-        f1 = units.convert(1,frequency.hertz,frequency.khz)
-        self.assertAlmostEqual(f1,0.001,6)
+        f1 = units.convert(1, frequency.hertz, frequency.khz)
+        self.assertAlmostEqual(f1, 0.001, 6)
         return
 
     def test_time(self):
         t1 = units.convert(1, time.year, time.second)
-        self.assertAlmostEqual(t1,(365.25*24*60*60),6)
+        self.assertAlmostEqual(t1, (365.25 * 24 * 60 * 60), 6)
 
     def test_speed(self):
         s1 = units.convert(55, speed.miles_per_hour, speed.meters_per_second)
@@ -127,26 +129,40 @@ class test_units(unittest.TestCase):
         udb.get_family_members_from_file()
         udb.get_unit_families_from_file()
         # spot check reading default data into db object
-        self.assertEqual(udb.get_family_name("dt"),'psonic')
-
+        self.assertEqual(udb.get_family_name("dt"), 'psonic')
 
     def test_style_manager(self):
 
-        test_quantity = Quantity(test_data, name="vp", units='m/s', family_name="pvelocity")
+        test_quantity = Quantity(
+            test_data,
+            name="vp",
+            units='m/s',
+            family_name="pvelocity")
 
-        self.assertEqual(style_manager.get_info(test_quantity, 'line'), 'solid')
-        self.assertEqual(style_manager.get_info(test_quantity, 'color'), 'black')
+        self.assertEqual(
+            style_manager.get_info(
+                test_quantity,
+                'line'),
+            'solid')
+        self.assertEqual(
+            style_manager.get_info(
+                test_quantity,
+                'color'),
+            'black')
 
+    def test_style_manager_ranges(self):
 
-    def test_style_manager_ranges (self):
-
-        test_quantity = Quantity(test_data, name="vp", units='m/s', family_name="pvelocity")
+        test_quantity = Quantity(
+            test_data,
+            name="vp",
+            units='m/s',
+            family_name="pvelocity")
 
         # unit_system optional, since kgs is default
         self.assertEqual(style_manager.get_range(test_quantity, unit_system='kgs'),
-                                              (1.5, 6.5))
+                         (1.5, 6.5))
         self.assertEqual(style_manager.get_range(test_quantity.invert(), unit_system='kgs'),
-                                              (500.0, 0.0))
+                         (500.0, 0.0))
 
     def test_conversion_tracks_parents(self):
         """ Test that a _converted_from traits is set appropriately.
@@ -191,13 +207,13 @@ class test_units(unittest.TestCase):
         q2.propagate_data_changes()
 
         self.assertAlmostEqual(20., q1.data, 1,
-            "Propagation test expected data 20, got %s" % str(q1.data))
+                               "Propagation test expected data 20, got %s" % str(q1.data))
 
         q3.data = 3 * q3.data
         q3.propagate_data_changes()
 
         self.assertAlmostEqual(30., q1.data, 1,
-            "Propagation test expected data 30, got %s" % str(q1.data))
+                               "Propagation test expected data 30, got %s" % str(q1.data))
 
         return
 
@@ -208,11 +224,11 @@ class test_units(unittest.TestCase):
         q3 = q1.change_unit_system('METRIC')
 
         self.assertEqual(q1, q1.get_original(),
-            "Original quantity's get_original method failed to return self.")
+                         "Original quantity's get_original method failed to return self.")
         self.assertEqual(q1, q2.get_original(),
-            "First child get_original failed to return original.")
+                         "First child get_original failed to return original.")
         self.assertEqual(q1, q3.get_original(),
-            "Second child get_original failed to return original.")
+                         "Second child get_original failed to return original.")
 
         return
 
@@ -225,7 +241,7 @@ class test_units(unittest.TestCase):
     def test_unit_parser_caps(self):
         mpers_in_caps = Quantity(1.0, units="M/S", family_name="pvelocity")
         self.assertEqual(mpers_in_caps.units.derivation, meters_per_second.derivation,
-            "Capitalized units rejected")
+                         "Capitalized units rejected")
 
     def test_unit_parser_only_units(self):
         for bad_name in ['copy', 'math', '__id__', '__doc__', '__builtin__',
@@ -280,23 +296,25 @@ class test_units(unittest.TestCase):
     def test_family_compatibility(self):
         """ test are_compatible_families """
 
-        self.assert_( unit_manager.are_compatible_families( 'none', 'pvelocity'))
-        self.assert_( unit_manager.are_compatible_families( 'none', 'foo'))
-        self.assert_( unit_manager.are_compatible_families( 'foo', 'foo'))
-        self.assert_( not unit_manager.are_compatible_families( 'bar', 'foo'))
-        self.assert_( not unit_manager.are_compatible_families( 'bar', 'none'))
-
+        self.assert_(unit_manager.are_compatible_families('none', 'pvelocity'))
+        self.assert_(unit_manager.are_compatible_families('none', 'foo'))
+        self.assert_(unit_manager.are_compatible_families('foo', 'foo'))
+        self.assert_(not unit_manager.are_compatible_families('bar', 'foo'))
+        self.assert_(not unit_manager.are_compatible_families('bar', 'none'))
 
     def test_get_inverse(self):
         """ test get_inverse_family_name and get_inverse_name """
 
         # Try with family_names provided
-        self.assertEqual (unit_manager.get_inverse_family_name('psonic'), 'pvelocity')
-        self.assertEqual (unit_manager.get_inverse_name('psonic'), 'vp')
+        self.assertEqual(
+            unit_manager.get_inverse_family_name('psonic'),
+            'pvelocity')
+        self.assertEqual(unit_manager.get_inverse_name('psonic'), 'vp')
         # Now try with family_members provided
-        self.assertEqual (unit_manager.get_inverse_family_name('dt'), 'pvelocity')
-        self.assertEqual (unit_manager.get_inverse_name('dt'), 'vp')
-
+        self.assertEqual(
+            unit_manager.get_inverse_family_name('dt'),
+            'pvelocity')
+        self.assertEqual(unit_manager.get_inverse_name('dt'), 'vp')
 
     def test_unit_equal(self):
         """ test unit class __eq__ method"""
@@ -304,8 +322,8 @@ class test_units(unittest.TestCase):
         um2 = length.m
         uft = length.feet
 
-        self.assert_( um1 == um2 )
-        self.assert_( not( um1 == uft ))
+        self.assert_(um1 == um2)
+        self.assert_(not(um1 == uft))
 
         return
 
@@ -315,8 +333,8 @@ class test_units(unittest.TestCase):
         um2 = length.m
         uft = length.feet
 
-        self.assert_( not( um1 != um2 ))
-        self.assert_( um1 != uft )
+        self.assert_(not(um1 != um2))
+        self.assert_(um1 != uft)
 
         return
 
@@ -326,8 +344,8 @@ class test_units(unittest.TestCase):
         qm2 = Quantity(2, units='m', family_name='depth')
         qft = Quantity(1, units='feet', family_name='depth')
 
-        self.assert_( qm1.units == qm2.units )
-        self.assert_( not( qm1.units == qft.units ))
+        self.assert_(qm1.units == qm2.units)
+        self.assert_(not(qm1.units == qft.units))
 
         return
 
@@ -337,8 +355,8 @@ class test_units(unittest.TestCase):
         qm2 = Quantity(2, units='m', family_name='depth')
         qft = Quantity(1, units='feet', family_name='depth')
 
-        self.assert_( not( qm1.units != qm2.units ))
-        self.assert_( qm1.units != qft.units )
+        self.assert_(not(qm1.units != qm2.units))
+        self.assert_(qm1.units != qft.units)
 
         return
 
@@ -354,11 +372,18 @@ class test_units(unittest.TestCase):
         kgs = unit_manager.lookup_system('KGS')
         # do some funny stuff to get 'almost_equal' testing
         # first test 'value'
-        self.assertAlmostEqual(kgs.units('rhog').value, unit_parser.parse_unit('1000*kg/m**3').value)
-        self.assertAlmostEqual(kgs.units('pvelocity').value, unit_parser.parse_unit('1000*m/s').value)
+        self.assertAlmostEqual(
+            kgs.units('rhog').value,
+            unit_parser.parse_unit('1000*kg/m**3').value)
+        self.assertAlmostEqual(
+            kgs.units('pvelocity').value,
+            unit_parser.parse_unit('1000*m/s').value)
         # now make sure derivations match
-        self.assertEqual(kgs.units('rhog').derivation, unit_parser.parse_unit('1000*kg/m**3').derivation)
-        self.assertEqual(kgs.units('pvelocity').derivation, unit_parser.parse_unit('1000*m/s').derivation)
+        self.assertEqual(kgs.units('rhog').derivation,
+                         unit_parser.parse_unit('1000*kg/m**3').derivation)
+        self.assertEqual(
+            kgs.units('pvelocity').derivation,
+            unit_parser.parse_unit('1000*m/s').derivation)
 
     def test_ppg(self):
         # PPG is a density measurement. It is not a pressure gradient unit. The
@@ -370,8 +395,8 @@ class test_units(unittest.TestCase):
     # Private Methods:
     #########################################################################
 
-    def _compute_force(self, mass, acc, mass_units = kg,
-                       acc_units = ms2, **unused_units):
+    def _compute_force(self, mass, acc, mass_units=kg,
+                       acc_units=ms2, **unused_units):
         """
         """
         # algorithm units are

@@ -1,4 +1,5 @@
 # Standard Library imports
+from __future__ import absolute_import
 import unittest
 
 # Enthought Library imports
@@ -23,14 +24,16 @@ geo_imports = [
     'siemen', 'siemens', 'siemens_per_m', 'siemens_per_meter', 'sievert',
     'steradian', 'tera', 'tesla', 'unit', 'us_fluid_gallon', 'us_per_ft', 'v',
     'volt', 'volts', 'watt', 'weber', 'yocto', 'yotta', 'zepto', 'zetta'
-    ]
+]
+
 
 def write_geo_err_msg(name):
     """write the message describing the import not found in geo_units"""
-    msg = """Could not find previously available import '{0}' in 
+    msg = """Could not find previously available import '{0}' in
     scimath.units.geo_units module. Check to ensure that '{0}' is
     available as an import from scimath.units.geounits."""
     return msg.format(name)
+
 
 class GeoUnitsImportsTestCase(unittest.TestCase):
     """ When geo_units was initially set up, many units were defined there
@@ -41,17 +44,18 @@ class GeoUnitsImportsTestCase(unittest.TestCase):
     units available in their expected location. This test was set up to ensure
     that not code that imported a unit from geo_units would break in the
     reorganization.
-    
+
     """
+
     def test_geo_imports(self):
         """ Test whether everything that was availabile in geo_units still is available.
         """
         from scimath.units import geo_units
 
         available_now = geo_units.__dict__
-        
+
         for name in geo_imports:
             self.assertIn(name, available_now, msg=write_geo_err_msg(name))
-            
+
 if __name__ == '__main__':
     unittest.main()

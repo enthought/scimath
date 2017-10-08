@@ -1,9 +1,11 @@
 #include "Python.h"
 #include <stdlib.h>
+#include "py2to3.h"
 
 #include "interpolate.h"
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include "numpy/arrayobject.h"
+
 
 using namespace std;
 
@@ -258,15 +260,21 @@ static PyMethodDef interpolate_methods[] = {
 };
 
 
-PyMODINIT_FUNC init_interpolate(void)
+Py2to3_MOD_INIT(_interpolate)
 {
     PyObject* m;
-    m = Py_InitModule3("_interpolate", interpolate_methods,
-        "A few interpolation routines.\n"
-        );
+    Py2to3_MOD_DEF(
+        m,
+        "_interpolate",
+        "A few interpolation routines.\n",
+        interpolate_methods
+    );
     if (m == NULL)
-        return;
+        return Py2to3_MOD_ERROR_VAL;
+
     import_array();
+
+    return Py2to3_MOD_SUCCESS_VAL(m);
 }
 
 } // extern "C"

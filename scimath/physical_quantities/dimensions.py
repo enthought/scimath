@@ -20,12 +20,15 @@ from __future__ import division
 # Global module imports
 
 # Enthought module imports
-from traits.api import HasTraits, String, DictStrFloat, TraitType, \
-        Property, cached_property
+from __future__ import absolute_import
+from traits.api import (
+    HasTraits, String, DictStrFloat, Property, TraitType, TraitError,
+    cached_property
+)
 
 # local imports
-from util import dict_mul, dict_div, dict_add, dict_sub, format_expansion
-
+from .util import dict_mul, dict_add, dict_sub, format_expansion
+import six
 
 
 class Dimensions(HasTraits):
@@ -53,10 +56,12 @@ class Dimensions(HasTraits):
     expansion = Property(String, depends_on='dimension_dict')
 
     def __init__(self, dimension_dict, **kwargs):
-        for key, value in dimension_dict.items():
-            if not value:
-                del dimension_dict[key]
-        super(self.__class__, self).__init__(dimension_dict=dimension_dict, **kwargs)
+        dimension_dict = {k: v for k, v in dimension_dict.items() if v}
+        super(
+            self.__class__,
+            self).__init__(
+            dimension_dict=dimension_dict,
+            **kwargs)
 
     @classmethod
     def from_expansion(cls, expansion):
@@ -77,7 +82,7 @@ class Dimensions(HasTraits):
                 if terms[0] == "":
                     terms.pop(0)
                     power = float(terms.pop(0))
-                    dimension_dict[dim] = dimension_dict.get(dim,0)+power
+                    dimension_dict[dim] = dimension_dict.get(dim, 0) + power
         except:
             raise InvalidExpansionError(expansion)
         return cls(dimension_dict)
@@ -97,7 +102,7 @@ class Dimensions(HasTraits):
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) \
-                and self.dimension_dict == other.dimension_dict
+            and self.dimension_dict == other.dimension_dict
 
     def __hash__(self):
         return hash(tuple(item for item in self.dimension_dict.items()))
@@ -110,6 +115,9 @@ class Dimensions(HasTraits):
             raise NotImplementedError
 
     def __div__(self, other):
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
         if isinstance(other, Dimensions):
             return Dimensions(dict_sub(self.dimension_dict,
                                        other.dimension_dict))
@@ -117,7 +125,7 @@ class Dimensions(HasTraits):
             raise NotImplementedError
 
     def __pow__(self, other):
-        if isinstance(other, (float, int, long)):
+        if isinstance(other, (float,) + six.integer_types):
             return Dimensions(dict_mul(self.dimension_dict, other))
         else:
             raise NotImplementedError
@@ -132,15 +140,16 @@ class Dim(TraitType):
             return value
         if isinstance(value, dict):
             return Dimensions(value)
-        if isinstance(value, basestring):
+        if isinstance(value, six.string_types):
             try:
                 return Dimensions.from_expansion(value)
             except InvalidExpansionError:
-                raise TraitsError
-        raise TraitsError
+                raise TraitError
+        raise TraitError
 
 
 class InvalidExpansionError(ArithmeticError):
+
     def __init__(self, expansion):
         self.expansion = expansion
 
