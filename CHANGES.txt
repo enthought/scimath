@@ -5,7 +5,7 @@ Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Added __str__ methods on UnitScalar and UnitArray classes, to make it easier 
-  to see values with their unit (label).
+  to see values with their unit (label) (#46).
 
 * UnitArray comparisons will return boolean arrays, like their unadorned
   ndarray counterpart. (#29)
