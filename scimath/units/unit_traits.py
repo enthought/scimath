@@ -7,6 +7,8 @@
 #
 #-----------------------------------------------------------------------------
 
+from __future__ import absolute_import
+
 from traits.api import Instance, TraitError, TraitType
 
 from .unit import unit
@@ -28,6 +30,7 @@ class UnitSystemTrait(Instance):
         editor = EnumEditor(values=dict((str(us), us) for us in
                             unit_manager.unit_systems), mode='list')
         return editor
+
 
 # Alias
 unit_system_trait = UnitSystemTrait

@@ -1,26 +1,30 @@
 # Numeric Library Imports
+from __future__ import absolute_import
 import numpy
 
 # Enthought library imports
 from scimath.units import convert
 from scimath.units.unit import unit, dimensionless, IncompatibleUnits
 from scimath.units.unit_parser import unit_parser
+import six
 
-def __newobj__ ( cls, *args ):
+
+def __newobj__(cls, *args):
     """ Unpickles new-style objects.
     """
-    return cls.__new__( cls, *args )
+    return cls.__new__(cls, *args)
 
 
 _retain_units = [numpy.absolute, numpy.negative,
                  numpy.floor, numpy.ceil, numpy.rint, numpy.conjugate,
                  numpy.maximum, numpy.minimum]
 
-_retain_units_if_same = [] #[numpy.add, numpy.subtract]
+_retain_units_if_same = []  # [numpy.add, numpy.subtract]
 
-_retain_units_if_single = [] #[numpy.multiply]
+_retain_units_if_single = []  # [numpy.multiply]
 
-_retain_units_if_only_first = [numpy.remainder] #, numpy.divide]
+_retain_units_if_only_first = [numpy.remainder]  # , numpy.divide]
+
 
 class UnitArray(numpy.ndarray):
     """ Define a UnitArray that subclasses from a Numpy array
@@ -40,19 +44,19 @@ class UnitArray(numpy.ndarray):
         of course modified to suite our purposes.
     """
 
-    ############################################################################
+    ##########################################################################
     # numpy.ndarray attributes
-    ############################################################################
+    ##########################################################################
 
     # priority->0.0 results in binary array ops returning UnitArray objects.
     __array_priority__ = 10.0
 
-    ############################################################################
+    ##########################################################################
     # UnitArray attributes
     #
     # Note: These are commented out because we are not using traits.  However,
     #       They are left here for documentation.
-    ############################################################################
+    ##########################################################################
 
     # Units specification.  it is a scimath.units.unit object, not a string.
     # units = Instance(unit)
@@ -64,20 +68,26 @@ class UnitArray(numpy.ndarray):
     # fixme: Not Implemented
     # type = Str
 
-    ############################################################################
+    ##########################################################################
     # object interface
-    ############################################################################
+    ##########################################################################
     def __repr__(self):
-        # this is a little more complicated than it should be in order
-        # to be more resilient to changes to numpy ndarray API
-        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
-        start = base_str.find('(')
-        end = base_str.rfind(')')
+        """ String representation using the repr of the unit."""
+        base_str = self._get_values_base_str()
+        s = "{klass}({val}, units='{unit!r}')"
+        klass = type(self).__name__
+        return s.format(klass=klass, val=base_str, unit=self.units)
 
-        if start > -1 and end > -1:
-            base_str = base_str[start+1:end]
+    def __str__(self):
+        """ String representation using the label of the unit."""
+        s = "{klass} ({unit}): {val}"
+        base_str = self._get_values_base_str()
+        if self.units.label is not None:
+            str_unit = self.units.label
+        else:
+            str_unit = repr(self.units)
 
-        return "UnitArray(%s, units='%s')" % (base_str, repr(self.units))
+        return s.format(klass=type(self).__name__, val=base_str, unit=str_unit)
 
     def __reduce_ex__(self, protocol):
         """
@@ -89,7 +99,7 @@ class UnitArray(numpy.ndarray):
         """
 
         state = (self.units, super(UnitArray, self).__reduce_ex__(protocol))
-        return ( __newobj__, ( self.__class__, ()), state )
+        return (__newobj__, (self.__class__, ()), state)
 
     def __setstate__(self, state):
         """
@@ -102,13 +112,13 @@ class UnitArray(numpy.ndarray):
 
     def __deepcopy__(self, memo={}):
         copy = self.__class__(self.view(numpy.ndarray), copy=True,
-                             units=self.units)
+                              units=self.units)
         memo[id(self)] = copy
         return copy
 
-    ############################################################################
+    ##########################################################################
     # numpy.ndarray interface
-    ############################################################################
+    ##########################################################################
 
     def __new__(cls, data, dtype=None, copy=True, units=None):
         """ Called when a new object is created (before __init__).
@@ -121,8 +131,7 @@ class UnitArray(numpy.ndarray):
 
         """
 
-
-        ### Array Setup ########################################################
+        ### Array Setup #######################################################
 
         if isinstance(data, numpy.ndarray):
             # Handle the case where we are passed in a numpy array.
@@ -147,8 +156,8 @@ class UnitArray(numpy.ndarray):
             res = numpy.ndarray.__new__(cls, arr.shape, arr.dtype,
                                         buffer=arr)
 
-        ### Configure Other Attributes #########################################
-        if isinstance(units, basestring):
+        ### Configure Other Attributes ########################################
+        if isinstance(units, six.string_types):
             units = unit_parser.parse_unit(units)
 
         res.units = units
@@ -204,7 +213,7 @@ class UnitArray(numpy.ndarray):
                     if u is not None:
                         if theunit is None:
                             theunit = u
-                        elif u != dimensionless: # already a unit
+                        elif u != dimensionless:  # already a unit
                             theunit = None
                             break
             elif func in _retain_units_if_only_first:
@@ -214,7 +223,7 @@ class UnitArray(numpy.ndarray):
                     if u is not None and u != dimensionless:
                         theunit = None
                         break
-            elif len(args)==1:
+            elif len(args) == 1:
                 theunit = getattr(self, 'units', None)
                 if theunit != dimensionless:
                     theunit = None
@@ -226,7 +235,7 @@ class UnitArray(numpy.ndarray):
         su = getattr(self, 'units', dimensionless)
         ou = getattr(other, 'units', dimensionless)
 
-        if su == None and ou == None:
+        if su is None and ou is None:
             u = None
         else:
             if isinstance(other, unit):
@@ -237,10 +246,11 @@ class UnitArray(numpy.ndarray):
                 # Handles UnitArray or UnitScalar
                 other = convert(numpy.array(other), ou, su)
             elif isinstance(other, numpy.ndarray):
-                if len(other.shape) > 0 and hasattr(other.item(0), 'derivation'):
+                if len(other.shape) > 0 and hasattr(
+                        other.item(0), 'derivation'):
                     # Handles array([1,2,3] * liters)
                     ou = unit(1, other.item(0).derivation)
-                    other = convert(other/ou, ou, su)
+                    other = convert(other / ou, ou, su)
             u = su
         return other, u
 
@@ -252,7 +262,6 @@ class UnitArray(numpy.ndarray):
         result = super(UnitArray, self).__add__(other)
         result.units = u
         return result
-
 
     def __radd__(self, other):
         """
@@ -276,7 +285,7 @@ class UnitArray(numpy.ndarray):
         """
         su = getattr(self, 'units', dimensionless)
         ou = getattr(other, 'units', dimensionless)
-        if su == None and ou == None:
+        if su is None and ou is None:
             s = self
             u = None
         else:
@@ -297,7 +306,7 @@ class UnitArray(numpy.ndarray):
             # note that there may be a scale factor in the units.
             # This may be confusing for otherwise dimensionless
             # quantities
-            result.units = su*ou
+            result.units = su * ou
         elif su:
             result.units = su
         else:
@@ -305,7 +314,7 @@ class UnitArray(numpy.ndarray):
 
         # If the units are only a scale factor, apply it to result and set
         # to dimensionless
-        if isinstance(result.units,float):
+        if isinstance(result.units, float):
             result = result.as_units(dimensionless)
         return result
 
@@ -317,10 +326,13 @@ class UnitArray(numpy.ndarray):
         return self.__mul__(other)
 
     def __div__(self, other):
+        return type(self).__truediv__(self, other)
+
+    def __truediv__(self, other):
         """
         Defines the division of 2 unitted arrays
         """
-        result = super(UnitArray, self).__div__(other)
+        result = super(UnitArray, self).__truediv__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
         if su and ou:
@@ -328,38 +340,41 @@ class UnitArray(numpy.ndarray):
             # This may be confusing for otherwise dimensionless
             # quantities, but the alternative is losing units like
             # 'percent'
-            result.units = su/ou
+            result.units = su / ou
         elif ou:
-            result.units = 1/ou
+            result.units = 1 / ou
         else:
             result.units = su
 
         # If the units are only a scale factor, apply it to result and set
         # to dimensionless
-        if isinstance(result.units,float):
+        if isinstance(result.units, float):
             result = result.as_units(dimensionless)
         return result
 
     def __rdiv__(self, other):
+        return type(self).__rtruediv__(self, other)
+
+    def __rtruediv__(self, other):
         """
         Defines the reverse division of 2 unitted arrays
         """
-        result = super(UnitArray, self).__rdiv__(other)
+        result = super(UnitArray, self).__rtruediv__(other)
         su = getattr(self, 'units', None)
         ou = getattr(other, 'units', None)
         if su and ou:
             # note that there may be a scale factor in the units.
             # This may be confusing for otherwise dimensionless
             # quantities
-            result.units = ou/su
+            result.units = ou / su
         elif su:
-            result.units = 1/su
+            result.units = 1 / su
         else:
             result.units = ou
 
         # If the units are only a scale factor, apply it to result and set
         # to dimensionless
-        if isinstance(result.units,float):
+        if isinstance(result.units, float):
             result = result.as_units(dimensionless)
         return result
 
@@ -367,7 +382,7 @@ class UnitArray(numpy.ndarray):
         """
         Defines the exponent operator of a unitted array
         """
-        if isinstance(other, (int, long, float)) or \
+        if isinstance(other, (int, int, float)) or \
                 (isinstance(other, numpy.ndarray) and other.shape == ()):
             if isinstance(other, UnitArray):
                 if getattr(other, "units", dimensionless) == dimensionless:
@@ -439,12 +454,11 @@ class UnitArray(numpy.ndarray):
         except:
             return True
 
-
-    ############################################################################
+    ##########################################################################
     # UnitArray interface
-    ############################################################################
+    ##########################################################################
 
-    ### Unit Conversion ########################################################
+    ### Unit Conversion ######################################################
 
     def as_units(self, new_units):
         """ Convert UnitArray from its current units to a new set of units.
@@ -456,9 +470,25 @@ class UnitArray(numpy.ndarray):
 
         return result
 
-    ############################################################################
+    # Unit Conversion ########################################################
+
+    def _get_values_base_str(self):
+        """ Build a string representation of the array values.
+        """
+        # this is a little more complicated than it should be in order
+        # to be more resilient to changes to numpy ndarray API
+        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
+        start = base_str.find('(')
+        end = base_str.rfind(')')
+
+        if start > -1 and end > -1:
+            base_str = base_str[start+1:end]
+
+        return base_str
+
+    ##########################################################################
     # static methods which wrap numpy builtin functions
-    ############################################################################
+    ##########################################################################
 
     @staticmethod
     def concatenate(sequences, axis=0):

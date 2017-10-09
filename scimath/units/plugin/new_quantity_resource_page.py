@@ -1,4 +1,5 @@
 
+from __future__ import absolute_import
 import wx  # ugh!
 
 from pyface.api import HeadingText, ImageResource, Sorter
@@ -7,6 +8,7 @@ from traits.api import Any, Str
 from traitsui.api import View
 
 from scimath.units.unit_manager import unit_manager
+
 
 class NewQuantityResourcePage(WizardPage):
 
@@ -36,9 +38,9 @@ class NewQuantityResourcePage(WizardPage):
 
         # The editor for the quantity properties.
         view = View(
-            [ 'value{Value}',
-              'units{Units}',
-              'value_unit_family{Measure of}']
+            ['value{Value}',
+             'units{Units}',
+             'value_unit_family{Measure of}']
         )
 
         ui = self.obj.edit_traits(parent=panel, view=view, kind='subpanel')
@@ -54,12 +56,9 @@ class NewQuantityResourcePage(WizardPage):
         # Check if the default values constitute a valid quantity.
         self._validate()
 
-        self.obj.on_trait_change( self._on_units_changed, 'units' )
-        self.obj.on_trait_change( self._on_family_changed, 'value_unit_family' )
+        self.obj.on_trait_change(self._on_units_changed, 'units')
+        self.obj.on_trait_change(self._on_family_changed, 'value_unit_family')
         return panel
-
-
-
 
     ###########################################################################
     # Private interface.
@@ -93,13 +92,13 @@ class NewQuantityResourcePage(WizardPage):
         # Can't have a sample interval of 0.0 or less, since we would never
         # reach the bottom of the log.
 
-        if not unit_manager.is_compatible( self.obj.units,
-                                           self.obj.value_unit_family):
+        if not unit_manager.is_compatible(self.obj.units,
+                                          self.obj.value_unit_family):
             self.complete = False
             self._error_text.SetLabel(
                 'Units and family are incompatible. Try one of: %s'
-                    % unit_manager.get_valid_unit_strings(
-                                    self.obj.value_unit_family )
+                % unit_manager.get_valid_unit_strings(
+                    self.obj.value_unit_family)
             )
             if self._error_panel is not None:
                 self._error_panel.Show(True)

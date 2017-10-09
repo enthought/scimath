@@ -15,6 +15,7 @@
 """
 
 # Numeric library imports
+from __future__ import absolute_import
 from numpy import ndarray
 
 # Enthought library imports
@@ -23,6 +24,8 @@ import scimath.units as units
 # Numerical modeling libary imports
 from scimath.units.unit_array import UnitArray
 from scimath.units.unit_scalar import UnitScalar
+from six.moves import zip
+
 
 def manipulate_units(units, converters, *args):
     """ Convert the \*args to the specified units using the converters.
@@ -47,20 +50,20 @@ def manipulate_units(units, converters, *args):
             List cooresponding to \*args of converted values.
 
     """
-        #fixme:  I haven't thought about flexibility much yet.
-        #        We might want to be able to change this method out during
-        #        execution.  We also might want to be able to swap out
-        #        converters.  Further, a specific method might want to have its
-        #        own conversion method?
+    # fixme:  I haven't thought about flexibility much yet.
+    #        We might want to be able to change this method out during
+    #        execution.  We also might want to be able to swap out
+    #        converters.  Further, a specific method might want to have its
+    #        own conversion method?
 
-        #fixme: We likely want some logging options here so that we can report
-        #       to users what unit conversions are happening.
+    # fixme: We likely want some logging options here so that we can report
+    #       to users what unit conversions are happening.
 
     # Ensure there are units for each argument.
-    if len(units)!=len(args):
+    if len(units) != len(args):
         msg = 'There must be a unit definition for each argument (%d!=%d)' % \
-                    (len(units), len(args))
-        raise ValueError, msg
+            (len(units), len(args))
+        raise ValueError(msg)
 
     results = []
     for value, unit in zip(args, units):
@@ -76,7 +79,7 @@ def manipulate_units(units, converters, *args):
                 for type_, convert in converters.items():
                     if isinstance(value, type_):
                         results.append(convert(value, unit))
-                        converters[type(value)] = convert # (Cache)
+                        converters[type(value)] = convert  # (Cache)
                         break
                 else:
                     results.append(value)
@@ -87,21 +90,24 @@ def manipulate_units(units, converters, *args):
 
     return results
 
+
 def convert_units(units, *args):
     converters = {
-        #UnitScalar: ... # 'UnitScalar' is a subtype of 'UnitArray'
+        # UnitScalar: ... # 'UnitScalar' is a subtype of 'UnitArray'
         UnitArray: unit_array_units_converter,
     }
     return manipulate_units(units, converters, *args)
 
+
 def set_units(units, *args):
     converters = {
-        float:     scalar_to_unit_scalar_converter,
-        int:       scalar_to_unit_scalar_converter,
-        ndarray:   array_to_unit_array_converter,
+        float: scalar_to_unit_scalar_converter,
+        int: scalar_to_unit_scalar_converter,
+        ndarray: array_to_unit_array_converter,
         UnitArray: unit_array_units_overwriter,
     }
     return manipulate_units(units, converters, *args)
+
 
 def have_some_units(*args):
     """ Returns True if any of the arguments have units attached to them.
@@ -113,6 +119,7 @@ def have_some_units(*args):
         if isinstance(arg, UnitArray):
             return True
     return False
+
 
 def strip_units(*args):
     """ Remove units from arguments.
@@ -130,6 +137,8 @@ def strip_units(*args):
         return tuple(ret)
 
 # Convert objects with units to the same type of object with new units.
+
+
 def unit_array_units_converter(unit_array, new_units):
     """ Convert a UnitArray from one set of units to another.
     """
@@ -138,11 +147,11 @@ def unit_array_units_converter(unit_array, new_units):
         if isinstance(unit_array, ndarray) and unit_array.shape != ():
             # this is an array
             result = UnitArray(units.convert(unit_array.view(ndarray), unit_array.units,
-                                   new_units))
+                                             new_units))
         else:
             # this is a scalar
             result = UnitScalar(units.convert(unit_array.view(ndarray), unit_array.units,
-                                   new_units))
+                                              new_units))
         result.units = new_units
     else:
         # No conversion needed.  Just return the unit_array.
@@ -160,6 +169,7 @@ def scalar_to_unit_scalar_converter(x, units):
     """
 
     return UnitScalar(x, units=units)
+
 
 def array_to_unit_array_converter(array, units):
     """ Create a UnitArray with units='units' from the given 'array'.

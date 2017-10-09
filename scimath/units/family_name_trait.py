@@ -12,6 +12,8 @@
 quantities in various unit systems.
 """
 
+from __future__ import absolute_import
+
 from traits.api import TraitError, TraitType
 
 from .unit_manager import unit_manager
@@ -80,7 +82,8 @@ class FamilyNameTrait(TraitType):
         msg_parts = ["a string"]
 
         if self.is_strict:
-            msg_parts.append("recognized as a family name by the units manager")
+            msg_parts.append(
+                "recognized as a family name by the units manager")
 
         if self.allow_none:
             msg_parts.append("or None")
@@ -91,5 +94,5 @@ class FamilyNameTrait(TraitType):
     def create_editor(self):
         from traitsui.api import EnumEditor
         editor = EnumEditor(values=sorted(unit_manager.unit_families.keys()),
-            mode='list')
+                            mode='list')
         return editor

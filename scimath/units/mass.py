@@ -26,8 +26,9 @@
 # Imports:
 #############################################################################
 
-from SI import kilogram
-from SI import kilo, centi, milli
+from __future__ import absolute_import
+from .SI import kilogram
+from .SI import kilo, centi, milli
 
 #############################################################################
 # Definitions:

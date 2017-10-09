@@ -18,8 +18,9 @@
 #
 #------------------------------------------------------------------------------
 
+from __future__ import absolute_import
 import numpy
-from unit import InvalidConversion
+from .unit import InvalidConversion
 
 
 #####################################################################
@@ -37,7 +38,7 @@ def convert(value, from_unit, to_unit):
         implied units of 'value'
     to_unit : scimath.unit object
         implied units of the returned float
-    
+
     Returns
     -------
     value * conversion_factor + offset : data type is the same as was passed
@@ -51,7 +52,7 @@ def convert(value, from_unit, to_unit):
     units. The offset is zero unless explicitly set otherwise in the unit
     definition. Handling of UnitArrays is done by checking whether value is a
     numpy.ndarray.
-    
+
     **Note**: Enthought has extended the original units implementation to
     handle temperature conversions.  Temperature units are a special case
     because they can have a different origin.
@@ -66,7 +67,7 @@ def convert(value, from_unit, to_unit):
 
     By convention we have made the units system behave like in Option
     #1 so that convert() handles absolute temperatures, not temperature
-    differences. 
+    differences.
     """
 
     # TODO: it would be nice if this function could handle inversion as well as
@@ -88,28 +89,28 @@ def convert(value, from_unit, to_unit):
     # TODO: This is my guess at what Lowell did to improve performance...
     # I need to confirm that I'm doing the same thing he did (TNV)
 
-    if from_unit==to_unit:
+    if from_unit == to_unit:
         return value
     else:
         try:
             # try a straight conversion
             factor = float(from_unit / to_unit)
-        except InvalidConversion, ex:
+        except InvalidConversion as ex:
             # try an inversion
             factor = from_unit * to_unit
             if not isinstance(factor, float):
                 raise ex
         try:
-            offset =  (from_unit.offset * factor) - to_unit.offset
+            offset = (from_unit.offset * factor) - to_unit.offset
         except AttributeError:
             offset = 0.0
 
     # test if it is a UnitArray without importing UnitArray to keep
     # the dependencies low for this module
     if isinstance(value, numpy.ndarray) and hasattr(value, 'units'):
-        return value*factor + value.units*offset
+        return value * factor + value.units * offset
 
-    return value*factor + offset
+    return value * factor + offset
 
 
 def convert_str(value, from_unit_string, to_unit_string):
@@ -142,4 +143,3 @@ def parser():
 
 
 #### EOF ######################################################################
-

@@ -1,5 +1,6 @@
 # Copyright (c) 2008-2013 by Enthought, Inc.
 # All rights reserved.
+from __future__ import absolute_import
 from os.path import join
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
@@ -10,7 +11,7 @@ import numpy.distutils.core
 
 
 info = {}
-execfile(join('scimath', '__init__.py'), info)
+exec(compile(open(join('scimath', '__init__.py')).read(), join('scimath', '__init__.py'), 'exec'), info)
 
 
 # Setup our extensions to Python.

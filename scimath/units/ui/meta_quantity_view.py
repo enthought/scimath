@@ -7,11 +7,12 @@
 #
 #-----------------------------------------------------------------------------
 
+from __future__ import absolute_import
 from traits.api import Bool, TraitError
 from traitsui.api import EnumEditor, Handler, Item, List, View
 
 
-class MetaQuantityView( View ):
+class MetaQuantityView(View):
     """ Default Traits View for MetaQuantity objects. """
 
     def __init__(self, *args, **traits):
@@ -19,27 +20,26 @@ class MetaQuantityView( View ):
 
         handler = traits.setdefault('handler', MetaQuantityViewHandler())
         handler.known_names = traits.pop('known_names', [])
-        handler.any_name    = traits.pop('any_name', True)
+        handler.any_name = traits.pop('any_name', True)
 
         if handler.any_name:
             evaluate = handler.validate_name
         else:
             evaluate = None
 
-        name_editor = EnumEditor( name="known_names", object='handler',
-                                  evaluate=evaluate)
+        name_editor = EnumEditor(name="known_names", object='handler',
+                                 evaluate=evaluate)
 
-        name_item = Item( name='name', label='Name',
-                                editor=name_editor, id='name_item' )
+        name_item = Item(name='name', label='Name',
+                         editor=name_editor, id='name_item')
 
-        super( MetaQuantityView, self ).__init__(
-            Item( name='name', editor=name_editor),
-            Item( name='family_name', label='Measure of' ),
-            Item( name='units' ),
+        super(MetaQuantityView, self).__init__(
+            Item(name='name', editor=name_editor),
+            Item(name='family_name', label='Measure of'),
+            Item(name='units'),
             *args,
             **traits
-            )
-
+        )
 
 
 class MetaQuantityViewHandler(Handler):
@@ -61,11 +61,11 @@ class MetaQuantityViewHandler(Handler):
         name = name.strip()
 
         if self.any_name and len(name) == 0:
-            raise TraitError, 'name must be specified'
+            raise TraitError('name must be specified')
 
         if not (self.any_name or name in self.known_names):
-            raise TraitError, 'invalid name %s' % name
+            raise TraitError('invalid name %s' % name)
 
         return name
 
-### EOF
+# EOF
