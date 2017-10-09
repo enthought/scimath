@@ -1,5 +1,7 @@
 # Standard library imports
 from __future__ import absolute_import
+
+from copy import copy
 from six.moves.cPickle import dumps, loads
 import timeit
 import unittest
@@ -12,7 +14,8 @@ from numpy.testing import assert_array_equal
 
 # Enthought Library imports
 import scimath.units as units
-from scimath.units.length import meters, feet
+from scimath.units.length import cm, feet, meters
+from scimath.units.mass import gram
 from scimath.units.time import second, seconds
 from scimath.units.unit import InvalidConversion, dimensionless
 
@@ -48,6 +51,43 @@ class UnitArrayTestCase(unittest.TestCase):
         a = UnitArray([[1, 2, 3],
                        [4, 5, 6]])
         assert(a[1, 2] == 6)
+
+    ############################################################################
+    # Test construction from arrays
+    ############################################################################
+
+    def test_repr(self):
+        """ Test output of repr()"""
+        a = UnitArray([1, 2, 3], units="cm")
+        self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='0.01*m')")
+
+        # unit with no label
+        labelless_unit = cm * gram
+        a = UnitArray([1, 2, 3], units=labelless_unit)
+        self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='1e-05*m*kg')")
+
+        # dimensionless quantity
+        dimensionless_unit = copy(dimensionless)
+        dimensionless_unit.label = "Cool unit"
+        a = UnitArray([1, 2, 3], units=dimensionless_unit)
+        self.assertEqual(repr(a), "UnitArray([1, 2, 3], units='1')")
+
+    def test_str(self):
+        """ Test output of str() """
+        a = UnitArray([1, 2, 3], units="cm")
+        self.assertEqual(str(a), "UnitArray (cm): [1, 2, 3]")
+
+        # unit with no label
+        labelless_unit = cm * gram
+        a = UnitArray([1, 2, 3], units=labelless_unit)
+        # For units with no label, the repr of the unit is used.
+        self.assertEqual(str(a), "UnitArray (1e-05*m*kg): [1, 2, 3]")
+
+        # dimensionless quantity
+        dimensionless_unit = copy(dimensionless)
+        dimensionless_unit.label = "Cool unit"
+        a = UnitArray([1, 2, 3], units=dimensionless_unit)
+        self.assertEqual(str(a), "UnitArray (Cool unit): [1, 2, 3]")
 
     ##########################################################################
     # Test mathematical operations

@@ -72,16 +72,22 @@ class UnitArray(numpy.ndarray):
     # object interface
     ##########################################################################
     def __repr__(self):
-        # this is a little more complicated than it should be in order
-        # to be more resilient to changes to numpy ndarray API
-        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
-        start = base_str.find('(')
-        end = base_str.rfind(')')
+        """ String representation using the repr of the unit."""
+        base_str = self._get_values_base_str()
+        s = "{klass}({val}, units='{unit!r}')"
+        klass = type(self).__name__
+        return s.format(klass=klass, val=base_str, unit=self.units)
 
-        if start > -1 and end > -1:
-            base_str = base_str[start + 1:end]
+    def __str__(self):
+        """ String representation using the label of the unit."""
+        s = "{klass} ({unit}): {val}"
+        base_str = self._get_values_base_str()
+        if self.units.label is not None:
+            str_unit = self.units.label
+        else:
+            str_unit = repr(self.units)
 
-        return "UnitArray(%s, units='%s')" % (base_str, repr(self.units))
+        return s.format(klass=type(self).__name__, val=base_str, unit=str_unit)
 
     def __reduce_ex__(self, protocol):
         """
@@ -463,6 +469,22 @@ class UnitArray(numpy.ndarray):
         result.units = new_units
 
         return result
+
+    # Unit Conversion ########################################################
+
+    def _get_values_base_str(self):
+        """ Build a string representation of the array values.
+        """
+        # this is a little more complicated than it should be in order
+        # to be more resilient to changes to numpy ndarray API
+        base_str = numpy.ndarray.__repr__(self.view(numpy.ndarray))
+        start = base_str.find('(')
+        end = base_str.rfind(')')
+
+        if start > -1 and end > -1:
+            base_str = base_str[start+1:end]
+
+        return base_str
 
     ##########################################################################
     # static methods which wrap numpy builtin functions

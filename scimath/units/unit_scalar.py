@@ -10,7 +10,7 @@ from .unit_array import UnitArray
 
 
 class UnitScalar(UnitArray):
-    ''' Scalars with units.
+    """ Scalars with units.
 
         >>> from scimath.units.length import cm
         >>> x = UnitScalar(5, units=cm)
@@ -18,8 +18,19 @@ class UnitScalar(UnitArray):
         (UnitScalar(5, units='0.01*m'), 0.01*m)
         >>> x**2, (x**2).units
         (UnitScalar(25, units='0.0001*m**2'), 0.0001*m**2)
-    '''
-
+    """
     def __repr__(self):
-        return ("UnitScalar(%s, units='%s')"
-                % (self.item().__repr__(), repr(self.units)))
+        s = "{klass}({val}, units='{unit}')"
+        str_val = self.item().__repr__()
+        klass = type(self).__name__
+        return s.format(klass=klass, val=str_val, unit=repr(self.units))
+
+    def __str__(self):
+        s = "{klass} ({unit}): {val}"
+        str_val = self.item().__str__()
+        if self.units.label is not None:
+            str_unit = self.units.label
+        else:
+            str_unit = repr(self.units)
+
+        return s.format(klass=type(self).__name__, val=str_val, unit=str_unit)
