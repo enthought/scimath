@@ -50,7 +50,7 @@ numpy.distutils.core.setup(
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
     url = 'https://github.com/enthought/scimath',
-    download_url = ('http://www.enthought.com/repo/ets/scimath-%s.tar.gz' %
+    download_url = ('https://github.com/enthought/scimath/archive/%s.tar.gz' %
                     info['__version__']),
     classifiers = [c.strip() for c in """\
         Development Status :: 4 - Beta

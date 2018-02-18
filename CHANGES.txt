@@ -6,7 +6,10 @@ Change summary since 4.1.2
 
 * Feature: Port to Python 3 (#50)
 
-* Feature: Added __str__ methods on UnitScalar and UnitArray classes, to make it easier 
+* Converted the most-used traits to authentic TraitTypes. (#57)
+
+* Added __str__ methods on UnitScalar and UnitArray classes, to make it easier
+>>>>>>> master
   to see values with their unit (label) (#46).
 
 * Fix: Adding unit test for extending unit parser (#43)
@@ -47,4 +50,3 @@ Change summary since 4.1.2
 
 * Fix: Address string literal deprecation warnings in _interpolate build, removing
   warnings during compilation (#19)
-
