@@ -4,25 +4,48 @@ SciMath CHANGELOG
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* Feature: Port to Python 3 (#50)
+
 * Converted the most-used traits to authentic TraitTypes. (#57)
 
-* Added __str__ methods on UnitScalar and UnitArray classes, to make it easier 
+* Added __str__ methods on UnitScalar and UnitArray classes, to make it easier
   to see values with their unit (label) (#46).
 
-* UnitArray comparisons will return boolean arrays, like their unadorned
+* Fix: Adding unit test for extending unit parser (#43)
+
+* Fix: Parser extend method throws a NameError when custom units are added to the parser. (#41)
+
+* Feature: added inHg unit for inches of mercury (#40)
+
+* Feature: added dimensionless "fract" unit (#38)
+
+* Feature: added units barn, rayl, barns_per_electron, US survey foot (#33)
+
+* Fix: `'None'` was parsed into an invalid unit with `None` as its `value`. (#31)
+
+* Fix: UnitArray comparisons will return boolean arrays, like their unadorned
   ndarray counterpart. (#29)
 
-* Fix raising a unitless `UnitArray` raised to a power. Thanks to @rupertnash
-  for reporting and fixing the bug. (#5)
+* Fix: raising a unitless `UnitArray` raised to a power. Thanks to @rupertnash
+  for reporting and fixing the bug. (#5, #28)
 
-* Remove trivial (0.0) offsets from the string representation of units. (#27)
+* Fix: Remove trivial (0.0) offsets from the string representation of units. (#27)
 
-* Enhance the unit parser to parse all of the provided units, with or without
+* Fix: numpy change in how vectorize() keeps the original function. (#26)
+
+* Feature: Enhance the unit parser to parse all of the provided units, with or without
   offsets. (#25)
 
-* Correct the definition of PPG to be a density unit instead of a pressure
+* Fix: Correct the definition of PPG to be a density unit instead of a pressure
   gradient unit. Calculations using PPG as a pressure gradient unit can be
   recovered simply by multiplying the PPG quantity by g, the acceleration due
   to gravity. To precisely recover the exact values from the previous
   definition, use ``0.0519 * psi_per_f / ppg`` for this value, which is not
-  necessarily the best estimate for g.
+  necessarily the best estimate for g. (#24)
+
+* Fix: Update to modern numpy C API to eliminate deprecation warnings (#22)
+
+* Fix: PEP whitespace cleanups (#20)
+
+* Fix: Address string literal deprecation warnings in _interpolate build, removing
+  warnings during compilation (#19)
