@@ -139,13 +139,13 @@ def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
 
             >>> from numpy import array
             >>> a = array((1,2,3))
-            >>> add(a,a)
-            array([ 0.6096,  1.2192,  1.8288])
+            >>> add(a,a) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
+            array([...0.6096, 1.2192, 1.8288])
 
             >>> from scimath.units.length import m
             >>> a = UnitArray((1,2,3), units=m)
-            >>> add(a,a) # (Converts m -> ft -> m)
-            UnitArray([ 2.,  4.,  6.], units='1.0*m')
+            >>> add(a,a) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
+            UnitArray([...2., 4., 6.], units='1.0*m')
             >>> add(a,a).units
             1.0*m
 
