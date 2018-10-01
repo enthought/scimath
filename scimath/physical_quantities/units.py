@@ -12,6 +12,7 @@ from traits.api import HasTraits, Float, String, Unicode, Bool, \
 #from traitsui.api import View, Item, Group
 
 from .dimensions import Dimensions, Dim
+from .util import dict_add, dict_sub, dict_mul, format_expansion, unicode_powers
 
 
 class Unit(HasTraits):
@@ -249,7 +250,7 @@ class DerivedUnit(MultiplicativeUnit):
     def get_symbol(self):
         return format_expansion(dict((key.symbol, power)
                                      for key, power in self.derivation.items()),
-                                mul=" ", pow_func=unicode_power, div=True)
+                                mul=" ", pow_func=unicode_powers, div=True)
 
     @cached_property
     def get_expression(self):
@@ -258,7 +259,7 @@ class DerivedUnit(MultiplicativeUnit):
 
     @cached_property
     def get_dimensions(self):
-        dim = dimensionless
+        dim = Dimensions({})
         for key, power in self.derivation.items():
             dim *= key.dimensions**power
         return dim

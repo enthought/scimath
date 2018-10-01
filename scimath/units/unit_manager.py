@@ -228,7 +228,7 @@ class UnitManager(HasPrivateTraits):
     def add_system(self, system):
         """ Adds unit system(s) to the unit_manager's list of systems
         """
-        self.unit_systems.append(us)
+        self.unit_systems.append(system)
 
     def add_member(self, member_name, family):
         """ Adds a member to the unit_members dict used to lookup unit aliases

@@ -135,7 +135,7 @@ class Quantity(HasPrivateTraits):
                     family_name = self.family_name.lower()
                 self.family_name = \
                     um.get_family_name(family_name) or \
-                    em.get_family_name(name.lower())
+                    um.get_family_name(name.lower())
 
                 # If units were passed in, but don't match the guessed family_name,
                 # punt.
