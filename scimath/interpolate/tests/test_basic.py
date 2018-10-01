@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         self.assert_(allclose(x, y))
 
     def test_linear(self):
-        N = 3000.
+        N = 3000
         x = arange(N)
         y = arange(N)
         new_x = arange(N) + 0.5
@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         self.assertAllclose(new_y[:5], [0.5, 1.5, 2.5, 3.5, 4.5])
 
     def test_block_average_above(self):
-        N = 3000.
+        N = 3000
         x = arange(N)
         y = arange(N)
 
@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
         self.assertAllclose(new_y[:5], [0.0, 0.5, 2.5, 4.5, 6.5])
 
     def test_linear2(self):
-        N = 3000.
+        N = 3000
         x = arange(N)
         y = ones((100, N)) * arange(N)
         new_x = arange(N) + 0.5
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
                              [0.5, 1.5, 2.5, 3.5, 4.5]])
 
     def test_interp1d(self):
-        N = 3000.
+        N = 3000
         x = arange(N)
         y = ones((100, N)) * arange(N)
         new_x = arange(N)
