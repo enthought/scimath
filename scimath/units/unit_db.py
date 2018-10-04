@@ -108,6 +108,7 @@ class UnitDB(object):
         #  manager).
 
         is_data = False
+        column_names = []
 
         if not filename:
             filename = os.path.join(get_path(self), 'data',
@@ -160,6 +161,7 @@ class UnitDB(object):
                                     'unit_families.txt')
 
         is_data = False
+        converters = []
         fh = open(filename)
 
         logger.debug('Loading default unit info from %s...' % filename)
@@ -201,6 +203,8 @@ class UnitDB(object):
         #  manager).
 
         is_data = False
+        column_names = []
+        system_names = []
 
         if not filename:
             filename = os.path.join(get_path(self), 'data',
