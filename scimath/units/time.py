@@ -50,9 +50,15 @@ millisecond.label = 'millisecond'
 # other common units
 
 minute = 60 * second
+minute.label = "minute"
 hour = 60 * minute
+hour.label = "hour"
 day = 24 * hour
+day.label = "day"
+week = 7 * day
+week.label = "week"
 year = 365.25 * day
+year.label = "year"
 
 #############################################################################
 # Aliases:
@@ -61,14 +67,18 @@ year = 365.25 * day
 s = sec = second
 ps = picosecond
 ns = nanosecond
-us = microsecond
-ms = msec = millisecond
-
 us = usec = microsecond
+ms = msec = millisecond
 
 # plural aliases
 seconds = second
 microseconds = microsecond
 milliseconds = millisecond
+
+minutes = minute
+hours = hour
+days = day
+weeks = week
+years = year
 
 #### EOF ######################################################################

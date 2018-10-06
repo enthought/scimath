@@ -27,6 +27,7 @@ import numpy
 
 # Local units imports
 import scimath.units as units
+from scimath.units.api import convert_str
 from scimath.units.unit import unit
 from scimath.units.mass import kg, metric_ton
 from scimath.units.temperature import kelvin, celsius, fahrenheit
@@ -113,10 +114,6 @@ class test_units(unittest.TestCase):
         f1 = units.convert(1, frequency.hertz, frequency.khz)
         self.assertAlmostEqual(f1, 0.001, 6)
         return
-
-    def test_time(self):
-        t1 = units.convert(1, time.year, time.second)
-        self.assertAlmostEqual(t1, (365.25 * 24 * 60 * 60), 6)
 
     def test_speed(self):
         s1 = units.convert(55, speed.miles_per_hour, speed.meters_per_second)
@@ -408,4 +405,39 @@ class test_units(unittest.TestCase):
         # do the math :-)
         return mass * acc
 
-### EOF #######################################################################
+
+class TestTimeUnits(unittest.TestCase):
+    def test_convert(self):
+        t1 = units.convert(1, time.year, time.second)
+        self.assertAlmostEqual(t1, (365.25 * 24 * 60 * 60), 6)
+
+        t1 = units.convert(1, time.week, time.second)
+        self.assertAlmostEqual(t1, (7 * 24 * 60 * 60))
+
+        t1 = units.convert(1, time.day, time.second)
+        self.assertAlmostEqual(t1, (24 * 60 * 60))
+
+        t1 = units.convert(1, time.hour, time.second)
+        self.assertAlmostEqual(t1, 60 * 60)
+
+        t1 = units.convert(1, time.minute, time.second)
+        self.assertAlmostEqual(t1, 60)
+
+    def test_convert_str(self):
+        t1 = convert_str(1, "year", "second")
+        self.assertAlmostEqual(t1, (365.25 * 24 * 60 * 60), 6)
+
+        t1 = convert_str(1, "week", "s")
+        self.assertAlmostEqual(t1, (7 * 24 * 60 * 60))
+
+        t1 = convert_str(1, "day", "sec")
+        self.assertAlmostEqual(t1, (24 * 60 * 60))
+
+        t1 = convert_str(1, "hour", "second")
+        self.assertAlmostEqual(t1, 60 * 60)
+
+        t1 = convert_str(1, "minute", "second")
+        self.assertAlmostEqual(t1, 60)
+
+
+# EOF #########################################################################
