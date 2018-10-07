@@ -94,6 +94,13 @@ class Parser(Singleton):
             if isinstance(value, unit) and value.label is not None:
                 self.exact_labels[value.label] = value
 
+        # Angular minutes and seconds are overridden by the time units of the
+        # same name, so explicitly add their labels here.
+        from . import angle
+
+        self.exact_labels[angle.minute.label] = angle.minute
+        self.exact_labels[angle.second.label] = angle.second
+
     def _loadModules(self):
 
         from . import SI
