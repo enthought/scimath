@@ -439,5 +439,30 @@ class TestTimeUnits(unittest.TestCase):
         t1 = convert_str(1, "minute", "second")
         self.assertAlmostEqual(t1, 60)
 
+        t1 = convert_str(1, "minutes", "second")
+        self.assertAlmostEqual(t1, 60)
+
+
+class TestAngleUnits(unittest.TestCase):
+    def test_convert(self):
+        t1 = units.convert(60, angle.minutes, angle.degree)
+        self.assertAlmostEqual(t1, 1)
+
+        t1 = units.convert(3600, angle.seconds, angle.degree)
+        self.assertAlmostEqual(t1, 1)
+
+        t1 = units.convert(1, angle.degree, angle.radian)
+        self.assertAlmostEqual(t1, numpy.pi / 180.)
+
+    def test_convert_str(self):
+        t1 = convert_str(60, "'", "deg")
+        self.assertAlmostEqual(t1, 1)
+
+        t1 = convert_str(3600, '"', "deg")
+        self.assertAlmostEqual(t1, 1)
+
+        t1 = convert_str(1, 'deg', "rad")
+        self.assertAlmostEqual(t1, numpy.pi / 180.)
+
 
 # EOF #########################################################################
