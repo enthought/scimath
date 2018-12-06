@@ -110,6 +110,7 @@ def configuration(parent_package='', top_path=None):
 
 DEPENDENCIES = [
     'traits',
+    'scipy',
 ]
 
 
@@ -153,7 +154,6 @@ if __name__ == "__main__":
         description = 'scientific and mathematical calculations',
         long_description = open('README.rst').read(),
         install_requires = DEPENDENCIES,
-        setup_requires=['numpy'],
         license = "BSD",
         package_data = {'': ['images/*', 'data/*']},
         platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
