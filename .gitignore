@@ -1,4 +1,5 @@
 # file types to ignore
+*/_version.py
 *.pyc
 *.pyd
 *.so
