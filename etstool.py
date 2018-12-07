@@ -88,6 +88,7 @@ supported_runtimes = ['2.7', '3.5', '3.6']
 
 dependencies = {
     "numpy",
+    "scipy",
     "traits",
     "nose",
     "coverage",
