@@ -4,6 +4,18 @@ SciMath CHANGELOG
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* Change: Setup Travis and Appveyor CI (#71)
+
+* Change: Use PEP 440 compliant development version (#69)
+
+* Fix : Restore parsing of angular minutes and seconds (#66)
+
+* Feature : Enhancement of time units (#65)
+
+* Fix : Missing imports (#63)
+
+* Fix : Support newer versions of Numpy (#62)
+
 * Feature: Port to Python 3 (#50)
 
 * Converted the most-used traits to authentic TraitTypes. (#57)
