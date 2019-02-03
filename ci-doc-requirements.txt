@@ -1,0 +1,2 @@
+sphinx
+git+http://github.com/enthought/enthought-sphinx-theme

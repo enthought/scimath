@@ -11,6 +11,8 @@
 # All configuration values have a default value; values that are commented out
 # serve to show the default value.
 
+import datetime
+import io
 import sys, os
 
 # If your extensions are in another directory, add it here. If the directory
@@ -29,7 +31,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'sphinx.ext.pngmath',
+    'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
     ]
 
@@ -44,13 +46,16 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'scimath'
-copyright = '2008-2011, Enthought'
+copyright = '2008-{date.year}, Enthought Inc'.format(date=datetime.date.today())
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
-d = {}
-execfile(os.path.join('..', '..', 'scimath', '__init__.py'), d)
-version = release = d['__version__']
+version_info = {}
+scimath_init_path = os.path.join("..", "..", "scimath", "__init__.py")
+with io.open(scimath_init_path, "r", encoding="utf-8") as version_module:
+    version_code = compile(version_module.read(), "__init__.py", "exec")
+    exec(version_code, version_info)
+version = release = version_info["__version__"]
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -86,10 +91,36 @@ pygments_style = 'sphinx'
 # Options for HTML output
 # -----------------------
 
-# The style sheet to use for HTML and HTML Help pages. A file of that name
-# must exist either in Sphinx' static/ path, or in one of the custom paths
-# given in html_static_path.
-html_style = 'default.css'
+# Use enthought-sphinx-theme if available
+try:
+    import enthought_sphinx_theme
+
+    html_theme_path = [enthought_sphinx_theme.theme_path]
+    html_theme = "enthought"
+except ImportError as exc:
+    import warnings
+
+    msg = """Can't find Enthought Sphinx Theme, using default.
+                Exception was: {}
+                Enthought Sphinx Theme can be downloaded from
+                https://github.com/enthought/enthought-sphinx-theme"""
+    warnings.warn(RuntimeWarning(msg.format(exc)))
+
+    # Use old defaults if enthought-sphinx-theme not available
+
+    # The name of an image file (within the static path) to place at the top
+    # of the sidebar.
+    html_logo = "e-logo-rev.png"
+
+    # The name of an image file (within the static path) to use as favicon of
+    # the docs.  This file should be a Windows icon file (.ico) being 16x16
+    # or 32x32 pixels large.
+    html_favicon = "et.ico"
+
+    # The style sheet to use for HTML and HTML Help pages. A file of that name
+    # must exist either in Sphinx' static/ path, or in one of the custom paths
+    # given in html_static_path.
+    html_style = "default.css"
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
