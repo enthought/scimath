@@ -1,22 +1,20 @@
+<!DOCTYPE html>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
     
-    <title>scimath.units.has_units &mdash; scimath 4.0.2 documentation</title>
+    <title>scimath.units.has_units &mdash; scimath 4.2.0 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" >
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '4.0.2',
+        VERSION:     '4.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,43 +23,72 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../_static/et.ico"/>
-    <link rel="top" title="scimath 4.0.2 documentation" href="../../../index.html" />
-    <link rel="up" title="Module code" href="../../index.html" /> 
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../../../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../../../_static/et.ico">
+    <link rel="index" title="Index" href="../../../genindex.html" >
+    <link rel="search" title="Search" href="../../../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../../../index.html" >
+    <link rel="up" title="Module code" href="../../index.html" > 
   </head>
   <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li><a href="../../../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
 
-    <div class="document">
-      <div class="documentwrapper">
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../../../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" id="spc-section-body">
             
   <h1>Source code for scimath.units.has_units</h1><div class="highlight"><pre>
-<span class="c"># Standard library imports</span>
+<span></span><span class="c1"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
 <span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="k">import</span> <span class="n">Template</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span>
 
-<span class="c"># Local imports</span>
-<span class="kn">from</span> <span class="nn">variable</span> <span class="kn">import</span> <span class="n">Variable</span>
-<span class="kn">from</span> <span class="nn">function_signature</span> <span class="kn">import</span> <span class="p">(</span><span class="n">call_signature</span><span class="p">,</span> <span class="n">def_signature</span><span class="p">,</span>
-                                <span class="n">function_arguments</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">unit_manipulation</span> <span class="kn">import</span> <span class="p">(</span><span class="n">convert_units</span><span class="p">,</span> <span class="n">set_units</span><span class="p">,</span> <span class="n">have_some_units</span><span class="p">,</span>
-    <span class="n">strip_units</span><span class="p">)</span>
+<span class="c1"># Local imports</span>
+<span class="kn">from</span> <span class="nn">.variable</span> <span class="k">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">.function_signature</span> <span class="k">import</span> <span class="p">(</span><span class="n">call_signature</span><span class="p">,</span> <span class="n">def_signature</span><span class="p">,</span>
+                                 <span class="n">function_arguments</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.unit_manipulation</span> <span class="k">import</span> <span class="p">(</span><span class="n">convert_units</span><span class="p">,</span> <span class="n">set_units</span><span class="p">,</span> <span class="n">have_some_units</span><span class="p">,</span>
+                                <span class="n">strip_units</span><span class="p">)</span>
 
-<span class="n">section_marker</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;[!-/:-@[-`{-~]+ *$&#39;</span><span class="p">)</span>
+<span class="n">section_marker</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[!-/:-@[-`{-~]+ *$&#39;</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">simple_parser</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Parse a docstring for parameters and returns with unit notation</span>
@@ -86,28 +113,28 @@
 <span class="sd">    docstrings, which is a comparatively expensive operation.  This version is</span>
 <span class="sd">    about 15 times faster.  This passes the same unit tests as the original.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">last_line</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-    <span class="n">section</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">last_line</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="n">input_lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">output_lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
         <span class="n">section_match</span> <span class="o">=</span> <span class="n">section_marker</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">section_match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">section_match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">section_match</span><span class="o">.</span><span class="n">end</span><span class="p">()</span> <span class="o">-</span> <span class="n">section_match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">last_line</span><span class="p">):</span>
                 <span class="n">section</span> <span class="o">=</span> <span class="n">last_line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="s">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s">&#39;parameters&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s1">&#39;parameters&#39;</span><span class="p">:</span>
                 <span class="n">input_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">section</span> <span class="o">==</span> <span class="s">&#39;returns&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">section</span> <span class="o">==</span> <span class="s1">&#39;returns&#39;</span><span class="p">:</span>
                 <span class="n">output_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="n">last_line</span> <span class="o">=</span> <span class="n">line</span>
     <span class="k">return</span> <span class="n">input_lines</span><span class="p">,</span> <span class="n">output_lines</span>
 
 
-
-
-<div class="viewcode-block" id="has_units"><a class="viewcode-back" href="../../../units/user_ref.html#scimath.units.has_units.has_units">[docs]</a><span class="k">def</span> <span class="nf">has_units</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">r&quot;&quot;&quot;Function decorator: Wrap a standard python function for unit conversion.</span>
+<div class="viewcode-block" id="has_units"><a class="viewcode-back" href="../../../units/user_ref.html#scimath.units.has_units.has_units">[docs]</a><span class="k">def</span> <span class="nf">has_units</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Function decorator: Wrap a standard python function for unit</span>
+<span class="sd">    conversion. Note that conversion arguments must be supplied through</span>
+<span class="sd">    the decorator aguments or in a formatted docstring as shown below.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -124,16 +151,16 @@
 <span class="sd">            arguments in the function.  The argument names in this string must</span>
 <span class="sd">            match those in the python signature.  The order the arguments are</span>
 <span class="sd">            specified in does not matter as the order of arguments from the</span>
-<span class="sd">            wrapped function is always used.  The format of the string is a as</span>
+<span class="sd">            wrapped function is always used.  The format of the string is as</span>
 <span class="sd">            follows::</span>
 
 <span class="sd">                &quot;a: notes on a:units=m/s;b: notes on b:units=m/s&quot;</span>
 
-<span class="sd">             That is, information about each argument is separated by</span>
-<span class="sd">             a semi-colon (&#39;;&#39;).  Each argument has three fields that are</span>
-<span class="sd">             separated by colons (&#39;:&#39;).  The first is the name of the variable.</span>
-<span class="sd">             The 2nd is a string.  The 3rd specified the units.  Other fields</span>
-<span class="sd">             may be added later.</span>
+<span class="sd">            That is, information about each argument is separated by</span>
+<span class="sd">            a semi-colon (&#39;;&#39;).  Each argument has three fields that are</span>
+<span class="sd">            separated by colons (&#39;:&#39;).  The first is the name of the variable.</span>
+<span class="sd">            The 2nd is a string.  The 3rd specified the units.  Other fields</span>
+<span class="sd">            may be added later.</span>
 <span class="sd">        outputs : str, optional</span>
 <span class="sd">             A string with the same format as the &#39;inputs&#39; string that specifies</span>
 <span class="sd">             the output variables.  This *is* an ordered list as there is no way</span>
@@ -163,7 +190,7 @@
 <span class="sd">        If units are not assigned to a variable, absolutely no conversion is</span>
 <span class="sd">        applied to that variable.</span>
 
-<span class="sd">        Example definition of a unitted addition function:</span>
+<span class="sd">        Example definition of a unitted addition function::</span>
 
 <span class="sd">            &gt;&gt;&gt; from scimath.units.api import has_units, UnitArray</span>
 <span class="sd">            &gt;&gt;&gt; @has_units</span>
@@ -186,13 +213,13 @@
 
 <span class="sd">            &gt;&gt;&gt; from numpy import array</span>
 <span class="sd">            &gt;&gt;&gt; a = array((1,2,3))</span>
-<span class="sd">            &gt;&gt;&gt; add(a,a)</span>
-<span class="sd">            array([ 0.6096,  1.2192,  1.8288])</span>
+<span class="sd">            &gt;&gt;&gt; add(a,a) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">            array([...0.6096, 1.2192, 1.8288])</span>
 
 <span class="sd">            &gt;&gt;&gt; from scimath.units.length import m</span>
 <span class="sd">            &gt;&gt;&gt; a = UnitArray((1,2,3), units=m)</span>
-<span class="sd">            &gt;&gt;&gt; add(a,a) # (Converts m -&gt; ft -&gt; m)</span>
-<span class="sd">            UnitArray([ 2.,  4.,  6.], units=&#39;1.0*m&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; add(a,a) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">            UnitArray([...2., 4., 6.], units=&#39;1.0*m&#39;)</span>
 <span class="sd">            &gt;&gt;&gt; add(a,a).units</span>
 <span class="sd">            1.0*m</span>
 
@@ -222,19 +249,19 @@
 <span class="sd">                   in the argument list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c"># If has_units is applied on a function directly to make use of the</span>
-    <span class="c"># function&#39;s docstrings</span>
+    <span class="c1"># If has_units is applied on a function directly to make use of the</span>
+    <span class="c1"># function&#39;s docstrings</span>
 
-    <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="c">## Strip indentation/whitespace before and after each line of docstring</span>
+        <span class="c1"># Strip indentation/whitespace before and after each line of docstring</span>
         <span class="n">stripped_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                          <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span><span class="o">.</span><span class="n">expandtabs</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+                          <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">expandtabs</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
 
         <span class="n">unitted_inputlines</span><span class="p">,</span> <span class="n">unitted_outputlines</span> <span class="o">=</span> <span class="n">simple_parser</span><span class="p">(</span><span class="n">stripped_lines</span><span class="p">)</span>
 
-        <span class="c"># Process inputs and outputs to pass as parameters to _has_units</span>
-        <span class="c"># function</span>
+        <span class="c1"># Process inputs and outputs to pass as parameters to _has_units</span>
+        <span class="c1"># function</span>
         <span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">outputs_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">input_string</span> <span class="ow">in</span> <span class="n">unitted_inputlines</span><span class="p">:</span>
@@ -245,153 +272,165 @@
 
         <span class="k">return</span> <span class="n">_has_units</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">inputs_dict</span><span class="p">,</span> <span class="n">outputs_list</span><span class="p">)(</span><span class="n">func</span><span class="p">)</span>
 
-    <span class="k">else</span><span class="p">:</span> <span class="c"># func is None</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># func is None</span>
 
         <span class="n">inputs_dict</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="n">inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c"># fixme:  extremely lame -- no error detection.</span>
-            <span class="k">for</span> <span class="n">input_string</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># fixme:  extremely lame -- no error detection.</span>
+            <span class="k">for</span> <span class="n">input_string</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">input_string</span><span class="p">:</span>
                     <span class="nb">input</span> <span class="o">=</span> <span class="n">Variable</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
                     <span class="n">inputs_dict</span><span class="p">[</span><span class="nb">input</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">input</span>
 
         <span class="n">outputs_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">outputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">output_string</span> <span class="ow">in</span> <span class="n">outputs</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">outputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">output_string</span> <span class="ow">in</span> <span class="n">outputs</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">output_string</span><span class="p">:</span>
                     <span class="n">outputs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">output_string</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">outputs_list</span><span class="p">:</span>
-            <span class="n">outputs_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;result&quot;</span><span class="p">)]</span>
+            <span class="n">outputs_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;result&quot;</span><span class="p">)]</span>
 
-        <span class="k">return</span> <span class="n">_has_units</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">inputs_dict</span><span class="p">,</span> <span class="n">outputs_list</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">_has_units</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">inputs_dict</span><span class="p">,</span> <span class="n">outputs_list</span><span class="p">)</span></div>
+
+
 <span class="k">def</span> <span class="nf">_has_units</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">units_wrap</span><span class="p">(</span><span class="n">_func_</span><span class="p">):</span>
-        <span class="c"># This special-cases the output of numpy.vectorize</span>
+        <span class="c1"># This special-cases the output of numpy.vectorize</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_func_</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vectorize</span><span class="p">):</span>
-            <span class="n">thefunc</span> <span class="o">=</span> <span class="n">_func_</span><span class="o">.</span><span class="n">thefunc</span>
+            <span class="n">thefunc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_func_</span><span class="p">,</span> <span class="s1">&#39;pyfunc&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">thefunc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Perhaps an older version of numpy.</span>
+                <span class="n">thefunc</span> <span class="o">=</span> <span class="n">_func_</span><span class="o">.</span><span class="n">thefunc</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">thefunc</span> <span class="o">=</span> <span class="n">_func_</span>
 
-        <span class="n">name</span> <span class="o">=</span> <span class="n">thefunc</span><span class="o">.</span><span class="n">func_name</span>
-        <span class="n">define</span> <span class="o">=</span> <span class="n">def_signature</span><span class="p">(</span><span class="n">thefunc</span><span class="p">)</span> <span class="c">#@UnusedVariable</span>
-        <span class="n">call</span> <span class="o">=</span> <span class="n">call_signature</span><span class="p">(</span><span class="n">thefunc</span><span class="p">,</span> <span class="s">&#39;_func_&#39;</span><span class="p">)</span> <span class="c">#@UnusedVariable</span>
-        <span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">args_ordered</span> <span class="o">=</span> <span class="n">function_arguments</span><span class="p">(</span><span class="n">thefunc</span><span class="p">)</span> <span class="c">#@UnusedVariable</span>
-        <span class="n">args_string</span> <span class="o">=</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args_ordered</span><span class="p">)</span> <span class="c">#@UnusedVariable</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">thefunc</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">define</span> <span class="o">=</span> <span class="n">def_signature</span><span class="p">(</span><span class="n">thefunc</span><span class="p">)</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="n">call</span> <span class="o">=</span> <span class="n">call_signature</span><span class="p">(</span><span class="n">thefunc</span><span class="p">,</span> <span class="s1">&#39;_func_&#39;</span><span class="p">)</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">args_ordered</span> <span class="o">=</span> <span class="n">function_arguments</span><span class="p">(</span><span class="n">thefunc</span><span class="p">)</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="n">args_string</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args_ordered</span><span class="p">)</span>  <span class="c1"># @UnusedVariable</span>
 
-        <span class="c"># build list of units for the arguments</span>
-        <span class="c"># fixme: We should detect when someone has specified an input name</span>
-        <span class="c">#        that isn&#39;t actually used because it doesn&#39;t match an actual</span>
-        <span class="c">#        input name.</span>
-        <span class="c"># fixme: Should input_list and output_list be tuples to prevent people</span>
-        <span class="c">#        from mutating them.</span>
+        <span class="c1"># build list of units for the arguments</span>
+        <span class="c1"># fixme: We should detect when someone has specified an input name</span>
+        <span class="c1">#        that isn&#39;t actually used because it doesn&#39;t match an actual</span>
+        <span class="c1">#        input name.</span>
+        <span class="c1"># fixme: Should input_list and output_list be tuples to prevent people</span>
+        <span class="c1">#        from mutating them.</span>
         <span class="n">input_units</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">input_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args_ordered</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">inputs</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
                 <span class="n">input_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
                 <span class="n">input_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">arg</span><span class="p">]))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c"># If no units were specified for the variable, set them to</span>
-                <span class="c"># None, and put a Variable place holder for it in the</span>
-                <span class="c"># inputs list.</span>
-                <span class="n">input_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+                <span class="c1"># If no units were specified for the variable, set them to</span>
+                <span class="c1"># None, and put a Variable place holder for it in the</span>
+                <span class="c1"># inputs list.</span>
+                <span class="n">input_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
                 <span class="n">input_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="p">))</span>
 
-        <span class="c"># Build the output units list.</span>
+        <span class="c1"># Build the output units list.</span>
         <span class="n">output_units</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">units</span> <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
         <span class="n">output_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]</span>
 
-        <span class="c"># Here is the function wrapper, built from the values that we set up</span>
-        <span class="c"># above.</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-            <span class="s">&#39;$define&#39;</span><span class="p">,</span>
-            <span class="s">&#39;    # Only convert units if at least one of the inputs already has units.&#39;</span><span class="p">,</span>
-            <span class="s">&#39;    any_units = have_some_units($args_string)&#39;</span><span class="p">,</span>
-            <span class="s">&#39;    if any_units:&#39;</span><span class="p">,</span>
-            <span class="s">&#39;        $args_string = convert_units(input_units, $args_string)&#39;</span><span class="p">,</span>
-            <span class="s">&#39;        # Now remove the units.&#39;</span><span class="p">,</span>
-            <span class="s">&#39;        $args_string = strip_units($args_string)&#39;</span><span class="p">,</span>
-            <span class="s">&#39;    results = $call&#39;</span><span class="p">,</span>
-            <span class="s">&#39;    if any_units:&#39;</span><span class="p">,</span>
-            <span class="s">&#39;        if len(output_units) == 1:&#39;</span><span class="p">,</span>
-            <span class="s">&#39;            results = set_units(output_units, results)&#39;</span><span class="p">,</span>
-            <span class="s">&#39;        elif len(output_units) &gt; 1:&#39;</span><span class="p">,</span>
-            <span class="s">&#39;            results = set_units(output_units, *results)&#39;</span><span class="p">,</span>
-            <span class="s">&#39;    return results&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.func_name = thefunc.func_name&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.__doc__ = thefunc.__doc__&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.__module__ = thefunc.__module__&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.inputs = input_list[:]&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.outputs = output_list[:]&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.summary = summary&#39;</span><span class="p">,</span>
-            <span class="s">&#39;$name.doc = doc&#39;</span><span class="p">,</span>
-            <span class="p">]))</span>
+        <span class="c1"># Here is the function wrapper, built from the values that we set up</span>
+        <span class="c1"># above.</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+            <span class="s1">&#39;$define&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;    # Only convert units if at least one of the inputs already has units.&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;    any_units = have_some_units($args_string)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;    if any_units:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;        $args_string = convert_units(input_units, $args_string)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;        # Now remove the units.&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;        $args_string = strip_units($args_string)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;    results = $call&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;    if any_units:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;        if len(output_units) == 1:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;            results = set_units(output_units, results)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;        elif len(output_units) &gt; 1:&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;            results = set_units(output_units, *results)&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;    return results&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.__name__ = thefunc.__name__&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.__doc__ = thefunc.__doc__&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.__module__ = thefunc.__module__&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.inputs = input_list[:]&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.outputs = output_list[:]&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.summary = summary&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;$name.doc = doc&#39;</span><span class="p">,</span>
+        <span class="p">]))</span>
         <span class="n">code</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
 
-        <span class="c"># Create the namespace in which the code will be executed.</span>
-        <span class="c"># fixme: This might work fine if it were just locals()</span>
-        <span class="nb">vars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;thefunc&#39;</span><span class="p">:</span><span class="n">thefunc</span><span class="p">,</span>
-                <span class="s">&#39;_func_&#39;</span><span class="p">:</span> <span class="n">_func_</span><span class="p">,</span>
-                <span class="s">&#39;convert_units&#39;</span><span class="p">:</span> <span class="n">convert_units</span><span class="p">,</span>
-                <span class="s">&#39;set_units&#39;</span><span class="p">:</span> <span class="n">set_units</span><span class="p">,</span>
-                <span class="s">&#39;have_some_units&#39;</span><span class="p">:</span> <span class="n">have_some_units</span><span class="p">,</span>
-                <span class="s">&#39;strip_units&#39;</span><span class="p">:</span> <span class="n">strip_units</span><span class="p">,</span>
-                <span class="s">&#39;input_list&#39;</span><span class="p">:</span> <span class="n">input_list</span><span class="p">,</span>
-                <span class="s">&#39;output_list&#39;</span><span class="p">:</span> <span class="n">output_list</span><span class="p">,</span>
-                <span class="s">&#39;input_units&#39;</span><span class="p">:</span><span class="n">input_units</span><span class="p">,</span>
-                <span class="s">&#39;output_units&#39;</span><span class="p">:</span><span class="n">output_units</span><span class="p">,</span>
-                <span class="s">&#39;summary&#39;</span><span class="p">:</span><span class="n">summary</span><span class="p">,</span>
-                <span class="s">&#39;doc&#39;</span><span class="p">:</span><span class="n">doc</span><span class="p">,</span>
+        <span class="c1"># Create the namespace in which the code will be executed.</span>
+        <span class="c1"># fixme: This might work fine if it were just locals()</span>
+        <span class="nb">vars</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;thefunc&#39;</span><span class="p">:</span> <span class="n">thefunc</span><span class="p">,</span>
+                <span class="s1">&#39;_func_&#39;</span><span class="p">:</span> <span class="n">_func_</span><span class="p">,</span>
+                <span class="s1">&#39;convert_units&#39;</span><span class="p">:</span> <span class="n">convert_units</span><span class="p">,</span>
+                <span class="s1">&#39;set_units&#39;</span><span class="p">:</span> <span class="n">set_units</span><span class="p">,</span>
+                <span class="s1">&#39;have_some_units&#39;</span><span class="p">:</span> <span class="n">have_some_units</span><span class="p">,</span>
+                <span class="s1">&#39;strip_units&#39;</span><span class="p">:</span> <span class="n">strip_units</span><span class="p">,</span>
+                <span class="s1">&#39;input_list&#39;</span><span class="p">:</span> <span class="n">input_list</span><span class="p">,</span>
+                <span class="s1">&#39;output_list&#39;</span><span class="p">:</span> <span class="n">output_list</span><span class="p">,</span>
+                <span class="s1">&#39;input_units&#39;</span><span class="p">:</span> <span class="n">input_units</span><span class="p">,</span>
+                <span class="s1">&#39;output_units&#39;</span><span class="p">:</span> <span class="n">output_units</span><span class="p">,</span>
+                <span class="s1">&#39;summary&#39;</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span>
+                <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="n">doc</span><span class="p">,</span>
                 <span class="p">}</span>
-        <span class="k">exec</span> <span class="n">code</span> <span class="ow">in</span> <span class="nb">vars</span>
+        <span class="n">exec</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="nb">vars</span><span class="p">)</span>
 
-        <span class="c"># return freshly created wrapper version of the function.</span>
+        <span class="c1"># return freshly created wrapper version of the function.</span>
         <span class="k">return</span> <span class="nb">vars</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-    <span class="c"># Return the function decorator function (whew!)</span>
+    <span class="c1"># Return the function decorator function (whew!)</span>
     <span class="k">return</span> <span class="n">units_wrap</span>
 </pre></div>
 
           </div>
         </div>
-      </div>
-      <div class="sphinxsidebar">
+          </div>
+      <div class="spc-rightsidebar span3">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../index.html">
-              <img class="logo" src="../../../_static/e-logo-rev.png" alt="Logo"/>
+              <img class="logo" src="../../../_static/e-logo-rev.png" alt="Logo">
             </a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-      <div class="clearer"></div>
+        </div>
+      </div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li><a href="../../../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
-      </ul>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
     </div>
+    <div class="container">
     <div class="footer">
-        &copy; Copyright 2008-2011, Enthought.
-      Last updated on Jan 16, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre/65e4c29a24e4.
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
     </div>
   </body>
 </html>
