@@ -9,8 +9,8 @@ import numpy.distutils.core
 
 
 MAJOR = 4
-MINOR = 1
-MICRO = 3
+MINOR = 3
+MICRO = 0
 IS_RELEASED = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 VERSION_FILE_TEMPLATE = """\

@@ -1,6 +1,23 @@
 SciMath CHANGELOG
 =================
 
+Release 4.2.0
+-------------
+
+Released : 06 February 2019
+
+This minor release accumulates a large number of improvements, changes and
+bug fixes to the scimath codebase.
+
+A few highlights of this release are :
+
+* Support for Python 3
+
+* Enhancements to time units and the addition new units.
+
+* Support for newer versions of Numpy
+
+
 Change summary since 4.1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
