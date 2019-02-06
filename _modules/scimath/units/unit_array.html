@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scimath.units.unit_array &mdash; scimath 4.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '4.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../../../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../../../_static/et.ico">
+    <link rel="index" title="Index" href="../../../genindex.html" >
+    <link rel="search" title="Search" href="../../../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../../../index.html" >
+    <link rel="up" title="Module code" href="../../index.html" > 
+  </head>
+  <body>
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../../../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <h1>Source code for scimath.units.unit_array</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Numeric Library Imports</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># Enthought library imports</span>
+<span class="kn">from</span> <span class="nn">scimath.units</span> <span class="k">import</span> <span class="n">convert</span>
+<span class="kn">from</span> <span class="nn">scimath.units.unit</span> <span class="k">import</span> <span class="n">unit</span><span class="p">,</span> <span class="n">dimensionless</span><span class="p">,</span> <span class="n">IncompatibleUnits</span>
+<span class="kn">from</span> <span class="nn">scimath.units.unit_parser</span> <span class="k">import</span> <span class="n">unit_parser</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+
+<span class="k">def</span> <span class="nf">__newobj__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Unpickles new-style objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+
+<span class="n">_retain_units</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">absolute</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">negative</span><span class="p">,</span>
+                 <span class="n">numpy</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ceil</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">rint</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">conjugate</span><span class="p">,</span>
+                 <span class="n">numpy</span><span class="o">.</span><span class="n">maximum</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">minimum</span><span class="p">]</span>
+
+<span class="n">_retain_units_if_same</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [numpy.add, numpy.subtract]</span>
+
+<span class="n">_retain_units_if_single</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [numpy.multiply]</span>
+
+<span class="n">_retain_units_if_only_first</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">remainder</span><span class="p">]</span>  <span class="c1"># , numpy.divide]</span>
+
+
+<div class="viewcode-block" id="UnitArray"><a class="viewcode-back" href="../../../units/user_ref.html#scimath.units.unit_scalar.UnitArray">[docs]</a><span class="k">class</span> <span class="nc">UnitArray</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Define a UnitArray that subclasses from a Numpy array</span>
+
+<span class="sd">        This class simply adds a &quot;units&quot; object to a numpy array.  It deals</span>
+<span class="sd">        with unit adjustments involving basic arithmetic and comparison</span>
+<span class="sd">        operations between arrays with units.  If incompatible units are</span>
+<span class="sd">        used, an error will be raised.</span>
+
+<span class="sd">        Note that the &quot;units&quot; may hold some amount of the magnitude, which can</span>
+<span class="sd">        be particularly significant for dimensionless quantities.</span>
+
+<span class="sd">        You should always convert a UnitArray to the required units before</span>
+<span class="sd">        extracting the numerical value.</span>
+
+<span class="sd">        This code is shamelessly copied from the numpy matrix class.  It is</span>
+<span class="sd">        of course modified to suite our purposes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">##########################################################################</span>
+    <span class="c1"># numpy.ndarray attributes</span>
+    <span class="c1">##########################################################################</span>
+
+    <span class="c1"># priority-&gt;0.0 results in binary array ops returning UnitArray objects.</span>
+    <span class="n">__array_priority__</span> <span class="o">=</span> <span class="mf">10.0</span>
+
+    <span class="c1">##########################################################################</span>
+    <span class="c1"># UnitArray attributes</span>
+    <span class="c1">#</span>
+    <span class="c1"># Note: These are commented out because we are not using traits.  However,</span>
+    <span class="c1">#       They are left here for documentation.</span>
+    <span class="c1">##########################################################################</span>
+
+    <span class="c1"># Units specification.  it is a scimath.units.unit object, not a string.</span>
+    <span class="c1"># units = Instance(unit)</span>
+
+    <span class="c1"># &#39;type&#39; specifies the type of UnitArray.</span>
+    <span class="c1"># This could be useful for specifying that this is a &#39;tops&#39; UnitArray or of</span>
+    <span class="c1"># &#39;flag&#39; or other such types.  I am not sure if this is useful, but I</span>
+    <span class="c1"># think it might be.</span>
+    <span class="c1"># fixme: Not Implemented</span>
+    <span class="c1"># type = Str</span>
+
+    <span class="c1">##########################################################################</span>
+    <span class="c1"># object interface</span>
+    <span class="c1">##########################################################################</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; String representation using the repr of the unit.&quot;&quot;&quot;</span>
+        <span class="n">base_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_values_base_str</span><span class="p">()</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{klass}</span><span class="s2">(</span><span class="si">{val}</span><span class="s2">, units=&#39;</span><span class="si">{unit!r}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">klass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">klass</span><span class="o">=</span><span class="n">klass</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">base_str</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; String representation using the label of the unit.&quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{klass}</span><span class="s2"> (</span><span class="si">{unit}</span><span class="s2">): </span><span class="si">{val}</span><span class="s2">&quot;</span>
+        <span class="n">base_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_values_base_str</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">str_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">label</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">str_unit</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">klass</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">base_str</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">str_unit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__reduce_ex__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        pickling function for classes which inherit from tuple.</span>
+
+<span class="sd">        __reduce_ex__ must be overloaded for pickling to work. Refer to the docs</span>
+<span class="sd">        in the pickle source code for details as to why.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">state</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__reduce_ex__</span><span class="p">(</span><span class="n">protocol</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">__newobj__</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">()),</span> <span class="n">state</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        unpickling function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+
+    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="n">copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">units</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+        <span class="n">memo</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">=</span> <span class="n">copy</span>
+        <span class="k">return</span> <span class="n">copy</span>
+
+    <span class="c1">##########################################################################</span>
+    <span class="c1"># numpy.ndarray interface</span>
+    <span class="c1">##########################################################################</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Called when a new object is created (before __init__).</span>
+
+<span class="sd">            The default behavior of ndarray is overridden to add units and</span>
+<span class="sd">            family_name to the class.</span>
+
+<span class="sd">            For more details, see:</span>
+<span class="sd">                http://docs.python.org/ref/customization.html</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">### Array Setup #######################################################</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="c1"># Handle the case where we are passed in a numpy array.</span>
+            <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">intype</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">intype</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">intype</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">intype</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">copy</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">new</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Handle other input types (lists, etc.)</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">)</span>
+
+            <span class="n">res</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                                        <span class="n">buffer</span><span class="o">=</span><span class="n">arr</span><span class="p">)</span>
+
+        <span class="c1">### Configure Other Attributes ########################################</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="n">unit_parser</span><span class="o">.</span><span class="n">parse_unit</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+
+        <span class="n">res</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">__array_finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy any values that were on the original UnitArray into the output</span>
+<span class="sd">        UnitArray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+
+    <span class="k">def</span> <span class="nf">__array_wrap__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Behavior of getting units is</span>
+        <span class="c1">#   to retain units if</span>
+        <span class="c1">#  1) the function is in _retain_units list</span>
+        <span class="c1">#  2) the function is in _retain_units_if_same list</span>
+        <span class="c1">#     and the arguments either have the same units</span>
+        <span class="c1">#     or no units.</span>
+        <span class="c1">#  3) the function is in _retain_units_if_single list</span>
+        <span class="c1">#     and all but one argument does not have units</span>
+        <span class="c1">#     (or is dimensionless)</span>
+        <span class="c1">#  4) the function is in _retain_units_if_only_first</span>
+        <span class="c1">#     and all but the first argument does not have units</span>
+        <span class="c1">#     (or is dimensionless)</span>
+        <span class="c1">#  5) the function has a single argument which is dimensionless</span>
+        <span class="c1">#</span>
+        <span class="c1"># FIXME: To do this &quot;right&quot; would require a ufunc</span>
+        <span class="c1">#      object that could tell how to do unit conversions</span>
+        <span class="c1">#      with its inputs to produce its outputs.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iout</span> <span class="o">=</span> <span class="n">context</span>
+            <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_retain_units</span><span class="p">:</span>
+                <span class="n">theunit</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_retain_units_if_same</span><span class="p">:</span>
+                <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+                    <span class="n">u</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">u</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">theunit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">theunit</span> <span class="o">=</span> <span class="n">u</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">theunit</span> <span class="o">!=</span> <span class="n">u</span><span class="p">):</span>
+                        <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_retain_units_if_single</span><span class="p">:</span>
+                <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+                    <span class="n">u</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">u</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">theunit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">theunit</span> <span class="o">=</span> <span class="n">u</span>
+                        <span class="k">elif</span> <span class="n">u</span> <span class="o">!=</span> <span class="n">dimensionless</span><span class="p">:</span>  <span class="c1"># already a unit</span>
+                            <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_retain_units_if_only_first</span><span class="p">:</span>
+                <span class="n">theunit</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                    <span class="n">u</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">u</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">u</span> <span class="o">!=</span> <span class="n">dimensionless</span><span class="p">:</span>
+                        <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">break</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">theunit</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">theunit</span> <span class="o">!=</span> <span class="n">dimensionless</span><span class="p">:</span>
+                    <span class="n">theunit</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">theunit</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__convert_other</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="n">dimensionless</span><span class="p">)</span>
+        <span class="n">ou</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="n">dimensionless</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">su</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ou</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+                <span class="c1"># Handles 5 * liters</span>
+                <span class="n">ou</span> <span class="o">=</span> <span class="n">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">derivation</span><span class="p">)</span>
+                <span class="n">other</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">ou</span><span class="p">,</span> <span class="n">su</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UnitArray</span><span class="p">):</span>
+                <span class="c1"># Handles UnitArray or UnitScalar</span>
+                <span class="n">other</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">ou</span><span class="p">,</span> <span class="n">su</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
+                        <span class="n">other</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;derivation&#39;</span><span class="p">):</span>
+                    <span class="c1"># Handles array([1,2,3] * liters)</span>
+                    <span class="n">ou</span> <span class="o">=</span> <span class="n">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">derivation</span><span class="p">)</span>
+                    <span class="n">other</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">other</span> <span class="o">/</span> <span class="n">ou</span><span class="p">,</span> <span class="n">ou</span><span class="p">,</span> <span class="n">su</span><span class="p">)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">su</span>
+        <span class="k">return</span> <span class="n">other</span><span class="p">,</span> <span class="n">u</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the addition of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">u</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the reverse addition of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Addition is commutative</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the subtraction of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">u</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the reverse subtraction of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="n">dimensionless</span><span class="p">)</span>
+        <span class="n">ou</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="n">dimensionless</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">su</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ou</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_units</span><span class="p">(</span><span class="n">ou</span><span class="p">)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">ou</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="fm">__rsub__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">u</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the multiplication of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ou</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">su</span> <span class="ow">and</span> <span class="n">ou</span><span class="p">:</span>
+            <span class="c1"># note that there may be a scale factor in the units.</span>
+            <span class="c1"># This may be confusing for otherwise dimensionless</span>
+            <span class="c1"># quantities</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">su</span> <span class="o">*</span> <span class="n">ou</span>
+        <span class="k">elif</span> <span class="n">su</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">su</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ou</span>
+
+        <span class="c1"># If the units are only a scale factor, apply it to result and set</span>
+        <span class="c1"># to dimensionless</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">as_units</span><span class="p">(</span><span class="n">dimensionless</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the reverse multiplication of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># multiplication is commutative</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the division of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__truediv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ou</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">su</span> <span class="ow">and</span> <span class="n">ou</span><span class="p">:</span>
+            <span class="c1"># note that there may be a scale factor in the units.</span>
+            <span class="c1"># This may be confusing for otherwise dimensionless</span>
+            <span class="c1"># quantities, but the alternative is losing units like</span>
+            <span class="c1"># &#39;percent&#39;</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">su</span> <span class="o">/</span> <span class="n">ou</span>
+        <span class="k">elif</span> <span class="n">ou</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ou</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">su</span>
+
+        <span class="c1"># If the units are only a scale factor, apply it to result and set</span>
+        <span class="c1"># to dimensionless</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">as_units</span><span class="p">(</span><span class="n">dimensionless</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__rdiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the reverse division of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__rtruediv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ou</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">su</span> <span class="ow">and</span> <span class="n">ou</span><span class="p">:</span>
+            <span class="c1"># note that there may be a scale factor in the units.</span>
+            <span class="c1"># This may be confusing for otherwise dimensionless</span>
+            <span class="c1"># quantities</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ou</span> <span class="o">/</span> <span class="n">su</span>
+        <span class="k">elif</span> <span class="n">su</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">su</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ou</span>
+
+        <span class="c1"># If the units are only a scale factor, apply it to result and set</span>
+        <span class="c1"># to dimensionless</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">as_units</span><span class="p">(</span><span class="n">dimensionless</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the exponent operator of a unitted array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">or</span> \
+                <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">()):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UnitArray</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="n">dimensionless</span><span class="p">)</span> <span class="o">==</span> <span class="n">dimensionless</span><span class="p">:</span>
+                    <span class="n">other</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">IncompatibleUnits</span><span class="p">(</span><span class="s2">&quot;exponent must be dimensionless&quot;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__pow__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="n">su</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">su</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">su</span><span class="o">**</span><span class="n">other</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;exponent must be an integer, float or 0-d array&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the &#39;less or equal&#39; operator of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__le__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the &#39;less than&#39; operator of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__lt__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the &#39;greater or equal&#39; operator of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__ge__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the &#39;greater than&#39; operator of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__gt__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the &#39;equal&#39; operator of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the &#39;not equal&#39; operator of 2 unitted arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">other</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__ne__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1">##########################################################################</span>
+    <span class="c1"># UnitArray interface</span>
+    <span class="c1">##########################################################################</span>
+
+    <span class="c1">### Unit Conversion ######################################################</span>
+
+    <span class="k">def</span> <span class="nf">as_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_units</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Convert UnitArray from its current units to a new set of units.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="n">new_units</span><span class="p">))</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">new_units</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="c1"># Unit Conversion ########################################################</span>
+
+    <span class="k">def</span> <span class="nf">_get_values_base_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Build a string representation of the array values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># this is a little more complicated than it should be in order</span>
+        <span class="c1"># to be more resilient to changes to numpy ndarray API</span>
+        <span class="n">base_str</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">base_str</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">base_str</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">base_str</span> <span class="o">=</span> <span class="n">base_str</span><span class="p">[</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">base_str</span>
+
+    <span class="c1">##########################################################################</span>
+    <span class="c1"># static methods which wrap numpy builtin functions</span>
+    <span class="c1">##########################################################################</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">concatenate</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">sequences</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+</pre></div>
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../../index.html">
+              <img class="logo" src="../../../_static/e-logo-rev.png" alt="Logo">
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

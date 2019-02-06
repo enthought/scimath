@@ -1,22 +1,20 @@
+<!DOCTYPE html>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
     
-    <title>Introduction to SciMath Units &mdash; scimath 4.0.2 documentation</title>
+    <title>Introduction to SciMath Units &mdash; scimath 4.2.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.0.2',
+        VERSION:     '4.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,34 +23,63 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/et.ico"/>
-    <link rel="top" title="scimath 4.0.2 documentation" href="../index.html" />
-    <link rel="up" title="SciMath Units Documentation" href="index.html" />
-    <link rel="next" title="Units with Numpy" href="unit_numpy.html" />
-    <link rel="prev" title="Scimath Units User Manual Copyright Notice" href="about.html" /> 
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../_static/et.ico">
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../index.html" >
+    <link rel="up" title="SciMath Units Documentation" href="index.html" >
+    <link rel="next" title="Units with Numpy" href="unit_numpy.html" >
+    <link rel="prev" title="Scimath Units User Manual Copyright Notice" href="about.html" > 
   </head>
   <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="unit_numpy.html" title="Units with Numpy"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="about.html" title="Scimath Units User Manual Copyright Notice"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">SciMath Units Documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
 
-    <div class="document">
-      <div class="documentwrapper">
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="index.html" accesskey="U">SciMath Units Documentation</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="unit_numpy.html" title="Units with Numpy"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="about.html" title="Scimath Units User Manual Copyright Notice"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" id="spc-section-body">
             
   <div class="section" id="introduction-to-scimath-units">
 <h1>Introduction to SciMath Units<a class="headerlink" href="#introduction-to-scimath-units" title="Permalink to this headline">¶</a></h1>
@@ -60,10 +87,10 @@
 and scimath.units makes working with and converting among them easy.</p>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>We can import unit objects from the scimath.units submodules. (See <a class="reference internal" href="available_units.html#available-units"><em>list
-of available units</em></a> for a listing by submodule.) There are
+<p>We can import unit objects from the scimath.units submodules. (See <a class="reference internal" href="available_units.html#available-units"><span class="std std-ref">list
+of available units</span></a> for a listing by submodule.) There are
 submodules for many categories of physical quantities.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">foot</span><span class="p">,</span> <span class="n">inch</span><span class="p">,</span> <span class="n">meter</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="k">import</span> <span class="n">foot</span><span class="p">,</span> <span class="n">inch</span><span class="p">,</span> <span class="n">meter</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">*</span> <span class="n">foot</span>
 <span class="go">0.9144000000000001*m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foot</span> <span class="o">/</span> <span class="n">inch</span>
@@ -74,21 +101,21 @@ submodules for many categories of physical quantities.</p>
 </div>
 <p>Unit objects display natively in SI fundamental units and can be used to
 generate unit conversion factors or to see how units relate to one another.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.pressure</span> <span class="kn">import</span> <span class="n">pascal</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.pressure</span> <span class="k">import</span> <span class="n">pascal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pascal</span> <span class="o">*</span> <span class="n">meter</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="go">1.0*m*kg*s**-2</span>
 </pre></div>
 </div>
 <p id="conversion-factor-caveat"><strong>Caution</strong>: If you are using this tool to produce conversion factors, remember
 that the factor is the <em>inverse</em> of what it looks like. Above, we divided one
-foot by one meter to get the ratio 0.3048. That is, <tt class="docutils literal"><span class="pre">foot</span> <span class="pre">/</span> <span class="pre">meter</span></tt> yields the
+foot by one meter to get the ratio 0.3048. That is, <code class="docutils literal notranslate"><span class="pre">foot</span> <span class="pre">/</span> <span class="pre">meter</span></code> yields the
 number of meters per foot. Be careful to think through the logic clearly when
 developing conversion factors.</p>
 <p>You can define your own arbitrary units and use them for calculating conversion
 factors:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="kn">import</span> <span class="n">inch</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="kn">import</span> <span class="n">lbf</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.pressure</span> <span class="kn">import</span> <span class="n">torr</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="k">import</span> <span class="n">inch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="k">import</span> <span class="n">lbf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.pressure</span> <span class="k">import</span> <span class="n">torr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lbf</span> <span class="o">/</span> <span class="n">inch</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span> <span class="o">/</span> <span class="n">torr</span>
 <span class="go">103.44718363855331</span>
@@ -96,26 +123,26 @@ factors:</p>
 </div>
 <p>Internally, they are stored as a <em>derivation</em> of fundamental physical
 quantities expressed in the SI system</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_psi</span>
 <span class="go">13789.509579019157*m**-1*kg*s**-2</span>
 </pre></div>
 </div>
 <p>Conversions can be made between units with the same derivation using
-<a class="reference internal" href="user_ref.html#scimath.units.convert.convert" title="scimath.units.convert.convert"><tt class="xref py py-func docutils literal"><span class="pre">convert()</span></tt></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="kn">import</span> <span class="n">convert</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="kn">import</span> <span class="n">lbf</span><span class="p">,</span> <span class="n">newton</span>
+<a class="reference internal" href="user_ref.html#scimath.units.convert.convert" title="scimath.units.convert.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="k">import</span> <span class="n">convert</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="k">import</span> <span class="n">lbf</span><span class="p">,</span> <span class="n">newton</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lbf</span><span class="p">,</span> <span class="n">newton</span><span class="p">)</span>
 <span class="go">4.44822</span>
 </pre></div>
 </div>
-<p>However, adding incompatible units raises an <tt class="docutils literal"><span class="pre">IncompatibleUnits</span></tt> exception:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.electromagnetism</span> <span class="kn">import</span> <span class="n">volt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.mass</span> <span class="kn">import</span> <span class="n">kilogram</span>
+<p>However, adding incompatible units raises an <code class="docutils literal notranslate"><span class="pre">IncompatibleUnits</span></code> exception:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.electromagnetism</span> <span class="k">import</span> <span class="n">volt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.mass</span> <span class="k">import</span> <span class="n">kilogram</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="o">*</span> <span class="n">volt</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">kilogram</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
   File <span class="nb">&quot;scimath/units/unit.py&quot;</span>, line <span class="m">62</span>, in <span class="n">__add__</span>
-    <span class="k">raise</span> <span class="n">IncompatibleUnits</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">IncompatibleUnits</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 <span class="gr">scimath.units.unit.IncompatibleUnits</span>: <span class="n">Cannot add quanitites with units of &#39;m**2*kg*s**-3*A**-1&#39; and &#39;kg&#39;</span>
 </pre></div>
 </div>
@@ -125,13 +152,13 @@ quantities expressed in the SI system</p>
 
           </div>
         </div>
-      </div>
-      <div class="sphinxsidebar">
+          </div>
+      <div class="spc-rightsidebar span3">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/e-logo-rev.png" alt="Logo"/>
+              <img class="logo" src="../_static/e-logo-rev.png" alt="Logo">
             </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to SciMath Units</a><ul>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
@@ -146,47 +173,49 @@ quantities expressed in the SI system</p>
   <p class="topless"><a href="unit_numpy.html"
                         title="next chapter">Units with Numpy</a></p>
   <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/units/intro.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div>
+    <a href="../_sources/units/intro.rst.txt"
+       rel="nofollow">Show Source</a>
+  </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-      <div class="clearer"></div>
+        </div>
+      </div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="unit_numpy.html" title="Units with Numpy"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="about.html" title="Scimath Units User Manual Copyright Notice"
-             >previous</a> |</li>
-        <li><a href="../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
-          <li><a href="index.html" >SciMath Units Documentation</a> &raquo;</li> 
-      </ul>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
     </div>
+    <div class="container">
     <div class="footer">
-        &copy; Copyright 2008-2011, Enthought.
-      Last updated on Jan 16, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre/65e4c29a24e4.
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
     </div>
   </body>
 </html>

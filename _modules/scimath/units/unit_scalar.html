@@ -1,22 +1,20 @@
+<!DOCTYPE html>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
     
-    <title>scimath.units.unit_scalar &mdash; scimath 4.0.2 documentation</title>
+    <title>scimath.units.unit_scalar &mdash; scimath 4.2.0 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" >
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '4.0.2',
+        VERSION:     '4.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,38 +23,68 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../_static/et.ico"/>
-    <link rel="top" title="scimath 4.0.2 documentation" href="../../../index.html" />
-    <link rel="up" title="Module code" href="../../index.html" /> 
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../../../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../../../_static/et.ico">
+    <link rel="index" title="Index" href="../../../genindex.html" >
+    <link rel="search" title="Search" href="../../../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../../../index.html" >
+    <link rel="up" title="Module code" href="../../index.html" > 
   </head>
   <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li><a href="../../../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
 
-    <div class="document">
-      <div class="documentwrapper">
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../../../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" id="spc-section-body">
             
   <h1>Source code for scimath.units.unit_scalar</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">unit_array</span> <span class="kn">import</span> <span class="n">UnitArray</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">.unit_array</span> <span class="k">import</span> <span class="n">UnitArray</span>
 
-<span class="c"># `array(x)` behaves like `x`, so we get unitted scalars for free. Efficiency</span>
-<span class="c"># is of course a concern, but there are no other solutions in sight, and this</span>
-<span class="c"># one hangs ridiculously low.</span>
-<span class="c">#</span>
-<span class="c"># TODO Profile!</span>
-<span class="c">#</span>
+<span class="c1"># `array(x)` behaves like `x`, so we get unitted scalars for free. Efficiency</span>
+<span class="c1"># is of course a concern, but there are no other solutions in sight, and this</span>
+<span class="c1"># one hangs ridiculously low.</span>
+<span class="c1">#</span>
+<span class="c1"># TODO Profile!</span>
+<span class="c1">#</span>
+
+
 <div class="viewcode-block" id="UnitScalar"><a class="viewcode-back" href="../../../units/user_ref.html#scimath.units.unit_scalar.UnitScalar">[docs]</a><span class="k">class</span> <span class="nc">UnitScalar</span><span class="p">(</span><span class="n">UnitArray</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Scalars with units.</span>
+    <span class="sd">&quot;&quot;&quot; Scalars with units.</span>
 
 <span class="sd">        &gt;&gt;&gt; from scimath.units.length import cm</span>
 <span class="sd">        &gt;&gt;&gt; x = UnitScalar(5, units=cm)</span>
@@ -64,51 +92,71 @@
 <span class="sd">        (UnitScalar(5, units=&#39;0.01*m&#39;), 0.01*m)</span>
 <span class="sd">        &gt;&gt;&gt; x**2, (x**2).units</span>
 <span class="sd">        (UnitScalar(25, units=&#39;0.0001*m**2&#39;), 0.0001*m**2)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="s">&quot;UnitScalar(</span><span class="si">%s</span><span class="s">, units=&#39;</span><span class="si">%s</span><span class="s">&#39;)&quot;</span> 
-                <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(),</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)))</span></div>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{klass}</span><span class="s2">(</span><span class="si">{val}</span><span class="s2">, units=&#39;</span><span class="si">{unit}</span><span class="s2">&#39;)&quot;</span>
+        <span class="n">str_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+        <span class="n">klass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">klass</span><span class="o">=</span><span class="n">klass</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">str_val</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{klass}</span><span class="s2"> (</span><span class="si">{unit}</span><span class="s2">): </span><span class="si">{val}</span><span class="s2">&quot;</span>
+        <span class="n">str_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">str_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">label</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">str_unit</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">klass</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">str_val</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">str_unit</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
         </div>
-      </div>
-      <div class="sphinxsidebar">
+          </div>
+      <div class="spc-rightsidebar span3">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../index.html">
-              <img class="logo" src="../../../_static/e-logo-rev.png" alt="Logo"/>
+              <img class="logo" src="../../../_static/e-logo-rev.png" alt="Logo">
             </a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-      <div class="clearer"></div>
+        </div>
+      </div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li><a href="../../../index.html">scimath 4.0.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
-      </ul>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
     </div>
+    <div class="container">
     <div class="footer">
-        &copy; Copyright 2008-2011, Enthought.
-      Last updated on Jan 16, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2pre/65e4c29a24e4.
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
     </div>
   </body>
 </html>
