@@ -103,7 +103,8 @@ def cli():
 @cli.command()
 @click.option('--runtime', default='3.6')
 @click.option('--environment', default=None)
-def install(runtime, environment):
+@click.option('--docs/--no-docs', default=True)
+def install(runtime, environment, docs):
     """ Install project and dependencies into a clean EDM environment.
 
     """
@@ -119,7 +120,29 @@ def install(runtime, environment):
     ]
     click.echo("Creating environment '{environment}'".format(**parameters))
     execute(commands, parameters)
+    if docs:
+        commands = [
+            "edm run -e {environment} -- pip install -r ci-doc-requirements.txt",
+        ]
+        execute(commands, parameters)
+        click.echo("Installed enthought-sphinx-theme in {environment}".format(**parameters))
     click.echo('Done install')
+
+
+@cli.command()
+@click.option('--runtime', default='3.6')
+@click.option('--environment', default=None)
+def docs(runtime, environment):
+    """ Build the html documentation.
+
+    """
+    parameters = get_parameters(runtime, environment)
+    commands = [
+        "edm run -e {environment} -- sphinx-build -b html "
+        "-d build/doctrees source build/html",
+    ]
+    with do_in_existingdir(os.path.join(os.getcwd(), 'docs')):
+        execute(commands, parameters)
 
 
 @cli.command()
@@ -186,7 +209,8 @@ def test_clean(runtime):
 @click.option('--runtime', default='3.6')
 @click.option('--environment', default=None)
 def update(runtime, environment):
-    """ Update/Reinstall package into environment.
+    """ Update/Reinstall package into environment and optionally, install
+    additional ependencies needed to build the documentation.
 
     """
     parameters = get_parameters(runtime, environment)
@@ -230,6 +254,24 @@ def get_parameters(runtime, environment):
             **parameters
         )
     return parameters
+
+
+@contextmanager
+def do_in_existingdir(path):
+    """ Changes into an existing directory given by path.
+    On exit, changes back to the original directory.
+
+    Parameters
+    ----------
+    path : str
+        Path of the directory to be changed into.
+    """
+    old_path = os.getcwd()
+    os.chdir(path)
+    try:
+        yield path
+    finally:
+        os.chdir(old_path)
 
 
 @contextmanager
