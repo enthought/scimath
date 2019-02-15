@@ -1,0 +1,7 @@
+include CHANGES.txt
+include image_LICENSE_OOo.txt
+include image_LICENSE.txt
+include LICENSE.txt
+include README.rst
+recursive-include scimath/units/data/*
+recursive-include scimath/units/plugin/images/*
