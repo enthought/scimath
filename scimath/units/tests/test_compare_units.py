@@ -1,8 +1,6 @@
 from unittest import TestCase
 
 from scimath.units.api import dimensionless, UnitArray, UnitScalar
-from scimath.units.length import meter
-
 from scimath.units.compare_units import unit_arrays_almost_equal, \
     unit_scalars_almost_equal
 

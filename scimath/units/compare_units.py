@@ -1,9 +1,8 @@
-""" Utilities around unit conversion and unit management.
+""" Utilities around unit comparisons.
 """
-from six import string_types
 import numpy as np
 
-from scimath.units.api import convert, dimensionless, UnitArray, UnitScalar
+from scimath.units.api import convert, UnitArray, UnitScalar
 from scimath.units.unit import InvalidConversion
 
 
