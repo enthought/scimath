@@ -50,15 +50,15 @@ class TestUnitScalarAlmostEqual(TestCase):
 class TestUnitArraysAlmostEqual(TestCase):
     def test_wrong_type1(self):
         val1 = 1
-        val2 = UnitScalar(1., units="m")
+        val2 = UnitArray([1.], units="m")
         with self.assertRaises(ValueError):
-            unit_scalars_almost_equal(val1, val2)
+            unit_arrays_almost_equal(val1, val2)
 
     def test_wrong_type2(self):
-        val1 = UnitScalar(1., units="m")
+        val1 = UnitArray([1.], units="m")
         val2 = 1
         with self.assertRaises(ValueError):
-            unit_scalars_almost_equal(val1, val2)
+            unit_arrays_almost_equal(val1, val2)
 
     def test_values_identical(self):
         val1 = UnitArray([1., 2.], units="m")
@@ -72,15 +72,15 @@ class TestUnitArraysAlmostEqual(TestCase):
     def test_dimensionless(self):
         val1 = UnitArray([1.], units=dimensionless)
         val2 = UnitArray([1.], units="cm")
-        self.assertFalse(unit_scalars_almost_equal(val1, val2))
+        self.assertFalse(unit_arrays_almost_equal(val1, val2))
 
     def test_2_dimensionless(self):
         val1 = UnitArray([1.], units=dimensionless)
         val2 = UnitArray([1.], units="BLAH")
         val3 = UnitArray([100.], units="BLAH")
-        self.assertTrue(unit_scalars_almost_equal(val1, val1))
-        self.assertTrue(unit_scalars_almost_equal(val1, val2))
-        self.assertFalse(unit_scalars_almost_equal(val1, val3))
+        self.assertTrue(unit_arrays_almost_equal(val1, val1))
+        self.assertTrue(unit_arrays_almost_equal(val1, val2))
+        self.assertFalse(unit_arrays_almost_equal(val1, val3))
 
     def test_values_close_enough(self):
         val1 = UnitArray([1., 2.], units="m")
