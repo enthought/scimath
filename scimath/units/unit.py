@@ -61,6 +61,9 @@ class unit(object):
             self.derivation != other.derivation or\
             self.offset != other.offset
 
+    def __hash__(self):
+        return hash(("scimath.unit", self.value, self.derivation, self.offset))
+
     def __add__(self, other):
         if not self.derivation == other.derivation:
             raise IncompatibleUnits("add", self, other)
