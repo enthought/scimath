@@ -61,12 +61,8 @@ class unit(object):
             self.derivation != other.derivation or\
             self.offset != other.offset
 
-    # FIXME : This is a temporary workaround necessary to be able to hash
-    # `unit` instances on Python 3.
-    # A proper solution would be to generate the hash based on the contents
-    # of the `unit` object. See discussion on GitHub issue
-    # https://github.com/enthought/scimath/issues/87
-    __hash__ =  object.__hash__
+    def __hash__(self):
+        return hash(("scimath.unit", self.value, self.derivation, self.offset))
 
     def __add__(self, other):
         if not self.derivation == other.derivation:
