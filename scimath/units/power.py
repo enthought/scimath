@@ -12,16 +12,28 @@
 #
 
 from __future__ import absolute_import
-from .SI import watt, kilo
+from .SI import watt, kilo, mega, giga, tera, milli
 
 #
 # Definitions of common power units
 # Data taken from Appendix F of Halliday, Resnick, Walker, "Fundamentals of Physics",
 #     fourth edition, John Willey and Sons, 1993
 
+milliwatt = milli * watt
 kilowatt = kilo * watt
-kw = kilowatt
+megawatt = mega * watt
+gigawatt = giga * watt
+terawatt = tera * watt
 horsepower = 745.7 * watt
+
+# aliases
+
+mW = milliwatt
+W = watt
+kW = kilowatt
+MW = megawatt
+GW = gigawatt
+TW = terawatt
 
 
 # version
