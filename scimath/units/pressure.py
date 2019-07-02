@@ -42,7 +42,7 @@ kPa = kilopascal
 
 megapascal = mega * pascal
 megapascal.label = 'MPa'
-Mpa = megapascal
+MPa = megapascal
 mpa = MPa
 Mpa = MPa
 MPA = MPa
