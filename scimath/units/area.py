@@ -21,7 +21,9 @@ from .length import meter, centimeter, inch, foot, mile
 #     fourth edition, John Willey and Sons, 1993
 
 square_meter = meter**2
+square_meter.label = 'm2'
 square_centimeter = centimeter**2
+square_centimeter.label = 'cm2'
 
 square_foot = foot**2
 square_inch = inch**2
@@ -36,6 +38,7 @@ b = barn
 bn = barn
 barns = barn
 m2 = square_meter
+cm2 = square_centimeter
 
 # version
 __id__ = "$Id: area.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
