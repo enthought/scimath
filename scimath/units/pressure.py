@@ -12,7 +12,7 @@
 #
 
 from __future__ import absolute_import
-from .SI import pascal, kilo, mega, giga
+from .SI import pascal, hecto, kilo, mega, giga
 from scimath.units.force import lbf
 from scimath.units.length import inch
 from scimath.units.unit import unit
@@ -29,21 +29,27 @@ from scimath.units.unit import unit
 
 
 # aliases
-
+pascal.label = 'Pa'
 Pa = pascal
-Pa.label = 'Pa'
 
-kPa = kilo * pascal
-kPa.label = 'kPa'
+hectopascal = hecto * pascal
+hectopascal.label = 'hPa'
+hPa = hectopascal
 
-MPa = mega * pascal
-MPa.label = 'MPa'
+kilopascal = kilo * pascal
+kilopascal.label = 'kPa'
+kPa = kilopascal
+
+megapascal = mega * pascal
+megapascal.label = 'MPa'
+Mpa = megapascal
 mpa = MPa
 Mpa = MPa
 MPA = MPa
 
-GPa = giga * pascal
-GPa.label = 'GPa'
+gigapascal = giga * pascal
+gigapascal.label = 'GPa'
+GPa = gigapascal
 gpa = GPa
 Gpa = GPa
 GPA = GPa
@@ -61,10 +67,14 @@ kbar = kilobar
 kbars = kbar
 
 millibar = 100 * pascal
+millibar.label = 'mbar'
+mbar = millibar
 
 torr = 133.3 * pascal
-atmosphere = 101325 * pascal
+torr.label = 'torr'
 
+atmosphere = 101325 * pascal
+atmosphere.label = 'atm'
 atm = atmosphere
 
 pounds_per_square_inch = lbf / inch ** 2
