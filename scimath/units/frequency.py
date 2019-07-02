@@ -30,7 +30,7 @@ from .time import minute
 hertz.label = 'Hz'
 kilohertz = kilo * hertz
 kilohertz.label = 'kHz'
-megahertz = mega * hetz
+megahertz = mega * hertz
 megahertz.label = 'MHz'
 gigahertz = giga * hertz
 gigahertz.label = 'GHz'
