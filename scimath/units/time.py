@@ -77,6 +77,7 @@ milliseconds = millisecond
 
 minutes = minute
 hours = hour
+h = hour
 days = day
 weeks = week
 years = year
