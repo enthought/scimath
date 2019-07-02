@@ -47,6 +47,8 @@ meters_per_millisecond = meter / millisecond
 meters_per_millisecond.label = 'm/msec'
 kilometers_per_second = kilometer / second
 kilometers_per_second.label = 'km/s'
+kilometers_per_hour = kilometer / hour
+kilometers_per_hour.label = 'km/h'
 miles_per_hour = mile / hour
 miles_per_hour.label = 'mph'
 
