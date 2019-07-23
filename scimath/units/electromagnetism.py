@@ -31,16 +31,19 @@ milli_amp = milli_ampere
 
 volts = volt
 v = volt
+V = volt
 
 millivolt = milli * volt
 millivolt.label = 'mv'
 milli_volt = millivolt
 mv = millivolt
+mV = millivolt
 millivolts = millivolt
 
 kilovolt = kilo * volt
 kilovolt.label = 'kv'
 kv = kilovolt
+kV = kilovolt
 
 ###############################################################################
 # resistivity
@@ -63,11 +66,13 @@ ohms_per_meter = ohmm
 F = farad
 
 micro_farad = micro * farad
-micro_farad.label = 'uF'
+micro_farad.label = 'uf'
+mf = micro_farad
 mF = micro_farad
 
 pico_farad = pico * farad
-pico_farad.label = 'pF'
+pico_farad.label = 'pf'
+pf = pico_farad
 pF = pico_farad
 
 ###############################################################################
