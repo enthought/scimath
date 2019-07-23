@@ -54,10 +54,10 @@ miles_per_hour = mile / hour
 miles_per_hour.label = 'mph'
 
 # angular speeds
-radiants_per_second = radiant / second
-radiants_per_second.label = 'rad/s'
-radiants_per_minute = radiant / minute
-radiants_per_minute.label = 'rad/min'
+radians_per_second = radian / second
+radians_per_second.label = 'rad/s'
+radians_per_minute = radian / minute
+radians_per_minute.label = 'rad/min'
 revolutions_per_second = revolutions / second
 revolutions_per_second.label = 'rev/s'
 revolutions_per_minute = revolutions / minute
