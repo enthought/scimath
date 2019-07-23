@@ -27,8 +27,9 @@
 #############################################################################
 
 from __future__ import absolute_import
-from .time import hour, second, millisecond
+from .time import hour, minute, second, millisecond
 from .length import foot, kilometer, meter, nautical_mile, mile
+from .angle import radian, revolution
 
 #############################################################################
 # Definitions:
@@ -51,6 +52,17 @@ kilometers_per_hour = kilometer / hour
 kilometers_per_hour.label = 'km/h'
 miles_per_hour = mile / hour
 miles_per_hour.label = 'mph'
+
+# angular speeds
+radiants_per_second = radiant / second
+radiants_per_second.label = 'rad/s'
+radiants_per_minute = radiant / minute
+radiants_per_minute.label = 'rad/min'
+revolutions_per_second = revolutions / second
+revolutions_per_second.label = 'rev/s'
+revolutions_per_minute = revolutions / minute
+revolutions_per_minute.label = 'rev/min'
+rpm = revolutions_per_minute
 
 #############################################################################
 # Aliases:
