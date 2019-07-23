@@ -30,17 +30,17 @@ milli_amp = milli_ampere
 ###############################################################################
 
 volts = volt
-V = volt
+v = volt
 
 millivolt = milli * volt
-millivolt.label = 'mV'
+millivolt.label = 'mv'
 milli_volt = millivolt
-mV = millivolt
+mv = millivolt
 millivolts = millivolt
 
 kilovolt = kilo * volt
-kilovolt.label = 'kV'
-kV = kilovolt
+kilovolt.label = 'kv'
+kv = kilovolt
 
 ###############################################################################
 # resistivity
