@@ -76,6 +76,7 @@ microseconds = microsecond
 milliseconds = millisecond
 
 minutes = minute
+min = minute
 hours = hour
 h = hour
 days = day
