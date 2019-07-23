@@ -14,6 +14,7 @@ C = coulomb
 # electric current
 ###############################################################################
 
+A = ampere
 amp = ampere
 amps = ampere
 amperes = ampere
@@ -46,6 +47,8 @@ kV = kilovolt
 ###############################################################################
 
 ohms = ohm
+Ohm = ohm
+Ohms = ohms
 ohmm = ohm * meter
 ohmm.label = 'ohmm'
 ohm_m = ohmm
@@ -57,19 +60,22 @@ ohms_per_meter = ohmm
 # capacitance
 ###############################################################################
 
+F = farad
+
 micro_farad = micro * farad
-micro_farad.label = 'uf'
-mf = micro_farad
+micro_farad.label = 'uF'
+mF = micro_farad
 
 pico_farad = pico * farad
-pico_farad.label = 'pf'
-pf = pico_farad
+pico_farad.label = 'pF'
+pF = pico_farad
 
 ###############################################################################
 # conductivity
 ###############################################################################
 
 siemen = siemens
+S = siemens
 mSiemens = milli * siemens
 mSiemens.label = 'mS'
 mSiemen = mSiemens
@@ -90,15 +96,18 @@ mmho.label = 'mmho'
 ###############################################################################
 
 henrys = henry
+H = henry
 
 ###############################################################################
 # Magnetic Flux
 ###############################################################################
 
 webers = weber
+Wb = weber
 
 ###############################################################################
 # Magnetic Field
 ###############################################################################
 
 teslas = tesla
+T = tesla
