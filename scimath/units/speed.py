@@ -58,9 +58,9 @@ radians_per_second = radian / second
 radians_per_second.label = 'rad/s'
 radians_per_minute = radian / minute
 radians_per_minute.label = 'rad/min'
-revolutions_per_second = revolutions / second
+revolutions_per_second = revolution / second
 revolutions_per_second.label = 'rev/s'
-revolutions_per_minute = revolutions / minute
+revolutions_per_minute = revolution / minute
 revolutions_per_minute.label = 'rev/min'
 rpm = revolutions_per_minute
 
