@@ -5,8 +5,8 @@ from scimath.units.SI import *
 from scimath.units.dimensionless import fractional, fraction, frac, \
     percent, percentage, pct, parts_per_one, parts_per_million, ppm, ratio
 from scimath.units.electromagnetism import mho, millivolts, mmho, mSiemen, \
-    mS, mV, ohms, ohmm, ohm_m, ohm_meter, ohms_per_m, ohms_per_meter, \
-    siemen, siemens_per_meter, siemens_per_m, volts, V
+    mS, mv, ohms, ohmm, ohm_m, ohm_meter, ohms_per_m, ohms_per_meter, \
+    siemen, siemens_per_meter, siemens_per_m, volts, v
 from scimath.units.force import lbf, lbs, N
 from scimath.units.length import foot, inch, m, meter, kilometers
 from scimath.units.mass import grams, lb
