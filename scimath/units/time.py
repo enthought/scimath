@@ -79,6 +79,7 @@ minutes = minute
 hours = hour
 h = hour
 days = day
+d = day
 weeks = week
 years = year
 
