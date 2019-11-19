@@ -4,5 +4,5 @@ include image_LICENSE.txt
 include LICENSE.txt
 include README.rst
 include pyproject.toml
-recursive-include scimath/units/data/*
-recursive-include scimath/units/plugin/images/*
+recursive-include scimath/units/data *.txt
+recursive-include scimath/units/plugin/images *.txt *.png
