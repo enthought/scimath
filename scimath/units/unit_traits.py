@@ -9,7 +9,9 @@
 
 from __future__ import absolute_import
 
-from traits.api import Instance, TraitError, TraitType
+from traits.api import (
+    Instance, TraitError, TraitType, OBJECT_IDENTITY_COMPARE
+)
 
 from .unit import unit
 from .unit_manager import unit_manager
@@ -57,7 +59,7 @@ class UnitsTrait(TraitType):
         # This considers 'ft' to 'feet' to be a change, but more importantly
         # 'none' to 'gapi' or other units with the same derivation are
         # considered different.
-        metadata.setdefault('rich_compare', False)
+        metadata.setdefault('comparison_mode', OBJECT_IDENTITY_COMPARE)
         self.allow_none = allow_none
         self.is_strict = is_strict
         self.family_trait = family_trait
