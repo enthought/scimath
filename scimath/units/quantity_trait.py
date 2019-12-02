@@ -57,7 +57,7 @@ class QuantityTraitHandler (TraitHandler):
                 return value
         except:
             pass
-        self.error(object, name, self.repr(value))
+        self.error(object, name, value)
 
     def post_setattr(self, object, name, value):
         q = self.quantity
