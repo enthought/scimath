@@ -80,7 +80,7 @@ class QuantityHandler (TraitHandler):
                                 family_name=self.family_name)
         except:
             pass
-        self.error(object, name, self.repr(value))
+        self.error(object, name, value)
 
     def info(self):
         article = 'a'
