@@ -23,7 +23,7 @@
 
 from __future__ import absolute_import
 from traits.etsconfig.api import ETSConfig
-from traits.api import TraitHandler, Instance, true, Trait, Str
+from traits.api import TraitHandler, Instance, Bool, Trait, Str
 from traitsui.editor_factory import EditorFactory
 from scimath.units.unit_manager import unit_manager
 from scimath.units.quantity import Quantity
@@ -106,7 +106,7 @@ class ToolkitEditorFactory(EditorFactory):
     family_name = Str
     display_units = Instance(unit)
 
-    auto_set = true
+    auto_set = Bool(True)
 
     def init(self, *args):
         pass
