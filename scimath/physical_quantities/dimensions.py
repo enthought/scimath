@@ -22,7 +22,7 @@ from __future__ import division
 # Enthought module imports
 from __future__ import absolute_import
 from traits.api import (
-    HasTraits, String, DictStrFloat, Property, TraitType, TraitError,
+    HasTraits, String, Dict, Str, Float, Property, TraitType, TraitError,
     cached_property
 )
 
@@ -50,7 +50,7 @@ class Dimensions(HasTraits):
 
     # a dictionary holding dimension names and quantities
     # this should be frozen if you want to hash - don't change it
-    dimension_dict = DictStrFloat
+    dimension_dict = Dict(Str, Float)
 
     # the quantity type as an expression in powers of base dimensions
     expansion = Property(String, depends_on='dimension_dict')
