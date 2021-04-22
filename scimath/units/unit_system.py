@@ -40,7 +40,7 @@ class UnitSystem(HasTraits):
     families.  This is initially populated from the columns in the
     scimath/units/data/unit_families.txt file (by the unit_manager).
 
-    The common unit sytems are likely named 'KGS', 'IMPERIAL' etc.
+    The common unit systems are likely named 'KGS', 'IMPERIAL' etc.
     """
 
     # Unit System Traits

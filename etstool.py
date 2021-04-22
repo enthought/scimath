@@ -69,7 +69,7 @@ installed by `pip`).
 
 Other changes to commands should be a straightforward change to the listed
 commands for each task. See the EDM documentation for more information about
-how to run commands within an EDM enviornment.
+how to run commands within an EDM environment.
 
 """
 
