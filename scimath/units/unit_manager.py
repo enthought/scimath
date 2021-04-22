@@ -282,7 +282,7 @@ class UnitManager(HasPrivateTraits):
 
         if name == '':
             # No match yet...
-            # Try to more agressively match by checking for * and ? matches
+            # Try to more aggressively match by checking for * and ? matches
             for itm in self._wildcards:
                 if fnmatch(orig_name, itm):
                     name = itm

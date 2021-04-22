@@ -11,7 +11,7 @@
     of ft/s).  convert_units() does this as well as adding units to non-united
     objects.  On output, it is common to want to take objects that may not
     have units associated with them and convert them to a 'united' object
-    that has units assoicated with them set_units() does this.
+    that has units associated with them set_units() does this.
 """
 
 # Numeric library imports
@@ -21,7 +21,7 @@ from numpy import ndarray
 # Enthought library imports
 import scimath.units as units
 
-# Numerical modeling libary imports
+# Numerical modeling library imports
 from scimath.units.unit_array import UnitArray
 from scimath.units.unit_scalar import UnitScalar
 from six.moves import zip

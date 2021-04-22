@@ -60,7 +60,7 @@ def simple_parser(lines):
 def has_units(func=None, summary='', doc='', inputs=None, outputs=None):
     r"""Function decorator: Wrap a standard python function for unit
     conversion. Note that conversion arguments must be supplied through
-    the decorator aguments or in a formatted docstring as shown below.
+    the decorator arguments or in a formatted docstring as shown below.
 
         Parameters
         ----------
