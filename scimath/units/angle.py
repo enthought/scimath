@@ -36,6 +36,7 @@ deg = degree
 
 radian.label = 'rad'
 radians = radian
+rad = radian
 
 grad = degree * 0.9
 grad.label = '^g'
@@ -56,6 +57,7 @@ signs = sign
 revolution = 360 * degree
 revolution.label = 'r'
 revolutions = revolution
+rev = revolution
 circle = revolution
 circles = circle
 turn = circle

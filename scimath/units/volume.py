@@ -73,13 +73,14 @@ c3 = cubic_centimeter
 cm3 = cubic_centimeter
 cc = cm3
 
-m3 = V = cubic_meter
+m3 = cubic_meter
 
 f3 = cubic_foot
 ft3 = f3
 cuft = f3
 
 liters = liter
+l = liter
 
 bbl = barrel
 

@@ -12,7 +12,7 @@
 # Date: 05/22/2005
 # Description: Define units of frequency
 #
-# Symbols defined: hz, khz
+# Symbols defined: hz, khz, kHz, MHz, GHz
 #
 #------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
 # Imports:
 #############################################################################
 from __future__ import absolute_import
-from .SI import hertz, kilo
+from .SI import hertz, kilo, mega, giga
 from .time import minute
 
 #############################################################################
@@ -30,6 +30,10 @@ from .time import minute
 hertz.label = 'Hz'
 kilohertz = kilo * hertz
 kilohertz.label = 'kHz'
+megahertz = mega * hertz
+megahertz.label = 'MHz'
+gigahertz = giga * hertz
+gigahertz.label = 'GHz'
 
 rpm = 1 / minute
 rpm.label = 'rpm'
@@ -42,5 +46,8 @@ RPM = rpm
 hz = hertz
 Hz = hertz
 khz = kilohertz
+kHz = kilohertz
+MHz = megahertz
+GHz = gigahertz
 
 #### EOF ######################################################################
