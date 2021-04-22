@@ -3,7 +3,9 @@
 *.pyc
 *.pyd
 *.so
-*~
+*.cgi
+*.pl
+*.h
 .DS_Store
 
 # ignore the build directories
