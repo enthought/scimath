@@ -12,6 +12,7 @@ environment:
     - RUNTIME: '2.7'
     - RUNTIME: '3.5'
     - RUNTIME: '3.6'
+    - RUNTIME: '3.7'
 
 matrix:
   fast_finish: true
