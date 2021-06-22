@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 
 from copy import copy
-from six.moves.cPickle import dumps, loads
+from pickle import dumps, loads
 import timeit
 import unittest
 import operator

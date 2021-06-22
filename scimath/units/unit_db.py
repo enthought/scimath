@@ -26,7 +26,6 @@ from traits.util.resource import get_path
 
 # Local Imports:
 from scimath.units.unit_parser import unit_parser
-from six.moves import map
 
 
 logger = logging.getLogger(__name__)
