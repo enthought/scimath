@@ -96,5 +96,3 @@ centimeters = centimeter
 meters = meter
 kilometers = kilometer
 inches = IN = inch
-
-#### EOF ######################################################################

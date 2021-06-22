@@ -45,5 +45,3 @@ class SetUnitSystem(WorkbenchAction):
             UnitsPlugin.instance.set_default_unit_system(chooser.unit_system)
 
         return
-
-#### EOF ######################################################################

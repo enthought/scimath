@@ -84,5 +84,3 @@ liters = liter
 bbl = barrel
 
 gallon = gallons = us_fluid_gallon
-
-#### EOF ######################################################################

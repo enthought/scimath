@@ -126,5 +126,3 @@ def is_dimensionless(unit):
         return True
 
     return False
-
-### EOF #######################################################################

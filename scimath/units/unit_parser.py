@@ -303,5 +303,3 @@ class UnableToParseUnits(Exception):
         str = "Label '%s' is not a parseable unit string." % \
               (self.label)
         return str
-
-#### EOF #################################################################

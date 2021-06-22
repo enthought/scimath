@@ -62,5 +62,3 @@ m_per_s = meters_per_second
 m_per_sec = meters_per_second
 km_per_s = kilometers_per_second
 km_per_sec = kilometers_per_second
-
-#### EOF ######################################################################

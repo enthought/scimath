@@ -90,6 +90,3 @@ class StyleManager(HasPrivateTraits):
 
 # The as-yet unenforced singleton instance
 style_manager = StyleManager()
-
-
-#### EOF ######################################################################

@@ -71,5 +71,3 @@ class TraitsTestCase(TestCase):
         print('\n')
         mq.print_traits()
         return
-
-# EOF

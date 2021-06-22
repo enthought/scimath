@@ -74,6 +74,3 @@ class MetaQuantity(HasStrictTraits):
         """
         self.family_name = unit_manager.get_family_name(self.name)
         return
-
-
-# EOF
