@@ -58,6 +58,3 @@ g_per_cm3 = grams_per_cubic_centimeter
 gm_per_cm3 = grams_per_cubic_centimeter
 kg_per_m3 = kilograms_per_cubic_meter
 lb_per_gallon = lb_per_gal
-
-
-#### EOF ######################################################################

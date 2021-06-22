@@ -152,6 +152,3 @@ class UnitSystem(HasTraits):
 # Single copy of the standard unit system used by algorithms.
 
 #kgs = UnitSystem('KGS')
-
-
-##### EOF ################################################################

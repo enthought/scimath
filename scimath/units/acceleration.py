@@ -40,5 +40,3 @@ meters_per_second_squared.label = 'm/s^2'
 ft_per_s2 = feet_per_second_squared
 f_per_s2 = feet_per_second_squared
 m_per_s2 = meters_per_second_squared
-
-#### EOF ######################################################################

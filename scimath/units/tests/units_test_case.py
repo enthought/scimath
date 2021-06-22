@@ -463,6 +463,3 @@ class TestAngleUnits(unittest.TestCase):
 
         t1 = convert_str(1, 'deg', "rad")
         self.assertAlmostEqual(t1, numpy.pi / 180.)
-
-
-# EOF #########################################################################

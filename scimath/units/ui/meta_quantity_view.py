@@ -67,5 +67,3 @@ class MetaQuantityViewHandler(Handler):
             raise TraitError('invalid name %s' % name)
 
         return name
-
-# EOF

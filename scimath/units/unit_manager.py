@@ -505,5 +505,3 @@ class IncompatibleUnitFamilies(Exception):
         str = "Cannot convert across unit families: '%s' and '%s'" % \
               (self._toFamily, self._fromFamily)
         return str
-
-#### EOF ######################################################################

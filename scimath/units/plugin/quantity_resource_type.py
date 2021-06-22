@@ -53,5 +53,3 @@ class QuantityResourceType(ObjectResourceType):
         obj.name = name
 
         return
-
-##### EOF #####################################################################

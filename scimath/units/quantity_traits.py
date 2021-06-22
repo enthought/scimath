@@ -140,6 +140,3 @@ class ToolkitEditorFactory(EditorFactory):
                                       object=object,
                                       name=name,
                                       description=description)
-
-
-### EOF ##################################################################

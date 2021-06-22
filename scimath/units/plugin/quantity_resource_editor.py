@@ -43,6 +43,3 @@ class QuantityResourceEditor(TraitsUIEditor):
                      max(200, traits_ui.view.height))
 
         return traits_ui
-
-
-# EOF

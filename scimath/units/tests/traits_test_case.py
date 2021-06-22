@@ -317,5 +317,3 @@ class TraitsTestCase(TestCase):
         obj.print_traits()
 
         return
-
-# EOF

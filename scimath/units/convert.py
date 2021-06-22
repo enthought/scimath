@@ -140,6 +140,3 @@ def convert_str(value, from_unit_string, to_unit_string):
 def parser():
     from scimath.units import unit_parser
     return unit_parser.unit_parser()
-
-
-#### EOF ######################################################################

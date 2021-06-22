@@ -133,5 +133,3 @@ class NewQuantityResourcePage(WizardPage):
         self._validate()
 
         return
-
-#### EOF ######################################################################

@@ -21,5 +21,3 @@
 from __future__ import absolute_import
 from .convert import convert, parser
 from scimath.units.unit_manager import unit_manager
-
-#### EOF #################################################################

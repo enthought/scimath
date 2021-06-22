@@ -358,6 +358,3 @@ class Quantity(HasPrivateTraits):
             converted_data = data
 
         return converted_data
-
-
-#### EOF ###################################################################

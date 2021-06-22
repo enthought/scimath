@@ -95,5 +95,3 @@ class QuantityViewHandler(Handler):
                     break
 
         return
-
-# EOF
