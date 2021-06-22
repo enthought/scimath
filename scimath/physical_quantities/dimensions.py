@@ -124,7 +124,7 @@ class Dimensions(HasTraits):
             raise NotImplementedError
 
     def __pow__(self, other):
-        if isinstance(other, (float,) + int):
+        if isinstance(other, (float, int)):
             return Dimensions(dict_mul(self.dimension_dict, other))
         else:
             raise NotImplementedError
