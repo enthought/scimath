@@ -28,7 +28,6 @@
 #############################################################################
 
 
-from __future__ import absolute_import
 from .SI import meter
 from .SI import kilo, centi, milli, micro, nano
 

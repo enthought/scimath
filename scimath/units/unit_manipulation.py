@@ -15,7 +15,6 @@
 """
 
 # Numeric library imports
-from __future__ import absolute_import
 from numpy import ndarray
 
 # Enthought library imports

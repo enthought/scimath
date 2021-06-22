@@ -2,7 +2,6 @@
 
 
 # Enthought library imports.
-from __future__ import absolute_import
 from envisage.resource import ObjectNodeType
 from pyface.api import ImageResource
 

@@ -2,7 +2,6 @@
 
 
 # Enthought library imports.
-from __future__ import absolute_import
 from traits.api import Float, Instance, Str
 from scimath.units.family_name_trait import FamilyNameTrait
 

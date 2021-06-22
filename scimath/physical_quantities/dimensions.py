@@ -14,13 +14,7 @@ for a dimension of a physical quantity such as length, length*mass*time**-2,
 currency, etc.
 """
 
-# we don't want integer division when dealing with units
-from __future__ import division
-
-# Global module imports
-
 # Enthought module imports
-from __future__ import absolute_import
 from traits.api import (
     HasTraits, String, Dict, Str, Float, Property, TraitType, TraitError,
     cached_property

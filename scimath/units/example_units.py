@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from scimath.units.api import unit_parser
 from scimath.units.mass import kilogram
 

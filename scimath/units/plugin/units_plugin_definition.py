@@ -12,7 +12,6 @@
 ###############################################################################
 
 
-from __future__ import absolute_import
 from envisage.core.core_plugin_definition \
     import PluginDefinition, Preferences
 

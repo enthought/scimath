@@ -19,7 +19,6 @@
 #############################################################################
 # Imports:
 #############################################################################
-from __future__ import absolute_import
 from .SI import hertz, kilo
 from .time import minute
 

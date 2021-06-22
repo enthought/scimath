@@ -1,6 +1,4 @@
 # Standard library imports
-from __future__ import absolute_import
-
 from copy import copy
 from six.moves.cPickle import dumps, loads
 import timeit

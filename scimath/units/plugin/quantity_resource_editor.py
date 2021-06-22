@@ -1,7 +1,6 @@
 """ Resource editor for QuantityResourceType """
 
 
-from __future__ import absolute_import
 from traits.api import Instance
 from traitsui.api import Handler
 from traitsui.menu import NoButtons

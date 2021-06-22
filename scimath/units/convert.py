@@ -18,7 +18,6 @@
 #
 #------------------------------------------------------------------------------
 
-from __future__ import absolute_import
 import numpy
 from .unit import InvalidConversion
 
