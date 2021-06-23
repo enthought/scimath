@@ -59,8 +59,6 @@ docstring or visit the :ref:`User Reference page <user-ref>` for details on the
 syntax. The example above produces the following documentation entry when built
 with Sphinx:
 
-.. autofunction:: scimath.units.example.add
-
 Unitted function output
 -------------------------------------------------------------------------------
 
