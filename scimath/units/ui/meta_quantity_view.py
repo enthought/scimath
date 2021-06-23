@@ -7,7 +7,6 @@
 #
 #-----------------------------------------------------------------------------
 
-from __future__ import absolute_import
 from traits.api import Bool, TraitError
 from traitsui.api import EnumEditor, Handler, Item, List, View
 

@@ -1,9 +1,6 @@
 """
 """
-# we don't want integer division when dealing with units
-from __future__ import division
 
-from __future__ import absolute_import
 from numpy import array, log10
 
 from traits.api import HasTraits, Float, String, Unicode, Bool, \

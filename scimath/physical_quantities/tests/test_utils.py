@@ -1,5 +1,4 @@
 
-from __future__ import absolute_import
 from unittest import TestCase
 
 from scimath.physical_quantities.util import dict_add, dict_sub, dict_mul, \

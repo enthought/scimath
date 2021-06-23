@@ -10,11 +10,7 @@
 """Utility functions for physical quantities
 """
 
-# we don't want integer division when dealing with units
-from __future__ import division
-
 # Global module imports
-from __future__ import absolute_import
 from copy import copy
 
 

@@ -1,5 +1,4 @@
 # Numeric Library Imports
-from __future__ import absolute_import
 import numpy
 
 # Enthought library imports

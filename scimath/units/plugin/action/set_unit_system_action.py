@@ -1,6 +1,5 @@
 """ Set the system-wide default unit system. """
 # Standard library imports.
-from __future__ import absolute_import
 import logging
 
 # Enthought library imports.

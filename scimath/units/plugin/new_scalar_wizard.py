@@ -1,6 +1,5 @@
 """ A wizard that creates a new Scalar """
 
-from __future__ import absolute_import
 from traits.api import Instance
 
 from envisage.project.wizard import NewResourceWizard

@@ -2,7 +2,6 @@
 
 
 # Enthought library imports.
-from __future__ import absolute_import
 from envisage.resource import ObjectResourceType
 from traits.api import Instance
 from scimath.units.quantity import Quantity

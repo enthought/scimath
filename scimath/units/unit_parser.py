@@ -12,7 +12,6 @@
 #
 
 # Standard library imports.
-from __future__ import absolute_import
 import ast
 import logging
 import re

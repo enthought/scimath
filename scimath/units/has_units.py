@@ -1,5 +1,4 @@
 # Standard library imports
-from __future__ import absolute_import
 import copy
 from string import Template
 import re

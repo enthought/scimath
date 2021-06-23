@@ -3,7 +3,6 @@
 
 # Enthought library imports.
 
-from __future__ import absolute_import
 from envisage import get_application
 from envisage.project.action.open_cookie import OpenCookie
 

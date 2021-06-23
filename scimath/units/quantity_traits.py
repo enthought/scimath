@@ -21,7 +21,6 @@
 #  Imports:
 #------------------------------------------------------------------------------
 
-from __future__ import absolute_import
 from traits.etsconfig.api import ETSConfig
 from traits.api import TraitHandler, Instance, Bool, Trait, Str
 from traitsui.editor_factory import EditorFactory
