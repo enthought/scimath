@@ -417,17 +417,3 @@ class HasUnitsDecoratorTestCase(unittest.TestCase):
         self.assertTrue(isinstance(z, UnitScalar))
         self.assertEquals(z.units, meters)
         assert_array_almost_equal(z, 0.0)
-
-if __name__ == '__main__':
-    # profile the test suite.
-    import hotshot
-    import hotshot.stats
-    prof = hotshot.Profile("convert.prof")
-    prof.runcall(unittest.main)
-    prof.close()
-    stats = hotshot.stats.load("convert.prof")
-    stats.strip_dirs()
-    stats.sort_stats('time', 'calls')
-    stats.print_stats(20)
-    #import sys
-    # unittest.main(argv=sys.argv)

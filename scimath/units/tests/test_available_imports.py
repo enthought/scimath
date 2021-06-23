@@ -56,6 +56,3 @@ class GeoUnitsImportsTestCase(unittest.TestCase):
 
         for name in geo_imports:
             self.assertIn(name, available_now, msg=write_geo_err_msg(name))
-
-if __name__ == '__main__':
-    unittest.main()

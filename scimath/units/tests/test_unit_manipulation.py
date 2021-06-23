@@ -373,7 +373,3 @@ class StripUnitsTestCase(unittest.TestCase):
         self.assertEquals(len(outs), 4)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
-
-
-if __name__ == '__main__':
-    unittest.main()
