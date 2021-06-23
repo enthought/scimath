@@ -15,8 +15,6 @@
 
 
 # Standard library imports:
-from __future__ import absolute_import
-from __future__ import print_function
 import csv
 import os
 import logging
@@ -26,7 +24,6 @@ from traits.util.resource import get_path
 
 # Local Imports:
 from scimath.units.unit_parser import unit_parser
-from six.moves import map
 
 
 logger = logging.getLogger(__name__)
@@ -312,29 +309,3 @@ def cvt_unit(unit_label):
     """ Parse a unit description """
     units = unit_parser.parse_unit(unit_label)
     return units
-
-
-# Allow one-off smoke test if this file is executed stand-alone
-if __name__ == '__main__':
-
-    # Setup profiling if we can
-    try:
-        import enthought.gotcha as gotcha
-        gotcha.begin_profiling()
-
-        from scimath.units import unit_db
-
-        udb = gotcha.profile(unit_db.UnitDB)
-        print('Getting family members...')
-        gotcha.profile(udb.get_family_members_from_file)
-        print('Getting unit families...')
-        gotcha.profile(udb.get_unit_families_from_file)
-        print('Systems: %s' % udb.unit_systems)
-        print('Families: %s' % len(udb.preferred_names))
-        print('Members: %s' % len(udb.member_names))
-
-        gotcha.end_profiling()
-    except ImportError:
-        print('Unable to provide a profile -- enthought.gotcha not found.')
-
-        from scimath.units import unit_db

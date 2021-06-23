@@ -2,10 +2,6 @@
     function objects.
 """
 
-from __future__ import absolute_import
-from six.moves import zip
-
-
 def function_arguments(func):
     """ Given a function, return its args, keywords, and full argument list.
 

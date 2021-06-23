@@ -14,13 +14,7 @@ for a dimension of a physical quantity such as length, length*mass*time**-2,
 currency, etc.
 """
 
-# we don't want integer division when dealing with units
-from __future__ import division
-
-# Global module imports
-
 # Enthought module imports
-from __future__ import absolute_import
 from traits.api import (
     HasTraits, String, Dict, Str, Float, Property, TraitType, TraitError,
     cached_property
@@ -28,7 +22,6 @@ from traits.api import (
 
 # local imports
 from .util import dict_mul, dict_add, dict_sub, format_expansion
-import six
 
 
 class Dimensions(HasTraits):
@@ -125,7 +118,7 @@ class Dimensions(HasTraits):
             raise NotImplementedError
 
     def __pow__(self, other):
-        if isinstance(other, (float,) + six.integer_types):
+        if isinstance(other, (float, int)):
             return Dimensions(dict_mul(self.dimension_dict, other))
         else:
             raise NotImplementedError
@@ -140,7 +133,7 @@ class Dim(TraitType):
             return value
         if isinstance(value, dict):
             return Dimensions(value)
-        if isinstance(value, six.string_types):
+        if isinstance(value, str):
             try:
                 return Dimensions.from_expansion(value)
             except InvalidExpansionError:

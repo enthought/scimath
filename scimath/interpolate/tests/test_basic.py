@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-from __future__ import print_function
 import unittest
 import time
 
@@ -69,7 +67,3 @@ class Test(unittest.TestCase):
                              [0, 1, 2, 3, 4],
                              [0, 1, 2, 3, 4],
                              [0, 1, 2, 3, 4]])
-
-
-if __name__ == '__main__':
-    unittest.main()

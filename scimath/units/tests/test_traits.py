@@ -7,8 +7,6 @@
 #
 #-----------------------------------------------------------------------------
 
-from __future__ import absolute_import
-from __future__ import print_function
 from unittest import TestCase
 
 from traits.api import HasTraits, TraitError

@@ -9,8 +9,6 @@ environment:
 
   matrix:
 
-    - RUNTIME: '2.7'
-    - RUNTIME: '3.5'
     - RUNTIME: '3.6'
 
 matrix:

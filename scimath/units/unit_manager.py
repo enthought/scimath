@@ -21,7 +21,6 @@
 #############################################################################
 
 # Standard library imports.
-from __future__ import absolute_import
 from fnmatch import fnmatch
 import logging
 
@@ -36,7 +35,6 @@ from scimath.units.unit_converter import default_unit_converters
 from scimath.units.convert import convert as unit_convert
 from .unit import unit
 from .unit_parser import unit_parser
-import six
 
 
 logger = logging.getLogger(__name__)
@@ -168,7 +166,7 @@ class UnitManager(HasPrivateTraits):
         Probably called when the project is loaded.
 
         """
-        if isinstance(system, six.string_types):
+        if isinstance(system, str):
             self.default_system = self.lookup_system(system.upper())
 
         elif isinstance(system, UnitSystem):
@@ -210,7 +208,7 @@ class UnitManager(HasPrivateTraits):
             if isinstance(system, UnitSystem):
                 result = system
             # case #2 - system specified as a string eg 'IMPERIAL'
-            elif isinstance(system, six.string_types):
+            elif isinstance(system, str):
                 result = self.lookup_system(system.upper())
             # case #3 - no system supplied so use the unit_manager's default
             elif system is None:
@@ -368,7 +366,7 @@ class UnitManager(HasPrivateTraits):
         elif isinstance(units, unit):
             units_label = units.label
 
-        elif isinstance(units, six.string_types):
+        elif isinstance(units, str):
             units_label = units
             units = unit_parser.parse_unit(units)
 
@@ -479,7 +477,7 @@ class UnitManager(HasPrivateTraits):
     # TODO: this method does not seem to ever be called--consider deleting.
     def _convert(self, value, from_units, to_units):
 
-        if isinstance(value, six.string_types):
+        if isinstance(value, str):
             converted_data = value.data
         elif isinstance( value, numpy.ndarray) and \
                 value.dtype.char == 'S':
