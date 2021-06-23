@@ -10,8 +10,6 @@ env:
 
 matrix:
   include:
-    - env: RUNTIME=2.7
-    - env: RUNTIME=3.5
     - env: RUNTIME=3.6
   fast_finish: true
 
