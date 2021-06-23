@@ -23,7 +23,6 @@ import scimath.units as units
 # Numerical modeling library imports
 from scimath.units.unit_array import UnitArray
 from scimath.units.unit_scalar import UnitScalar
-from six.moves import zip
 
 
 def manipulate_units(units, converters, *args):

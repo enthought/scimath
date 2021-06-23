@@ -54,7 +54,7 @@ using::
 
     python etstool.py test_all
 
-Currently supported runtime values are ``2.7`` and ``3.5``.
+Currently supported runtime values are ``3.6``.
 
 Tests can still be run via the usual means in other environments if that suits
 a developer's purpose.
@@ -84,7 +84,7 @@ from contextlib import contextmanager
 
 import click
 
-supported_runtimes = ['2.7', '3.5', '3.6']
+supported_runtimes = ['3.6']
 
 dependencies = {
     "numpy",

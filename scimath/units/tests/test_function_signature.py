@@ -183,6 +183,3 @@ class FunctionSignatureTestCase(unittest.TestCase):
         self.assertEquals(
             def_signature(args_and_kwds),
             "def args_and_kwds(x, z=1, y=2):")
-
-if __name__ == '__main__':
-    unittest.main()

@@ -1,7 +1,6 @@
 import numpy
 
 from . import _interpolate
-from six.moves import range
 
 
 def make_array_safe(ary, typecode):

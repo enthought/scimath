@@ -67,7 +67,3 @@ class Test(unittest.TestCase):
                              [0, 1, 2, 3, 4],
                              [0, 1, 2, 3, 4],
                              [0, 1, 2, 3, 4]])
-
-
-if __name__ == '__main__':
-    unittest.main()

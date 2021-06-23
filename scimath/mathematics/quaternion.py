@@ -13,7 +13,6 @@
 
 # Major library imports.
 import numpy as np
-from six.moves import map
 
 
 def normq(quat):

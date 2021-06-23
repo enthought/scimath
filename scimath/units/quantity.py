@@ -30,7 +30,6 @@ from scimath.units.smart_unit import SmartUnit
 from scimath.units.unit_parser import unit_parser
 from scimath.units.unit_manager import unit_manager
 from scimath.units.family_name_trait import FamilyNameTrait
-import six
 
 
 # Setup a logger for this module.
@@ -118,7 +117,7 @@ class Quantity(HasPrivateTraits):
 
         # Allow for parsing a unit string as the units argument
         else:
-            if isinstance(units, six.string_types):
+            if isinstance(units, str):
                 units = unit_parser.parse_unit(units, suppress_warnings=False)
 
         if 'family_name' not in traits:
@@ -346,7 +345,7 @@ class Quantity(HasPrivateTraits):
         if isinstance(data, Quantity):
             # if data is a string or an array of strings, ignore the conversion
             # because convert will fail for string data
-            if isinstance(data.data, six.string_types):
+            if isinstance(data.data, str):
                 converted_data = data.data
             elif isinstance(data.data, numpy.ndarray) \
                     and data.data.dtype.char == 'S':
