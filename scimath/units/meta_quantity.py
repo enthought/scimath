@@ -9,7 +9,6 @@
 
 """ The specification for Quantity objects. """
 
-from __future__ import absolute_import
 from traits.api import HasStrictTraits, Str
 
 from .unit_traits import UnitsTrait

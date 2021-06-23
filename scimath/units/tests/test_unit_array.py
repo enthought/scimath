@@ -1,8 +1,6 @@
 # Standard library imports
-from __future__ import absolute_import
-
 from copy import copy
-from six.moves.cPickle import dumps, loads
+from pickle import dumps, loads
 import timeit
 import unittest
 import operator
@@ -468,7 +466,3 @@ class PassUnitsTestCase(unittest.TestCase):
         self.assertEqual(result[0], True)
         self.assertEqual(result[1], False)
         self.assertEqual(result[2], True)
-
-if __name__ == '__main__':
-    import sys
-    unittest.main(argv=sys.argv)

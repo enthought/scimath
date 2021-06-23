@@ -9,7 +9,6 @@
 
 """ Public API for units system. """
 
-from __future__ import absolute_import
 from scimath.units.unit_manager import unit_manager
 from scimath.units.unit_system import UnitSystem
 from scimath.units.unit_parser import unit_parser

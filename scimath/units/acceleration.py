@@ -20,7 +20,6 @@
 #####################################################################
 # Imports:
 #####################################################################
-from __future__ import absolute_import
 from .length import meter, foot
 from .time import second
 

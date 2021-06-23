@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from copy import copy
 
 from scimath.units.SI import ampere, coulomb, farad, henry, joule, ohm, \

@@ -1,5 +1,4 @@
 # Standard Library imports
-from __future__ import absolute_import
 import unittest
 
 # Enthought Library imports
@@ -56,6 +55,3 @@ class GeoUnitsImportsTestCase(unittest.TestCase):
 
         for name in geo_imports:
             self.assertIn(name, available_now, msg=write_geo_err_msg(name))
-
-if __name__ == '__main__':
-    unittest.main()

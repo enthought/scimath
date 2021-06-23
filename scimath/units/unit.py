@@ -16,11 +16,9 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-from __future__ import absolute_import
 import operator
 
 import numpy
-from six.moves import map
 
 
 class unit(object):

@@ -1,9 +1,6 @@
-from __future__ import absolute_import
-from __future__ import print_function
 import numpy
 
 from . import _interpolate
-from six.moves import range
 
 
 def make_array_safe(ary, typecode):

@@ -12,8 +12,6 @@
 quantities in various unit systems.
 """
 
-from __future__ import absolute_import
-
 from traits.api import TraitError, TraitType
 
 from .unit_manager import unit_manager
