@@ -6,7 +6,6 @@ import numpy
 from scimath.units import convert
 from scimath.units.unit import unit, dimensionless, IncompatibleUnits
 from scimath.units.unit_parser import unit_parser
-import six
 
 
 def __newobj__(cls, *args):
@@ -157,7 +156,7 @@ class UnitArray(numpy.ndarray):
                                         buffer=arr)
 
         ### Configure Other Attributes ########################################
-        if isinstance(units, six.string_types):
+        if isinstance(units, str):
             units = unit_parser.parse_unit(units)
 
         res.units = units
