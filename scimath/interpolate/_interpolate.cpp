@@ -262,8 +262,13 @@ static PyMethodDef interpolate_methods[] = {
 PyMODINIT_FUNC PyInit__interpolate(void)
 {
     PyObject* m;
-    static struct PyModuleDef moduledef = { \
-        PyModuleDef_HEAD_INIT, "_interpolate", "A few interpolation routines.\n", -1, interpolate_methods, }; \
+    static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "_interpolate",
+        "A few interpolation routines.\n",
+        -1,
+        interpolate_methods,
+    };
     m = PyModule_Create(&moduledef);
     if (m == NULL)
         return NULL;
