@@ -13,7 +13,7 @@ env:
 jobs:
 
   # Test against EDM packages
-  test-with-edm:
+  test-bleeding-edge:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
