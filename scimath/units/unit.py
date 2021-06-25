@@ -1,20 +1,21 @@
 #!/usr/bin/env python
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
+# All rights reserved.
 #
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# This software is provided without warranty under the terms of the BSD
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
+# is also available online at http://www.enthought.com/licenses/BSD.txt
 #
-#                               Michael A.G. Aivazis
-#                        California Institute of Technology
-#                        (C) 1998-2003  All Rights Reserved
+# Thanks for using Enthought open source!
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# <LicenseText>
+#                             Michael A.G. Aivazis
+#                      California Institute of Technology
+#                      (C) 1998-2003  All Rights Reserved
 #
-# Modified: 2005-5-23, Travis N. Vaught, Added dim and none aliases for
-#                                        dimensionless units
-#           2005-7-1, Travis N. Vaught, Added __eq__ function from Lowell's
-#                     optimization pass
-#
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import operator
 

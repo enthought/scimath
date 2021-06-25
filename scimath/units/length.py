@@ -1,27 +1,19 @@
-#------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
-# license included in enthought/LICENSE.txt and may be redistributed only
-# under the conditions described in the aforementioned license.  The license
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
+#
 # Thanks for using Enthought open source!
-#
-# Author: Travis N. Vaught
-# Date: 05/22/2005
-# Description: Define units of length
-#
-# Derived from: units/length.py [pyre system]
-#               Michael A.G. Aivazis
-#               California Institute of Technology
-#               (c) 1998-2003
-#
-# Symbols defined: nano- micro- milli- centi- kilo-...meter [and variants]
-#                  inch, foot, yard, mile, fathom, nautical_mile
-#                  angstrom, fermi, astronomical_unit, light_year, parsec,
-#
-#------------------------------------------------------------------------------
+
+""" Defines units of length
+Derived from: units/length.py [pyre system]
+              Michael A.G. Aivazis
+              California Institute of Technology
+              (c) 1998-2003
+"""
 
 #############################################################################
 # Imports:

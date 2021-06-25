@@ -1,22 +1,17 @@
-#-------------------------------------------------------------------------
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
+# All rights reserved.
 #
-#  ===========================
-#  Units Library
-#  ===========================
+# This software is provided without warranty under the terms of the BSD
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
+# is also available online at http://www.enthought.com/licenses/BSD.txt
 #
-#  basic units library
+# Thanks for using Enthought open source!
+
 #  Author: Michael A.G. Aivazis
 #  California Institute of Technology  - (C) 1998-2003  All Rights Reserved
-#
-#  Enthought physical 'units' package
-#  Adds UnitManager et al
-#  (c) Copyright 2005-11 by Enthought Inc.
-#
-#-------------------------------------------------------------------------
-""" Unit definitions and management utilities.
 
-    Part of the SciMath project of the Enthought Tool Suite.
-    http://github.enthought.com/scimath/units/index.html
+""" Unit definitions and management utilities.
 """
 from .convert import convert, parser
 from scimath.units.unit_manager import unit_manager

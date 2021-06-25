@@ -1,20 +1,16 @@
-#------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
-# license included in enthought/LICENSE.txt and may be redistributed only
-# under the conditions described in the aforementioned license.  The license
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
+#
 # Thanks for using Enthought open source!
-#
-# Author: David C. Morrill
-# Date: 08/11/2005
-# Description: Defines an AQuantity trait with supporting editors for use with
-#              objects containing Quantity values.
-#
-#------------------------------------------------------------------------------
 
+""" Defines an AQuantity trait with supporting editors for use with
+objects containing Quantity values.
+"""
 #-------------------------------------------------------------------------
 #  Imports:
 #-------------------------------------------------------------------------
