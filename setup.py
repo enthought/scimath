@@ -2,10 +2,10 @@
 # All rights reserved.
 import os
 import re
-from setuptools import find_packages, setup
+from setuptools import Extension, find_packages, setup
 from subprocess import check_output
 
-import numpy.distutils.core
+from numpy import get_include
 
 
 MAJOR = 4
@@ -89,25 +89,6 @@ def write_version_py(filename=DEFAULT_VERSION_FILE,
     return fullversion
 
 
-# Setup our extensions to Python.
-def configuration(parent_package='', top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration(None, parent_package, top_path)
-    config.set_options(
-        ignore_setup_xxx_py=True,
-        assume_default_configuration=True,
-        delegate_options_to_subpackages=True,
-        quiet=True,
-    )
-
-    config.add_subpackage('scimath.interpolate')
-    config.add_subpackage('scimath')
-
-    config.add_data_dir('scimath/units/data')
-
-    return config
-
-
 DEPENDENCIES = [
     'traits',
     'scipy',
@@ -117,15 +98,19 @@ DEPENDENCIES = [
 if __name__ == "__main__":
     __version__ = write_version_py()
 
-    # Build the full set of packages by appending any found by setuptools'
-    # find_packages to those discovered by numpy.distutils.
-    config = configuration().todict()
-    packages = find_packages(exclude=config['packages'] +
-                                        ['docs', 'examples'])
-    config['packages'] += packages
+
+    # Register Python extensions
+    interpolate = Extension(
+        'scimath.interpolate._interpolate',
+        sources=['scimath/interpolate/_interpolate.cpp'],
+        include_dirs=[get_include(), 'scimath/interpolate'],
+        depends=['interpolate.h']
+    )
+
+    extensions = [interpolate] 
 
     # The actual setup call.
-    numpy.distutils.core.setup(
+    setup(
         name = 'scimath',
         version = __version__,
         author = 'Enthought, Inc',
@@ -153,10 +138,11 @@ if __name__ == "__main__":
             """.splitlines() if len(c.split()) > 0],
         description = 'scientific and mathematical calculations',
         long_description = open('README.rst').read(),
+        ext_modules=extensions,
+        packages=find_packages(exclude=['docs', 'examples']),
         install_requires = DEPENDENCIES,
         license = "BSD",
-        package_data = {'': ['images/*', 'data/*']},
+        package_data = {'': ['images/*', 'data/*', 'scimath/units/data/*']},
         platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
         zip_safe = False,
-        **config
     )
