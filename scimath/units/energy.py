@@ -52,10 +52,3 @@ GeV = giga * eV
 
 cal = calorie
 kcal = kilo * calorie
-
-
-# version
-__id__ = "$Id: energy.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
-
-#
-# End of file

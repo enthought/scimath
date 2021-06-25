@@ -34,9 +34,3 @@ barn = 1e-28 * square_meter
 b = barn
 bn = barn
 barns = barn
-
-# version
-__id__ = "$Id: area.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
-
-#
-# End of file
