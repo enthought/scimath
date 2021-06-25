@@ -90,7 +90,6 @@ dependencies = {
     "numpy",
     "scipy",
     "traits",
-    "nose",
     "coverage",
 }
 
