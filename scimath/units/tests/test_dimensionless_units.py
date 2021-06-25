@@ -6,7 +6,7 @@ from scimath.units.unit import dimensionless
 
 
 class DimensionlessTestCase(unittest.TestCase):
-    def dimensionless_test(self):
+    def test_dimensionless(self):
         """
         Test the modification to the division, multiplication and pow
         such that a dimensionless quantity formed by is indeed dimensionless
