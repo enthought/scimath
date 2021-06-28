@@ -3,7 +3,6 @@
 #  Define the Unit information database access class
 #
 #  Written by: Travis N. Vaught
-#              based on cp/log/log_info.py by David C. Morrill
 #
 #  Date: 06/15/2005
 #
