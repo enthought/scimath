@@ -51,7 +51,6 @@ class QuantityViewHandler(Handler):
         if not is_ok:
             qty = info.ui.context['object']
             qty.copy_traits(self.original)
-        return
 
     def setattr(self, info, object, name, value):
         """ Handles setting a specified object trait's value.
@@ -77,8 +76,6 @@ class QuantityViewHandler(Handler):
 
         super(QuantityViewHandler, self).setattr(info, object, name, value)
 
-        return
-
     def object_family_name_changed(self, info):
         """ Family name has changed, force the units to re-validate. """
         if info.initialized:
@@ -92,5 +89,3 @@ class QuantityViewHandler(Handler):
                 if editor.name == 'units':
                     editor.update_object(None)
                     break
-
-        return

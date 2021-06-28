@@ -119,7 +119,6 @@ def convert_log_index(log_index, unit_system=None,
         new_log_index = log_index.clone()
         new_log_index.family_name = family_name  # TODO: not sure if I need this
     else:
-        # print "To_units", to_unit, log_index.units, family_name, unit_system
         data = units_convert(log_index.data, log_index.units, to_unit)
         new_log_index = log_index.clone(data=data)
         new_log_index.family_name = family_name

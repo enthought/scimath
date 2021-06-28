@@ -71,17 +71,14 @@ class test_units(unittest.TestCase):
     def test_with_si(self):
         f = self._compute_force(mass, acc)
         self.assertEqual(f, mass * acc)
-        return
 
     def test_with_ton(self):
         f = self._compute_force(mass / 1000, acc, mass_units=metric_ton)
         self.assertEqual(f, mass * acc)
-        return
 
     def test_with_imp(self):
         f = self._compute_force(mass, acc_imp, acc_units=fs2)
         self.assertAlmostEqual(f, mass * acc, 4)
-        return
 
     def test_temperature(self):
         k = 200
@@ -97,22 +94,18 @@ class test_units(unittest.TestCase):
         self.assertAlmostEqual(t1, -40.0, 6)
         t2 = units.convert(0.0, temperature.celsius, temperature.fahrenheit)
         self.assertAlmostEqual(t2, 32.0, 6)
-        return
 
     def test_area(self):
         self.assertEqual(1 * area.square_mile / (640 * area.acre), 1.0)
-        return
 
     def test_density(self):
         d1 = units.convert(1, density.lb_per_gal,
                            density.grams_per_cubic_centimeter)
         self.assertAlmostEqual(d1, 0.1198284429, 6)
-        return
 
     def test_frequency(self):
         f1 = units.convert(1, frequency.hertz, frequency.khz)
         self.assertAlmostEqual(f1, 0.001, 6)
-        return
 
     def test_speed(self):
         s1 = units.convert(55, speed.miles_per_hour, speed.meters_per_second)
@@ -179,8 +172,6 @@ class test_units(unittest.TestCase):
         self.assertEqual(q2, q3._converted_from,
                          "Conversion failed to track conversion parent.")
 
-        return
-
     def test_propagation_base(self):
         """ Tests that propagation works for an original quantity. """
 
@@ -189,8 +180,6 @@ class test_units(unittest.TestCase):
 
         self.assertEqual(10, q1.data,
                          "Propagation modified the base data.")
-
-        return
 
     def test_propagation(self):
         """ Tests data propagation for a single converted quantity. """
@@ -211,8 +200,6 @@ class test_units(unittest.TestCase):
         self.assertAlmostEqual(30., q1.data, 1,
                                "Propagation test expected data 30, got %s" % str(q1.data))
 
-        return
-
     def test_get_original(self):
 
         q1 = Quantity(10, units='m', family_name='depth')
@@ -225,8 +212,6 @@ class test_units(unittest.TestCase):
                          "First child get_original failed to return original.")
         self.assertEqual(q1, q3.get_original(),
                          "Second child get_original failed to return original.")
-
-        return
 
     def test_unit_parser_dimensionless(self):
         for label in ['', 'None', 'none', 'unknown', 'unitless']:
@@ -321,8 +306,6 @@ class test_units(unittest.TestCase):
         self.assertTrue(um1 == um2)
         self.assertTrue(not(um1 == uft))
 
-        return
-
     def test_unit_notequal(self):
         """ test unit class __ne__ method"""
         um1 = length.m
@@ -331,8 +314,6 @@ class test_units(unittest.TestCase):
 
         self.assertTrue(not(um1 != um2))
         self.assertTrue(um1 != uft)
-
-        return
 
     def test_smart_unit_equal(self):
         """ test smart unit class __eq__ method"""
@@ -343,8 +324,6 @@ class test_units(unittest.TestCase):
         self.assertTrue(qm1.units == qm2.units)
         self.assertTrue(not(qm1.units == qft.units))
 
-        return
-
     def test_smart_unit_notequal(self):
         """ test smart unit class __ne__ method"""
         qm1 = Quantity(1, units='m', family_name='depth')
@@ -353,8 +332,6 @@ class test_units(unittest.TestCase):
 
         self.assertTrue(not(qm1.units != qm2.units))
         self.assertTrue(qm1.units != qft.units)
-
-        return
 
     def test_get_family_name(self):
         """ test get_family_name with standard and ?/* type matching """

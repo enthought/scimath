@@ -74,8 +74,6 @@ class FamilyNameWithUnitsLinkage(HasTraits):
             self.family_name = family_name
             self.units = units
 
-        return
-
 
 class TraitsTestCase(TestCase):
 
@@ -101,15 +99,12 @@ class TraitsTestCase(TestCase):
         obj.units = units
         self.assertTrue(obj.units is units)
 
-        return
-
     def test_units_not_none(self):
         obj = UnitsStrictNotNone(units='km')
         self.assertRaises(TraitError, setattr, obj, 'units', None)
 
         with self.assertRaises(TraitError):
             obj = UnitsStrictNotNone(units=None)
-        return
 
     def test_strict_units_trait(self):
         obj = UnitsStrict(units='km')
@@ -135,8 +130,6 @@ class TraitsTestCase(TestCase):
         obj.units = units
         self.assertTrue(obj.units is units)
 
-        return
-
     def test_units_strict_with_family(self):
         obj = UnitsStrictWithFamily()
         self.assertEqual(obj.family_name, 'unknown')
@@ -150,8 +143,6 @@ class TraitsTestCase(TestCase):
         obj.units = 'km'
 
         self.assertRaises(TraitError, setattr, obj, 'units', 'g/cc')
-
-        return
 
     def test_family_name_trait(self):
         obj = FamilyNameNonStrict(family_name='distance')
@@ -169,8 +160,6 @@ class TraitsTestCase(TestCase):
         obj = FamilyNameNonStrict()
         self.assertFalse(obj is None)
         self.assertTrue(obj.family_name is None)
-
-        return
 
     def test_family_name_strict_trait(self):
         obj = FamilyNameStrict(family_name='distance')
@@ -190,15 +179,12 @@ class TraitsTestCase(TestCase):
         self.assertFalse(obj is None)
         self.assertTrue(obj.family_name is None)
 
-        return
-
     def test_family_not_none(self):
         obj = FamilyNameStrictNotNone(family_name='length')
         self.assertRaises(TraitError, setattr, obj, 'family_name', None)
 
         with self.assertRaises(TraitError):
             obj = FamilyNameStrictNotNone(family_name=None)
-        return
 
     def test_family_with_units_defaults(self):
         obj = FamilyNameWithUnitsLinkage()
@@ -206,8 +192,6 @@ class TraitsTestCase(TestCase):
         self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'length')
         self.assertEqual(obj.units.label, 'm')
-
-        return
 
     def test_family_with_units_family_change_with_compatible_units(self):
 
@@ -227,8 +211,6 @@ class TraitsTestCase(TestCase):
         self.assertEqual(obj.family_name, 'length')
         self.assertEqual(obj.units.label, 'ft')
 
-        return
-
     def test_family_with_units_family_change_causes_units_change(self):
 
         # family change with incompatible units should reset units to default
@@ -238,8 +220,6 @@ class TraitsTestCase(TestCase):
         obj.family_name = 'time'
         self.assertEqual(obj.family_name, 'time')
         self.assertEqual(obj.units.label, 'msec')
-
-        return
 
     def test_family_with_units_units_change_compatible(self):
 
@@ -275,11 +255,7 @@ class TraitsTestCase(TestCase):
         self.assertEqual(obj.family_name, 'time')
         self.assertEqual(obj.units.label, 'hour')
 
-        return
-
     def _units_changed(self, obj, name, old, new):
-        # print "_units_changed name: '%s' old: '%s' new: '%s'" \
-        #    % ( name, old, new )
         self.event_change_log.append((name, old, new))
 
     def test_units_events(self):
@@ -306,5 +282,3 @@ class TraitsTestCase(TestCase):
         obj.configure_traits(kind='modal')
         print('\n')
         obj.print_traits()
-
-        return
