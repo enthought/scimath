@@ -10,9 +10,6 @@ from scimath.units.length import m, cm
 from scimath.units.unit import unit
 
 
-from nose.tools import assert_equal, assert_is_instance
-
-
 class UnitScalarDocTestCase(doctest_for_module(unit_scalar)):
     pass
 
