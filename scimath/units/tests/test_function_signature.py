@@ -18,16 +18,6 @@ class FunctionArgumentsDocTestCase(doctest_for_module(function_signature)):
 class FunctionArgumentsTestCase(unittest.TestCase):
 
     ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # FunctionArgumentsTestCase interface.
     ##########################################################################
 
@@ -95,16 +85,6 @@ class FunctionArgumentsTestCase(unittest.TestCase):
 class DefSignatureTestCase(unittest.TestCase):
 
     ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # FunctionArgumentsTestCase interface.
     ##########################################################################
 
@@ -126,16 +106,6 @@ class DefSignatureTestCase(unittest.TestCase):
 
 
 class CallSignatureTestCase(unittest.TestCase):
-
-    ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
 
     ##########################################################################
     # FunctionArgumentsTestCase interface.

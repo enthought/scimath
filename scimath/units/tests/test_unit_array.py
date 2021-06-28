@@ -24,16 +24,6 @@ from scimath.units.api import UnitArray, UnitScalar
 class UnitArrayTestCase(unittest.TestCase):
 
     ##########################################################################
-    # unittest.TestCase interface
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # Test construction from arrays
     ##########################################################################
 
