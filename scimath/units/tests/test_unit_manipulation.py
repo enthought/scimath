@@ -236,7 +236,6 @@ class SetUnitsTestCase(unittest.TestCase):
         # should not have.
         #
         #self.assertEqual(x, xx)
-        # print x, x.units
         self.assertEqual(xx.units, feet)
 
     def test_set_unit_overwrite_unit_array(self):
