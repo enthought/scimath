@@ -33,7 +33,7 @@ class HasUnitsTestCase(unittest.TestCase):
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
-    def failUnlessEqual(self, first, second, msg=None):
+    def assertEqual(self, first, second, msg=None):
         """Fail if the two objects are unequal as determined by the '=='
            operator.
 
@@ -41,8 +41,6 @@ class HasUnitsTestCase(unittest.TestCase):
         """
         if not all(first == second):
             raise self.failureException(msg or '%r != %r' % (first, second))
-
-    assertEqual = failUnlessEqual
 
     ##########################################################################
     # HasUnitsTestCase interface.
