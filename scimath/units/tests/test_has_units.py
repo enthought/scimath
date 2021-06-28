@@ -27,7 +27,7 @@ class HasUnitsTestCase(unittest.TestCase):
     # TestCase interface.
     ##########################################################################
 
-    def failUnlessEqual(self, first, second, msg=None):
+    def assertEqual(self, first, second, msg=None):
         """Fail if the two objects are unequal as determined by the '=='
            operator.
 
@@ -35,8 +35,6 @@ class HasUnitsTestCase(unittest.TestCase):
         """
         if not all(first == second):
             raise self.failureException(msg or '%r != %r' % (first, second))
-
-    assertEqual = failUnlessEqual
 
     ##########################################################################
     # HasUnitsTestCase interface.
@@ -333,79 +331,79 @@ class HasUnitsDecoratorTestCase(unittest.TestCase):
         self.feet_scalar = UnitScalar(4., units=feet)
 
     def test_decorator_plays_nice(self):
-        self.assertEquals(foo_with_units.__module__, foo.__module__)
-        self.assertEquals(foo_with_units.__doc__, foo.__doc__)
-        self.assertEquals(foo_with_units.__name__, foo.__name__)
+        self.assertEqual(foo_with_units.__module__, foo.__module__)
+        self.assertEqual(foo_with_units.__doc__, foo.__doc__)
+        self.assertEqual(foo_with_units.__name__, foo.__name__)
 
     def test_input_variables_parsed(self):
         inputs = foo_with_units.inputs
-        self.assertEquals(len(inputs), 2)
-        self.assertEquals(inputs[0].name, 'x')
-        self.assertEquals(inputs[0].units, meters)
-        self.assertEquals(inputs[1].name, 'y')
-        self.assertEquals(inputs[1].units, second)
+        self.assertEqual(len(inputs), 2)
+        self.assertEqual(inputs[0].name, 'x')
+        self.assertEqual(inputs[0].units, meters)
+        self.assertEqual(inputs[1].name, 'y')
+        self.assertEqual(inputs[1].units, second)
 
     def test_output_variables_parsed(self):
         outputs = foo_with_units.outputs
-        self.assertEquals(len(outputs), 1)
-        self.assertEquals(outputs[0].name, 'z')
-        self.assertEquals(outputs[0].units, meters / second)
+        self.assertEqual(len(outputs), 1)
+        self.assertEqual(outputs[0].name, 'z')
+        self.assertEqual(outputs[0].units, meters / second)
 
     def test_no_internal_units_array(self):
         z = foo_with_units(self.meter_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
-        self.assertEquals(z.units, meters / second)
+        self.assertEqual(z.units, meters / second)
 
     def test_no_internal_units_scalar(self):
         z = foo_with_units(self.meter_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
-        self.assertEquals(z.units, meters / second)
+        self.assertEqual(z.units, meters / second)
 
     def test_feet(self):
         z = foo_with_units(self.feet_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
-        self.assertEquals(z.units, meters / second)
+        self.assertEqual(z.units, meters / second)
         assert_array_almost_equal(z, numpy.array([0.4064, 0.762, 1.8288]))
         z = foo_with_units(self.feet_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
-        self.assertEquals(z.units, meters / second)
+        self.assertEqual(z.units, meters / second)
         assert_array_almost_equal(z, 0.4064)
 
     def test_v_decorator_plays_nice(self):
-        self.assertEquals(vec_bar_with_units.__module__, bar.__module__)
-        self.assertEquals(vec_bar_with_units.__doc__, bar.__doc__)
-        self.assertEquals(vec_bar_with_units.__name__, bar.__name__)
+        self.assertEqual(vec_bar_with_units.__module__, bar.__module__)
+        self.assertEqual(vec_bar_with_units.__doc__, bar.__doc__)
+        self.assertEqual(vec_bar_with_units.__name__, bar.__name__)
 
     def test_v_input_variables_parsed(self):
         inputs = vec_bar_with_units.inputs
-        self.assertEquals(len(inputs), 2)
-        self.assertEquals(inputs[0].name, 'x')
-        self.assertEquals(inputs[0].units, meters)
-        self.assertEquals(inputs[1].name, 'y')
-        self.assertEquals(inputs[1].units, second)
+        self.assertEqual(len(inputs), 2)
+        self.assertEqual(inputs[0].name, 'x')
+        self.assertEqual(inputs[0].units, meters)
+        self.assertEqual(inputs[1].name, 'y')
+        self.assertEqual(inputs[1].units, second)
 
     def test_v_output_variables_parsed(self):
         outputs = vec_bar_with_units.outputs
-        self.assertEquals(len(outputs), 1)
-        self.assertEquals(outputs[0].name, 'z')
-        self.assertEquals(outputs[0].units, meters)
+        self.assertEqual(len(outputs), 1)
+        self.assertEqual(outputs[0].name, 'z')
+        self.assertEqual(outputs[0].units, meters)
 
     def test_v_no_internal_units_array(self):
         z = vec_bar_with_units(self.meter_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
-        self.assertEquals(z.units, meters)
+        self.assertEqual(z.units, meters)
 
     def test_v_no_internal_units_scalar(self):
         z = vec_bar_with_units(self.meter_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
-        self.assertEquals(z.units, meters)
+        self.assertEqual(z.units, meters)
 
     def test_v_feet(self):
         z = vec_bar_with_units(self.feet_array, self.second_array)
         self.assertTrue(isinstance(z, UnitArray))
-        self.assertEquals(z.units, meters)
+        self.assertEqual(z.units, meters)
         assert_array_almost_equal(z, numpy.array([0.0, 0.0, 3.6576]))
         z = vec_bar_with_units(self.feet_scalar, self.second_scalar)
         self.assertTrue(isinstance(z, UnitScalar))
-        self.assertEquals(z.units, meters)
+        self.assertEqual(z.units, meters)
         assert_array_almost_equal(z, 0.0)
