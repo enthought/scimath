@@ -74,8 +74,6 @@ class FamilyNameWithUnitsLinkage(HasTraits):
             self.family_name = family_name
             self.units = units
 
-        return
-
 
 class TraitsTestCase(TestCase):
 
@@ -101,8 +99,6 @@ class TraitsTestCase(TestCase):
         obj.units = units
         self.failUnless(obj.units is units)
 
-        return
-
     def test_units_not_none(self):
         obj = UnitsStrictNotNone(units='km')
         self.failUnlessRaises(TraitError, setattr, obj, 'units', None)
@@ -112,7 +108,6 @@ class TraitsTestCase(TestCase):
             self.fail('Constructor did not raise TraitError with units=None')
         except TraitError:
             pass
-        return
 
     def test_strict_units_trait(self):
         obj = UnitsStrict(units='km')
@@ -138,8 +133,6 @@ class TraitsTestCase(TestCase):
         obj.units = units
         self.failUnless(obj.units is units)
 
-        return
-
     def test_units_strict_with_family(self):
         obj = UnitsStrictWithFamily()
         self.failUnlessEqual(obj.family_name, 'unknown')
@@ -153,8 +146,6 @@ class TraitsTestCase(TestCase):
         obj.units = 'km'
 
         self.failUnlessRaises(TraitError, setattr, obj, 'units', 'g/cc')
-
-        return
 
     def test_family_name_trait(self):
         obj = FamilyNameNonStrict(family_name='distance')
@@ -172,8 +163,6 @@ class TraitsTestCase(TestCase):
         obj = FamilyNameNonStrict()
         self.failIf(obj is None)
         self.failUnless(obj.family_name is None)
-
-        return
 
     def test_family_name_strict_trait(self):
         obj = FamilyNameStrict(family_name='distance')
@@ -193,8 +182,6 @@ class TraitsTestCase(TestCase):
         self.failIf(obj is None)
         self.failUnless(obj.family_name is None)
 
-        return
-
     def test_family_not_none(self):
         obj = FamilyNameStrictNotNone(family_name='length')
         self.failUnlessRaises(TraitError, setattr, obj, 'family_name', None)
@@ -205,7 +192,6 @@ class TraitsTestCase(TestCase):
                 'Constructor did not raise TraitError with family_name=None')
         except TraitError:
             pass
-        return
 
     def test_family_with_units_defaults(self):
         obj = FamilyNameWithUnitsLinkage()
@@ -213,8 +199,6 @@ class TraitsTestCase(TestCase):
         self.failIf(obj is None)
         self.failUnlessEqual(obj.family_name, 'length')
         self.failUnlessEqual(obj.units.label, 'm')
-
-        return
 
     def test_family_with_units_family_change_with_compatible_units(self):
 
@@ -234,8 +218,6 @@ class TraitsTestCase(TestCase):
         self.failUnlessEqual(obj.family_name, 'length')
         self.failUnlessEqual(obj.units.label, 'ft')
 
-        return
-
     def test_family_with_units_family_change_causes_units_change(self):
 
         # family change with incompatible units should reset units to default
@@ -245,8 +227,6 @@ class TraitsTestCase(TestCase):
         obj.family_name = 'time'
         self.failUnlessEqual(obj.family_name, 'time')
         self.failUnlessEqual(obj.units.label, 'msec')
-
-        return
 
     def test_family_with_units_units_change_compatible(self):
 
@@ -282,8 +262,6 @@ class TraitsTestCase(TestCase):
         self.failUnlessEqual(obj.family_name, 'time')
         self.failUnlessEqual(obj.units.label, 'hour')
 
-        return
-
     def _units_changed(self, obj, name, old, new):
         # print "_units_changed name: '%s' old: '%s' new: '%s'" \
         #    % ( name, old, new )
@@ -313,5 +291,3 @@ class TraitsTestCase(TestCase):
         obj.configure_traits(kind='modal')
         print('\n')
         obj.print_traits()
-
-        return

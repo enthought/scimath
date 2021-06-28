@@ -115,8 +115,6 @@ class SimpleQuantityEditor(QuantityEditor):
 
         self.control = panel
 
-        return
-
     def update_editor(self):
         """ Updates the editor when the object trait changes external to the
             editor.
@@ -125,8 +123,6 @@ class SimpleQuantityEditor(QuantityEditor):
         string_value = self.string_value(self._to_display_units(self.value))
         self.text_control.SetValue(string_value)
         self._updating_editor = False
-
-        return
 
     def update_object(self, event, assign=True):
         """ Handles the user changing the contents of the edit control.
@@ -179,8 +175,6 @@ class ReadOnlyQuantityEditor(Editor):
         control.SetBackgroundColour(ReadonlyColor)
         self.control = control
 
-        return
-
     def update_editor(self):
         """ Updates the editor when the object trait changes external to the
             editor.
@@ -190,5 +184,3 @@ class ReadOnlyQuantityEditor(Editor):
         string_value = '%s %s' % (self.to_default_units(self.value),
                                   self._get_family_name(self.value))
         self.control.SetValue(string_value)
-
-        return

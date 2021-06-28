@@ -48,8 +48,6 @@ class MetaQuantity(HasStrictTraits):
             self.family_name = family_name
             self.units = units
 
-        return
-
     ###########################################################################
     # HasTraits interface
     ###########################################################################
@@ -72,4 +70,3 @@ class MetaQuantity(HasStrictTraits):
         the defaults for that name.
         """
         self.family_name = unit_manager.get_family_name(self.name)
-        return

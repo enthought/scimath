@@ -54,8 +54,6 @@ class StyleManager(HasPrivateTraits):
         udb.get_family_ranges_from_file()
         self.ranges = udb.unit_ranges
 
-        return
-
     ###########################################################################
     # 'StyleManager' interface.
     ###########################################################################
