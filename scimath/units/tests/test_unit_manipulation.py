@@ -157,16 +157,6 @@ class ConvertUnitsTestCase(unittest.TestCase):
 class SetUnitsTestCase(unittest.TestCase):
 
     ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # SetUnitsTestCase interface.
     ##########################################################################
 
@@ -236,7 +226,6 @@ class SetUnitsTestCase(unittest.TestCase):
         # should not have.
         #
         #self.assertEqual(x, xx)
-        # print x, x.units
         self.assertEqual(xx.units, feet)
 
     def test_set_unit_overwrite_unit_array(self):
@@ -247,29 +236,6 @@ class SetUnitsTestCase(unittest.TestCase):
         aa = set_units(units, a)
         self.assertTrue(all(a == aa))
         self.assertEqual(aa.units, feet)
-#
-#    def test_raises_exception(self):
-#        """ Does it return the same object if units are the same?
-#
-#            Note: This isn't required for accuracy, but it is a good
-#                  optimization.
-#        """
-#        units = [feet]
-#        a = UnitArray((1,2,3),units=feet)
-#        aa = convert_units(units, a)
-#        self.assertTrue(id(a),id(aa))
-#
-#    def test_convert_different_args(self):
-#        """ Does it handle multiple different args correctly?
-#        """
-#        units = [feet, meters, None]
-#        a = UnitArray((1,2,3),units=meters)
-#        b = array((2,3,4))
-#        c = 1
-#        aa, bb, cc = convert_units(units, a, b, c)
-#        self.assertTrue(allclose(a,aa.as_units(meters)))
-#        self.assertTrue(allclose(b,bb))
-#        self.assertEqual(c,cc)
 
 
 class HaveSomeUnitsTestCase(unittest.TestCase):
@@ -287,7 +253,6 @@ class HaveSomeUnitsTestCase(unittest.TestCase):
         self.unit_scalar = UnitScalar(1, units=meters)
         self.plain_array = array([1, 2, 3])
         self.plain_scalar = 1
-        unittest.TestCase.setUp(self)
 
     def test_finds_one(self):
         self.assertTrue(have_some_units(self.unit_array))
@@ -340,7 +305,6 @@ class StripUnitsTestCase(unittest.TestCase):
         self.unit_scalar = UnitScalar(1, units=meters)
         self.plain_array = array([1, 2, 3])
         self.plain_scalar = 1
-        unittest.TestCase.setUp(self)
 
     def test_strip_units_one_arg(self):
         self.assertFalse(isinstance(strip_units(self.unit_array),
@@ -358,17 +322,17 @@ class StripUnitsTestCase(unittest.TestCase):
 
     def test_strip_units_multi_arg(self):
         outs = strip_units(self.unit_array, self.unit_scalar)
-        self.assertEquals(len(outs), 2)
+        self.assertEqual(len(outs), 2)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
 
         outs = strip_units(self.plain_array, self.plain_scalar)
-        self.assertEquals(len(outs), 2)
+        self.assertEqual(len(outs), 2)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
 
         outs = strip_units(self.unit_array, self.unit_scalar, self.plain_array,
                            self.plain_scalar)
-        self.assertEquals(len(outs), 4)
+        self.assertEqual(len(outs), 4)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
