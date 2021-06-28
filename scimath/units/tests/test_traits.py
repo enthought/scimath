@@ -81,20 +81,20 @@ class TraitsTestCase(TestCase):
 
     def test_units_trait(self):
         obj = UnitsNonStrict(units='km')
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'km')
 
         obj.units = 'm/sec**2'
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'm/sec**2')
 
         obj.units = 'invalid'
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'invalid')
         self.assertEqual(obj.units.derivation, dimensionless.derivation)
 
         units = unit_parser.parse_unit('g/cc')
-        self.failIf(units is None)
+        self.assertFalse(units is None)
         self.assertEqual(units.label, 'g/cc')
         self.failIfEqual(units.derivation, dimensionless.derivation)
 
@@ -116,22 +116,22 @@ class TraitsTestCase(TestCase):
 
     def test_strict_units_trait(self):
         obj = UnitsStrict(units='km')
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'km')
 
         obj.units = 'm/sec**2'
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'm/sec**2')
         self.assertEqual(obj.units.derivation, (1, 0, -2, 0, 0, 0, 0))
 
         self.assertRaises(TraitError, setattr, obj, 'units', 'invalid')
 
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'm/sec**2')
         self.assertEqual(obj.units.derivation, (1, 0, -2, 0, 0, 0, 0))
 
         units = unit_parser.parse_unit('g/cc')
-        self.failIf(units is None)
+        self.assertFalse(units is None)
         self.assertEqual(units.label, 'g/cc')
         self.failIfEqual(units.derivation, dimensionless.derivation)
 
@@ -158,39 +158,39 @@ class TraitsTestCase(TestCase):
 
     def test_family_name_trait(self):
         obj = FamilyNameNonStrict(family_name='distance')
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'distance')
 
         obj.family_name = 'time'
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'time')
 
         obj.family_name = 'unknown to unit_manager'
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'unknown to unit_manager')
 
         obj = FamilyNameNonStrict()
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.failUnless(obj.family_name is None)
 
         return
 
     def test_family_name_strict_trait(self):
         obj = FamilyNameStrict(family_name='distance')
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'distance')
 
         obj.family_name = 'time'
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'time')
 
         self.assertRaises(TraitError, setattr, obj, 'family_name',
                           'unknown to unit_manager')
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'time')
 
         obj = FamilyNameNonStrict()
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.failUnless(obj.family_name is None)
 
         return
@@ -210,7 +210,7 @@ class TraitsTestCase(TestCase):
     def test_family_with_units_defaults(self):
         obj = FamilyNameWithUnitsLinkage()
 
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.family_name, 'length')
         self.assertEqual(obj.units.label, 'm')
 
@@ -293,7 +293,7 @@ class TraitsTestCase(TestCase):
         self.event_change_log = []
 
         obj = UnitsNonStrict(units='km')
-        self.failIf(obj is None)
+        self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'km')
 
         obj.on_trait_change(self._units_changed)
