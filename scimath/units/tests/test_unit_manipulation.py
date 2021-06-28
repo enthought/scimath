@@ -358,17 +358,17 @@ class StripUnitsTestCase(unittest.TestCase):
 
     def test_strip_units_multi_arg(self):
         outs = strip_units(self.unit_array, self.unit_scalar)
-        self.assertEquals(len(outs), 2)
+        self.assertEqual(len(outs), 2)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
 
         outs = strip_units(self.plain_array, self.plain_scalar)
-        self.assertEquals(len(outs), 2)
+        self.assertEqual(len(outs), 2)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
 
         outs = strip_units(self.unit_array, self.unit_scalar, self.plain_array,
                            self.plain_scalar)
-        self.assertEquals(len(outs), 4)
+        self.assertEqual(len(outs), 4)
         for x in outs:
             self.assertFalse(isinstance(x, (UnitArray, UnitScalar)))
