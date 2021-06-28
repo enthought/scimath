@@ -100,19 +100,15 @@ class SmartUnit(OffsetUnit):
         """ If `units.convert()` fails to run then the two units
         systems specified are probably not consistent.
         """
-        # print 'Comparing the dimensionality of %s and %s' % (self, new_unit)
-        # print repr(self), repr(new_unit)
         # parse errors generate dimensionless units so if they both end up
         # being dimensionless but invalid convert() will not throw an exception
         if not self.is_valid() or not new_unit.is_valid():
-            # print 'Invalid units ', self.is_valid(), new_unit.is_valid()
             return False
 
         try:
             convert(1.0, self, new_unit)
             ok = True
         except Exception as msg:
-            # print 'Failed at convert stage ', msg
             ok = False
 
         return ok

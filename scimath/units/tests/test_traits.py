@@ -285,8 +285,6 @@ class TraitsTestCase(TestCase):
         return
 
     def _units_changed(self, obj, name, old, new):
-        # print "_units_changed name: '%s' old: '%s' new: '%s'" \
-        #    % ( name, old, new )
         self.event_change_log.append((name, old, new))
 
     def test_units_events(self):

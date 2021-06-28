@@ -77,7 +77,6 @@ class UnitDB(object):
                         print(
                             'Warning: duplicate key: %s in %s' %
                             (member_name, filename))
-                    # print '    adding %s to member_names...' % member_name
                     self.member_names[member_name] = family_name
 
                 # set up the preferred log name for the family to be the
