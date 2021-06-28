@@ -105,7 +105,7 @@ class TraitsTestCase(TestCase):
 
     def test_units_not_none(self):
         obj = UnitsStrictNotNone(units='km')
-        self.failUnlessRaises(TraitError, setattr, obj, 'units', None)
+        self.assertRaises(TraitError, setattr, obj, 'units', None)
 
         try:
             obj = UnitsStrictNotNone(units=None)
@@ -124,7 +124,7 @@ class TraitsTestCase(TestCase):
         self.assertEqual(obj.units.label, 'm/sec**2')
         self.assertEqual(obj.units.derivation, (1, 0, -2, 0, 0, 0, 0))
 
-        self.failUnlessRaises(TraitError, setattr, obj, 'units', 'invalid')
+        self.assertRaises(TraitError, setattr, obj, 'units', 'invalid')
 
         self.failIf(obj is None)
         self.assertEqual(obj.units.label, 'm/sec**2')
@@ -152,7 +152,7 @@ class TraitsTestCase(TestCase):
         obj.family_name = 'distance'
         obj.units = 'km'
 
-        self.failUnlessRaises(TraitError, setattr, obj, 'units', 'g/cc')
+        self.assertRaises(TraitError, setattr, obj, 'units', 'g/cc')
 
         return
 
@@ -184,8 +184,8 @@ class TraitsTestCase(TestCase):
         self.failIf(obj is None)
         self.assertEqual(obj.family_name, 'time')
 
-        self.failUnlessRaises(TraitError, setattr, obj, 'family_name',
-                              'unknown to unit_manager')
+        self.assertRaises(TraitError, setattr, obj, 'family_name',
+                          'unknown to unit_manager')
         self.failIf(obj is None)
         self.assertEqual(obj.family_name, 'time')
 
@@ -197,7 +197,7 @@ class TraitsTestCase(TestCase):
 
     def test_family_not_none(self):
         obj = FamilyNameStrictNotNone(family_name='length')
-        self.failUnlessRaises(TraitError, setattr, obj, 'family_name', None)
+        self.assertRaises(TraitError, setattr, obj, 'family_name', None)
 
         try:
             obj = FamilyNameStrictNotNone(family_name=None)
@@ -272,7 +272,7 @@ class TraitsTestCase(TestCase):
         # changing the family first.
         obj = FamilyNameWithUnitsLinkage()
 
-        self.failUnlessRaises(TraitError, setattr, obj, 'units', 'hours')
+        self.assertRaises(TraitError, setattr, obj, 'units', 'hours')
 
         obj.family_name = 'time'
         self.assertEqual(obj.family_name, 'time')

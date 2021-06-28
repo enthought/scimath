@@ -46,7 +46,7 @@ class TraitsTestCase(TestCase):
     def test_metaquantity_incompatible_units_change(self):
         mq = MetaQuantity(name='vp', units='km/s', family_name='pvelocity')
 
-        self.failUnlessRaises(TraitError, setattr, mq, 'units', 'hours')
+        self.assertRaises(TraitError, setattr, mq, 'units', 'hours')
 
         self.assertEqual(mq.name, 'vp')
         self.assertEqual(mq.units.label, 'km/s')
