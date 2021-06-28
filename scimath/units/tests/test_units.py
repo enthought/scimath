@@ -292,11 +292,11 @@ class test_units(unittest.TestCase):
     def test_family_compatibility(self):
         """ test are_compatible_families """
 
-        self.assert_(unit_manager.are_compatible_families('none', 'pvelocity'))
-        self.assert_(unit_manager.are_compatible_families('none', 'foo'))
-        self.assert_(unit_manager.are_compatible_families('foo', 'foo'))
-        self.assert_(not unit_manager.are_compatible_families('bar', 'foo'))
-        self.assert_(not unit_manager.are_compatible_families('bar', 'none'))
+        self.assertTrue(unit_manager.are_compatible_families('none', 'pvelocity'))
+        self.assertTrue(unit_manager.are_compatible_families('none', 'foo'))
+        self.assertTrue(unit_manager.are_compatible_families('foo', 'foo'))
+        self.assertTrue(not unit_manager.are_compatible_families('bar', 'foo'))
+        self.assertTrue(not unit_manager.are_compatible_families('bar', 'none'))
 
     def test_get_inverse(self):
         """ test get_inverse_family_name and get_inverse_name """
@@ -318,8 +318,8 @@ class test_units(unittest.TestCase):
         um2 = length.m
         uft = length.feet
 
-        self.assert_(um1 == um2)
-        self.assert_(not(um1 == uft))
+        self.assertTrue(um1 == um2)
+        self.assertTrue(not(um1 == uft))
 
         return
 
@@ -329,8 +329,8 @@ class test_units(unittest.TestCase):
         um2 = length.m
         uft = length.feet
 
-        self.assert_(not(um1 != um2))
-        self.assert_(um1 != uft)
+        self.assertTrue(not(um1 != um2))
+        self.assertTrue(um1 != uft)
 
         return
 
@@ -340,8 +340,8 @@ class test_units(unittest.TestCase):
         qm2 = Quantity(2, units='m', family_name='depth')
         qft = Quantity(1, units='feet', family_name='depth')
 
-        self.assert_(qm1.units == qm2.units)
-        self.assert_(not(qm1.units == qft.units))
+        self.assertTrue(qm1.units == qm2.units)
+        self.assertTrue(not(qm1.units == qft.units))
 
         return
 
@@ -351,8 +351,8 @@ class test_units(unittest.TestCase):
         qm2 = Quantity(2, units='m', family_name='depth')
         qft = Quantity(1, units='feet', family_name='depth')
 
-        self.assert_(not(qm1.units != qm2.units))
-        self.assert_(qm1.units != qft.units)
+        self.assertTrue(not(qm1.units != qm2.units))
+        self.assertTrue(qm1.units != qft.units)
 
         return
 
