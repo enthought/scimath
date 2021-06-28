@@ -96,7 +96,7 @@ class TraitsTestCase(TestCase):
         units = unit_parser.parse_unit('g/cc')
         self.assertFalse(units is None)
         self.assertEqual(units.label, 'g/cc')
-        self.failIfEqual(units.derivation, dimensionless.derivation)
+        self.assertNotEqual(units.derivation, dimensionless.derivation)
 
         obj.units = units
         self.assertTrue(obj.units is units)
@@ -133,7 +133,7 @@ class TraitsTestCase(TestCase):
         units = unit_parser.parse_unit('g/cc')
         self.assertFalse(units is None)
         self.assertEqual(units.label, 'g/cc')
-        self.failIfEqual(units.derivation, dimensionless.derivation)
+        self.assertNotEqual(units.derivation, dimensionless.derivation)
 
         obj.units = units
         self.assertTrue(obj.units is units)
