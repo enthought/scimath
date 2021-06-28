@@ -111,10 +111,3 @@ femto = 1e-15
 atto = 1e-18
 zepto = 1e-21
 yocto = 1e-24
-
-
-# version
-__id__ = "$Id: SI.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
-
-#
-# End of file

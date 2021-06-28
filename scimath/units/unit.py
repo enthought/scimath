@@ -263,9 +263,3 @@ def is_dimensionless(unit):
         return True
 
     return False
-
-# version
-__id__ = "$Id: unit.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
-
-#
-# End of file
