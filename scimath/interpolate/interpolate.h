@@ -110,7 +110,6 @@ int block_average_above(T* x_vec, T* y_vec, int len,
             T thickness_sum = thickness;  
             for(int j=start_index; j<=index; j++)
             {
-                    T next_x;
                     if (x_vec[j+1] < new_x)
                         thickness = x_vec[j+1] - x_vec[j];
                     else
