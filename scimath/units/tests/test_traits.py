@@ -107,11 +107,8 @@ class TraitsTestCase(TestCase):
         obj = UnitsStrictNotNone(units='km')
         self.assertRaises(TraitError, setattr, obj, 'units', None)
 
-        try:
+        with self.assertRaises(TraitError):
             obj = UnitsStrictNotNone(units=None)
-            self.fail('Constructor did not raise TraitError with units=None')
-        except TraitError:
-            pass
         return
 
     def test_strict_units_trait(self):
@@ -199,12 +196,8 @@ class TraitsTestCase(TestCase):
         obj = FamilyNameStrictNotNone(family_name='length')
         self.assertRaises(TraitError, setattr, obj, 'family_name', None)
 
-        try:
+        with self.assertRaises(TraitError):
             obj = FamilyNameStrictNotNone(family_name=None)
-            self.fail(
-                'Constructor did not raise TraitError with family_name=None')
-        except TraitError:
-            pass
         return
 
     def test_family_with_units_defaults(self):
