@@ -248,29 +248,6 @@ class SetUnitsTestCase(unittest.TestCase):
         self.assertTrue(all(a == aa))
         self.assertEqual(aa.units, feet)
 
-    def test_dont_convert_unit_array(self):
-        """ Does it return the same object if units are the same?
-
-            Note: This isn't required for accuracy, but it is a good
-                  optimization.
-        """
-        units = [feet]
-        a = UnitArray((1,2,3),units=feet)
-        aa = convert_units(units, a)
-        self.assertTrue(id(a),id(aa))
-
-    def test_convert_different_args(self):
-        """ Does it handle multiple different args correctly?
-        """
-        units = [feet, meters, None]
-        a = UnitArray((1,2,3),units=meters)
-        b = array((2,3,4))
-        c = 1
-        aa, bb, cc = convert_units(units, a, b, c)
-        self.assertTrue(allclose(a,aa.as_units(meters)))
-        self.assertTrue(allclose(b,bb))
-        self.assertEqual(c,cc)
-
 
 class HaveSomeUnitsTestCase(unittest.TestCase):
     """ have_some_units should check its arguments for any
