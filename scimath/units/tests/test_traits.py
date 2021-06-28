@@ -99,7 +99,7 @@ class TraitsTestCase(TestCase):
         self.failIfEqual(units.derivation, dimensionless.derivation)
 
         obj.units = units
-        self.failUnless(obj.units is units)
+        self.assertTrue(obj.units is units)
 
         return
 
@@ -136,7 +136,7 @@ class TraitsTestCase(TestCase):
         self.failIfEqual(units.derivation, dimensionless.derivation)
 
         obj.units = units
-        self.failUnless(obj.units is units)
+        self.assertTrue(obj.units is units)
 
         return
 
@@ -171,7 +171,7 @@ class TraitsTestCase(TestCase):
 
         obj = FamilyNameNonStrict()
         self.assertFalse(obj is None)
-        self.failUnless(obj.family_name is None)
+        self.assertTrue(obj.family_name is None)
 
         return
 
@@ -191,7 +191,7 @@ class TraitsTestCase(TestCase):
 
         obj = FamilyNameNonStrict()
         self.assertFalse(obj is None)
-        self.failUnless(obj.family_name is None)
+        self.assertTrue(obj.family_name is None)
 
         return
 
