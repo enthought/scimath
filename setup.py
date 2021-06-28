@@ -103,6 +103,9 @@ if __name__ == "__main__":
     interpolate = Extension(
         'scimath.interpolate._interpolate',
         sources=['scimath/interpolate/_interpolate.cpp'],
+        define_macros=[
+            ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
+        ],
         include_dirs=[get_include(), 'scimath/interpolate'],
         depends=['interpolate.h']
     )
