@@ -92,6 +92,8 @@ dependencies = {
     "traits",
     "nose",
     "coverage",
+    "sphinx",
+    "enthought_sphinx_theme",
 }
 
 
