@@ -157,16 +157,6 @@ class ConvertUnitsTestCase(unittest.TestCase):
 class SetUnitsTestCase(unittest.TestCase):
 
     ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # SetUnitsTestCase interface.
     ##########################################################################
 
@@ -287,7 +277,6 @@ class HaveSomeUnitsTestCase(unittest.TestCase):
         self.unit_scalar = UnitScalar(1, units=meters)
         self.plain_array = array([1, 2, 3])
         self.plain_scalar = 1
-        unittest.TestCase.setUp(self)
 
     def test_finds_one(self):
         self.assertTrue(have_some_units(self.unit_array))
@@ -340,7 +329,6 @@ class StripUnitsTestCase(unittest.TestCase):
         self.unit_scalar = UnitScalar(1, units=meters)
         self.plain_array = array([1, 2, 3])
         self.plain_scalar = 1
-        unittest.TestCase.setUp(self)
 
     def test_strip_units_one_arg(self):
         self.assertFalse(isinstance(strip_units(self.unit_array),

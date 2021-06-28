@@ -27,12 +27,6 @@ class HasUnitsTestCase(unittest.TestCase):
     # TestCase interface.
     ##########################################################################
 
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
     def failUnlessEqual(self, first, second, msg=None):
         """Fail if the two objects are unequal as determined by the '=='
            operator.
@@ -337,7 +331,6 @@ class HasUnitsDecoratorTestCase(unittest.TestCase):
         self.meter_scalar = UnitScalar(1., units=meters)
         self.second_scalar = UnitScalar(3., units=second)
         self.feet_scalar = UnitScalar(4., units=feet)
-        unittest.TestCase.setUp(self)
 
     def test_decorator_plays_nice(self):
         self.assertEquals(foo_with_units.__module__, foo.__module__)
