@@ -32,7 +32,6 @@ class unit(object):
         self.derivation = derivation
         self.label = None
         self.offset = offset
-        return
 
     def __eq__(self, other):
         """ Are these the same types of units (e.g., feet) """
@@ -225,7 +224,6 @@ class InvalidConversion(Exception):
 
     def __init__(self, operand):
         self._op = operand
-        return
 
     def __str__(self):
         str = "dimensional quantities ('%s') " % self._op._strDerivation()
@@ -239,7 +237,6 @@ class InvalidOperation(Exception):
         self._op = op
         self._op1 = operand1
         self._op2 = operand2
-        return
 
     def __str__(self):
         str = "Invalid expression: %s %s %s" % (self._op1, self._op, self._op2)
@@ -252,7 +249,6 @@ class IncompatibleUnits(Exception):
         self._op = op
         self._op1 = operand1
         self._op2 = operand2
-        return
 
     def __str__(self):
         str = "Cannot %s quanitites with units of '%s' and '%s'" % \

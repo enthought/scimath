@@ -67,8 +67,6 @@ class UnitSystem(HasTraits):
                     families[1],
                     families[2])
 
-        return
-
     def units(self, name):
         """ Method to return a unit for a given family or member name """
 
