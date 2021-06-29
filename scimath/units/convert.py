@@ -1,22 +1,15 @@
-#------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
-# license included in enthought/LICENSE.txt and may be redistributed only
-# under the conditions described in the aforementioned license.  The license
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
+#
 # Thanks for using Enthought open source!
-#
-# Author: Travis N. Vaught
-# Date: 05/22/2005
-# Description: convert function and parser instance function
-#
-#  Functions defined: convert, parser
-#
-# documentation updated by Tim Diller 12/2012
-#
-#------------------------------------------------------------------------------
+
+""" Defines the convert, convert_str and parser function
+"""
 
 import numpy
 from .unit import InvalidConversion

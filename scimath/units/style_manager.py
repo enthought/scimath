@@ -1,20 +1,16 @@
-#------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
-# license included in enthought/LICENSE.txt and may be redistributed only
-# under the conditions described in the aforementioned license.  The license
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
+#
 # Thanks for using Enthought open source!
-#
-# Author: Travis N. Vaught
-# Date: 05/25/2005
-# Description: Looks after known unit systems and type converters
-#
-# symbols defined: unit_manager (singleton)
-#
-#------------------------------------------------------------------------------
+
+""" Defines a unit manager that looks after known unit systems and type
+converters.
+"""
 
 #############################################################################
 # Imports:

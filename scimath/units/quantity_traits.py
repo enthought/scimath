@@ -1,21 +1,16 @@
+# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
+# All rights reserved.
+#
+# This software is provided without warranty under the terms of the BSD
+# license included in LICENSE.txt and may be redistributed only under
+# the conditions described in the aforementioned license. The license
+# is also available online at http://www.enthought.com/licenses/BSD.txt
+#
+# Thanks for using Enthought open source!
 
-#------------------------------------------------------------------------------
-#
-#  Trait definitions for dealing with physical quantities in various unit
-#  systems
-#
-#  Written by: David C. Morrill
-#
-#  Date: 09/09/2004
-#
-#  Functions defined:
-#     QuantityTrait
-#
-#  (c) Copyright 2004 by Enthought, Inc.
-#
-#  Changes:
-#  Added system for setting unit used on display on a per trait basis. Sigve Tjora, 2006
-#------------------------------------------------------------------------------
+""" Trait definitions for dealing with physical quantities in various unit
+systems.
+"""
 
 #------------------------------------------------------------------------------
 #  Imports:
