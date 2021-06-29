@@ -144,10 +144,6 @@ class UnitParser:
         # In fact, the unit manager should extend this when a new 'system' or
         # unit set is set up.
 
-        # We have defined many units commonly used by geophysicists .....
-        # import cp.units.geo_units
-        # self.parser.extend(cp.units.geo_units)
-
         # This is used to clean up labels like ohm.m in remove_dots()
         self.regex = re.compile(r'([A-Za-z])\.([A-Za-z])')
 
