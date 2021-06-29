@@ -109,6 +109,7 @@ def write_version_py(filename=DEFAULT_VERSION_FILE,
 
 DEPENDENCIES = [
     'traits',
+    'numpy',
     'scipy',
 ]
 
