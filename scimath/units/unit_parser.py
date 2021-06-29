@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
