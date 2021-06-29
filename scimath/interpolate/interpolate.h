@@ -15,14 +15,16 @@
 #include <iostream>
 #include <algorithm>
 
+#include "numpy/ndarraytypes.h"
+
 template <class T>
-void linear(T* x_vec, T* y_vec, int len,
-            T* new_x_vec, T* new_y_vec, int new_len)
+void linear(T* x_vec, T* y_vec, npy_intp len,
+            T* new_x_vec, T* new_y_vec, npy_intp new_len)
 {    
-    for (int i=0;i<new_len;i++)
+    for (npy_intp i=0;i<new_len;i++)
     {
        T new_x = new_x_vec[i];
-       int index;
+       npy_intp index;
        if (new_x <= x_vec[0])
            index = 0;
        else if (new_x >=x_vec[len-1])
@@ -52,13 +54,13 @@ void linear(T* x_vec, T* y_vec, int len,
 }
 
 template <class T>
-void loginterp(T* x_vec, T* y_vec, int len,
-               T* new_x_vec, T* new_y_vec, int new_len)
+void loginterp(T* x_vec, T* y_vec, npy_intp len,
+               T* new_x_vec, T* new_y_vec, npy_intp new_len)
 {    
-    for (int i=0;i<new_len;i++)
+    for (npy_intp i=0;i<new_len;i++)
     {
         T new_x = new_x_vec[i];
-        int index;
+        npy_intp index;
         if (new_x <= x_vec[0])
             index = 0;
         else if (new_x >=x_vec[len-1])
@@ -88,15 +90,15 @@ void loginterp(T* x_vec, T* y_vec, int len,
 }
 
 template <class T>
-int block_average_above(T* x_vec, T* y_vec, int len,
-                         T* new_x_vec, T* new_y_vec, int new_len)
+npy_intp block_average_above(T* x_vec, T* y_vec, npy_intp len,
+                             T* new_x_vec, T* new_y_vec, npy_intp new_len)
 {    
-    int bad_index = -1;
-    int start_index = 0;
+    npy_intp bad_index = -1;
+    npy_intp start_index = 0;
     T last_y = 0.0;
     T thickness = 0.0;
 
-    for(int i=0;i<new_len;i++)
+    for(npy_intp i=0;i<new_len;i++)
     {
         T new_x = new_x_vec[i];
         if ((new_x < x_vec[0]) || (new_x > x_vec[len-1]))
@@ -112,7 +114,7 @@ int block_average_above(T* x_vec, T* y_vec, int len,
         else
         {
             T* which = std::lower_bound(x_vec, x_vec+len, new_x);
-            int index = which - x_vec-1;
+            npy_intp index = which - x_vec-1;
            
             // calculate weighted average
             
@@ -120,7 +122,7 @@ int block_average_above(T* x_vec, T* y_vec, int len,
             // was between to samples.
             T weighted_y_sum = last_y * thickness;
             T thickness_sum = thickness;  
-            for(int j=start_index; j<=index; j++)
+            for(npy_intp j=start_index; j<=index; j++)
             {
                     if (x_vec[j+1] < new_x)
                         thickness = x_vec[j+1] - x_vec[j];
@@ -144,18 +146,18 @@ int block_average_above(T* x_vec, T* y_vec, int len,
 }
 
 template <class T>
-int window_average(T* x_vec, T* y_vec, int len,
-                   T* new_x_vec, T* new_y_vec, int new_len,
+int window_average(T* x_vec, T* y_vec, npy_intp len,
+                   T* new_x_vec, T* new_y_vec, npy_intp new_len,
                    T width)
 {    
-    for(int i=0;i<new_len;i++)
+    for(npy_intp i=0;i<new_len;i++)
     {
         T new_x = new_x_vec[i];
         T bottom = new_x - width/2;
         T top = new_x + width/2;
             
         T* which = std::lower_bound(x_vec, x_vec+len, bottom);
-        int bottom_index = which - x_vec;
+        npy_intp bottom_index = which - x_vec;
         if (bottom_index < 0)
         {
             //bottom = x_vec[0];
@@ -163,7 +165,7 @@ int window_average(T* x_vec, T* y_vec, int len,
         }
         
         which = std::lower_bound(x_vec, x_vec+len, top);
-        int top_index = which - x_vec;
+        npy_intp top_index = which - x_vec;
         if (top_index >= len)
         {
             //top = x_vec[len-1];
@@ -176,7 +178,7 @@ int window_average(T* x_vec, T* y_vec, int len,
         T thickness =0.0;
         T thickness_sum =0.0;
         T weighted_y_sum =0.0;
-        for(int j=bottom_index; j < top_index; j++)
+        for(npy_intp j=bottom_index; j < top_index; j++)
         {
             thickness = x_vec[j+1] - bottom;
             weighted_y_sum += y_vec[j] * thickness;
