@@ -169,8 +169,6 @@ class Quantity(HasPrivateTraits):
         #self.__dict__['data'] = self._convert(data, units)
         #self.__dict__['units'] = units
 
-        return
-
     def __repr__(self):
         """ Return the string representation of this quantity. """
 
@@ -310,8 +308,6 @@ class Quantity(HasPrivateTraits):
 
         # Recursively continue propagating.
         predecessor.propagate_data_changes()
-
-        return
 
     def get_original(self):
         """ Returns the original quantity in the conversion stack. """

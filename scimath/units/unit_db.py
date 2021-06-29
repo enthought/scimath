@@ -74,7 +74,6 @@ class UnitDB(object):
                         print(
                             'Warning: duplicate key: %s in %s' %
                             (member_name, filename))
-                    # print '    adding %s to member_names...' % member_name
                     self.member_names[member_name] = family_name
 
                 # set up the preferred log name for the family to be the
@@ -87,7 +86,6 @@ class UnitDB(object):
 
         fh.close()
         logger.debug('Loading default unit info...Done')
-        return
 
     def get_family_format_from_file(self, filename=None):
         """Retrieves a list of formatting parameters from a file.
@@ -139,7 +137,6 @@ class UnitDB(object):
 
         fh.close()
         logger.debug('Loading default unit info...Done')
-        return
 
     def get_unit_families_from_file(self, filename=None):
         """Retrieves a list of family names and member lists from a file.
@@ -182,7 +179,6 @@ class UnitDB(object):
                         converters.append(cvt_str)
         fh.close()
         logger.debug('Loading default unit info...Done')
-        return
 
     def get_family_ranges_from_file(self, filename=None):
         """Retrieves a list of left/right range parameters from a file.
@@ -242,7 +238,6 @@ class UnitDB(object):
 
         fh.close()
         logger.debug('Loading default unit info...Done')
-        return
 
     #  Return a list of the available unit systems eg 'kgs','metric','imperial'
     def get_unit_systems(self):

@@ -34,16 +34,6 @@ from scimath.units.api import UnitArray, UnitScalar
 class UnitArrayTestCase(unittest.TestCase):
 
     ##########################################################################
-    # unittest.TestCase interface
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # Test construction from arrays
     ##########################################################################
 
@@ -151,7 +141,7 @@ class UnitArrayTestCase(unittest.TestCase):
 
         # Test the values are correct
         desired_array = units.convert(ary, meters, feet)
-        self.assert_(numpy.all(desired_array == new_unit_ary))
+        self.assertTrue(numpy.all(desired_array == new_unit_ary))
 
         # Also, make sure the units are correctly assigned.
         self.assertEqual(new_unit_ary.units, feet)
@@ -357,7 +347,7 @@ class PassUnitsTestCase(unittest.TestCase):
     def test_sqrt_no_pass(self):
         a = UnitArray([1.0, 2.0, 3.0], units=meters / second)
         result = sqrt(a)
-        self.assert_(result.units is None)
+        self.assertTrue(result.units is None)
 
     def test_sqrt_pass(self):
         a = UnitArray([1.0, 2.0, 3], units=dimensionless)

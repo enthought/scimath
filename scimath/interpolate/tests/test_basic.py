@@ -20,7 +20,7 @@ from scimath.interpolate.api import linear, block_average_above
 class Test(unittest.TestCase):
 
     def assertAllclose(self, x, y):
-        self.assert_(allclose(x, y))
+        self.assertTrue(allclose(x, y))
 
     def test_linear(self):
         N = 3000

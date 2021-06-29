@@ -70,8 +70,6 @@ class UnitCache(HasTraits):
             self.cache.popitem()
             self.cache[name] = value
 
-        return
-
     def reset(self):
         self.cache = {}
 
@@ -137,8 +135,6 @@ class UnitManager(HasPrivateTraits):
 
         self.default_system = self.unit_systems[0]
 
-        return
-
     ###########################################################################
     # 'UnitManager' interface.
     ###########################################################################
@@ -173,8 +169,6 @@ class UnitManager(HasPrivateTraits):
         logger.info(
             "Unit manager - default unit system set to: %s" %
             self.default_system)
-
-        return
 
     def lookup_system(self, name):
         """ Returns the unit system with the specified name or raises
@@ -240,7 +234,6 @@ class UnitManager(HasPrivateTraits):
             self._wildcards.append(member_name)
         # clear out the cache
         self._family_cache.reset()
-        return
 
     def add_family(self, family_name, description, inverse):
         """ Maintains dict of families w/ description & inverse values """
@@ -492,7 +485,6 @@ class IncompatibleUnitFamilies(Exception):
     def __init__(self, fromFamily, toFamily):
         self._toFamily = toFamily
         self._fromFamily = fromFamily
-        return
 
     def __str__(self):
         str = "Cannot convert across unit families: '%s' and '%s'" % \

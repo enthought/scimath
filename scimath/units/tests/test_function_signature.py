@@ -28,16 +28,6 @@ class FunctionArgumentsDocTestCase(doctest_for_module(function_signature)):
 class FunctionArgumentsTestCase(unittest.TestCase):
 
     ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # FunctionArgumentsTestCase interface.
     ##########################################################################
 
@@ -105,16 +95,6 @@ class FunctionArgumentsTestCase(unittest.TestCase):
 class DefSignatureTestCase(unittest.TestCase):
 
     ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
-
-    ##########################################################################
     # FunctionArgumentsTestCase interface.
     ##########################################################################
 
@@ -136,16 +116,6 @@ class DefSignatureTestCase(unittest.TestCase):
 
 
 class CallSignatureTestCase(unittest.TestCase):
-
-    ##########################################################################
-    # TestCase interface.
-    ##########################################################################
-
-    def setUp(self):
-        unittest.TestCase.setUp(self)
-
-    def tearDown(self):
-        unittest.TestCase.tearDown(self)
 
     ##########################################################################
     # FunctionArgumentsTestCase interface.
@@ -184,12 +154,12 @@ def args_and_kwds(x, z=1, y=2):
 class FunctionSignatureTestCase(unittest.TestCase):
 
     def test_just_args(self):
-        self.assertEquals(def_signature(just_args), "def just_args(x, y):")
+        self.assertEqual(def_signature(just_args), "def just_args(x, y):")
 
     def test_just_kwds(self):
-        self.assertEquals(def_signature(just_kwds), "def just_kwds(y=1, x=2):")
+        self.assertEqual(def_signature(just_kwds), "def just_kwds(y=1, x=2):")
 
     def test_args_and_kwds(self):
-        self.assertEquals(
+        self.assertEqual(
             def_signature(args_and_kwds),
             "def args_and_kwds(x, z=1, y=2):")

@@ -28,10 +28,3 @@ from .SI import watt, kilo
 kilowatt = kilo * watt
 kw = kilowatt
 horsepower = 745.7 * watt
-
-
-# version
-__id__ = "$Id: power.py,v 1.1.1.1 2003/07/02 21:39:14 aivazis Exp $"
-
-#
-# End of file
