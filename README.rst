@@ -15,5 +15,6 @@ calculations, beyond the capabilities offered by SciPy.
 Prerequisites
 -------------
 
-* `NumPy <http://pypi.python.org/pypi/numpy>`_
-* `SciPy <http://pypi.python.org/pypi/scipy>`_
+* `Traits <https://pypi.python.org/pypi/traits>`_
+* `NumPy <https://pypi.python.org/pypi/numpy>`_
+* `SciPy <https://pypi.python.org/pypi/scipy>`_
