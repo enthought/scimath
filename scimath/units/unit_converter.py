@@ -78,31 +78,6 @@ def convert_unit_array(unit_array, unit_system=None, to_unit=None,
     return new_array
 
 
-def convert_quantity_old(q, unit_system):
-    # I think importing within the function is needed to avoid circularity
-    from scimath.units.quantity import Quantity
-
-    try:
-        units = unit_system.units(q.family_name)
-    except KeyError:
-        logger.exception(
-            "Could not convert quantity: %s to system: %s" %
-            (q, unit_system))
-        return q.clone()
-
-    if q.units == units:
-        q = q.clone()
-
-    else:
-        data = units_convert(q.data, q.units, units)
-        q = Quantity(
-            data,
-            units=units,
-            name=q.name or q.family_name,
-            family_name=q.family_name)
-    return q
-
-
 def convert_quantity(q, unit_system=None, to_unit=None, family_name=None):
     if family_name is None:
         family_name = q.family_name
