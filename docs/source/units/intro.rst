@@ -68,6 +68,6 @@ However, adding incompatible units raises an ``IncompatibleUnits`` exception:
    File "<stdin>", line 1, in <module>
    File "scimath/units/unit.py", line 62, in __add__
      raise IncompatibleUnits("add", self, other)
- scimath.units.unit.IncompatibleUnits: Cannot add quanitites with units of 'm**2*kg*s**-3*A**-1' and 'kg'
+ scimath.units.unit.IncompatibleUnits: Cannot add quantities with units of 'm**2*kg*s**-3*A**-1' and 'kg'
 
 

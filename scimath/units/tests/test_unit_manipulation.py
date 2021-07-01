@@ -229,7 +229,7 @@ class SetUnitsTestCase(unittest.TestCase):
         x = UnitScalar(3., units=meters)
         xx = set_units(units, x)
         # FIXME:
-        #     Behaves very stangely (on my machine), somethimes it fails,
+        #     Behaves very stangely (on my machine), sometimes it fails,
         #     other times it works almost like a random generator.
         #
         # We found that set_units(units, x) has a sideffect on x which it

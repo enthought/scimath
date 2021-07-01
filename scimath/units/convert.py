@@ -40,7 +40,7 @@ def convert(value, from_unit, to_unit):
     -----------
 
     Checks first to see if from_unit and to_unit are equal and passes value
-    back in that case. Then conver() forms a conversion factor by dividing the
+    back in that case. Then convert() forms a conversion factor by dividing the
     units. The offset is zero unless explicitly set otherwise in the unit
     definition. Handling of UnitArrays is done by checking whether value is a
     numpy.ndarray.

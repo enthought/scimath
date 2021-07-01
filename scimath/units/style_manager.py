@@ -28,7 +28,7 @@ class StyleManager(HasPrivateTraits):
         application to store and manage styles associated with any identifiers.
         In the initial case, it maps family names (units use these) to
         style attributes. """
-    # sytles is a Dictionary with family name as the key and a dictionary of
+    # styles is a Dictionary with family name as the key and a dictionary of
     #        `style types` as the value.  The dictionary of style types is the
     #        style type name as the key (i.e. 'color' or 'line') and a setting
     #        as the value--e.g.

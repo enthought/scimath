@@ -145,7 +145,7 @@ class Quantity(HasPrivateTraits):
             #        but it gets around proava ticket:1715-comment14,item 2.
             self.family_name = traits['family_name']
 
-        # If we haven't checked compatibilty before, and units
+        # If we haven't checked compatibility before, and units
         if (compatibility_checked != True and
                 not unit_manager.is_compatible(units, self.family_name)):
             raise ValueError("units (%s) not compatible with family_name (%s)"
@@ -234,7 +234,7 @@ class Quantity(HasPrivateTraits):
         )
 
         # Note:  This is done outside of the context of the constructor in case
-        # we'e cloning a quantity with mis-matched units and family name
+        # we are cloning a quantity with mis-matched units and family name
         clone.family_name = self.family_name
 
         return clone

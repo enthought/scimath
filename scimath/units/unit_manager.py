@@ -346,7 +346,7 @@ class UnitManager(HasPrivateTraits):
     def is_compatible(self, units, family_name):
         """ Returns True if the family_name and units are compatible.
         Just because two units have the same derivation, does not mean they
-        are compatible, it just means that value conversion is simle.
+        are compatible, it just means that value conversion is simple.
         """
         if units is None:
             units_label = None

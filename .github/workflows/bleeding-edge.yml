@@ -32,7 +32,7 @@ jobs:
         run: edm install -y wheel click coverage
       - name: Install test environment
         run: edm run -- python etstool.py install
-      - name: Remove dependencies obtanied with edm
+      - name: Remove dependencies obtained with edm
         run: |
             edm plumbing remove-package --force traits
             edm plumbing remove-package --force scipy

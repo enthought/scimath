@@ -90,7 +90,7 @@ class DataFit(HasPrivateTraits):
         """ Used when only one element is available in the log.
         """
 
-        # find index of values in x that preceed values in x
+        # find index of values in x that precede values in x
         # This code is a little strange -- we really want a routine that
         # returns the index of values where x[j] < x[index]
         TINY = 1e-10
@@ -144,7 +144,7 @@ class Spline(DataFit):
     # order of polynomial.  Default to cubic spline.
     order = Trait(3, TraitEnum(1, 3, 5))
 
-    # smoothness -- larger values result in more smothing.
+    # smoothness -- larger values result in more smoothing.
     # !! I would prefer the trait to allow 0.0 and any value
     # !! between 1.0-30.0.  Values of 0.0-1.0 are *really*
     # !! CPU intensive.
@@ -241,7 +241,7 @@ class EndAverage(DataFit):
         DataFit.__init__(self, x, y, index_interval=index_interval)
 
     def interp(self, x):
-        """ Average multiple values at edges of numpy.array to use for extrapoltion.
+        """ Average multiple values at edges of numpy.array to use for extrapolation.
 
             This method only works for extrapolation.
         """

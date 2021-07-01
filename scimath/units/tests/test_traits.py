@@ -58,7 +58,7 @@ class FamilyNameWithUnitsLinkage(HasTraits):
     def __init__(self, **traits):
         """ Create a new FamilyNameWithUnitsLinkage. """
 
-        # HasTraits.__init__ will assign attributes from **traits in an abitrary
+        # HasTraits.__init__ will assign attributes from **traits in an arbitrary
         # order (its a dictionary).  However, this class defines a relationship
         # between units and family_name and therefore must make sure the
         # assignments are done in the proper order.
@@ -135,7 +135,7 @@ class TraitsTestCase(TestCase):
         obj = UnitsStrictWithFamily()
         self.assertEqual(obj.family_name, 'unknown')
 
-        # anything is compatible with 'unknonw'
+        # anything is compatible with 'unknown'
         obj.units = 'km/sec'
 
         obj.family_name = 'pvelocity'
