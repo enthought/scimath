@@ -226,7 +226,7 @@ class HasUnitsTestCase(unittest.TestCase):
     def test_wrapped_adds_doc(self):
         """ Is doc information added correctly?
         """
-        doc = "documenation about the function"
+        doc = "documentation about the function"
 
         @has_units(doc=doc)
         def func(value):

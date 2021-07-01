@@ -77,7 +77,7 @@ def rotquat(vhat1, vhat2):
     """
     Compute the quaternion that rotates the normalized vector *vhat1* to *vhat2*.
 
-    The quaternion is repesented as a tuple (scalar part, vector part).
+    The quaternion is represented as a tuple (scalar part, vector part).
 
     """
 

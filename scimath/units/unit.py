@@ -251,7 +251,7 @@ class IncompatibleUnits(Exception):
         self._op2 = operand2
 
     def __str__(self):
-        str = "Cannot %s quanitites with units of '%s' and '%s'" % \
+        str = "Cannot %s quantities with units of '%s' and '%s'" % \
               (self._op, self._op1._strDerivation(), self._op2._strDerivation())
         return str
 

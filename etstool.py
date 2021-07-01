@@ -210,7 +210,7 @@ def test_clean(runtime):
 @click.option('--environment', default=None)
 def update(runtime, environment):
     """ Update/Reinstall package into environment and optionally, install
-    additional ependencies needed to build the documentation.
+    additional dependencies needed to build the documentation.
 
     """
     parameters = get_parameters(runtime, environment)
