@@ -93,5 +93,5 @@ gapi = copy(dimensionless)
 ###############################################################################
 # psonic
 ###############################################################################
-us_per_ft = microsecond / foot
-us_per_ft.label = 'us/ft'
+µs_per_ft = us_per_ft = microsecond / foot
+µs_per_ft.label = 'µs/ft'
