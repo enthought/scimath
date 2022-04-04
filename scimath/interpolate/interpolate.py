@@ -140,9 +140,9 @@ def main():
     x = arange(N)
     y = arange(N)
     new_x = arange(N) + 0.5
-    t1 = time.clock()
+    t1 = time.perf_counter()
     new_y = linear(x, y, new_x)
-    t2 = time.clock()
+    t2 = time.perf_counter()
     print('1d interp (sec):', t2 - t1)
     print(new_y[:5])
 
@@ -151,9 +151,9 @@ def main():
     y = arange(N)
 
     new_x = arange(N / 2) * 2
-    t1 = time.clock()
+    t1 = time.perf_counter()
     new_y = block_average_above(x, y, new_x)
-    t2 = time.clock()
+    t2 = time.perf_counter()
     print('1d block_average_above (sec):', t2 - t1)
     print(new_y[:5])
 
@@ -161,9 +161,9 @@ def main():
     x = arange(N)
     y = ones((100, N)) * arange(N)
     new_x = arange(N) + 0.5
-    t1 = time.clock()
+    t1 = time.perf_counter()
     new_y = linear(x, y, new_x)
-    t2 = time.clock()
+    t2 = time.perf_counter()
     print('fast interpolate (sec):', t2 - t1)
     print(new_y[:5, :5])
 
@@ -172,10 +172,10 @@ def main():
     x = arange(N)
     y = ones((100, N)) * arange(N)
     new_x = arange(N)
-    t1 = time.clock()
+    t1 = time.perf_counter()
     interp = scipy.interpolate.interp1d(x, y)
     new_y = interp(new_x)
-    t2 = time.clock()
+    t2 = time.perf_counter()
     print('scipy interp1d (sec):', t2 - t1)
     print(new_y[:5, :5])
 
