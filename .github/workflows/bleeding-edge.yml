@@ -7,7 +7,7 @@ on:
     - cron:  '0 0 * * 5'
 
 env:
-  INSTALL_EDM_VERSION: 3.2.3
+  INSTALL_EDM_VERSION: 3.3.1
 
 jobs:
 
@@ -16,6 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        runtime: ['3.6', '3.8']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -31,7 +32,7 @@ jobs:
       - name: Install click to the default EDM environment
         run: edm install -y wheel click coverage
       - name: Install test environment
-        run: edm run -- python etstool.py install
+        run: edm run -- python etstool.py install --runtime=${{ matrix.runtime }}
       - name: Remove dependencies obtained with edm
         run: |
             edm plumbing remove-package --force traits
@@ -43,4 +44,4 @@ jobs:
       - name: Run tests
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: edm run -- python etstool.py test
+          run: edm run -- python etstool.py test --runtime=${{ matrix.runtime }}
