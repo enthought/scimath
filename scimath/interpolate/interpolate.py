@@ -134,7 +134,7 @@ def window_average(x, y, new_x, width=10.0):
 
 
 def main():
-    from scipy import arange, ones
+    from numpy import arange, ones
     import time
     N = 3000.
     x = arange(N)
@@ -159,7 +159,7 @@ def main():
 
     N = 3000.
     x = arange(N)
-    y = ones((100, N)) * arange(N)
+    y = ones((100, int(N))) * arange(N)
     new_x = arange(N) + 0.5
     t1 = time.perf_counter()
     new_y = linear(x, y, new_x)
@@ -170,7 +170,7 @@ def main():
     import scipy
     N = 3000.
     x = arange(N)
-    y = ones((100, N)) * arange(N)
+    y = ones((100, int(N))) * arange(N)
     new_x = arange(N)
     t1 = time.perf_counter()
     interp = scipy.interpolate.interp1d(x, y)

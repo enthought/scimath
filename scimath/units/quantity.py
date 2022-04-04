@@ -65,7 +65,7 @@ class Quantity(HasPrivateTraits):
         Quantity(2.2, 1.0*m*s**-1)
 
         >>> # an array example
-        >>> from scipy import arange
+        >>> from numpy import arange
         >>> data = arange(3.)
         >>> Quantity(data, meter, 'depth')
         Quantity(depth, [ 0.  1.  2.], 1.0*m)
