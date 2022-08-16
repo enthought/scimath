@@ -256,11 +256,17 @@ class test_units(unittest.TestCase):
             angle.grad,
             angle.minutes,
             acceleration.m_per_s2,
-            electromagnetism.mf,
+            electromagnetism.uf,
             volume.cm3,
         ]
         for u in odd_units:
             self.assertEqual(parse(u.label), u)
+
+    def test_unit_parser_micro_sign(self):
+        parse = lambda s: unit_parser.parse_unit(s, suppress_unknown=False)
+        micrometer_symbols = ["\N{MICRO SIGN}m", "\N{GREEK SMALL LETTER MU}m"]
+        for symbol in micrometer_symbols:
+            self.assertEqual(parse(symbol), length.µm)
 
     def test_unit_parser_offsets(self):
         parse = lambda s: unit_parser.parse_unit(s, suppress_unknown=False)
