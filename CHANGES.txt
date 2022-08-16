@@ -10,7 +10,7 @@ Much of the work was around removing deprecated and broken components, while
 updating code to remove usage of deprecated things from Python and ETS.  In
 particular, this release drops support for Python versions 3.5 and earlier.
 
-Additionally, the scimath.units.plugin sub-package has been removed: it was
+Additionally, the ``scimath.units.plugin`` sub-package has been removed: it was
 broken and removing it permitted a simplification of dependencies: we don't
 require Envisage and its dependencies in this release.
 
@@ -19,25 +19,25 @@ Change summary since 4.2.0
 
 Enhancements
 
-* move `scipy,interpolate` profiling script into its own module (#153)
-* remove unused `convert_quantity_old` (#139)
+* move ``scimath.interpolate`` profiling script into its own module (#153)
+* remove unused ``convert_quantity_old`` (#139)
 * remove extraneous return statements (#129)
 * remove print statements (#127)
-* remove `scimath.units.units_version` (#121)
-* remove references to the `cp` package (#117)
+* remove ``scimath.units.units_version`` (#121)
+* remove references to the ``cp`` package (#117)
 * update and clean-up headers (#116, #157)
 * use one setup.py file with setuptools Extension (#115)
 * clean up compile-time warnings (#114, #133, #152)
 * remove out-of-place examples (#110)
-* remove broken `scimath.units.plugin` subpackage (#109)
-* remove unneeded `if __name__ == "__main__":` blocks (#105)
+* remove broken ``scimath.units.plugin`` subpackage (#109)
+* remove unneeded ``if __name__ == "__main__":`` blocks (#105)
 * remove support for Python 2 (#104, #113)
 * remove EOF comments from files (#102, #120)
 * remove use of deprecated Traits features (#93, #96)
 
 Bugfixes
 
-* fix deprecated `time.clock` (#150)
+* fix deprecated ``time.clock`` (#150)
 * fix hashing of units (#88)
 
 Documentation:
@@ -49,7 +49,7 @@ Documentation:
 
 Tests:
 
-* remove unneeded `setUp` and `tearDown` methods (#130)
+* remove unneeded ``setUp`` and ``tearDown`` methods (#130)
 * use unittest discover instead of nose (#123)
 * make tests usable with unittest discover (#103, #125)
 * clean-up tests directories and files (#83, #108)
