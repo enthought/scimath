@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Unitted Functions &mdash; scimath 4.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../_static/et.ico">
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../index.html" >
+    <link rel="up" title="SciMath Units Documentation" href="index.html" >
+    <link rel="next" title="Extending the Unit Parser" href="extend_unit_parser.html" >
+    <link rel="prev" title="Units with Numpy" href="unit_numpy.html" > 
+  </head>
+  <body>
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="index.html" accesskey="U">SciMath Units Documentation</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="extend_unit_parser.html" title="Extending the Unit Parser"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="unit_numpy.html" title="Units with Numpy"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="unitted-functions">
+<span id="unit-funcs"></span><h1>Unitted Functions<a class="headerlink" href="#unitted-functions" title="Permalink to this headline">¶</a></h1>
+<p>A function which handles UnitArrays and UnitScalars is a unitted function.
+Unitted functions are created with the
+<a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_units()</span></code></a> decorator. The units can be
+specified by passing arguments to the decorator or by constructing a special
+docstring.</p>
+<div class="section" id="decorator-arguments">
+<h2>Decorator arguments<a class="headerlink" href="#decorator-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="k">import</span> <span class="n">has_units</span>
+<span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="k">import</span> <span class="n">feet</span><span class="p">,</span> <span class="n">meter</span>
+<span class="nd">@has_units</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;a:an array:units=ft;b:array:units=ft&quot;</span><span class="p">,</span>
+           <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;result:an array:units=m&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Add two arrays in ft and convert them to m.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">feet</span> <span class="o">/</span> <span class="n">meter</span>
+</pre></div>
+</div>
+<p>To use has_units with decorator arguments, pass string arguments “inputs” and
+(optionally) “outputs”. See the <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_units()</span></code></a>
+docstring or visit the <a class="reference internal" href="user_ref.html#user-ref"><span class="std std-ref">User Reference page</span></a> for details on the
+syntax.</p>
+</div>
+<div class="section" id="formatted-docstring">
+<h2>Formatted docstring<a class="headerlink" href="#formatted-docstring" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="k">import</span> <span class="n">has_units</span><span class="p">,</span> <span class="n">UnitArray</span>
+<span class="nd">@has_units</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Add two arrays in ft and convert them to m.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        a : array : units=ft</span>
+<span class="sd">            An array</span>
+<span class="sd">        b : array : units=ft</span>
+<span class="sd">            Another array</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        c : array : units=m</span>
+<span class="sd">            c = a + b</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">feet</span> <span class="o">/</span> <span class="n">meter</span>
+</pre></div>
+</div>
+<p>Using the has_units decorator with a docstring has the benefit of
+using a ReST-compatible format, so the unitting specification doubles as a
+documentation entry. See the <a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_units()</span></code></a>
+docstring or visit the <a class="reference internal" href="user_ref.html#user-ref"><span class="std std-ref">User Reference page</span></a> for details on the
+syntax. The example above produces the following documentation entry when built
+with Sphinx:</p>
+<dl class="function">
+<dt id="scimath.units.example.add">
+<code class="descclassname">scimath.units.example.</code><code class="descname">add</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scimath/units/example.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.example.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add two arrays in ft and convert them to m.</p>
+<dl class="docutils">
+<dt>a <span class="classifier-delimiter">:</span> <span class="classifier">array</span> <span class="classifier-delimiter">:</span> <span class="classifier">units=ft</span></dt>
+<dd>An array</dd>
+<dt>b <span class="classifier-delimiter">:</span> <span class="classifier">array</span> <span class="classifier-delimiter">:</span> <span class="classifier">units=ft</span></dt>
+<dd>Another array</dd>
+</dl>
+<dl class="docutils">
+<dt>c <span class="classifier-delimiter">:</span> <span class="classifier">array</span> <span class="classifier-delimiter">:</span> <span class="classifier">units=m</span></dt>
+<dd>c = a + b</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="unitted-function-output">
+<h2>Unitted function output<a class="headerlink" href="#unitted-function-output" title="Permalink to this headline">¶</a></h2>
+<p>In the examples above, we told add() to expect two values, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> and
+convert them to feet for use in the function. Then we specified that the output
+would be in meters. Inside the function, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are not unitted, and
+the function is responsible for the conversion. (Remember our <a class="reference internal" href="intro.html#conversion-factor-caveat"><span class="std std-ref">caveat</span></a> regarding conversion factors.)</p>
+<p>Unitted functions can accept either regular Python objects (of the appropriate
+type) or the equivalent unitted objects. The return type depends on what it was
+passed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">0.9144000000000001</span>
+</pre></div>
+</div>
+<p>In this case, add() accepted two integer arguments in feet, added them and
+returned an integer value in meters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">UnitScalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;foot&quot;</span><span class="p">),</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;foot&quot;</span><span class="p">))</span>
+<span class="go">UnitScalar(0.9144000000000001, units=&#39;1.0*m&#39;)</span>
+</pre></div>
+</div>
+<p>In this case, add() accepted two UnitScalar arguments in feet and returned a
+UnitScalar in pure meters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">UnitScalar</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;meter&quot;</span><span class="p">),</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;cm&quot;</span><span class="p">))</span>
+<span class="go">UnitScalar(1.0, units=&#39;1.0*m&#39;)</span>
+</pre></div>
+</div>
+<p>Finally, in this case, a conversion to feet was made for the calculation inside
+the function, and the value was converted back to meters when returned.</p>
+<p>If no units are specified in the outputs or if no output string is given, then
+a regular scalar data type will be returned.</p>
+<p>It may be useful to define new units for use in a project and have them
+available throughout an application. This is done by <a class="reference internal" href="extend_unit_parser.html#extend-unit-parser"><span class="std std-ref">extending the unit
+parser</span></a> to handle user-defined units, described in the
+next section.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/e-logo-rev.png" alt="Logo">
+            </a></p>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Unitted Functions</a><ul>
+<li><a class="reference internal" href="#decorator-arguments">Decorator arguments</a></li>
+<li><a class="reference internal" href="#formatted-docstring">Formatted docstring</a></li>
+<li><a class="reference internal" href="#unitted-function-output">Unitted function output</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unit_numpy.html"
+                        title="previous chapter">Units with Numpy</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extend_unit_parser.html"
+                        title="next chapter">Extending the Unit Parser</a></p>
+  <h3>This Page</h3>
+  <div>
+    <a href="../_sources/units/unit_funcs.rst.txt"
+       rel="nofollow">Show Source</a>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

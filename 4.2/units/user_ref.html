@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Scimath Units User Reference &mdash; scimath 4.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../_static/et.ico">
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../index.html" >
+    <link rel="up" title="SciMath Units Documentation" href="index.html" >
+    <link rel="next" title="SciMath Interpolate Documentation" href="../interpolate/index.html" >
+    <link rel="prev" title="Types of Units Available" href="available_units.html" > 
+  </head>
+  <body>
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="index.html" accesskey="U">SciMath Units Documentation</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../interpolate/index.html" title="SciMath Interpolate Documentation"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="available_units.html" title="Types of Units Available"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scimath-units-user-reference">
+<span id="user-ref"></span><h1>Scimath Units User Reference<a class="headerlink" href="#scimath-units-user-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="internal-representation">
+<span id="id1"></span><h2>Internal Representation<a class="headerlink" href="#internal-representation" title="Permalink to this headline">¶</a></h2>
+<p>Internally, a scimath unit is a unit object:</p>
+<dl class="class">
+<dt id="unit">
+<em class="property">class </em><code class="descname">unit</code><span class="sig-paren">(</span><em>value</em>, <em>derivation</em><span class="sig-paren">)</span><a class="headerlink" href="#unit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="unit.value">
+<code class="descname">value</code><a class="headerlink" href="#unit.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>a scalar quantity which holds the magnitude of the unit, relative to the
+derivation in SI units.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="unit.derivation">
+<code class="descname">derivation</code><a class="headerlink" href="#unit.derivation" title="Permalink to this definition">¶</a></dt>
+<dd><p>a 7-tuple holding the power of each fundamental quantity in the unit:
+(length, mass, time, electrical current, temperature, amount of
+substance, luminous intensity). The labels of the fundamental quantities
+are given in the attribute _labels=(‘m’, ‘kg’, ‘s’, ‘A’, ‘K’, ‘mol’,
+‘cd’)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="unit.label">
+<code class="descname">label</code><a class="headerlink" href="#unit.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>the display name of the unit.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>For example, the predefined unit Newton has the following attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.force</span> <span class="k">import</span> <span class="n">newton</span><span class="p">,</span> <span class="n">lbf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newton</span><span class="o">.</span><span class="n">value</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newton</span><span class="o">.</span><span class="n">derivation</span>
+<span class="go">(1, 1, -2, 0, 0, 0, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newton</span><span class="o">.</span><span class="n">label</span>
+<span class="go">&#39;newton&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lbf</span><span class="o">.</span><span class="n">value</span>
+<span class="go">4.44822</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lbf</span><span class="o">.</span><span class="n">derivation</span>
+<span class="go">(1, 1, -2, 0, 0, 0, 0)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="limited-api-reference">
+<h2>Limited API reference<a class="headerlink" href="#limited-api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="convert">
+<h3>Convert<a class="headerlink" href="#convert" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="scimath.units.convert.convert">
+<code class="descclassname">scimath.units.convert.</code><code class="descname">convert</code><span class="sig-paren">(</span><em>value</em>, <em>from_unit</em>, <em>to_unit</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scimath/units/convert.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.convert.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coverts value from one unit to another.</p>
+<dl class="docutils">
+<dt>value <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>value to convert</dd>
+<dt>from_unit <span class="classifier-delimiter">:</span> <span class="classifier">scimath.unit object</span></dt>
+<dd>implied units of ‘value’</dd>
+<dt>to_unit <span class="classifier-delimiter">:</span> <span class="classifier">scimath.unit object</span></dt>
+<dd>implied units of the returned float</dd>
+</dl>
+<p>value * conversion_factor + offset : data type is the same as was passed
+in.</p>
+<p>Checks first to see if from_unit and to_unit are equal and passes value
+back in that case. Then conver() forms a conversion factor by dividing the
+units. The offset is zero unless explicitly set otherwise in the unit
+definition. Handling of UnitArrays is done by checking whether value is a
+numpy.ndarray.</p>
+<p><strong>Note</strong>: Enthought has extended the original units implementation to
+handle temperature conversions.  Temperature units are a special case
+because they can have a different origin.</p>
+<p>This causes a fundamental ambiguity. What behavior do we expect when we
+convert temperature?</p>
+<p>Option #1 When we convert 0 degrees centigrade we get 32 fahrenheit.</p>
+<p>Option #2 When we convert a temperature difference of 0 degrees centigrade
+we get a temperature difference of 0 degrees fahrenheit.</p>
+<p>By convention we have made the units system behave like in Option
+#1 so that convert() handles absolute temperatures, not temperature
+differences.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="hasunits">
+<h3>HasUnits<a class="headerlink" href="#hasunits" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="scimath.units.has_units.has_units">
+<code class="descclassname">scimath.units.has_units.</code><code class="descname">has_units</code><span class="sig-paren">(</span><em>func=None</em>, <em>summary=''</em>, <em>doc=''</em>, <em>inputs=None</em>, <em>outputs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scimath/units/has_units.html#has_units"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.has_units.has_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function decorator: Wrap a standard python function for unit
+conversion. Note that conversion arguments must be supplied through
+the decorator aguments or in a formatted docstring as shown below.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>func <span class="classifier-delimiter">:</span> <span class="classifier">function, optional</span></dt>
+<dd>The function to wrap. Usually, has_units will be used as a bare
+“&#64;has_units” decorator, so this argument will usually be supplied by
+the interpreter as it interprets that syntax.</dd>
+<dt>summary <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd>A short string describing the function.</dd>
+<dt>doc <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd>A longer string describing the function in detail.</dd>
+<dt>inputs <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd><p class="first">A string containing information about unit conversion, etc.  for
+arguments in the function.  The argument names in this string must
+match those in the python signature.  The order the arguments are
+specified in does not matter as the order of arguments from the
+wrapped function is always used.  The format of the string is as
+follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a: notes on a:units=m/s;b: notes on b:units=m/s&quot;</span>
+</pre></div>
+</div>
+<p class="last">That is, information about each argument is separated by
+a semi-colon (‘;’).  Each argument has three fields that are
+separated by colons (‘:’).  The first is the name of the variable.
+The 2nd is a string.  The 3rd specified the units.  Other fields
+may be added later.</p>
+</dd>
+<dt>outputs <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd>A string with the same format as the ‘inputs’ string that specifies
+the output variables.  This <em>is</em> an ordered list as there is no way
+to determine the functions outputs from the function object.</dd>
+</dl>
+<p>This decorator adds a unit conversion step to input and output
+variables of a python function.  The resulting function can be used as
+a standard python function and has an identical calling signature to
+the wrapped function.  If passed standard scalars and arrays as input,
+it will behave identically.  If “unitted” objects, such as UnitArray,
+are handed in, however, they will be unit converted from their given
+units to the units expected by the function.  In this case, output
+variables are converted from arrays or scalars to UnitArray or
+UnitScalar so that the results carry the units with them.  Note that
+these objects are derived from standard numpy.ndarray and float objects,
+so they will behave exactly like them.  The only caveat to this is that
+you should use isinstance(value, ndarray) instead of “type(array) is
+ndarray” when testing for their type, but you should be doing that
+anyways.</p>
+<p>Regardless of whether the inputs have units or not, the actual values
+passed to the function will be stripped of units. The wrapped function
+will only deal with regular numpy arrays and scalars.</p>
+<p>If units are not assigned to a variable, absolutely no conversion is
+applied to that variable.</p>
+<p>Example definition of a unitted addition function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="k">import</span> <span class="n">has_units</span><span class="p">,</span> <span class="n">UnitArray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@has_units</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&#39;&#39;&#39; Add two arrays in ft and convert them to m.</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">        Parameters</span>
+<span class="gp">... </span><span class="sd">        ----------</span>
+<span class="gp">... </span><span class="sd">        a : array : units=ft</span>
+<span class="gp">... </span><span class="sd">            An array</span>
+<span class="gp">... </span><span class="sd">        b : array : units=ft</span>
+<span class="gp">... </span><span class="sd">            Another array</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">        Returns</span>
+<span class="gp">... </span><span class="sd">        -------</span>
+<span class="gp">... </span><span class="sd">        c : array : units=m</span>
+<span class="gp">... </span><span class="sd">            c = a + b</span>
+<span class="gp">... </span><span class="sd">    &#39;&#39;&#39;</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3048</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> 
+<span class="go">array([...0.6096, 1.2192, 1.8288])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="k">import</span> <span class="n">m</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitArray</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> 
+<span class="go">UnitArray([...2., 4., 6.], units=&#39;1.0*m&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
+<span class="go">1.0*m</span>
+</pre></div>
+</div>
+<p>Alternatively, parameter information can be specified in the decorator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="k">import</span> <span class="n">has_units</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@has_units</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;a:an array:units=ft;b:array:units=ft&quot;</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="n">outputs</span><span class="o">=</span><span class="s2">&quot;result:an array:units=m&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="s2">&quot; Add two arrays in ft and convert them to m. &quot;</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3048</span>
+</pre></div>
+</div>
+<p>The returned function has several attributes attached to it:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>summary: A short description of the function.  This is taken from the</dt>
+<dd>‘summary’ argument to the decorator.</dd>
+<dt>doc:     A longer description of the function.  This is taken from the</dt>
+<dd>‘doc’ argument to the decorator.</dd>
+<dt>inputs: A list of Variable objects, for each argument to the function</dt>
+<dd><em>in the order they are defined in the python function
+signature</em>.  If you did not supply any information about the
+argument in “inputs”, then a default Variable object is
+created.</dd>
+<dt>outputs: A list of Variable objects, for each output of the function</dt>
+<dd>in the order they you specify them in the “outputs” variable
+in the argument list.</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="unitscalar">
+<h3>UnitScalar<a class="headerlink" href="#unitscalar" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="scimath.units.unit_scalar.UnitScalar">
+<code class="descclassname">scimath.units.unit_scalar.</code><code class="descname">UnitScalar</code><span class="sig-paren">(</span><em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scimath/units/unit_scalar.html#UnitScalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.unit_scalar.UnitScalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalars with units.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.length</span> <span class="k">import</span> <span class="n">cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">units</span>
+<span class="go">(UnitScalar(5, units=&#39;0.01*m&#39;), 0.01*m)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
+<span class="go">(UnitScalar(25, units=&#39;0.0001*m**2&#39;), 0.0001*m**2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="unitarray">
+<h3>UnitArray<a class="headerlink" href="#unitarray" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="scimath.units.unit_scalar.UnitArray">
+<code class="descclassname">scimath.units.unit_scalar.</code><code class="descname">UnitArray</code><span class="sig-paren">(</span><em>data</em>, <em>dtype=None</em>, <em>copy=True</em>, <em>units=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scimath/units/unit_array.html#UnitArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scimath.units.unit_scalar.UnitArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a UnitArray that subclasses from a Numpy array</p>
+<p>This class simply adds a “units” object to a numpy array.  It deals
+with unit adjustments involving basic arithmetic and comparison
+operations between arrays with units.  If incompatible units are
+used, an error will be raised.</p>
+<p>Note that the “units” may hold some amount of the magnitude, which can
+be particularly significant for dimensionless quantities.</p>
+<p>You should always convert a UnitArray to the required units before
+extracting the numerical value.</p>
+<p>This code is shamelessly copied from the numpy matrix class.  It is
+of course modified to suite our purposes.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/e-logo-rev.png" alt="Logo">
+            </a></p>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scimath Units User Reference</a><ul>
+<li><a class="reference internal" href="#internal-representation">Internal Representation</a></li>
+<li><a class="reference internal" href="#limited-api-reference">Limited API reference</a><ul>
+<li><a class="reference internal" href="#convert">Convert</a></li>
+<li><a class="reference internal" href="#hasunits">HasUnits</a></li>
+<li><a class="reference internal" href="#unitscalar">UnitScalar</a></li>
+<li><a class="reference internal" href="#unitarray">UnitArray</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="available_units.html"
+                        title="previous chapter">Types of Units Available</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../interpolate/index.html"
+                        title="next chapter">SciMath Interpolate Documentation</a></p>
+  <h3>This Page</h3>
+  <div>
+    <a href="../_sources/units/user_ref.rst.txt"
+       rel="nofollow">Show Source</a>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

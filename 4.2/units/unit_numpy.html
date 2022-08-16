@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Units with Numpy &mdash; scimath 4.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="../_static/et.ico">
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="scimath 4.2.0 documentation" href="../index.html" >
+    <link rel="up" title="SciMath Units Documentation" href="index.html" >
+    <link rel="next" title="Unitted Functions" href="unit_funcs.html" >
+    <link rel="prev" title="Introduction to SciMath Units" href="intro.html" > 
+  </head>
+  <body>
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../index.html">scimath 4.2.0 documentation</a></li>
+	
+          <li class="active"><a href="index.html" accesskey="U">SciMath Units Documentation</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="unit_funcs.html" title="Unitted Functions"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="intro.html" title="Introduction to SciMath Units"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="units-with-numpy">
+<span id="id1"></span><h1>Units with Numpy<a class="headerlink" href="#units-with-numpy" title="Permalink to this headline">¶</a></h1>
+<p>For high-performance computation, Scimath.units includes two objects for adding
+units to <a class="reference external" href="http://www.numpy.org">Numpy</a> <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html">ndarray</a> objects: the
+<a class="reference internal" href="user_ref.html#scimath.units.unit_scalar.UnitScalar" title="scimath.units.unit_scalar.UnitScalar"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnitScalar</span></code></a> and the
+<a class="reference internal" href="user_ref.html#scimath.units.unit_scalar.UnitArray" title="scimath.units.unit_scalar.UnitArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnitArray</span></code></a>. UnitScalars and UnitArrays
+can be used directly in computations but are best handled with <a class="reference internal" href="unit_funcs.html#unit-funcs"><span class="std std-ref">unitted
+functions</span></a> constructed using the
+<a class="reference internal" href="user_ref.html#scimath.units.has_units.has_units" title="scimath.units.has_units.has_units"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_units()</span></code></a> decorator.</p>
+<div class="section" id="working-with-unitscalars-and-unitarrays">
+<span id="working-with-unit-scalars"></span><h2>Working with UnitScalars and UnitArrays<a class="headerlink" href="#working-with-unitscalars-and-unitarrays" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="unitscalar-example">
+<h3>UnitScalar example<a class="headerlink" href="#unitscalar-example" title="Permalink to this headline">¶</a></h3>
+<p>As a basic example using scalar values, let’s create two UnitScalars and add
+them. Say we were averaging the wing spans of African swallows (a) with
+that of European swallows (e).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scimath.units.api</span> <span class="k">import</span> <span class="n">UnitScalar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;inches&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">UnitScalar</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;cm&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="go">UnitScalar(5.452755905511811, units=&#39;0.025400000000000002*m&#39;)</span>
+</pre></div>
+</div>
+<p>Note that the result is a UnitScalar whose default units are <em>inches</em>, but it
+displays as a derivation from the SI fundamental unit <em>meters</em>. This is because
+UnitScalar values are stored internally as derivations of the SI system, thus
+if the value is assigned in a non-SI unit, part of the value may appear in the
+units. (See the section on <a class="reference internal" href="user_ref.html#internal-representation"><span class="std std-ref">internal representation</span></a> for more detail.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">UnitScalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
+<span class="go">UnitScalar(1, units=&#39;0.025400000000000002*m&#39;)</span>
+</pre></div>
+</div>
+<p>A UnitScalar assumes the units that are first assigned to it. From the example
+above,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">e</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="go">UnitScalar(13.85, units=&#39;0.01*m&#39;)</span>
+</pre></div>
+</div>
+<p>This does not fundamentally change the value of the variable, but it can lead
+to rounding errors and unexpected results:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">e</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span>
+<span class="go">UnitScalar(False, units=&#39;None&#39;)</span>
+</pre></div>
+</div>
+<p>since</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">e</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+<span class="go">UnitScalar(1.7763568394002505e-15, units=&#39;0.025400000000000002*m&#39;)</span>
+</pre></div>
+</div>
+<p>which is awfully close but not quite equal to zero.</p>
+</div>
+<div class="section" id="unitarray-example">
+<h3>UnitArray example<a class="headerlink" href="#unitarray-example" title="Permalink to this headline">¶</a></h3>
+<p>A UnitArray uses a Numpy ndarray  as its value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linspace</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">UnitArray</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;cm&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">UnitArray([ 0.,  1.,  2.,  3.,  4.,  5.], units=&#39;0.01*m&#39;)</span>
+</pre></div>
+</div>
+<p>UnitArrays can be multiplied by UnitScalars or other UnitArrays, as in NumPy.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="go">UnitArray([0.,  1.,  2.,  3.,  4.,  5.], units=&#39;0.0030480000000000004*m**2&#39;)</span>
+</pre></div>
+</div>
+<p>Note that part of the value is contained in the unit string.</p>
+<p>For high-performance computation with UnitArrays use <a class="reference internal" href="unit_funcs.html#unit-funcs"><span class="std std-ref">unitted functions</span></a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/e-logo-rev.png" alt="Logo">
+            </a></p>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Units with Numpy</a><ul>
+<li><a class="reference internal" href="#working-with-unitscalars-and-unitarrays">Working with UnitScalars and UnitArrays</a><ul>
+<li><a class="reference internal" href="#unitscalar-example">UnitScalar example</a></li>
+<li><a class="reference internal" href="#unitarray-example">UnitArray example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction to SciMath Units</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="unit_funcs.html"
+                        title="next chapter">Unitted Functions</a></p>
+  <h3>This Page</h3>
+  <div>
+    <a href="../_sources/units/unit_numpy.rst.txt"
+       rel="nofollow">Show Source</a>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2019, Enthought Inc
+      </li>
+      <li>
+      Last updated on Feb 06, 2019.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.4.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
