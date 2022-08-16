@@ -1,5 +1,71 @@
-SciMath CHANGELOG
-=================
+SciMath Change Log
+==================
+
+Release 5.0.0
+-------------
+
+This is a major release that is focused around code clean-up and modernization.
+
+Much of the work was around removing deprecated and broken components, while
+updating code to remove usage of deprecated things from Python and ETS.  In
+particular, this release drops support for Python versions 3.5 and earlier.
+
+Additionally, the ``scimath.units.plugin`` sub-package has been removed: it was
+broken and removing it permitted a simplification of dependencies: we don't
+require Envisage and its dependencies in this release.
+
+Change summary since 4.2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Enhancements
+
+* move ``scimath.interpolate`` profiling script into its own module (#153)
+* remove unused ``convert_quantity_old`` (#139)
+* remove extraneous return statements (#129)
+* remove print statements (#127)
+* remove ``scimath.units.units_version`` (#121)
+* remove references to the ``cp`` package (#117)
+* update and clean-up headers (#116, #157)
+* use one setup.py file with setuptools Extension (#115)
+* clean up compile-time warnings (#114, #133, #152)
+* remove out-of-place examples (#110)
+* remove broken ``scimath.units.plugin`` subpackage (#109)
+* remove unneeded ``if __name__ == "__main__":`` blocks (#105)
+* remove support for Python 2 (#104, #113)
+* remove EOF comments from files (#102, #120)
+* remove use of deprecated Traits features (#93, #96)
+
+Bugfixes
+
+* fix deprecated ``time.clock`` (#150)
+* fix hashing of units (#88)
+
+Documentation:
+
+* add a read-the-docs config (#148)
+* remove out-dated TODO file (#137)
+* use Enthought sphinx theme (#126)
+* fix typos in documentation (#100)
+
+Tests:
+
+* remove unneeded ``setUp`` and ``tearDown`` methods (#130)
+* use unittest discover instead of nose (#123)
+* make tests usable with unittest discover (#103, #125)
+* clean-up tests directories and files (#83, #108)
+
+CI and Build:
+
+* automatically publish releases on PyPI (#154)
+* run CI on Python 3.8 (#151)
+* don't report codecov on PRs (#138)
+* reconcile prerequisites (#134)
+* add a cron job to run against current ETS projects (#112)
+* use Github rather than Travis and Appveyor for CI (#111, #136, #144)
+* don't run CI on older Python versions (#107)
+* CI updates and changes (#91, #97)
+* add MANIFEST.in file (#82, #92, #132)
+* add pyproject.toml with numpy as a build dependency (#78)
 
 Release 4.2.0
 -------------
@@ -37,7 +103,7 @@ Change summary since 4.1.2
 
 * Converted the most-used traits to authentic TraitTypes. (#57)
 
-* Added __str__ methods on UnitScalar and UnitArray classes, to make it easier
+* Added ``__str__`` methods on ``UnitScalar`` and ``UnitArray`` classes, to make it easier
   to see values with their unit (label) (#46).
 
 * Fix: Adding unit test for extending unit parser (#43)
@@ -50,12 +116,12 @@ Change summary since 4.1.2
 
 * Feature: added units barn, rayl, barns_per_electron, US survey foot (#33)
 
-* Fix: `'None'` was parsed into an invalid unit with `None` as its `value`. (#31)
+* Fix: ``'None'`` was parsed into an invalid unit with ``None`` as its ``value``. (#31)
 
 * Fix: UnitArray comparisons will return boolean arrays, like their unadorned
   ndarray counterpart. (#29)
 
-* Fix: raising a unitless `UnitArray` raised to a power. Thanks to @rupertnash
+* Fix: raising a unitless ``UnitArray`` raised to a power. Thanks to @rupertnash
   for reporting and fixing the bug. (#5, #28)
 
 * Fix: Remove trivial (0.0) offsets from the string representation of units. (#27)
