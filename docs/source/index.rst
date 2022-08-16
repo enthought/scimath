@@ -17,6 +17,7 @@ Contents:
    units/index
    interpolate/index
    mathematics/index
+   changes
 
 
 Indices and tables
