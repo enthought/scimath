@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SciMath Change Log &mdash; scimath 5.0.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
+    <link rel="stylesheet" href="_static/enthought.css" type="text/css" >
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" >
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '5.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        LINK_SUFFIX: '.html',
+        SOURCELINK_SUFFIX: '.txt',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="_static/js/wrap_on_dot.js"></script>
+    <link rel="shortcut icon" href="_static/img/favicon.png">
+    <link rel="index" title="Index" href="genindex.html" >
+    <link rel="search" title="Search" href="search.html" >
+    <link rel="top" title="scimath 5.0.0 documentation" href="index.html" >
+    <link rel="prev" title="SciMath Mathematics Documentation" href="mathematics/index.html" > 
+  </head>
+  <body>
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="index.html">scimath 5.0.0 documentation</a></li>
+	 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="mathematics/index.html" title="SciMath Mathematics Documentation"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body" role="main">
+            
+  <section id="scimath-change-log">
+<h1>SciMath Change Log<a class="headerlink" href="#scimath-change-log" title="Permalink to this headline">¶</a></h1>
+<section id="release-5-0-0">
+<h2>Release 5.0.0<a class="headerlink" href="#release-5-0-0" title="Permalink to this headline">¶</a></h2>
+<p>This is a major release that is focused around code clean-up and modernization.</p>
+<p>Much of the work was around removing deprecated and broken components, while
+updating code to remove usage of deprecated things from Python and ETS.  In
+particular, this release drops support for Python versions 3.5 and earlier.</p>
+<p>Additionally, the <code class="docutils literal notranslate"><span class="pre">scimath.units.plugin</span></code> sub-package has been removed: it was
+broken and removing it permitted a simplification of dependencies: we don’t
+require Envisage and its dependencies in this release.</p>
+<section id="change-summary-since-4-2-0">
+<h3>Change summary since 4.2.0<a class="headerlink" href="#change-summary-since-4-2-0" title="Permalink to this headline">¶</a></h3>
+<p>Enhancements</p>
+<ul class="simple">
+<li><p>move <code class="docutils literal notranslate"><span class="pre">scimath.interpolate</span></code> profiling script into its own module (#153)</p></li>
+<li><p>remove unused <code class="docutils literal notranslate"><span class="pre">convert_quantity_old</span></code> (#139)</p></li>
+<li><p>remove extraneous return statements (#129)</p></li>
+<li><p>remove print statements (#127)</p></li>
+<li><p>remove <code class="docutils literal notranslate"><span class="pre">scimath.units.units_version</span></code> (#121)</p></li>
+<li><p>remove references to the <code class="docutils literal notranslate"><span class="pre">cp</span></code> package (#117)</p></li>
+<li><p>update and clean-up headers (#116, #157)</p></li>
+<li><p>use one setup.py file with setuptools Extension (#115)</p></li>
+<li><p>clean up compile-time warnings (#114, #133, #152)</p></li>
+<li><p>remove out-of-place examples (#110)</p></li>
+<li><p>remove broken <code class="docutils literal notranslate"><span class="pre">scimath.units.plugin</span></code> subpackage (#109)</p></li>
+<li><p>remove unneeded <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> blocks (#105)</p></li>
+<li><p>remove support for Python 2 (#104, #113)</p></li>
+<li><p>remove EOF comments from files (#102, #120)</p></li>
+<li><p>remove use of deprecated Traits features (#93, #96)</p></li>
+</ul>
+<p>Bugfixes</p>
+<ul class="simple">
+<li><p>fix deprecated <code class="docutils literal notranslate"><span class="pre">time.clock</span></code> (#150)</p></li>
+<li><p>fix hashing of units (#88)</p></li>
+</ul>
+<p>Documentation:</p>
+<ul class="simple">
+<li><p>add a read-the-docs config (#148)</p></li>
+<li><p>remove out-dated TODO file (#137)</p></li>
+<li><p>use Enthought sphinx theme (#126)</p></li>
+<li><p>fix typos in documentation (#100)</p></li>
+</ul>
+<p>Tests:</p>
+<ul class="simple">
+<li><p>remove unneeded <code class="docutils literal notranslate"><span class="pre">setUp</span></code> and <code class="docutils literal notranslate"><span class="pre">tearDown</span></code> methods (#130)</p></li>
+<li><p>use unittest discover instead of nose (#123)</p></li>
+<li><p>make tests usable with unittest discover (#103, #125)</p></li>
+<li><p>clean-up tests directories and files (#83, #108)</p></li>
+</ul>
+<p>CI and Build:</p>
+<ul class="simple">
+<li><p>automatically publish releases on PyPI (#154)</p></li>
+<li><p>run CI on Python 3.8 (#151)</p></li>
+<li><p>don’t report codecov on PRs (#138)</p></li>
+<li><p>reconcile prerequisites (#134)</p></li>
+<li><p>add a cron job to run against current ETS projects (#112)</p></li>
+<li><p>use Github rather than Travis and Appveyor for CI (#111, #136, #144)</p></li>
+<li><p>don’t run CI on older Python versions (#107)</p></li>
+<li><p>CI updates and changes (#91, #97)</p></li>
+<li><p>add MANIFEST.in file (#82, #92, #132)</p></li>
+<li><p>add pyproject.toml with numpy as a build dependency (#78)</p></li>
+</ul>
+</section>
+</section>
+<section id="release-4-2-0">
+<h2>Release 4.2.0<a class="headerlink" href="#release-4-2-0" title="Permalink to this headline">¶</a></h2>
+<p>Released : 06 February 2019</p>
+<p>This minor release accumulates a large number of improvements, changes and
+bug fixes to the scimath codebase.</p>
+<p>A few highlights of this release are :</p>
+<ul class="simple">
+<li><p>Support for Python 3</p></li>
+<li><p>Enhancements to time units and the addition new units.</p></li>
+<li><p>Support for newer versions of Numpy</p></li>
+</ul>
+<section id="change-summary-since-4-1-2">
+<h3>Change summary since 4.1.2<a class="headerlink" href="#change-summary-since-4-1-2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Change: Setup Travis and Appveyor CI (#71)</p></li>
+<li><p>Change: Use PEP 440 compliant development version (#69)</p></li>
+<li><p>Fix : Restore parsing of angular minutes and seconds (#66)</p></li>
+<li><p>Feature : Enhancement of time units (#65)</p></li>
+<li><p>Fix : Missing imports (#63)</p></li>
+<li><p>Fix : Support newer versions of Numpy (#62)</p></li>
+<li><p>Feature: Port to Python 3 (#50)</p></li>
+<li><p>Converted the most-used traits to authentic TraitTypes. (#57)</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">__str__</span></code> methods on <code class="docutils literal notranslate"><span class="pre">UnitScalar</span></code> and <code class="docutils literal notranslate"><span class="pre">UnitArray</span></code> classes, to make it easier
+to see values with their unit (label) (#46).</p></li>
+<li><p>Fix: Adding unit test for extending unit parser (#43)</p></li>
+<li><p>Fix: Parser extend method throws a NameError when custom units are added to the parser. (#41)</p></li>
+<li><p>Feature: added inHg unit for inches of mercury (#40)</p></li>
+<li><p>Feature: added dimensionless “fract” unit (#38)</p></li>
+<li><p>Feature: added units barn, rayl, barns_per_electron, US survey foot (#33)</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">'None'</span></code> was parsed into an invalid unit with <code class="docutils literal notranslate"><span class="pre">None</span></code> as its <code class="docutils literal notranslate"><span class="pre">value</span></code>. (#31)</p></li>
+<li><p>Fix: UnitArray comparisons will return boolean arrays, like their unadorned
+ndarray counterpart. (#29)</p></li>
+<li><p>Fix: raising a unitless <code class="docutils literal notranslate"><span class="pre">UnitArray</span></code> raised to a power. Thanks to &#64;rupertnash
+for reporting and fixing the bug. (#5, #28)</p></li>
+<li><p>Fix: Remove trivial (0.0) offsets from the string representation of units. (#27)</p></li>
+<li><p>Fix: numpy change in how vectorize() keeps the original function. (#26)</p></li>
+<li><p>Feature: Enhance the unit parser to parse all of the provided units, with or without
+offsets. (#25)</p></li>
+<li><p>Fix: Correct the definition of PPG to be a density unit instead of a pressure
+gradient unit. Calculations using PPG as a pressure gradient unit can be
+recovered simply by multiplying the PPG quantity by g, the acceleration due
+to gravity. To precisely recover the exact values from the previous
+definition, use <code class="docutils literal notranslate"><span class="pre">0.0519</span> <span class="pre">*</span> <span class="pre">psi_per_f</span> <span class="pre">/</span> <span class="pre">ppg</span></code> for this value, which is not
+necessarily the best estimate for g. (#24)</p></li>
+<li><p>Fix: Update to modern numpy C API to eliminate deprecation warnings (#22)</p></li>
+<li><p>Fix: PEP whitespace cleanups (#20)</p></li>
+<li><p>Fix: Address string literal deprecation warnings in _interpolate build, removing
+warnings during compilation (#19)</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/e-logo-rev.png" alt="Logo">
+            </a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SciMath Change Log</a><ul>
+<li><a class="reference internal" href="#release-5-0-0">Release 5.0.0</a><ul>
+<li><a class="reference internal" href="#change-summary-since-4-2-0">Change summary since 4.2.0</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#release-4-2-0">Release 4.2.0</a><ul>
+<li><a class="reference internal" href="#change-summary-since-4-1-2">Change summary since 4.1.2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mathematics/index.html"
+                        title="previous chapter">SciMath Mathematics Documentation</a></p>
+  <h3>This Page</h3>
+  <div>
+    <a href="_sources/changes.rst.txt"
+       rel="nofollow">Show Source</a>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2005-2022, Enthought Inc
+      </li>
+      <li>
+      Last updated on Aug 16, 2022.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.5.4.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
