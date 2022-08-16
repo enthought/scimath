@@ -113,6 +113,10 @@ DEPENDENCIES = [
     'scipy',
 ]
 
+EXTRAS_REQUIRE = {
+    "docs": ["enthought-sphinx-theme", "sphinx"],
+}
+
 
 if __name__ == "__main__":
     __version__ = write_version_py()
@@ -163,6 +167,7 @@ if __name__ == "__main__":
         ext_modules=extensions,
         packages=find_packages(exclude=['docs', 'examples']),
         install_requires = DEPENDENCIES,
+        extras_require = EXTRAS_REQUIRE,
         license = "BSD",
         package_data = {'': ['images/*', 'data/*', 'scimath/units/data/*']},
         platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
