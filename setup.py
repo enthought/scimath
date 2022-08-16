@@ -1,4 +1,4 @@
-# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
+# (C) Copyright 2005-2022 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -22,7 +22,7 @@ MICRO = 0
 IS_RELEASED = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 VERSION_FILE_TEMPLATE = """\
-# (C) Copyright 2005-2021 Enthought, Inc., Austin, TX
+# (C) Copyright 2005-2022 Enthought, Inc., Austin, TX
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -133,7 +133,7 @@ if __name__ == "__main__":
         depends=['interpolate.h']
     )
 
-    extensions = [interpolate] 
+    extensions = [interpolate]
 
     # The actual setup call.
     setup(
