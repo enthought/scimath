@@ -4,4 +4,5 @@ include image_LICENSE.txt
 include LICENSE.txt
 include README.rst
 include pyproject.toml
+include scimath/interpolate/interpolate.h
 recursive-include scimath/units/data *.txt
