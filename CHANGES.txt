@@ -1,5 +1,5 @@
-SciMath CHANGELOG
-=================
+SciMath Change Log
+==================
 
 Release 5.0.0
 -------------
