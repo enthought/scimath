@@ -16,10 +16,10 @@ from subprocess import check_output
 from numpy import get_include
 
 
-MAJOR = 4
-MINOR = 3
+MAJOR = 5
+MINOR = 0
 MICRO = 0
-IS_RELEASED = False
+IS_RELEASED = True
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 VERSION_FILE_TEMPLATE = """\
 # (C) Copyright 2005-2022 Enthought, Inc., Austin, TX
