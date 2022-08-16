@@ -133,7 +133,7 @@ if __name__ == "__main__":
         depends=['interpolate.h']
     )
 
-    extensions = [interpolate] 
+    extensions = [interpolate]
 
     # The actual setup call.
     setup(
@@ -164,6 +164,7 @@ if __name__ == "__main__":
             """.splitlines() if len(c.split()) > 0],
         description = 'scientific and mathematical calculations',
         long_description = open('README.rst').read(),
+        long_description_content_type = "text/x-rst",
         ext_modules=extensions,
         packages=find_packages(exclude=['docs', 'examples']),
         install_requires = DEPENDENCIES,
