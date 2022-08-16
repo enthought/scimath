@@ -25,7 +25,7 @@ Enhancements
 * remove print statements (#127)
 * remove `scimath.units.units_version` (#121)
 * remove references to the `cp` package (#117)
-* update and clean-up headers (#116)
+* update and clean-up headers (#116, #157)
 * use one setup.py file with setuptools Extension (#115)
 * clean up compile-time warnings (#114, #133, #152)
 * remove out-of-place examples (#110)
@@ -56,6 +56,7 @@ Tests:
 
 CI and Build:
 
+* automatically publish releases on PyPI (#154)
 * run CI on Python 3.8 (#151)
 * don't report codecov on PRs (#138)
 * reconcile prerequisites (#134)
