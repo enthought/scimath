@@ -3,7 +3,7 @@ requires = ["oldest-supported-numpy", "setuptools", "wheel"]
 build-backend = 'setuptools.build_meta'
 
 [tool.cibuildwheel]
-skip = "pp* *-musllinux*"
+skip = "pp* *-musllinux* *i686 *win32"
 
 [tool.cibuildwheel.macos]
 archs = ["auto", "universal2"]
