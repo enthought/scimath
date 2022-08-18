@@ -18,8 +18,8 @@ from numpy import get_include
 
 MAJOR = 5
 MINOR = 0
-MICRO = 0
-IS_RELEASED = True
+MICRO = 1
+IS_RELEASED = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 VERSION_FILE_TEMPLATE = """\
 # (C) Copyright 2005-2022 Enthought, Inc., Austin, TX
