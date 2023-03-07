@@ -266,7 +266,7 @@ class TraitsTestCase(TestCase):
         self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'km')
 
-        obj.on_trait_change(self._units_changed)
+        obj.observe(self._units_changed)
 
         obj.units = 'ft'
         self.assertEqual(len(self.event_change_log), 1)

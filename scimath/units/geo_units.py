@@ -10,7 +10,7 @@
 
 from copy import copy
 
-from scimath.units.SI import *
+from scimath.units.SI import dimensionless, mega, pascal, second
 from scimath.units.dimensionless import fractional, fraction, frac, \
     percent, percentage, pct, parts_per_one, parts_per_million, ppm, ratio
 from scimath.units.electromagnetism import mho, millivolts, mmho, mSiemen, \
