@@ -256,8 +256,8 @@ class TraitsTestCase(TestCase):
         self.assertEqual(obj.family_name, 'time')
         self.assertEqual(obj.units.label, 'hour')
 
-    def _units_changed(self, obj, name, old, new):
-        self.event_change_log.append((name, old, new))
+    def _units_changed(self, obj):
+        self.event_change_log.append((obj.name, obj.old, obj.new))
 
     def test_units_events(self):
         self.event_change_log = []
