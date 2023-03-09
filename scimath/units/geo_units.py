@@ -10,7 +10,12 @@
 
 from copy import copy
 
-from scimath.units.SI import *
+from scimath.units.SI import ampere, atto, becquerel, candela, centi, \
+    coulomb, deci, deka, exa, farad, femto, giga, gray, hecto, henry, \
+    hertz, joule, katal, kilo, kilogram, lumen, lux, mega, meter, micro, \
+    milli, mole, nano, newton, ohm, pascal, peta, pico, radian, second, \
+    siemens, sievert, steradian, tera, tesla, volt, watt, weber, yocto, \
+    yotta, zepto, zetta
 from scimath.units.dimensionless import fractional, fraction, frac, \
     percent, percentage, pct, parts_per_one, parts_per_million, ppm, ratio
 from scimath.units.electromagnetism import mho, millivolts, mmho, mSiemen, \
@@ -22,6 +27,7 @@ from scimath.units.mass import grams, lb
 from scimath.units.pressure import apsi, bar, bars, gpa, Gpa, GPA, GPa, kbar, \
     kbars, kilobar, mpa, Mpa, MPA, MPa, pounds_per_square_inch, psi, psig
 from scimath.units.time import microsecond
+from scimath.units.unit import dimensionless, none, unit
 from scimath.units.volume import cubic_centimeter, cubic_meter, \
     us_fluid_gallon, liter, cubic_foot
 

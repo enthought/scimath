@@ -256,8 +256,8 @@ class TraitsTestCase(TestCase):
         self.assertEqual(obj.family_name, 'time')
         self.assertEqual(obj.units.label, 'hour')
 
-    def _units_changed(self, obj, name, old, new):
-        self.event_change_log.append((name, old, new))
+    def _units_changed(self, event):
+        self.event_change_log.append((event.name, event.old, event.new))
 
     def test_units_events(self):
         self.event_change_log = []
@@ -266,7 +266,7 @@ class TraitsTestCase(TestCase):
         self.assertFalse(obj is None)
         self.assertEqual(obj.units.label, 'km')
 
-        obj.on_trait_change(self._units_changed)
+        obj.observe(self._units_changed, "*")
 
         obj.units = 'ft'
         self.assertEqual(len(self.event_change_log), 1)
