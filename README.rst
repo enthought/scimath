@@ -21,7 +21,7 @@ Prerequisites
 
 Development Environment Setup
 -------------
-1. Setup the EDM (with click, setuptools and coverage): edm install -e bootstrap click, setuptools, coverage
-2. Activate the EDM environment: edm shell -e bootstrap
+1. Setup the EDM (with click, setuptools and coverage): edm install -e name_of_your_scimath_env click, setuptools, coverage
+2. Activate the EDM environment: edm shell -e name_of_your_scimath_env
 3. Install packages for development: python etstool.py install
 4. Run the tests: python etstool.py test
