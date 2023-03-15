@@ -22,9 +22,9 @@ Prerequisites
 Development Environment Setup
 -----------------------------
 
-To setup the EDM environment for this project::
+To set up an EDM environment for this project::
 
-    $ edm install -e name_of_your_scimath_env click, setuptools, coverage
+    $ edm install -e name_of_your_scimath_env click
     $ edm shell -e name_of_your_scimath_env
     $ python etstool.py install
     $ python etstool.py test
