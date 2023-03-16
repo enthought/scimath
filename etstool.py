@@ -83,7 +83,7 @@ from contextlib import contextmanager
 
 import click
 
-supported_runtimes = ['3.6', '3.8', '3.11']
+supported_runtimes = ['3.6', '3.8']
 
 dependencies = {
     "numpy",
