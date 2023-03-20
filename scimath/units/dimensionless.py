@@ -8,6 +8,12 @@
 #
 # Thanks for using Enthought open source!
 
+""" Defines units of dimensionless
+
+Symbols defined: fractional, parts_per_million, parts_per_one, percent [and aliases]
+
+"""
+
 from copy import copy
 from scimath.units.SI import dimensionless
 from scimath.units.unit import one, dim

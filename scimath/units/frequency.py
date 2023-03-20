@@ -9,6 +9,8 @@
 # Thanks for using Enthought open source!
 
 """ Defines units of frequency
+
+Symbols defined: hertz, kilohertz, rpm [and aliases]
 """
 
 #############################################################################

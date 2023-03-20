@@ -13,6 +13,10 @@ Derived from: units/time.py [pyre system]
               Michael A.G. Aivazis
               California Institute of Technology
               (c) 1998-2003
+
+Symbols defined: milli-, micro-, nano-, pico-, second,
+                 minute, hour, day, week, year [and aliases]
+
 """
 
 #############################################################################

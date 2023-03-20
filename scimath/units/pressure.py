@@ -29,8 +29,11 @@ from scimath.units.unit import unit
 #
 #     The NIST Reference on Constants, Units and Uncertainty,
 #         http://physics.nist.gov/cuu
+# 
+# Symbols defined: pascal, kPa, MPa, GPa, inHg,
+#                  bar, kilobar, millibar, torr, atmosphere,
+#                  pounds_per_square_inch [and aliases]
 #
-
 
 # aliases
 

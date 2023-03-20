@@ -8,6 +8,19 @@
 #
 # Thanks for using Enthought open source!
 
+""" Defines units of electromagnetism
+
+Symbols defined: ampere, milli_ampere,
+                 farad, micro_farad, pico_farad,
+                 henry,
+                 ohm, ohm_meter, ohmm,
+                 siemen, mSiemen, siemens_per_meter,
+                 tesla,
+                 volt, milivolt,
+                 weber [and aliases]
+
+"""
+
 from copy import copy
 
 from scimath.units.SI import ampere, coulomb, farad, henry, joule, ohm, \

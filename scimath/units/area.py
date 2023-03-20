@@ -18,6 +18,13 @@
 
 from .length import meter, centimeter, inch, foot, mile
 
+""" Define units of area
+
+Symbols defined: acre, hectare, 
+                 barn, 
+                 square_centimeter, square_foot, square_inch, square_meter, square_mile [and aliases]
+
+"""
 
 #
 # Definitions of common area units

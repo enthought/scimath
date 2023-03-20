@@ -8,6 +8,12 @@
 #
 # Thanks for using Enthought open source!
 
+""" Defines units of force
+
+Symbols defined: lbf, lbs, N [and aliases]
+
+"""
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 #                             Michael A.G. Aivazis

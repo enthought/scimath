@@ -30,6 +30,13 @@ from .SI import joule, kilo, mega, giga
 #     The NIST Reference on Constants, Units and Uncertainty,
 #         http://physics.nist.gov/cuu
 #
+# Symbols defined: Btu, 
+#                  Calorie, calorie, 
+#                  electron_volt, 
+#                  erg, 
+#                  foot_pound, 
+#                  horse_power_hour, kilowatt_hour [and aliases]
+#
 
 
 Btu = 1055 * joule

@@ -9,6 +9,10 @@
 # Thanks for using Enthought open source!
 
 """ Define units of angle (dimensionless with meaning)
+
+Symbols defined: circle, degree, grad, quadrant, mil, right_angle, radian, revolution, sextant, sign, turn
+                 minute, second, [and aliases]
+
 """
 
 #############################################################################

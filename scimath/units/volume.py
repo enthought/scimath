@@ -15,6 +15,12 @@ Derived from: units/volume.py [pyre system]
               Michael A.G. Aivazis
               California Institute of Technology
               (c) 1998-2003
+
+Symbols defined: cubic_centimeter, cubic_foot, cubic_meter,
+                 liter, barrel,
+                 us_pint,
+                 us_fluid_ounce, us_fluid_quart, us_fluid_gallon [and aliases]
+
 """
 #############################################################################
 # Imports:
