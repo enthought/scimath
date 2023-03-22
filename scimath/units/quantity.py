@@ -303,8 +303,7 @@ class Quantity(HasPrivateTraits):
             return
 
         # Replace the predecessor's data with converted data.
-        new_quantity = self.change_unit_system(predecessor.units)
-        predecessor.data = new_quantity.data
+        predecessor.data = units_convert(self.data, self.units, predecessor.units)
 
         # Recursively continue propagating.
         predecessor.propagate_data_changes()

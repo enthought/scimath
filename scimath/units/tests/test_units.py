@@ -197,6 +197,15 @@ class test_units(unittest.TestCase):
         self.assertAlmostEqual(30., q1.data, 1,
                                "Propagation test expected data 30, got %s" % str(q1.data))
 
+    def test_propagation_to_imperial(self):
+        """ Tests data propagation for a single converted quantity. """
+
+        q1 = Quantity(10.0, units='ft', family_name='depth')
+        q2 = q1.change_unit_system('METRIC')
+        q2.data = 2 * q2.data
+        q2.propagate_data_changes()
+        self.assertAlmostEqual(q1.data, 20.0)
+
     def test_get_original(self):
 
         q1 = Quantity(10, units='m', family_name='depth')
