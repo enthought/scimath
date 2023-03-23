@@ -10,12 +10,12 @@
 
 """ Defines units of density
 
-Derived from: units/density.py [pyre system]
-              Michael A.G. Aivazis
-              California Institute of Technology
-              (c) 1998-2003
+    Derived from: units/density.py [pyre system]
+                  Michael A.G. Aivazis
+                  California Institute of Technology
+                  (c) 1998-2003
 
-Symbols defined: grams_per_cubic_centimeter, kilograms_per_cubic_meter, lb_per_gal [and aliases]
+    Symbols defined: grams_per_cubic_centimeter, kilograms_per_cubic_meter, lb_per_gal [and aliases]
 
 """
 

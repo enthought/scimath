@@ -18,8 +18,7 @@
 
 """ Defines units of temperature
 
-Symbols defined: celsius, fahrenheit, kelvin, rankine [and aliases]
-              
+    Symbols defined: celsius, fahrenheit, kelvin, rankine [and aliases]
 """
 
 from scimath.units.unit import unit

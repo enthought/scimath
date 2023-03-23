@@ -10,7 +10,7 @@
 
 """ Define units of acceleration
 
-Symbols defined: feet_per_second_squared, meters_per_second_squared [and aliases]
+    Symbols defined: feet_per_second_squared, meters_per_second_squared [and aliases]
 
 """
 

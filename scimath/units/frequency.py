@@ -10,7 +10,7 @@
 
 """ Defines units of frequency
 
-Symbols defined: hertz, kilohertz, rpm [and aliases]
+    Symbols defined: hertz, kilohertz, rpm [and aliases]
 """
 
 #############################################################################

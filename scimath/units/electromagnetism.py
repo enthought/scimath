@@ -10,14 +10,14 @@
 
 """ Defines units of electromagnetism
 
-Symbols defined: ampere, milli_ampere,
-                 farad, micro_farad, pico_farad,
-                 henry,
-                 ohm, ohm_meter, ohmm,
-                 siemen, mSiemen, siemens_per_meter,
-                 tesla,
-                 volt, milivolt,
-                 weber [and aliases]
+    Symbols defined: ampere, milli_ampere,
+                     farad, micro_farad, pico_farad,
+                     henry,
+                     ohm, ohm_meter, ohmm,
+                     siemen, mSiemen, siemens_per_meter,
+                     tesla,
+                     volt, milivolt,
+                     weber [and aliases]
 
 """
 

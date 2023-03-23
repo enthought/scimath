@@ -18,7 +18,7 @@
 
 """ Defines units of substance
 
-Symbols defined: mole, kmole [and aliases]
+    Symbols defined: mole, kmole [and aliases]
 """
 
 from .SI import mole, kilo

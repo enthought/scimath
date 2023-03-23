@@ -19,24 +19,21 @@
 from .SI import joule, kilo, mega, giga
 
 
-#
-# Definitions of common energy units
-#
-# Data taken from
-#
-#     Appendix F of Halliday, Resnick, Walker, "Fundamentals of Physics",
-#         fourth edition, John Willey and Sons, 1993
-#
-#     The NIST Reference on Constants, Units and Uncertainty,
-#         http://physics.nist.gov/cuu
-#
-# Symbols defined: Btu, 
-#                  Calorie, calorie, 
-#                  electron_volt, 
-#                  erg, 
-#                  foot_pound, 
-#                  horse_power_hour, kilowatt_hour [and aliases]
-#
+""" Definitions of common energy units
+
+    Data taken from Appendix F of Halliday, Resnick, Walker, "Fundamentals of Physics",
+    fourth edition, John Willey and Sons, 1993
+
+    The NIST Reference on Constants, Units and Uncertainty,
+    http://physics.nist.gov/cuu
+
+    Symbols defined: Btu,
+                     Calorie, calorie,
+                     electron_volt,
+                     erg,
+                     foot_pound,
+                     horse_power_hour, kilowatt_hour [and aliases]
+"""
 
 
 Btu = 1055 * joule

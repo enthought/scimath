@@ -10,7 +10,7 @@
 
 """ Defines units of dimensionless
 
-Symbols defined: fractional, parts_per_million, parts_per_one, percent [and aliases]
+    Symbols defined: fractional, parts_per_million, parts_per_one, percent [and aliases]
 
 """
 

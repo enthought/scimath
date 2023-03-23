@@ -10,7 +10,7 @@
 
 """ Defines units of force
 
-Symbols defined: lbf, lbs, N [and aliases]
+    Symbols defined: lbf, lbs, N [and aliases]
 
 """
 
