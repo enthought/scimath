@@ -1,5 +1,5 @@
 ===============================================================================
-Scimath Units User Manual Copyright Notice
+SciMath Units User Manual Copyright Notice
 ===============================================================================
 
 :Authors: Tim Diller

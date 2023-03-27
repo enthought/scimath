@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Scimath Documentation
+SciMath Documentation
 ===================================
 
 The SciMath project includes packages to support scientific and mathematical
@@ -26,4 +26,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
