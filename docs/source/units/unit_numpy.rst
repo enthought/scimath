@@ -4,8 +4,8 @@
 Units with Numpy
 ===============================================================================
 
-For high-performance computation, Scimath.units includes two objects for adding
-units to `Numpy`_ `ndarray`_ objects: the
+For high-performance computation, ``scimath.units`` includes two objects for
+adding units to `Numpy`_ `ndarray`_ objects: the
 :py:class:`~scimath.units.unit_scalar.UnitScalar` and the
 :py:class:`~scimath.units.unit_scalar.UnitArray`. UnitScalars and UnitArrays
 can be used directly in computations but are best handled with :ref:`unitted

@@ -1,7 +1,7 @@
 .. _user-ref:
 
 ===============================================================================
-Scimath Units User Reference
+SciMath Units User Reference
 ===============================================================================
 
 .. _internal-representation:
@@ -62,4 +62,3 @@ UnitScalar
 UnitArray
 -------------------------------------------------------------------------------
 .. autofunction:: scimath.units.unit_scalar.UnitArray
-
