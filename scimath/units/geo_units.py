@@ -8,6 +8,15 @@
 #
 # Thanks for using Enthought open source!
 
+""" Defines units of Geo Units
+
+    Symbols defined: g_km_per_cc_s, g_ft_per_cc_s, rayl, mrayl,
+                     barns_per_electron, psi_per_f,
+                     MPa_per_m, MPa_per_100f,
+                     lb_per_gal, api, gapi, us_per_ft [and aliases]
+
+"""
+
 from copy import copy
 
 from scimath.units.SI import ampere, atto, becquerel, candela, centi, \

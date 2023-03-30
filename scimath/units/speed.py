@@ -9,10 +9,15 @@
 # Thanks for using Enthought open source!
 
 """ Defines units of density.
-Derived from: units/density.py [pyre system]
-              Michael A.G. Aivazis
-              California Institute of Technology
-              (c) 1998-2003
+
+    Derived from: units/density.py [pyre system]
+                  Michael A.G. Aivazis
+                  California Institute of Technology
+                  (c) 1998-2003
+
+    Symbols defined: feet_per_second, meters_per_second, kilometers_per_second, miles_per_hour,
+                     knot [and aliases]
+
 """
 
 #############################################################################

@@ -22,44 +22,44 @@ from .unit import InvalidConversion
 def convert(value, from_unit, to_unit):
     """ Coverts value from one unit to another.
 
-    Parameters
-    ----------
-    value : float
-        value to convert
-    from_unit : scimath.unit object
-        implied units of 'value'
-    to_unit : scimath.unit object
-        implied units of the returned float
+        Parameters
+        ----------
+        value : float
+            value to convert
+        from_unit : scimath.unit object
+            implied units of 'value'
+        to_unit : scimath.unit object
+            implied units of the returned float
 
-    Returns
-    -------
-    value * conversion_factor + offset : data type is the same as was passed
-    in.
+        Returns
+        -------
+        value * conversion_factor + offset : data type is the same as was passed
+        in.
 
-    Description
-    -----------
+        Description
+        -----------
 
-    Checks first to see if from_unit and to_unit are equal and passes value
-    back in that case. Then convert() forms a conversion factor by dividing the
-    units. The offset is zero unless explicitly set otherwise in the unit
-    definition. Handling of UnitArrays is done by checking whether value is a
-    numpy.ndarray.
+        Checks first to see if from_unit and to_unit are equal and passes value
+        back in that case. Then convert() forms a conversion factor by dividing the
+        units. The offset is zero unless explicitly set otherwise in the unit
+        definition. Handling of UnitArrays is done by checking whether value is a
+        numpy.ndarray.
 
-    **Note**: Enthought has extended the original units implementation to
-    handle temperature conversions.  Temperature units are a special case
-    because they can have a different origin.
+        **Note**: Enthought has extended the original units implementation to
+        handle temperature conversions.  Temperature units are a special case
+        because they can have a different origin.
 
-    This causes a fundamental ambiguity. What behavior do we expect when we
-    convert temperature?
+        This causes a fundamental ambiguity. What behavior do we expect when we
+        convert temperature?
 
-    Option #1 When we convert 0 degrees centigrade we get 32 fahrenheit.
+        Option #1 When we convert 0 degrees centigrade we get 32 fahrenheit.
 
-    Option #2 When we convert a temperature difference of 0 degrees centigrade
-    we get a temperature difference of 0 degrees fahrenheit.
+        Option #2 When we convert a temperature difference of 0 degrees centigrade
+        we get a temperature difference of 0 degrees fahrenheit.
 
-    By convention we have made the units system behave like in Option
-    #1 so that convert() handles absolute temperatures, not temperature
-    differences.
+        By convention we have made the units system behave like in Option
+        #1 so that convert() handles absolute temperatures, not temperature
+        differences.
     """
 
     # TODO: it would be nice if this function could handle inversion as well as
