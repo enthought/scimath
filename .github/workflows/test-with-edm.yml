@@ -8,7 +8,7 @@ on:
     - cron:  '0 0 * * 5'
 
 env:
-  INSTALL_EDM_VERSION: 3.3.1
+  INSTALL_EDM_VERSION: 3.5.0
 
 jobs:
 
@@ -16,18 +16,18 @@ jobs:
   test-with-edm:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
         runtime: ['3.6', '3.8']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache EDM packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache
           key: ${{ runner.os }}-${{ hashFiles('etstool.py') }}
       - name: Set up EDM
-        uses: enthought/setup-edm-action@v1
+        uses: enthought/setup-edm-action@v2
         with:
           edm-version: ${{ env.INSTALL_EDM_VERSION }}
       - name: Install click to the default EDM environment
@@ -35,6 +35,4 @@ jobs:
       - name: Install test environment
         run: edm run -- python etstool.py install --runtime=${{ matrix.runtime }}
       - name: Run tests
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: edm run -- python etstool.py test --runtime=${{ matrix.runtime }}
+        run: edm run -- python etstool.py test --runtime=${{ matrix.runtime }}
