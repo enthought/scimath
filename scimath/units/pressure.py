@@ -20,17 +20,17 @@ from .SI import pascal, kilo, mega, giga
 from scimath.units.force import lbf
 from scimath.units.length import inch
 from scimath.units.unit import unit
-#
-# Definitions of common pressure units
-#
-# Data taken from
-#     Appendix F of Halliday, Resnick, Walker, "Fundamentals of Physics",
-#         fourth edition, John Willey and Sons, 1993
-#
-#     The NIST Reference on Constants, Units and Uncertainty,
-#         http://physics.nist.gov/cuu
-#
+""" Definitions of common pressure units
 
+    Data taken from Appendix F of Halliday, Resnick, Walker, "Fundamentals of Physics",
+    fourth edition, John Willey and Sons, 1993
+    The NIST Reference on Constants, Units and Uncertainty,
+    http://physics.nist.gov/cuu
+
+    Symbols defined: pascal, kPa, MPa, GPa, inHg,
+                     bar, kilobar, millibar, torr, atmosphere,
+                     pounds_per_square_inch [and aliases]
+"""
 
 # aliases
 

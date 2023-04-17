@@ -9,10 +9,16 @@
 # Thanks for using Enthought open source!
 
 """ Defines units of mass
-Derived from: units/mass.py [pyre system]
-              Michael A.G. Aivazis
-              California Institute of Technology
-              (c) 1998-2003
+
+    Derived from: units/mass.py [pyre system]
+                  Michael A.G. Aivazis
+                  California Institute of Technology
+                  (c) 1998-2003
+
+    Symbols defined: centigram, gram, kilogram, milligram,
+                     metric_ton, ton,
+                     ounce, pound [and aliases]
+              
 """
 
 #############################################################################

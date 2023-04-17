@@ -9,10 +9,18 @@
 # Thanks for using Enthought open source!
 
 """ Defines units of length
-Derived from: units/length.py [pyre system]
-              Michael A.G. Aivazis
-              California Institute of Technology
-              (c) 1998-2003
+
+    Derived from: units/length.py [pyre system]
+                  Michael A.G. Aivazis
+                  California Institute of Technology
+                  (c) 1998-2003
+
+    Symbols defined: kilo-, centi-, milli-, micro-, nano-, pico-, meter,
+                     inch, foot, yard, mile,
+                     fathom, nautical_mile,
+                     angstrom, fermi, survey_foot, us_foot, us_feet,
+                     astronomical_unit, light_year, parsec [and aliases]
+
 """
 
 #############################################################################

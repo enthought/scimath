@@ -16,6 +16,21 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+""" Defines units of SI
+
+    Symbols defined: meter, kilogram, second, ampere, mole, candela,
+                     radian, steradian, hertz, newton,
+                     pascal, joule, watt, coulomb,
+                     volt, farad, ohm, siemens, weber,
+                     tesla, henry, lumen, lux, becquerel,
+                     gray, sievert, katal [and aliases]
+
+    Prefixes defined: yotta, zetta, exa, peta, tera, giga, mega, kilo,
+                      hecto, deka, deci, centi, milli, micro, nano, pico,
+                      femto, atto, zepto, yocto
+
+"""
+
 from copy import copy
 from scimath.units.unit import unit, dimensionless, none
 
