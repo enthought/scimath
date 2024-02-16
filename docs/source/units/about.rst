@@ -4,7 +4,7 @@ SciMath Units User Manual Copyright Notice
 
 :Authors: Tim Diller
 :Version: Document Version 1
-:Copyright: 2011-2022 Enthought, Inc. All Rights Reserved.
+:Copyright: 2005-2024 Enthought, Inc. All Rights Reserved.
 
 Redistribution and use of this document in source and derived forms, with or
 without modification, are permitted provided that the following conditions are
