@@ -8,7 +8,7 @@ on:
     - cron:  '0 0 * * 5'
 
 env:
-  INSTALL_EDM_VERSION: 3.5.0
+  INSTALL_EDM_VERSION: 3.7.0
 
 jobs:
 
@@ -20,14 +20,14 @@ jobs:
         runtime: ['3.6', '3.8']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache EDM packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache
           key: ${{ runner.os }}-${{ hashFiles('etstool.py') }}
       - name: Set up EDM
-        uses: enthought/setup-edm-action@v2
+        uses: enthought/setup-edm-action@v3
         with:
           edm-version: ${{ env.INSTALL_EDM_VERSION }}
       - name: Install click to the default EDM environment
