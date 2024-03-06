@@ -70,8 +70,8 @@ ohms_per_meter = ohmm
 ###############################################################################
 
 micro_farad = micro * farad
-micro_farad.label = 'uf'
-mf = micro_farad
+micro_farad.label = 'µf'
+µf = uf = micro_farad
 
 pico_farad = pico * farad
 pico_farad.label = 'pf'
