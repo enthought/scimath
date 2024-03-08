@@ -21,7 +21,7 @@ MAJOR = 5
 MINOR = 1
 MICRO = 0
 IS_RELEASED = False
-VERSION = "%d.%d.%d" % (MAJOR, MINOR, MICRO)
+VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 VERSION_FILE_TEMPLATE = """\
 # (C) Copyright 2005-2022 Enthought, Inc., Austin, TX
 # All rights reserved.
@@ -41,7 +41,7 @@ is_released = {is_released}
 if not is_released:
     version = full_version
 """
-DEFAULT_VERSION_FILE = os.path.join("scimath", "_version.py")
+DEFAULT_VERSION_FILE = os.path.join('scimath', '_version.py')
 
 
 # Return the git revision as a string
@@ -50,68 +50,64 @@ def git_version():
         # construct minimal environment
         env = {}
 
-        for k in ["SYSTEMROOT", "PATH", "HOME"]:
+        for k in ['SYSTEMROOT', 'PATH', 'HOME']:
             v = os.environ.get(k)
             if v is not None:
                 env[k] = v
         # LANGUAGE is used on win32
-        env["LANGUAGE"] = "C"
-        env["LANG"] = "C"
-        env["LC_ALL"] = "C"
+        env['LANGUAGE'] = 'C'
+        env['LANG'] = 'C'
+        env['LC_ALL'] = 'C'
         out = check_output(cmd, env=env)
         return out
-
     try:
-        out = _minimal_ext_cmd(["git", "rev-parse", "HEAD"])
-        git_revision = out.strip().decode("ascii")
+        out = _minimal_ext_cmd(['git', 'rev-parse', 'HEAD'])
+        git_revision = out.strip().decode('ascii')
     except OSError:
         git_revision = "Unknown"
     try:
-        out = _minimal_ext_cmd(["git", "rev-list", "--count", "HEAD"])
-        git_count = out.strip().decode("ascii")
+        out = _minimal_ext_cmd(['git', 'rev-list', '--count', 'HEAD'])
+        git_count = out.strip().decode('ascii')
     except OSError:
-        git_count = "0"
+        git_count = '0'
     return git_revision, git_count
 
 
-def write_version_py(filename=DEFAULT_VERSION_FILE, template=VERSION_FILE_TEMPLATE):
+def write_version_py(filename=DEFAULT_VERSION_FILE,
+                     template=VERSION_FILE_TEMPLATE):
     # Adding the git rev number needs to be done inside
     # write_version_py(), otherwise the import of scimath._version messes
     # up the build under Python 3.
     fullversion = VERSION
-    if os.path.exists(".git"):
+    if os.path.exists('.git'):
         git_rev, dev_num = git_version()
     elif os.path.exists(DEFAULT_VERSION_FILE):
         # must be a source distribution, use existing version file
         context = runpy.run_path(DEFAULT_VERSION_FILE)
         git_rev = context["git_revision"]
         full_v = context["full_version"]
-        match = re.match(r".*?\.dev(?P<dev_num>\d+)$", full_v)
+        match = re.match(r'.*?\.dev(?P<dev_num>\d+)$', full_v)
         if match is None:
-            dev_num = "0"
+            dev_num = '0'
         else:
-            dev_num = match.group("dev_num")
+            dev_num = match.group('dev_num')
     else:
         git_rev = "Unknown"
-        dev_num = "0"
+        dev_num = '0'
     if not IS_RELEASED:
-        fullversion += ".dev{0}".format(dev_num)
+        fullversion += '.dev{0}'.format(dev_num)
     with open(filename, "wt") as fp:
-        fp.write(
-            template.format(
-                version=VERSION,
-                full_version=fullversion,
-                git_revision=git_rev,
-                is_released=IS_RELEASED,
-            )
-        )
+        fp.write(template.format(version=VERSION,
+                                 full_version=fullversion,
+                                 git_revision=git_rev,
+                                 is_released=IS_RELEASED))
     return fullversion
 
 
 DEPENDENCIES = [
-    "traits",
-    "numpy",
-    "scipy",
+    'traits',
+    'numpy',
+    'scipy',
 ]
 
 EXTRAS_REQUIRE = {
@@ -122,34 +118,32 @@ EXTRAS_REQUIRE = {
 if __name__ == "__main__":
     __version__ = write_version_py()
 
+
     # Register Python extensions
     interpolate = Extension(
-        "scimath.interpolate._interpolate",
-        sources=["scimath/interpolate/_interpolate.cpp"],
+        'scimath.interpolate._interpolate',
+        sources=['scimath/interpolate/_interpolate.cpp'],
         define_macros=[
             ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
         ],
-        include_dirs=[get_include(), "scimath/interpolate"],
-        depends=["interpolate.h"],
+        include_dirs=[get_include(), 'scimath/interpolate'],
+        depends=['interpolate.h']
     )
 
     extensions = [interpolate]
 
     # The actual setup call.
     setup(
-        name="scimath",
-        version=__version__,
-        author="Enthought, Inc",
-        author_email="info@enthought.com",
-        maintainer="ETS Developers",
-        maintainer_email="enthought-dev@enthought.com",
-        url="https://github.com/enthought/scimath",
-        download_url=(
-            "https://github.com/enthought/scimath/archive/%s.tar.gz" % __version__
-        ),
-        classifiers=[
-            c.strip()
-            for c in """\
+        name = 'scimath',
+        version = __version__,
+        author = 'Enthought, Inc',
+        author_email = 'info@enthought.com',
+        maintainer = 'ETS Developers',
+        maintainer_email = 'enthought-dev@enthought.com',
+        url = 'https://github.com/enthought/scimath',
+        download_url = ('https://github.com/enthought/scimath/archive/%s.tar.gz' %
+                        __version__),
+        classifiers = [c.strip() for c in """\
             Development Status :: 4 - Beta
             Intended Audience :: Developers
             Intended Audience :: Science/Research
@@ -164,19 +158,16 @@ if __name__ == "__main__":
             Topic :: Scientific/Engineering
             Topic :: Software Development
             Topic :: Software Development :: Libraries
-            """.splitlines()
-            if len(c.split()) > 0
-        ],
-        description="scientific and mathematical calculations",
-        long_description=open("README.rst").read(),
-        long_description_content_type="text/x-rst",
+            """.splitlines() if len(c.split()) > 0],
+        description = 'scientific and mathematical calculations',
+        long_description = open('README.rst').read(),
+        long_description_content_type = "text/x-rst",
         ext_modules=extensions,
-        packages=find_packages(exclude=["docs", "examples"]),
-        install_requires=DEPENDENCIES,
-        extras_require=EXTRAS_REQUIRE,
-        license="BSD",
-        package_data={"": ["images/*", "data/*", "scimath/units/data/*"]},
-        platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-        zip_safe=False,
-        python_requires=">=3.8",
+        packages=find_packages(exclude=['docs', 'examples']),
+        install_requires = DEPENDENCIES,
+        extras_require = EXTRAS_REQUIRE,
+        license = "BSD",
+        package_data = {'': ['images/*', 'data/*', 'scimath/units/data/*']},
+        platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
+        zip_safe = False,
     )
