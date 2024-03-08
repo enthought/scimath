@@ -170,4 +170,5 @@ if __name__ == "__main__":
         package_data = {'': ['images/*', 'data/*', 'scimath/units/data/*']},
         platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
         zip_safe = False,
+        python_requires = ">=3.8",
     )
