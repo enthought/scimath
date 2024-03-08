@@ -32,10 +32,7 @@ jobs:
       - name: Install click to the default EDM environment
         run: edm install -y wheel click coverage
       - name: Install test environment
-        run: |
-          edm run -- python etstool.py install \
-            --runtime ${{ matrix.runtime }} \
-            --environment scimath-test
+        run: edm run -- python etstool.py install --runtime ${{ matrix.runtime }} --environment scimath-test
       - name: Remove dependencies obtained with edm
         run: |
             edm plumbing remove-package --environment scimath-test traits
