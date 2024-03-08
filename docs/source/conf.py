@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'scimath'
-copyright = '2005-{date.year}, Enthought Inc'.format(date=datetime.date.today())
+copyright = '2005-2024, Enthought Inc., Austin, TX'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
