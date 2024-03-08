@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        runtime: ['3.6', '3.8']
+        runtime: ['3.8']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -32,11 +32,14 @@ jobs:
       - name: Install click to the default EDM environment
         run: edm install -y wheel click coverage
       - name: Install test environment
-        run: edm run -- python etstool.py install --runtime=${{ matrix.runtime }}
+        run: |
+          edm run -- python etstool.py install \
+            --runtime ${{ matrix.runtime }} \
+            --environment scimath-test
       - name: Remove dependencies obtained with edm
         run: |
-            edm plumbing remove-package --force traits
-            edm plumbing remove-package --force scipy
+            edm plumbing remove-package --environment scimath-test traits
+            edm plumbing remove-package --environment scimath-test scipy
       - name: Re-install dependencies using pip
         run: |
             edm run -- python -m pip install --force-reinstall "git+http://github.com/enthought/traits.git#egg=traits"
