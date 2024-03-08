@@ -42,4 +42,4 @@ jobs:
             edm run -- python -m pip install --force-reinstall "git+http://github.com/enthought/traits.git#egg=traits"
             edm run -- python -m pip install --force-reinstall scipy
       - name: Run tests
-        run: edm run -- python etstool.py test --runtime=${{ matrix.runtime }}
+        run: edm run -- python etstool.py test --runtime=${{ matrix.runtime }} --environment scimath-test
