@@ -53,7 +53,7 @@ using::
 
     python etstool.py test_all
 
-Currently supported runtime values are ``3.6``.
+Currently supported runtime values are ``3.8``.
 
 Tests can still be run via the usual means in other environments if that suits
 a developer's purpose.
@@ -83,7 +83,7 @@ from contextlib import contextmanager
 
 import click
 
-supported_runtimes = ['3.6', '3.8']
+supported_runtimes = ['3.8']
 
 dependencies = {
     "numpy",
@@ -101,7 +101,7 @@ def cli():
 
 
 @cli.command()
-@click.option('--runtime', default='3.6')
+@click.option('--runtime', default='3.8')
 @click.option('--environment', default=None)
 @click.option('--docs/--no-docs', default=True)
 def install(runtime, environment, docs):
@@ -129,7 +129,7 @@ def install(runtime, environment, docs):
 
 
 @cli.command()
-@click.option('--runtime', default='3.6')
+@click.option('--runtime', default='3.8')
 @click.option('--environment', default=None)
 def docs(runtime, environment):
     """ Build the html documentation.
@@ -145,7 +145,7 @@ def docs(runtime, environment):
 
 
 @cli.command()
-@click.option('--runtime', default='3.6')
+@click.option('--runtime', default='3.8')
 @click.option('--environment', default=None)
 def test(runtime, environment):
     """ Run the test suite in a given environment.
@@ -174,7 +174,7 @@ def test(runtime, environment):
 
 
 @cli.command()
-@click.option('--runtime', default='3.6')
+@click.option('--runtime', default='3.8')
 @click.option('--environment', default=None)
 def cleanup(runtime, environment):
     """ Remove a development environment.
@@ -190,7 +190,7 @@ def cleanup(runtime, environment):
 
 
 @cli.command()
-@click.option('--runtime', default='3.6')
+@click.option('--runtime', default='3.8')
 def test_clean(runtime):
     """ Run tests in a clean environment, cleaning up afterwards
 
@@ -204,7 +204,7 @@ def test_clean(runtime):
 
 
 @cli.command()
-@click.option('--runtime', default='3.6')
+@click.option('--runtime', default='3.8')
 @click.option('--environment', default=None)
 def update(runtime, environment):
     """ Update/Reinstall package into environment and optionally, install
