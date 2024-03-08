@@ -20,7 +20,7 @@ developer's particular Python environment.  Test environment setup and
 package management is performed using `EDM
 http://docs.enthought.com/edm/`_
 
-To use this to run you tests, you will need to install EDM and click
+To use this to run your tests, you will need to install EDM and click
 into your working environment.  You will also need to have git
 installed to access required source code from github repositories.
 You can then do::
@@ -36,12 +36,12 @@ to run tests in that environment.  You can remove the environment with::
     python etstool.py cleanup --runtime=...
 
 If you make changes you will either need to remove and re-install the
-environment or manually update the environment using ``edm``, as
-the install performs a ``python setup.py install`` rather than a ``develop``,
-so changes in your code will not be automatically mirrored in the test
-environment.  You can update with a command like::
+environment or manually update the environment using ``edm``, as the install
+performs a non-editable install, so changes in your code will not be
+automatically mirrored in the test environment.  You can update with a command
+like::
 
-    edm run --environment ... -- python setup.py install
+    python etstool.py update --runtime=...
 
 You can run all three tasks at once with::
 
@@ -110,19 +110,18 @@ def install(runtime, environment, docs):
     """
     parameters = get_parameters(runtime, environment)
     packages = ' '.join(dependencies)
-    # edm commands to setup the development environment
+    # edm commands to set up the development environment
     commands = [
         "edm environments create {environment} --force --version={runtime}",
         "edm install -y -e {environment} " + packages,
-        "edm run -e {environment} -- pip install -r ci-src-requirements.txt --no-dependencies",
-        "edm run -e {environment} -- python setup.py clean --all",
-        "edm run -e {environment} -- python setup.py install",
+        "edm run -e {environment} -- python -m pip install -r ci-src-requirements.txt --no-dependencies",
+        "edm run -e {environment} -- python -m pip install .",
     ]
     click.echo("Creating environment '{environment}'".format(**parameters))
     execute(commands, parameters)
     if docs:
         commands = [
-            "edm run -e {environment} -- pip install -r ci-doc-requirements.txt",
+            "edm run -e {environment} -- python -m pip install -r ci-doc-requirements.txt",
         ]
         execute(commands, parameters)
         click.echo("Installed enthought-sphinx-theme in {environment}".format(**parameters))
@@ -183,7 +182,6 @@ def cleanup(runtime, environment):
     """
     parameters = get_parameters(runtime, environment)
     commands = [
-        "edm run -e {environment} -- python setup.py clean",
         "edm environments remove {environment} --purge -y"
     ]
     click.echo("Cleaning up environment '{environment}'".format(**parameters))
@@ -214,7 +212,7 @@ def update(runtime, environment):
 
     """
     parameters = get_parameters(runtime, environment)
-    commands = ["edm run -e {environment} -- python setup.py install"]
+    commands = ["edm run -e {environment} -- python -m pip install ."]
     click.echo("Re-installing in  '{environment}'".format(**parameters))
     execute(commands, parameters)
     click.echo('Done update')
