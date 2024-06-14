@@ -64,7 +64,7 @@ year.label = "year"
 s = sec = second
 ps = picosecond
 ns = nanosecond
-us = usec = microsecond
+µs = µsec = us = usec = microsecond
 ms = msec = millisecond
 
 # plural aliases
