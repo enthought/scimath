@@ -1,5 +1,5 @@
 [build-system]
-requires = ["oldest-supported-numpy", "setuptools", "wheel"]
+requires = ["numpy", "setuptools", "wheel"]
 build-backend = 'setuptools.build_meta'
 
 [tool.cibuildwheel]
