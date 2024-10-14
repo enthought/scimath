@@ -26,7 +26,7 @@ jobs:
           path: ~/.cache
           key: ${{ runner.os }}-${{ hashFiles('etstool.py') }}
       - name: Set up EDM
-        uses: enthought/setup-edm-action@v3
+        uses: enthought/setup-edm-action@v4
         with:
           edm-version: ${{ env.INSTALL_EDM_VERSION }}
       - name: Install click to the default EDM environment
