@@ -79,7 +79,7 @@ parsec = 3.084e13 * kilometer
 
 m = meter
 nm = nanometer
-um = micrometer
+µm = um = micrometer
 micron = micrometer
 mm = millimeter
 cm = centimeter
